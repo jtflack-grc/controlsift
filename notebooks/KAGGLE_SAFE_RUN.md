@@ -16,6 +16,12 @@ This guide keeps ControlSift **free**, **local-secret-only**, and **non-exposing
 2. Create a **read** access token (Settings → Access Tokens).
 3. [Kaggle](https://www.kaggle.com/) account with phone verification if required for GPU.
 
+## Before you touch accounts
+
+- Dataset **v1.1.0** is sealed under tag `protocol-v1-locked`.
+- Evidence texts are **compositional packets** (dual sections / `SCOPE` / substance pointer). The frozen prompt does **not** explain that grammar — measure discovery, do not “fix” the prompt against the test set.
+- Public classical receipts: majority macro F1 ≈ 0.067, TF-IDF ≈ 0.53 test. Gemma slots stay `null` until you write `results/gemma_*`.
+
 ## Package the repo without secrets
 
 On your PC (from the repo root):
@@ -24,7 +30,7 @@ On your PC (from the repo root):
 python scripts/package_for_kaggle.py
 ```
 
-This writes `dist/controlsift_kaggle_bundle.zip` excluding `.env`, tokens, venvs, and git metadata.
+This writes `dist/controlsift_kaggle_bundle.zip` excluding `.env`, tokens, venvs, and git metadata. Confirm the zip lists `controlsift/data/processed/*.jsonl`, `controlsift/notebooks/kaggle_runner.ipynb`, and `controlsift/configs/`.
 
 Upload that zip as a **Kaggle Dataset** (private recommended) **or** clone from a public GitHub repo that contains no secrets.
 

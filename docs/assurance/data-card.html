@@ -63,9 +63,10 @@
         Primary labels are rule-derived inside the generator. They are not fully human-labeled.
       </div>
       <ul class="findings-list" style="margin-top:1rem;">
-        <li><strong>Development corpus</strong> Stratified human review target ≈ 10%.</li>
-        <li><strong>Challenge set</strong> Human review target 100%.</li>
-        <li><strong>Tracking</strong> Statuses in <code>data/review_log.csv</code>: unreviewed / reviewed / corrected.</li>
+        <li><strong>Structural audit</strong> 100% challenge + stratified ~10% development sample.</li>
+        <li><strong>Spot-check</strong> 20 challenge cases (4 per label) with narrative notes.</li>
+        <li><strong>Tracking</strong> <code>data/review_log.csv</code> — not fully human-labeled gold.</li>
+        <li><strong>Research surface</strong> Compositional packets (v1.1); see <code>governance/RESEARCH_SURFACE.md</code>.</li>
       </ul>
     </section>
 
@@ -74,10 +75,10 @@
       <table>
         <thead><tr><th>Split</th><th>n</th><th>SHA-256</th></tr></thead>
         <tbody>
-          <tr><td>train</td><td>1000</td><td><code>7ca2272892924070eef446c48e839c841eb0e37b5650783e95fe2584914a78fd</code></td></tr>
-          <tr><td>validation</td><td>200</td><td><code>dbbc10c3297b1b10963508f7e3c3aabe5472d541ee64f1ec11a9b8c393cfbbdd</code></td></tr>
-          <tr><td>test</td><td>200</td><td><code>9df94d33d042f3ad9d110f2115f53f470db0457930c21d07771ab59655f92e57</code></td></tr>
-          <tr><td>challenge</td><td>100</td><td><code>09ad84178a1a62f5490630c17fbb089f785b3e5f26e2f918b0f914ff55072f8f</code></td></tr>
+          <tr><td>train</td><td>1000</td><td><code>53b5c057f80f6ae5bd26c63dc2a03c7de96641b73094b4b464ff80ab39438d99</code></td></tr>
+          <tr><td>validation</td><td>200</td><td><code>d14f9bbe0c7d567c12f1a4f1d624bd0e47b1d12d0a6a3d916f9c6b95692ceef8</code></td></tr>
+          <tr><td>test</td><td>200</td><td><code>7476a67ec679b4e0198709a4fb812be43d43364b78d525dacee4ab6c1dab31d1</code></td></tr>
+          <tr><td>challenge</td><td>100</td><td><code>735cd57b874ae29e54f74e99c512df0cc0039bc5e0bd85dbf4f21f882b057cfe</code></td></tr>
         </tbody>
       </table>
     </section>
@@ -86,7 +87,8 @@
       <h2>Risks and limitations</h2>
       <ul class="findings-list">
         <li><strong>Synthetic-to-real gap</strong> Generator assumptions may not match real audit evidence.</li>
-        <li><strong>Lexical strength</strong> TF-IDF remains informative; used as a shortcut detector.</li>
+        <li><strong>Schema-reading risk</strong> Strong scores may reflect packet grammar, not naturalistic judgment.</li>
+        <li><strong>Lexical baseline</strong> TF-IDF ~0.53 test macro F1 after harden; still a required comparison.</li>
         <li><strong>Label assumptions</strong> Rule-derived labels encode generator mutation logic.</li>
       </ul>
     </section>

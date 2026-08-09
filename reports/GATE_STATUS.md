@@ -2,10 +2,10 @@
 
 | Gate | Name | Status | Evidence |
 |------|------|--------|----------|
-| 1 | Dataset Validity | **Passed** | Schema/balance/leakage; TF-IDF uncomfortable (~0.53 test / ~0.52 challenge) after v1.1 harden |
-| 2 | Protocol Lock | **Ready / tagging** | `governance/PROTOCOL.md` + `PROTOCOL_SEAL.json`; git tag `protocol-v1-locked` |
+| 1 | Dataset Validity | **Passed** | Schema/balance/leakage; TF-IDF uncomfortable (~0.53 test / ~0.52 challenge) |
+| 2 | Protocol Lock | **Passed** | Tag `protocol-v1-locked`; seal hashes; research surface documented |
 | 3 | Model Training | **Blocked on GPU accounts** | Kaggle runner + HF access; no fabricated metrics |
-| 4 | Evaluation & RAI | **Partial** | Classical eval + human-review audit + Failure Lab; Gemma pending |
-| 5 | Public release | **Framework ready** | Site + null-safe results; final v1.0 science after Gemma receipts |
+| 4 | Evaluation & RAI | **Partial** | Classical eval + structural audit + 20-case spot-check + Failure Lab; Gemma pending |
+| 5 | Public release | **Front door synced** | README/site match v1.1 receipts; final science after Gemma |
 
-Next operator action: obtain free HF + Kaggle access, run `notebooks/kaggle_runner.ipynb`, commit `results/gemma_*`, re-sync `docs/data/results.json`.
+Next operator action: HF license + Kaggle GPU → `notebooks/kaggle_runner.ipynb` → commit `results/gemma_*` → `python scripts/run_evaluation.py`.

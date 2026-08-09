@@ -33,7 +33,7 @@
 
     <section class="section">
       <h2>Integrity checklist</h2>
-      <p>What has already been secured in the repository versus what still requires GPU execution or human review time.</p>
+      <p>What has already been secured in the repository versus what still requires GPU execution.</p>
       <div class="integrity-grid">
         <article>
           <div class="mark">secured</div>
@@ -43,7 +43,7 @@
         <article>
           <div class="mark">secured</div>
           <h3>Gate 1 lexical shortcut detection</h3>
-          <p>TF-IDF saturation forced a generator harden pass before protocol seal.</p>
+          <p>TF-IDF no longer saturates (~0.53 test macro F1 after v1.1 harden).</p>
         </article>
         <article>
           <div class="mark">secured</div>
@@ -52,13 +52,13 @@
         </article>
         <article>
           <div class="mark">secured</div>
-          <h3>Protocol seal artifacts</h3>
-          <p>Hypotheses, metric, prompt contract, and test SHA-256 are recorded for lock.</p>
+          <h3>Protocol seal + research surface</h3>
+          <p>Dataset v1.1.0 locked as compositional packet reading under tag <code>protocol-v1-locked</code>.</p>
         </article>
         <article>
-          <div class="mark wait">in progress</div>
-          <h3>Challenge-set human review</h3>
-          <p>Review log initialized; 100% challenge review is still an operator task.</p>
+          <div class="mark">secured</div>
+          <h3>Label audit (structural + spot-check)</h3>
+          <p>100% challenge structural audit; 20-case narrative spot-check. Not fully human-labeled gold.</p>
         </article>
         <article>
           <div class="mark wait">blocked</div>
@@ -77,7 +77,7 @@
         <li><span class="id">RISK</span><a href="assurance/risk-register.html">AI risk register</a></li>
         <li><span class="id">LIMITS</span><a href="assurance/limitations.html">Limitations</a></li>
         <li><span class="id">USE</span><a href="assurance/intended-use.html">Intended and prohibited use</a></li>
-        <li><span class="id">REVIEW</span><a href="assurance/human-review.html">Human review protocol</a></li>
+        <li><span class="id">REVIEW</span><a href="assurance/human-review.html">Label audit protocol</a></li>
       </ul>
     </section>
   </main>

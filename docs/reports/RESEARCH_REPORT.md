@@ -26,7 +26,9 @@ Security assurance still depends on humans distinguishing operational proof from
 
 v1.1 representation packs each case as dual sections (Mercury/Neon) holding both a claim-like text and a near-domain distractor, plus identical `SCOPE` scaffolding and shared decoy lexicons. Class signal is compositional (substance pointer, inventory vs `file_rows`, epistemic hedges, `ROW_DETAIL` conflicts), not a unique cue phrase per label.
 
-Human review: structural audit of **100% challenge** + stratified development sample (`data/review_log.csv`, `reports/HUMAN_REVIEW_AUDIT.md`).
+**Locked decision:** keep this compositional surface and disclose it — see `governance/RESEARCH_SURFACE.md`. Do not market v1.1 as naturalistic binder OCR.
+
+Label audit: structural audit of **100% challenge** + stratified development sample; narrative spot-check of **20** challenge cases (`reports/SPOTCHECK_20.md`). Not fully human-labeled gold.
 
 ## 3. Methods
 

@@ -1,4 +1,9 @@
-"""Canonical evaluation prompts (§25). Freeze after protocol lock."""
+"""Canonical evaluation prompts (§25). Freeze after protocol lock.
+
+v1.1 evidence texts are compositional packets (substance pointer, SCOPE,
+ROW_DETAIL, dual sections). This template intentionally does not tutor that
+grammar — discovery failures are valid experimental outcomes.
+"""
 
 from __future__ import annotations
 

@@ -4,13 +4,17 @@
 
 Domain adaptation of Gemma 3 for cybersecurity control-evidence assessment — with research integrity, failure analysis, and reproducible receipts.
 
-> Status: **framework complete; modeling pending gated GPU access**. Classical baselines and public research site are live. Staying on the original Gemma 3 + QLoRA path — see [`reports/TWELVE_WEEK_RUNWAY.md`](reports/TWELVE_WEEK_RUNWAY.md). Charter: [`ControlSift.md`](ControlSift.md).
+> Status: **classical stage locked (`protocol-v1-locked`, dataset v1.1.0); Gemma modeling pending gated HF/Kaggle access**. See [`reports/TWELVE_WEEK_RUNWAY.md`](reports/TWELVE_WEEK_RUNWAY.md). Charter: [`ControlSift.md`](ControlSift.md).
 
 ## Why this matters
 
 Cybersecurity and GRC teams routinely confuse *artifacts* with *proof*. A policy requiring MFA is not proof MFA is enabled. An IAM export showing a privileged user without MFA can *contradict* the control.
 
-ControlSift asks whether parameter-efficient fine-tuning (QLoRA) can improve a small language model's ability to make these distinctions on a controlled synthetic benchmark.
+ControlSift asks whether parameter-efficient fine-tuning (QLoRA) can improve a small language model's ability to make these distinctions on a **controlled synthetic benchmark**.
+
+## Research surface (read this)
+
+Dataset **v1.1** is a **compositional evidence-packet** benchmark: dual sections, shared decoys, `SCOPE` coverage integers, substance pointers, and `ROW_DETAIL` conflicts — hardened so bag-of-words no longer saturates. It measures whether models can read those compositional cues, **not** scoring of raw customer binders. Decision record: [`governance/RESEARCH_SURFACE.md`](governance/RESEARCH_SURFACE.md).
 
 ## Evidence example
 
@@ -31,6 +35,7 @@ Can parameter-efficient fine-tuning materially improve a small general-purpose l
 - Splits: train 1000 / validation 200 / test 200 / challenge 100
 - Scenario-family isolation (no family leakage across splits)
 - Canonical seed: `42`
+- Dataset version: **1.1.0**
 
 ## Model ladder
 
@@ -44,33 +49,41 @@ Primary metric: **macro F1**.
 
 | Experiment | Test macro F1 | Challenge macro F1 |
 |------------|---------------|--------------------|
-| Majority | ~0.20 | ~0.20 |
-| TF-IDF + LR | ~0.86 | ~0.78 |
-| Gemma zero-shot | pending | pending |
-| Gemma few-shot | pending | pending |
-| Gemma QLoRA | pending | pending |
+| Majority | **0.067** | 0.067 |
+| TF-IDF + LR | **~0.53** | **~0.52** |
+| Gemma zero-shot | `null` | `null` |
+| Gemma few-shot | `null` | `null` |
+| Gemma QLoRA | `null` | `null` |
 
 Machine-readable sources: `results/*/metrics_*.json` → `docs/data/results.json`. Never invent numbers.
 
-Gate 1: an earlier generator revision let TF-IDF saturate at 1.0; mutations were hardened (minimal edits + surface noise) before protocol seal.
+**Note:** Majority **accuracy** on a balanced 5-way task is 0.20; **macro F1** is ~0.067. Do not conflate them.
 
-## What still fails
+Gate 1: early generator drafts let TF-IDF saturate at 1.0; v1.1 compositional packing + surface harden brought test macro F1 to ~0.53 before protocol seal.
 
-TF-IDF residual errors concentrate on **PARTIAL ↔ SUFFICIENT** coverage boundaries. Failure Lab: [`docs/failure-lab.html`](docs/failure-lab.html). LLM failure modes pending GPU runs.
+## Label audit (not “fully human-labeled”)
+
+- **100% challenge** + stratified sample: structural integrity audit (`structural_auditor_v1`)
+- **20 challenge cases** (4/label): narrative spot-check notes (`spotcheck_v1`) — see [`reports/SPOTCHECK_20.md`](reports/SPOTCHECK_20.md)
+- Primary labels remain **rule-derived**
+
+## What still fails (classical)
+
+TF-IDF is weakest on **SUFFICIENT / IRRELEVANT / PARTIAL** compositional cues; **CONTRADICTORY** remains easier (~0.93 F1). Failure Lab: [`docs/failure-lab.html`](docs/failure-lab.html). LLM failure modes pending GPU runs.
 
 ## Explore
 
 - [Public research site](docs/index.html) (GitHub Pages)
 - [Failure Lab](docs/failure-lab.html)
 - [Reproduce](docs/reproduce.html)
-- [Responsible AI](docs/responsible-ai.html)
+- [Assurance](docs/assurance.html)
 - Master charter: [`ControlSift.md`](ControlSift.md)
 
 ## Methodology (short)
 
 1. Deterministic synthetic evidence generation with rule-derived labels
 2. Family-level split isolation and integrity tests
-3. Classical and prompting baselines
+3. Classical baselines + lexical ceiling test
 4. Gemma 3 1B IT + QLoRA on free GPU (Kaggle / Colab)
 5. Held-out + challenge evaluation, slices, statistics, error analysis
 6. Data Card, Model Card, AI risk register
@@ -80,13 +93,18 @@ TF-IDF residual errors concentrate on **PARTIAL ↔ SUFFICIENT** coverage bounda
 ```bash
 python -m venv .venv
 pip install -e ".[dev]"
-python scripts/generate_dataset.py
 python scripts/validate_dataset.py
 python scripts/run_tfidf_baseline.py
 pytest
 ```
 
 Gemma training and inference use free Kaggle/Colab GPUs. **Safe path:** [`notebooks/KAGGLE_SAFE_RUN.md`](notebooks/KAGGLE_SAFE_RUN.md) + [`notebooks/kaggle_runner.ipynb`](notebooks/kaggle_runner.ipynb). Token stays in platform Secrets as `HF_TOKEN` — never in git.
+
+Package without secrets:
+
+```bash
+python scripts/package_for_kaggle.py
+```
 
 ## Responsible use
 

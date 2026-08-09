@@ -22,12 +22,17 @@ INCLUDE_PREFIXES = (
     "data/manifests/",
     "notebooks/",
     "governance/PROTOCOL",
+    "governance/RESEARCH_SURFACE.md",
+    "governance/HUMAN_REVIEW.md",
+    "governance/DATA_CARD.md",
+    "governance/LIMITATIONS.md",
     "pyproject.toml",
     "requirements.txt",
     "requirements-dev.txt",
     "README.md",
     "AGENTS.md",
     "LICENSE",
+    "VERSION",
 )
 
 EXCLUDE_NAME_PARTS = (
