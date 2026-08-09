@@ -2,6 +2,7 @@
 (function () {
   const links = [
     { href: "index.html", label: "Hub" },
+    { href: "paper.html", label: "Research Paper" },
     { href: "un-sdg.html", label: "UN SDG" },
     { href: "curriculum.html", label: "Curriculum" },
     { href: "problem-impact.html", label: "Problem & Impact" },

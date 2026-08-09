@@ -899,6 +899,171 @@ pre code {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Capstone research paper layout */
+.paper {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.paper-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.paper-subtitle {
+  color: var(--muted);
+  font-size: var(--text-md);
+  margin: 0 0 1.25rem;
+  line-height: 1.45;
+}
+
+.paper-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  line-height: 1.7;
+  margin: 0 0 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.paper-abstract {
+  margin: 0 0 2rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.paper-abstract h3 {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+  font-weight: 500;
+}
+
+.paper-abstract p {
+  margin: 0;
+  font-size: var(--text-md);
+  line-height: 1.65;
+}
+
+.paper-toc {
+  margin: 0 0 2.5rem;
+}
+
+.paper-toc h3 {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+  font-weight: 500;
+}
+
+.paper-toc ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: 1.85;
+}
+
+.paper-toc a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.paper-toc a:hover {
+  color: var(--accent);
+}
+
+.paper section.h-block {
+  margin: 0 0 2.25rem;
+  padding: 0;
+  border: 0;
+}
+
+.paper section.h-block h2 {
+  font-size: 1.35rem;
+  margin: 0 0 0.85rem;
+  padding-top: 0.5rem;
+}
+
+.paper section.h-block h3 {
+  font-size: 1.05rem;
+  margin: 1.35rem 0 0.55rem;
+  font-weight: 600;
+}
+
+.paper section.h-block p,
+.paper section.h-block li {
+  line-height: 1.65;
+}
+
+.paper section.h-block p + p {
+  margin-top: 0.85rem;
+}
+
+.paper-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  margin: 1rem 0 1.25rem;
+}
+
+.paper-table th,
+.paper-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.55rem 0.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.paper-table th {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.paper-figure {
+  margin: 1.25rem 0;
+  padding: 0;
+  border: 0;
+}
+
+.paper-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--line);
+}
+
+.paper-figure figcaption {
+  margin-top: 0.5rem;
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+.paper-refs {
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+.paper-refs li {
+  margin-bottom: 0.5rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

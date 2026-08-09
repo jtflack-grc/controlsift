@@ -6,6 +6,7 @@ Mentor Me Collective / DeepMind AI Research Foundations residency materials for 
 
 | Page | Contents |
 |------|----------|
+| [`paper.html`](../capstone/paper.html) | **Primary digest** — research paper walking the full project |
 | [`/capstone/`](../capstone/index.html) | Overview |
 | [`un-sdg.html`](../capstone/un-sdg.html) | UN SDG alignment (16, 9, 4) |
 | [`curriculum.html`](../capstone/curriculum.html) | Eight-course map |
@@ -19,6 +20,13 @@ Mentor Me Collective / DeepMind AI Research Foundations residency materials for 
 
 Home · Failure Lab · Results · Methods · Assurance · Reproduce  
 Metrics: `docs/data/results.json`
+
+## Reading order for evaluators
+
+1. [`capstone/paper.html`](../capstone/paper.html) — full research narrative  
+2. [`capstone/curriculum.html`](../capstone/curriculum.html) — course map  
+3. Public Results + Failure Lab + Assurance  
+4. This checklist for artifact locations  
 
 ## Evidence inventory
 

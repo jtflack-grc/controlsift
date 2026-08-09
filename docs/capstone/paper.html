@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Capstone Research Paper — ControlSift</title>
+  <meta name="robots" content="noindex" />
+  <meta name="description" content="Research paper for the ControlSift applied AI capstone: evidence-quality classification, sealed evaluation, and domain adaptation of Gemma 3." />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+
+      <article class="paper">
+        <h1 class="paper-title">Can a Small Language Model Tell Proof from Paperwork?</h1>
+        <p class="paper-subtitle">
+          Domain adaptation of Gemma&nbsp;3 for cybersecurity control-evidence assessment —
+          with sealed evaluation, classical baselines, and responsible-AI governance.
+        </p>
+        <p class="paper-meta">
+          ControlSift Capstone Research Paper · Dataset v1.1.0 · Protocol <code>protocol-v1-locked</code><br />
+          Mentor Me Collective · Google DeepMind AI Research Foundations<br />
+          Primary metric: macro F1 · Seed: 42 · Status: classical stage complete; LLM stage pending GPU execution
+        </p>
+
+        <div class="paper-abstract">
+          <h3>Abstract</h3>
+          <p>
+            Distinguishing operational proof from administrative paperwork is a core problem in cybersecurity assurance.
+            ControlSift investigates whether parameter-efficient fine-tuning (QLoRA) of Gemma&nbsp;3 1B Instruct improves
+            five-class evidence-quality classification—SUFFICIENT, PARTIAL, INSUFFICIENT, IRRELEVANT, and CONTRADICTORY—
+            on a leakage-controlled synthetic benchmark. The project freezes an evaluation protocol before large-model
+            claims, reports classical baselines that establish task difficulty, and publishes only machine-readable metrics.
+            On dataset v1.1.0, majority-class macro F1 is 0.067 and TF-IDF + logistic regression reaches approximately
+            0.53 on the sealed test set (0.52 on the challenge set). Gemma zero-shot, few-shot, and QLoRA results remain
+            unavailable until free-GPU execution completes. Beyond the modeling ladder, ControlSift contributes a public
+            research site, Failure Lab, and assurance documentation aligned with UN Sustainable Development Goal&nbsp;16
+            (strong institutions) through more honest evidence triage.
+          </p>
+        </div>
+
+        <nav class="paper-toc" aria-label="Paper contents">
+          <h3>Contents</h3>
+          <ol>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#background">Background and motivation</a></li>
+            <li><a href="#problem">Problem formulation</a></li>
+            <li><a href="#sdg">Societal alignment</a></li>
+            <li><a href="#benchmark">Benchmark design</a></li>
+            <li><a href="#methods">Methods</a></li>
+            <li><a href="#protocol">Evaluation protocol</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#errors">Error analysis</a></li>
+            <li><a href="#rai">Responsible innovation</a></li>
+            <li><a href="#curriculum">Curriculum demonstration</a></li>
+            <li><a href="#limitations">Limitations</a></li>
+            <li><a href="#repro">Reproducibility</a></li>
+            <li><a href="#future">Future work</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+            <li><a href="#artifacts">Accompanying artifacts</a></li>
+          </ol>
+        </nav>
+
+        <section class="h-block" id="intro">
+          <h2>1. Introduction</h2>
+          <p>
+            Security and governance, risk, and compliance (GRC) programs depend on evidence that controls operate as stated.
+            In practice, binders fill with policies, screenshots, and exports that may be incomplete, off-objective, stale,
+            or actively contradictory. Human reviewers can make these distinctions, but the volume of artifacts creates
+            pressure to accept plausible paperwork as proof.
+          </p>
+          <p>
+            Small instruction-tuned language models are an attractive assistive technology: they are cheap to adapt,
+            portable across free GPU environments, and capable of structured classification when the task is well specified.
+            Adaptation gains are only meaningful, however, when they exceed strong classical baselines and survive a
+            sealed evaluation design. ControlSift therefore asks a concrete research question:
+          </p>
+          <p>
+            <em>Can parameter-efficient fine-tuning materially improve a small general-purpose language model’s ability
+            to evaluate the sufficiency and relevance of cybersecurity control evidence?</em>
+          </p>
+          <p>
+            This paper walks the full project for residency review: motivation and societal framing, benchmark construction,
+            modeling and evaluation design, classical results, responsible-AI controls, curriculum coverage, and the remaining
+            GPU-dependent stages.
+          </p>
+        </section>
+
+        <section class="h-block" id="background">
+          <h2>2. Background and motivation</h2>
+          <p>
+            Evidence quality is not the same as document relevance. A policy that requires multi-factor authentication is
+            not proof that privileged accounts are enrolled. An export that shows an active privileged account without MFA
+            can contradict the control. Reviewers therefore need labels finer than “related” versus “unrelated.”
+          </p>
+          <p>
+            ControlSift adopts five classes used throughout the project:
+          </p>
+          <ul class="findings-list">
+            <li><strong>SUFFICIENT</strong> — complete, timely, on-objective operational proof for the stated control.</li>
+            <li><strong>PARTIAL</strong> — relevant operational content with material population or scope gaps.</li>
+            <li><strong>INSUFFICIENT</strong> — on-topic material that fails as execution proof (policy, attestation, procedure, or unverifiable capture).</li>
+            <li><strong>IRRELEVANT</strong> — off-objective substance filed under the control’s binder metadata.</li>
+            <li><strong>CONTRADICTORY</strong> — otherwise complete framing that contains a control-failure fact.</li>
+          </ul>
+          <p>
+            The modeling path follows a transparent ladder: majority class, TF-IDF logistic regression, Gemma&nbsp;3 1B
+            zero-shot prompting, few-shot prompting, and QLoRA adaptation. Each rung produces machine-readable metrics so
+            improvements can be inspected rather than asserted.
+          </p>
+        </section>
+
+        <section class="h-block" id="problem">
+          <h2>3. Problem formulation</h2>
+          <p>
+            Formally, each case provides a control statement, environment, evidence type, and evidence text. The model
+            must emit exactly one label from the five-class set. Evaluation uses macro F1 as the primary metric because
+            the classes are balanced by construction and equally important for assurance practice.
+          </p>
+          <p>
+            Hypotheses locked in the research protocol:
+          </p>
+          <ul class="findings-list">
+            <li><strong>H1</strong> — QLoRA outperforms fixed zero-shot prompting on sealed test macro F1.</li>
+            <li><strong>H2</strong> — QLoRA outperforms fixed five-class few-shot prompting.</li>
+            <li><strong>H3</strong> — Gains remain visible on the challenge set of held-out scenario families.</li>
+            <li><strong>H4</strong> — Performance increases with training-set size, with diminishing returns.</li>
+            <li><strong>H5</strong> — Difficult boundaries remain, especially among PARTIAL, SUFFICIENT, INSUFFICIENT, and IRRELEVANT.</li>
+          </ul>
+          <p>
+            Negative or mixed findings are treated as valid scientific outcomes.
+          </p>
+        </section>
+
+        <section class="h-block" id="sdg">
+          <h2>4. Societal alignment</h2>
+          <p>
+            Under Mentor Me Collective’s UN Sustainable Development Goal project-build model, ControlSift maps primarily to
+            <strong>SDG&nbsp;16 (Peace, justice and strong institutions)</strong>. Institutions that certify controls with weak
+            evidence erode accountability. A model that helps reviewers separate proof from paperwork—and that is bounded by
+            explicit prohibited uses—supports more honest assurance practice (targets 16.6 and 16.10).
+          </p>
+          <p>
+            Supporting alignments include <strong>SDG&nbsp;9</strong>, through methods designed for free-tier GPU reproduction
+            (QLoRA / 4-bit quantization), and <strong>SDG&nbsp;4</strong>, through a public, curriculum-visible research artifact
+            rather than a private homework dump. Detail lives on the
+            <a href="un-sdg.html">UN SDG alignment page</a>.
+          </p>
+        </section>
+
+        <section class="h-block" id="benchmark">
+          <h2>5. Benchmark design</h2>
+          <h3>5.1 Corpus</h3>
+          <p>
+            The benchmark contains 1,500 synthetic cases across 13 control domains, balanced at 300 examples per class.
+            Splits are train 1,000 / validation 200 / test 200 / challenge 100. Scenario families are assigned wholly to one
+            split so near-duplicate mutations cannot leak across partitions. Generation is deterministic under seed&nbsp;42.
+          </p>
+          <table class="paper-table">
+            <thead>
+              <tr><th>Property</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Dataset version</td><td>1.1.0</td></tr>
+              <tr><td>Labels</td><td>Rule-derived via controlled mutations</td></tr>
+              <tr><td>Split isolation</td><td>Scenario-family level</td></tr>
+              <tr><td>Label audit</td><td>100% challenge structural audit; 20-case stratified spot-check</td></tr>
+              <tr><td>Privacy</td><td>Synthetic organizations only; no customer evidence</td></tr>
+            </tbody>
+          </table>
+
+          <h3>5.2 Representation</h3>
+          <p>
+            Version 1.1 packs each case as a compositional evidence packet: dual sections containing claim-like text and a
+            near-domain distractor, a substance pointer, shared decoy lexicon, identical <code>SCOPE</code> scaffolding
+            (<code>inventory</code> versus <code>file_rows</code>), epistemic hedges where appropriate, and a
+            <code>ROW_DETAIL</code> line. Class signal is compositional rather than a single cue phrase per label.
+            This design reduces trivial bag-of-words separability while remaining rule-derivable for integrity checks.
+          </p>
+
+          <h3>5.3 Integrity gates</h3>
+          <p>
+            Continuous integration enforces schema validity, class balance, and family non-leakage. A lexical-ceiling test
+            requires TF-IDF test macro F1 to remain below a triviality threshold. Protocol seal hashes for all splits are
+            recorded in <code>governance/PROTOCOL_SEAL.json</code> under tag <code>protocol-v1-locked</code>.
+          </p>
+        </section>
+
+        <section class="h-block" id="methods">
+          <h2>6. Methods</h2>
+          <h3>6.1 Classical baselines</h3>
+          <p>
+            The majority-class baseline predicts the training majority label. TF-IDF (unigrams and bigrams) with class-balanced
+            logistic regression establishes a strong lexical floor. Inputs concatenate control statement, evidence type, and
+            evidence text.
+          </p>
+          <h3>6.2 Language-model ladder</h3>
+          <p>
+            The primary model is <code>google/gemma-3-1b-it</code>. Zero-shot evaluation uses a frozen canonical prompt that
+            requests a single label and short rationale as JSON. Few-shot evaluation adds one fixed representative example per
+            class drawn only from train and validation. Domain adaptation uses QLoRA (4-bit NF4, LoRA rank 16, α&nbsp;16)
+            with target modules resolved from the loaded architecture. Malformed generations parse to
+            <code>UNPARSEABLE</code> and count against performance.
+          </p>
+          <h3>6.3 Training and compute</h3>
+          <p>
+            Training and inference are packaged for free GPU environments (Kaggle / Colab). A smoke configuration validates
+            the path before full runs. Secrets remain in platform secret stores; they are never committed to the repository.
+          </p>
+        </section>
+
+        <section class="h-block" id="protocol">
+          <h2>7. Evaluation protocol</h2>
+          <p>
+            Evaluation is sealed before final LLM claims. The protocol freezes hypotheses, primary metric, model identity,
+            prompt module, and split hashes. Inference is deterministic where supported. Reported metrics include accuracy,
+            macro precision/recall, per-class F1, confusion matrices, challenge macro F1, and parse-success rate.
+            Bootstrap confidence intervals and paired tests are available once multiple model prediction files exist.
+          </p>
+          <p>
+            Public results are copied only from <code>results/*/metrics_*.json</code> into
+            <code>docs/data/results.json</code>. Missing experiments appear as null values rather than zeros.
+          </p>
+        </section>
+
+        <section class="h-block" id="results">
+          <h2>8. Results</h2>
+          <h3>8.1 Classical stage (available now)</h3>
+          <table class="paper-table">
+            <thead>
+              <tr>
+                <th>Experiment</th>
+                <th>Test macro F1</th>
+                <th>Challenge macro F1</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Majority</td>
+                <td>0.067</td>
+                <td>0.067</td>
+                <td>Accuracy 0.20 on balanced five-way; macro F1 ≠ accuracy</td>
+              </tr>
+              <tr>
+                <td>TF-IDF + LR</td>
+                <td>0.533</td>
+                <td>0.524</td>
+                <td>After v1.1 harden (earlier drafts saturated at 1.0)</td>
+              </tr>
+              <tr>
+                <td>Gemma zero-shot</td>
+                <td>—</td>
+                <td>—</td>
+                <td>Pending GPU execution</td>
+              </tr>
+              <tr>
+                <td>Gemma few-shot</td>
+                <td>—</td>
+                <td>—</td>
+                <td>Pending GPU execution</td>
+              </tr>
+              <tr>
+                <td>Gemma QLoRA</td>
+                <td>—</td>
+                <td>—</td>
+                <td>Pending GPU execution</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            A TF-IDF learning curve on the test split rises from approximately 0.21 at 100 training examples to
+            approximately 0.53 at the full 1,000-example train set. Additional data helps, but the task remains non-trivial
+            for bag-of-words models.
+          </p>
+          <figure class="paper-figure">
+            <img src="../assets/img/figures/01_model_comparison.png" alt="Model comparison chart of test macro F1" />
+            <figcaption>Figure 1. Model comparison on sealed test macro F1 (LLM bars absent until result files exist).</figcaption>
+          </figure>
+          <figure class="paper-figure">
+            <img src="../assets/img/figures/05_learning_curve.png" alt="TF-IDF learning curve" />
+            <figcaption>Figure 2. TF-IDF learning curve on the sealed test split.</figcaption>
+          </figure>
+
+          <h3>8.2 Interpretation</h3>
+          <p>
+            The classical stage already answers a methodological question: a sealed synthetic evidence benchmark can be
+            constructed so that lexical shortcuts do not collapse the research agenda. Whether QLoRA recovers additional
+            semantic headroom is the remaining empirical claim and will be reported from GPU artifacts without placeholder scores.
+          </p>
+        </section>
+
+        <section class="h-block" id="errors">
+          <h2>9. Error analysis</h2>
+          <p>
+            On the sealed test set, TF-IDF per-class F1 is strongest for CONTRADICTORY (approximately 0.93) and weakest for
+            SUFFICIENT (approximately 0.25), with PARTIAL and IRRELEVANT in between. Residual confusion concentrates on
+            compositional coverage and substance-pointer distinctions—precisely the boundaries human reviewers debate.
+          </p>
+          <figure class="paper-figure">
+            <img src="../assets/img/figures/02_per_class_f1.png" alt="Per-class F1 chart" />
+            <figcaption>Figure 3. Per-class F1 for the best available classical experiment.</figcaption>
+          </figure>
+          <p>
+            The public <a href="../failure-lab.html">Failure Lab</a> presents concrete cases drawn from TF-IDF disagreements,
+            with slots for future Gemma predictions. Detailed notes appear in the project error-analysis report.
+          </p>
+        </section>
+
+        <section class="h-block" id="rai">
+          <h2>10. Responsible innovation</h2>
+          <p>
+            ControlSift is a research benchmark, not an automated auditor. Intended use is method comparison and study of
+            assistive triage under synthetic conditions. Prohibited uses include production pass/fail scoring of customer
+            evidence without human review and marketing of synthetic scores as compliance certification.
+          </p>
+          <p>
+            Governance artifacts include a Data Card, Model Card, AI risk register, limitations statement, intended-use
+            policy, and label-audit protocol. Collectively they address automation bias, data leakage, overclaiming, and
+            provenance of labels. The Assurance hub aggregates these documents for review.
+          </p>
+        </section>
+
+        <section class="h-block" id="curriculum">
+          <h2>11. Curriculum demonstration</h2>
+          <p>
+            The project implements the DeepMind AI Research Foundations pathway as an end-to-end research artifact:
+            language-model task framing; data representation; training and generalization discipline; transformer base model;
+            fine-tuning via QLoRA; acceleration through quantization and free-GPU packaging; alignment-adjacent controls
+            through parsing, prohibited uses, and risk documentation; and Capstone Course&nbsp;8 through this paper and the
+            surrounding evaluator pathway. A course-by-course table is available on the
+            <a href="curriculum.html">curriculum map</a>.
+          </p>
+        </section>
+
+        <section class="h-block" id="limitations">
+          <h2>12. Limitations</h2>
+          <ul class="findings-list">
+            <li>Synthetic packets are not multi-document binders and do not include OCR noise or organizational politics.</li>
+            <li>Labels are rule-derived with audit coverage; they are not a large-scale human gold standard.</li>
+            <li>Compositional scaffolding may reward schema reading; that risk is disclosed and will be monitored in LLM error analysis.</li>
+            <li>Class difficulty is uneven for classical models; macro F1 must be read with per-class tables.</li>
+            <li>Gemma conclusions are unavailable until GPU result files exist.</li>
+            <li>Results for Gemma&nbsp;3 1B do not automatically transfer to other model families or scales.</li>
+          </ul>
+        </section>
+
+        <section class="h-block" id="repro">
+          <h2>13. Reproducibility</h2>
+          <p>
+            The repository includes the generator, validators, baseline scripts, evaluation aggregation, figure builders,
+            tests, and a secret-safe Kaggle packaging path. Classical reproduction:
+          </p>
+          <pre style="font-family:var(--font-mono);font-size:var(--text-sm);overflow:auto;padding:1rem;border:1px solid var(--line);background:var(--panel);line-height:1.55;"><code>pip install -e ".[dev]"
+python scripts/validate_dataset.py
+python scripts/run_tfidf_baseline.py
+python scripts/run_evaluation.py
+pytest</code></pre>
+          <p>
+            GPU execution follows <code>notebooks/KAGGLE_SAFE_RUN.md</code> and <code>notebooks/kaggle_runner.ipynb</code>,
+            writing metrics under <code>results/gemma_*</code> and refreshing the public results file.
+          </p>
+        </section>
+
+        <section class="h-block" id="future">
+          <h2>14. Future work</h2>
+          <p>
+            Immediate next steps are Gemma zero-shot, few-shot, and QLoRA evaluation on free GPU; statistical comparison
+            against classical baselines; Failure Lab updates with model disagreements; and completion of hypotheses H1–H5
+            in the research report. If schema gaming dominates LLM behavior, a prose-hardened dataset revision can be
+            opened under a new protocol tag without rewriting the classical-stage record.
+          </p>
+        </section>
+
+        <section class="h-block" id="conclusion">
+          <h2>15. Conclusion</h2>
+          <p>
+            ControlSift establishes a sealed, family-isolated evidence-quality benchmark and shows that careful construction
+            can prevent lexical baselines from saturating the task. With majority macro F1 at 0.067 and TF-IDF near 0.53,
+            the classical stage leaves measurable headroom for language-model adaptation. Whether QLoRA fills that headroom
+            is the open empirical question. Until those runs complete, the project’s contribution is already concrete:
+            an inspectable research process that privileges integrity over premature model scores—and that frames small-model
+            assistance as a tool for stronger institutional honesty, not a replacement for human judgment.
+          </p>
+        </section>
+
+        <section class="h-block" id="artifacts">
+          <h2>Accompanying artifacts</h2>
+          <ul class="findings-list paper-refs">
+            <li><a href="../index.html">Public research site</a> — Home, Failure Lab, Results, Methods, Assurance</li>
+            <li><a href="un-sdg.html">UN SDG alignment</a> · <a href="curriculum.html">Curriculum map</a> · <a href="submission.html">Submission package</a></li>
+            <li><a href="../assurance/protocol.html">Research protocol</a> · <a href="../assurance/data-card.html">Data Card</a> · <a href="../assurance/model-card.html">Model Card</a></li>
+            <li><a href="../data/results.json">Public metrics JSON</a> · <a href="../failure-lab.html">Failure Lab</a></li>
+            <li>Repository reports: research report, error analysis, protocol seal, twelve-week runway</li>
+          </ul>
+          <p class="paper-refs" style="margin-top:1.5rem;">
+            Acknowledgement: ControlSift was developed as an independent applied-AI research project following participation
+            in Google DeepMind’s AI Research Foundations curriculum through Mentor Me Collective.
+          </p>
+        </section>
+      </article>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Capstone research paper · ControlSift</span>
+      <a href="index.html">Capstone home</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
+</body>
+</html>
