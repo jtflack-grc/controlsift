@@ -2,6 +2,7 @@
 
 ## 1.1.0 — 2026-08-09
 
+- Expanded footer-only MMC `/capstone/` hub: UN SDG/GFE alignment, DeepMind 8-course map, impact, methods, RAI, reflection, submission
 - Dataset v1.1 compositional packet packing + AFLite-style surface harden (TF-IDF ~0.53 test)
 - Protocol seal + git tag `protocol-v1-locked` (data/prompt contract; see `governance/TAGS.md`)
 - Structural label audit + scripted 20-case spot-check (not human gold)

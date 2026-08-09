@@ -28,7 +28,7 @@ v1.1 representation packs each case as dual sections (Mercury/Neon) holding both
 
 **Locked decision:** keep this compositional surface and disclose it — see `governance/RESEARCH_SURFACE.md`. Do not market v1.1 as naturalistic binder OCR.
 
-Label audit: structural audit of **100% challenge** + stratified development sample; narrative spot-check of **20** challenge cases (`reports/SPOTCHECK_20.md`). Not fully human-labeled gold.
+Label audit: structural audit of **100% challenge** + stratified development sample; **scripted** spot-check of **20** challenge cases (`reports/SPOTCHECK_20.md`). Not fully human-labeled gold.
 
 ## 3. Methods
 

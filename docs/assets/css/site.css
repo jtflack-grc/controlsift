@@ -720,7 +720,8 @@ pre code {
   font-weight: 600;
 }
 
-.assurance-nav {
+.assurance-nav,
+.capstone-nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem 0.9rem;
@@ -733,14 +734,81 @@ pre code {
   text-transform: uppercase;
 }
 
-.assurance-nav a {
+.assurance-nav a,
+.capstone-nav a {
   color: var(--muted);
   text-decoration: none;
 }
 
 .assurance-nav a:hover,
-.assurance-nav a[aria-current="page"] {
+.assurance-nav a[aria-current="page"],
+.capstone-nav a:hover,
+.capstone-nav a[aria-current="page"] {
   color: var(--accent);
+}
+
+.capstone-banner {
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+.capstone-banner strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.sdg-grid {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 720px) {
+  .sdg-grid { grid-template-columns: 1fr 1fr; }
+  .sdg-grid article + article:nth-child(2n) { border-left: 1px solid var(--line); }
+  .sdg-grid article:nth-child(n + 3) { border-top: 1px solid var(--line); }
+}
+
+.sdg-grid article {
+  padding: 1.25rem 1rem 1.25rem 0;
+}
+
+.sdg-grid .sdg-id {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.curriculum-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.curriculum-table th,
+.curriculum-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.75rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.curriculum-table th {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.status-pill.pending-gpu {
+  color: var(--warn);
 }
 
 .def-list {

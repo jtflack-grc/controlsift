@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Submission Bundle — MMC Capstone</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>MMC submission bundle</h2>
+        <p>
+          Package the optional Mentor Me Collective handoff from existing artifacts.
+          Do not invent a second technical project for MMC formatting.
+        </p>
+      </div>
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+      <div class="capstone-banner">
+        <strong>Branding.</strong>
+        MMC acknowledgement stays in this cluster / footer. Primary README does not open with “this is my MMC capstone.”
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Required links</h2>
+      <ul class="findings-list">
+        <li><strong>Capstone hub</strong> — <a href="index.html">/capstone/</a></li>
+        <li><strong>UN SDG / GFE</strong> — <a href="un-sdg.html">alignment page</a></li>
+        <li><strong>Curriculum map</strong> — <a href="curriculum.html">8-course table</a></li>
+        <li><strong>Public site</strong> — <a href="../index.html">Home</a> · <a href="../results.html">Results</a> · <a href="../failure-lab.html">Failure Lab</a> · <a href="../assurance.html">Assurance</a></li>
+        <li><strong>Repo markdown</strong> — README · <code>reports/RESEARCH_REPORT.md</code> · <code>governance/*</code> · <code>PROTOCOL_SEAL.json</code></li>
+        <li><strong>Markdown checklist</strong> — <a href="../mmc/SUBMISSION_BUNDLE.md">docs/mmc/SUBMISSION_BUNDLE.md</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Evidence to attach / point at</h2>
+      <table class="curriculum-table">
+        <thead>
+          <tr><th>Artifact</th><th>Where</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Dataset manifest + seal hashes</td><td><code>data/manifests/</code> · <code>governance/PROTOCOL_SEAL.json</code></td><td>ready</td></tr>
+          <tr><td>Classical metrics JSON</td><td><code>results/majority/</code> · <code>results/tfidf/</code> · <code>docs/data/results.json</code></td><td>ready</td></tr>
+          <tr><td>Gemma / QLoRA metrics</td><td><code>results/gemma_*</code></td><td>null until GPU</td></tr>
+          <tr><td>Failure Lab cases</td><td><code>docs/data/failure_lab.json</code></td><td>classical mistakes seeded</td></tr>
+          <tr><td>Figures</td><td><code>reports/figures/</code> · site <code>assets/img/figures/</code></td><td>ready</td></tr>
+          <tr><td>Label audit receipts</td><td><code>data/review_log.csv</code> · <code>reports/HUMAN_REVIEW_AUDIT.md</code> · <code>SPOTCHECK_20.md</code></td><td>ready</td></tr>
+          <tr><td>Reflection</td><td><a href="reflection.html">capstone reflection</a></td><td>classical done; LLM TBD</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Suggested acknowledgement (footer / capstone only)</h2>
+      <p style="color:var(--muted);font-size:var(--text-sm);">
+        ControlSift was developed as an independent applied-AI research project following participation in
+        Google DeepMind’s AI Research Foundations curriculum through Mentor Me Collective.
+        Public identity remains ControlSift-first.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>If MMC wants slides</h2>
+      <p>
+        Generate slides from these pages — do not reopen the science.
+        Recommended deck spine: Problem → SDG 16 fit → Curriculum map → Methods → Classical results → RAI → Pending GPU → Reflection.
+      </p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>MMC Capstone · Submission</span>
+      <a href="index.html">Capstone hub</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
+</body>
+</html>

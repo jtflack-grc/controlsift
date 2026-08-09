@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Problem &amp; Impact — MMC Capstone</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Problem, aim, stakeholders, impact</h2>
+        <p>Capstone Course 8 framing without diluting ControlSift’s research identity.</p>
+      </div>
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+    </section>
+
+    <section class="section">
+      <h2>Problem statement</h2>
+      <p>
+        Cybersecurity and GRC teams must distinguish artifacts that substantively demonstrate control operation
+        from evidence that is incomplete, irrelevant, stale, or contradictory. Confusing a policy PDF with proof
+        produces false assurance — an institutional failure mode, not a UX annoyance.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Research aim</h2>
+      <p>
+        Investigate whether domain adaptation using QLoRA improves Gemma 3 1B IT on a bounded five-class
+        evidence-quality task, under a sealed evaluation protocol, with classical baselines and explicit failure analysis.
+      </p>
+      <div class="def-list">
+        <div><dt>Primary metric</dt><dd>Macro F1 (test + challenge)</dd></div>
+        <div><dt>Hypotheses</dt><dd>H1–H5 frozen in <a href="../assurance/protocol.html">Protocol</a></dd></div>
+        <div><dt>Surface</dt><dd>Compositional evidence packets (v1.1) — disclosed, not oversold as binder OCR</dd></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Stakeholders</h2>
+      <ul class="findings-list">
+        <li><strong>Primary beneficiaries (aspirational)</strong> — human evidence reviewers in under-resourced assurance teams who need triage aids, not autopilots.</li>
+        <li><strong>Direct users of this artifact</strong> — ML / RAI reviewers, recruiters, MMC evaluators reading the public site.</li>
+        <li><strong>At risk if misused</strong> — organizations that might treat model scores as audit conclusions (prohibited).</li>
+        <li><strong>Not stakeholders we optimize for</strong> — SaaS buyers, live inference customers, document-ingestion pipelines (out of v1 scope).</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Intended impact</h2>
+      <p>
+        Explore whether small, specialized language models could eventually <em>assist</em> human reviewers in evidence triage
+        while explicitly studying risks of false assurance and inappropriate automation — aligned with
+        <a href="un-sdg.html">SDG 16 institutional accountability</a>.
+      </p>
+      <h3 style="margin-top:1.5rem;">Prohibited impact (by design)</h3>
+      <ul class="findings-list">
+        <li>Automated pass/fail on customer controls without human review</li>
+        <li>Marketing “AI auditor” claims from synthetic-benchmark scores</li>
+        <li>Quiet prompt tuning against the sealed test set</li>
+      </ul>
+      <div class="cta-row" style="margin-top:1.5rem;">
+        <a class="btn btn-secondary" href="../assurance/intended-use.html">Full intended / prohibited use</a>
+        <a class="btn btn-secondary" href="un-sdg.html">UN SDG mapping</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>MMC Capstone · Problem &amp; Impact</span>
+      <a href="index.html">Capstone hub</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
+</body>
+</html>

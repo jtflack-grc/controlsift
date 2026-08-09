@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Reflection — MMC Capstone</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Reflection</h2>
+        <p>
+          Capstone reflection is incomplete until Gemma runs land — and that incompleteness is stated plainly.
+          Classical-stage lessons already changed the science.
+        </p>
+      </div>
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+    </section>
+
+    <section class="section">
+      <h2>What already changed the work</h2>
+      <ul class="findings-list">
+        <li><strong>TF-IDF saturation at 1.0</strong> forced a generator redesign. Lexical shortcuts were not a footnote — they were the first result.</li>
+        <li><strong>Compositional v1.1 surface</strong> made the benchmark harder for bag-of-words (~0.53 macro F1) and introduced a disclosed schema-reading risk.</li>
+        <li><strong>Protocol lock before LLM claims</strong> — prompt and test hashes frozen; HEAD may still advance docs without moving the seal.</li>
+        <li><strong>Label-audit honesty</strong> — we stopped implying “human review done” when the pass was structural/scripted.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>What we still do not know (pending GPU)</h2>
+      <ul class="findings-list">
+        <li>Whether zero-shot Gemma discovers packet grammar without tutoring</li>
+        <li>Whether few-shot beats zero-shot on sealed test / challenge</li>
+        <li>Whether QLoRA improves macro F1 enough to matter after uncertainty</li>
+        <li>Which failure modes are new versus classical residual errors</li>
+      </ul>
+      <p style="margin-top:1rem;color:var(--muted);">
+        If adaptation underperforms, that remains a valid MMC / research outcome.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>What the benchmark still fails to represent</h2>
+      <ul class="findings-list">
+        <li>Multi-document evidence binders and real OCR noise</li>
+        <li>Organization-specific control language and politics of audit negotiation</li>
+        <li>Fully human gold labels at scale</li>
+        <li>Live deployment risk under time pressure (by scope exclusion)</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>What should be studied next</h2>
+      <ul class="findings-list">
+        <li>Complete Gemma ladder on free GPU; refresh Failure Lab with LLM misses</li>
+        <li>If schema gaming dominates, schedule prose-hardened dataset v1.2 with a new protocol tag</li>
+        <li>Optional human GRC spot-pass on a small challenge sample — labeled as such</li>
+      </ul>
+      <div class="cta-row" style="margin-top:1.5rem;">
+        <a class="btn btn-secondary" href="../reports/RESEARCH_REPORT.md">Research report (markdown)</a>
+        <a class="btn btn-secondary" href="../reports/ERROR_ANALYSIS.md">Error analysis</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>MMC Capstone · Reflection</span>
+      <a href="index.html">Capstone hub</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
+</body>
+</html>

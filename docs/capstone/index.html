@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
-  <title>Applied AI Research Capstone — ControlSift</title>
+  <title>MMC Capstone Hub — ControlSift</title>
+  <meta name="robots" content="noindex" />
   <link rel="stylesheet" href="../assets/css/site.css" />
 </head>
 <body>
@@ -20,39 +21,104 @@
       <div class="page-intro">
         <h2>Applied AI Research Capstone</h2>
         <p>
-          This page exists to make Mentor Me Collective evaluation easy.
-          The primary public site remains ControlSift-first; MMC branding stays here.
+          Evaluator pathway for Mentor Me Collective / Google DeepMind AI Research Foundations.
+          ControlSift remains an independent research project; this layer makes curriculum, UN SDG scope, and submission evidence easy to grade.
         </p>
       </div>
+      <div class="capstone-banner">
+        <strong>Footer-only entry.</strong>
+        This cluster is linked from the site footer, not primary navigation — per ControlSift branding rules.
+      </div>
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
 
-      <h3>Problem statement</h3>
-      <p>Cybersecurity teams must distinguish artifacts that substantively demonstrate control operation from evidence that is incomplete, irrelevant, stale, or contradictory.</p>
+      <div class="def-list" style="margin-top:1.5rem;">
+        <div><dt>Program</dt><dd>Mentor Me Collective · Google Cloud / DeepMind AI Research Foundations track</dd></div>
+        <div><dt>Curriculum capstone</dt><dd>Course 8 — Develop Your Model for Real-World Impact</dd></div>
+        <div><dt>UN scope</dt><dd>SDG-aligned institutional accountability &amp; trustworthy AI (see UN SDG / GFE)</dd></div>
+        <div><dt>Project</dt><dd>ControlSift · dataset v1.1.0 · protocol <code>protocol-v1-locked</code></dd></div>
+        <div><dt>LLM status</dt><dd>Classical baselines shipped · Gemma / QLoRA metrics <code>null</code> until HF/Kaggle</dd></div>
+      </div>
+    </section>
 
-      <h3>Research aim</h3>
-      <p>Investigate whether domain adaptation using QLoRA improves a small language model on this bounded task, with sealed evaluation and explicit failure analysis.</p>
+    <section class="section">
+      <h2>Evaluator map</h2>
+      <p class="page-intro">Start here if you are grading the residency project.</p>
+      <div class="integrity-grid">
+        <article>
+          <div class="mark">01</div>
+          <h3><a href="un-sdg.html">UN SDG / GFE alignment</a></h3>
+          <p>Honest shoehorn into MMC’s UN good-works / SDG project-build scope — primary SDG 16, secondary 9 &amp; 4.</p>
+        </article>
+        <article>
+          <div class="mark">02</div>
+          <h3><a href="curriculum.html">DeepMind curriculum map</a></h3>
+          <p>All eight AI Research Foundations courses mapped to concrete ControlSift artifacts.</p>
+        </article>
+        <article>
+          <div class="mark">03</div>
+          <h3><a href="problem-impact.html">Problem &amp; impact</a></h3>
+          <p>Problem statement, research aim, stakeholders, intended / prohibited impact.</p>
+        </article>
+        <article>
+          <div class="mark">04</div>
+          <h3><a href="methods-evidence.html">Methods &amp; evidence</a></h3>
+          <p>Dataset, model ladder, evaluation contract, classical receipts, pending GPU slots.</p>
+        </article>
+        <article>
+          <div class="mark">05</div>
+          <h3><a href="responsible-innovation.html">Responsible innovation</a></h3>
+          <p>Data/Model cards, risk register, label-audit honesty, automation-bias controls.</p>
+        </article>
+        <article>
+          <div class="mark">06</div>
+          <h3><a href="reflection.html">Reflection</a></h3>
+          <p>What already failed (TF-IDF saturation), what is pending, what we refuse to claim.</p>
+        </article>
+        <article>
+          <div class="mark">07</div>
+          <h3><a href="submission.html">Submission bundle</a></h3>
+          <p>Checklist of links and artifacts for MMC handoff — no duplicate science required.</p>
+        </article>
+        <article>
+          <div class="mark">→</div>
+          <h3><a href="../index.html">Public research site</a></h3>
+          <p>ControlSift-first Home, Failure Lab, Results, Methods, Assurance — the real product surface.</p>
+        </article>
+      </div>
+    </section>
 
-      <h3>Dataset</h3>
-      <p>~1,500 synthetic cases; five classes; family-isolated splits; challenge set. See the <a href="../assurance/data-card.html">Data Card</a>.</p>
+    <section class="section">
+      <h2>One-paragraph pitch (for MMC)</h2>
+      <p>
+        ControlSift studies whether QLoRA adaptation of Gemma 3 1B improves five-class judgment of cybersecurity
+        evidence quality on a sealed synthetic benchmark. The work demonstrates DeepMind foundations
+        (data representation, transformers, fine-tuning, acceleration, alignment/responsible innovation)
+        while targeting UN SDG 16 — stronger institutional accountability through honest evidence triage —
+        without claiming a production auditor or inventing LLM scores before GPU runs.
+      </p>
+    </section>
 
-      <h3>Model development</h3>
-      <p>Gemma 3 1B IT with QLoRA; classical and prompting baselines for comparison. GPU execution is the remaining critical path.</p>
-
-      <h3>Evaluation</h3>
-      <p>Macro F1, slices, statistics, challenge generalization, Failure Lab. Protocol and seal: <a href="../assurance/protocol.html">Assurance · Protocol</a>.</p>
-
-      <h3>Responsible innovation</h3>
-      <p>Public <a href="../assurance.html">Assurance</a> hub: Model Card, risk register, intended/prohibited use, limitations, human review.</p>
-
-      <h3>Reflection</h3>
-      <p>Gate 1 already forced a dataset harden pass when TF-IDF saturated. Negative Gemma findings will remain valid if adaptation underperforms.</p>
+    <section class="section">
+      <h2>Quick status</h2>
+      <ul class="findings-list">
+        <li><strong>Shipped</strong> Benchmark v1.1, protocol lock, majority + TF-IDF (~0.53 test macro F1), Assurance hub, Failure Lab, structural label audit.</li>
+        <li><strong>Pending GPU</strong> Gemma zero-shot, few-shot, QLoRA metrics — public JSON stays <code>null</code>.</li>
+        <li><strong>Non-claim</strong> Not fully human-labeled gold; not naturalistic binder OCR; not a compliance product.</li>
+      </ul>
+      <div class="cta-row" style="margin-top:1.5rem;">
+        <a class="btn btn-primary" href="submission.html">Open submission checklist</a>
+        <a class="btn btn-secondary" href="../results.html">See public numbers</a>
+        <a class="btn btn-secondary" href="../assurance.html">Assurance hub</a>
+      </div>
     </section>
   </main>
   <footer class="site-footer">
     <div class="wrap">
-      <span>Capstone view · secondary to public research site</span>
+      <span>MMC Capstone · secondary to ControlSift public identity</span>
       <a href="../index.html">Back to ControlSift</a>
     </div>
   </footer>
   <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
 </body>
 </html>
