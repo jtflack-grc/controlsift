@@ -4,7 +4,7 @@
 
 Domain adaptation of Gemma 3 for cybersecurity control-evidence assessment — with research integrity, failure analysis, and reproducible receipts.
 
-> Status: **classical stage locked (`protocol-v1-locked`, dataset v1.1.0); Gemma modeling pending gated HF/Kaggle access**. See [`reports/TWELVE_WEEK_RUNWAY.md`](reports/TWELVE_WEEK_RUNWAY.md). Charter: [`ControlSift.md`](ControlSift.md).
+> Status: **classical stage locked (dataset v1.1.0; tag `protocol-v1-locked` seals data/prompt — see [`governance/TAGS.md`](governance/TAGS.md)); Gemma modeling pending gated HF/Kaggle access**. Runway: [`reports/TWELVE_WEEK_RUNWAY.md`](reports/TWELVE_WEEK_RUNWAY.md). Charter: [`ControlSift.md`](ControlSift.md).
 
 ## Why this matters
 
@@ -64,7 +64,7 @@ Gate 1: early generator drafts let TF-IDF saturate at 1.0; v1.1 compositional pa
 ## Label audit (not “fully human-labeled”)
 
 - **100% challenge** + stratified sample: structural integrity audit (`structural_auditor_v1`)
-- **20 challenge cases** (4/label): narrative spot-check notes (`spotcheck_v1`) — see [`reports/SPOTCHECK_20.md`](reports/SPOTCHECK_20.md)
+- **20 challenge cases** (4/label): **scripted** spot-check notes (`spotcheck_v1`) — see [`reports/SPOTCHECK_20.md`](reports/SPOTCHECK_20.md)
 - Primary labels remain **rule-derived**
 
 ## What still fails (classical)

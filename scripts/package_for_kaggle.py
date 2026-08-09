@@ -26,6 +26,7 @@ INCLUDE_PREFIXES = (
     "governance/HUMAN_REVIEW.md",
     "governance/DATA_CARD.md",
     "governance/LIMITATIONS.md",
+    "governance/TAGS.md",
     "pyproject.toml",
     "requirements.txt",
     "requirements-dev.txt",

@@ -22,8 +22,9 @@
       <p class="hero-brand">ControlSift</p>
       <h1>Can a small AI model tell proof from paperwork?</h1>
       <p class="lede">
-        A sealed research benchmark for cybersecurity evidence quality:
-        classical baselines, Gemma 3 prompting, QLoRA adaptation, and an honest Failure Lab.
+        A sealed compositional evidence-packet benchmark for cybersecurity control quality —
+        classical baselines shipped, Gemma prompting and QLoRA waiting on GPU, Failure Lab for residual errors.
+        Not a claim about scoring raw customer binders.
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href="failure-lab.html">Enter Failure Lab</a>
@@ -138,11 +139,15 @@
       <ul class="findings-list">
         <li>
           <strong>Gate 1 caught a shortcut</strong>
-          An early generator let TF-IDF saturate at 1.0. Mutations were hardened before protocol seal so lexical baselines no longer fake the ceiling.
+          An early generator let TF-IDF saturate at 1.0. Dataset v1.1 compositional packing brought test macro F1 to ~0.53 before protocol seal.
         </li>
         <li>
           <strong>Classical residual errors are informative</strong>
-          Remaining TF-IDF mistakes concentrate on PARTIAL versus SUFFICIENT coverage boundaries, the exact ambiguity humans argue about.
+          TF-IDF is weakest on SUFFICIENT / IRRELEVANT / PARTIAL compositional cues; CONTRADICTORY remains easier (~0.93 F1).
+        </li>
+        <li>
+          <strong>Research surface is disclosed</strong>
+          v1.1 measures packet reading (substance pointer, SCOPE, ROW_DETAIL) — not naturalistic binder OCR. See Assurance.
         </li>
       </ul>
     </section>
@@ -152,7 +157,11 @@
       <ul class="findings-list">
         <li>
           <strong>Gemma and QLoRA numbers are not public yet</strong>
-          Code and sealed protocol are ready; gated GPU execution is the remaining critical path.
+          Code and sealed protocol are ready; gated HF/Kaggle execution is the remaining critical path.
+        </li>
+        <li>
+          <strong>Schema-gaming risk</strong>
+          A model that only learns packet fields can look strong without understanding audits — treat that as a limited win if it appears.
         </li>
         <li>
           <strong>Hard boundaries remain</strong>

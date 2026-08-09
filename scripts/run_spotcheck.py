@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Stratified challenge spot-check with substantive notes (not structural-only).
+"""Stratified *scripted* challenge spot-check (not a human GRC review).
 
 Selects 4 cases per label (20 total) from the challenge split, writes
 reports/SPOTCHECK_20.md, and upgrades those review_log rows to reviewer
-`spotcheck_v1` with case-specific notes. Does not change gold labels.
+`spotcheck_v1` with case-specific notes derived from packet fields.
+Does not change gold labels. Do not describe this as human gold labeling.
 """
 
 from __future__ import annotations

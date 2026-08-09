@@ -1,7 +1,7 @@
-# Challenge spot-check (20 cases)
+# Challenge spot-check (20 cases) — scripted
 
 Stratified: **4 cases × 5 labels** from the sealed challenge split.
-This is a **second-pass reading** with case-specific notes — still not a full human gold relabel.
+This is a **scripted second pass** (`scripts/run_spotcheck.py`) with case-specific notes from packet fields — **not** an independent human GRC review and **not** full human gold relabeling.
 Gold labels were retained; no test/challenge relabeling after protocol seal.
 
 | id | label | domain | note |

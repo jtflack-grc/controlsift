@@ -3,13 +3,24 @@
 **ControlSift**  
 *Can a small AI model tell proof from paperwork?*
 
-Applied AI research project that domain-adapts Gemma 3 (QLoRA) to classify cybersecurity control evidence as sufficient, partial, insufficient, irrelevant, or contradictory — with a leakage-controlled synthetic benchmark, classical baselines, sealed evaluation, and a public Failure Lab.
+Applied AI research project: leakage-controlled synthetic benchmark for five-class cybersecurity evidence quality, classical baselines under a sealed protocol, and a public Failure Lab. Gemma 3 prompting + QLoRA are **instrumented and ready**; metrics stay `null` until gated GPU runs land.
+
+**Status (honest)**
+
+- Dataset **v1.1.0**, protocol tag `protocol-v1-locked`
+- Majority macro F1 **0.067** · TF-IDF **~0.53** test / **~0.52** challenge
+- Gemma zero-shot / few-shot / QLoRA: **not run yet**
+- Research surface: compositional evidence packets (disclosed) — not raw customer binders
 
 **Highlights**
 
-- Built a ~1,500-case synthetic evidence benchmark with scenario-family split isolation
-- Compared majority, TF-IDF, prompting, and QLoRA under a frozen protocol
-- Published machine-readable results and refused fabricated metrics
-- Documented Data Card, Model Card, and AI risk register
+- Built a ~1,500-case synthetic evidence benchmark with scenario-family split isolation and integrity CI
+- Detected TF-IDF saturation (1.0), hardened the generator, and re-baselined to an uncomfortable lexical ceiling
+- Locked evaluation (hashes + frozen prompt) before LLM claims; public site refuses fabricated metrics
+- Documented Data Card, Model Card, risk register, and label-audit limits (structural + scripted spot-check — not full human gold)
 
-**Links:** GitHub · GitHub Pages · Research report
+**Next**
+
+HF license + Kaggle GPU → `notebooks/kaggle_runner.ipynb` → commit `results/gemma_*`
+
+**Links:** GitHub · GitHub Pages · Research report · Assurance
