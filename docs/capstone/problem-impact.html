@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
-  <title>Problem &amp; Impact — MMC Capstone</title>
+  <title>Problem &amp; Impact — Capstone</title>
   <meta name="robots" content="noindex" />
   <link rel="stylesheet" href="../assets/css/site.css" />
 </head>
@@ -19,8 +19,8 @@
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
       <div class="page-intro">
-        <h2>Problem, aim, stakeholders, impact</h2>
-        <p>Capstone Course 8 framing without diluting ControlSift’s research identity.</p>
+        <h2>Problem &amp; impact</h2>
+        <p>Research problem, aim, stakeholders, and intended outcomes.</p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
     </section>
@@ -28,58 +28,56 @@
     <section class="section">
       <h2>Problem statement</h2>
       <p>
-        Cybersecurity and GRC teams must distinguish artifacts that substantively demonstrate control operation
-        from evidence that is incomplete, irrelevant, stale, or contradictory. Confusing a policy PDF with proof
-        produces false assurance — an institutional failure mode, not a UX annoyance.
+        Cybersecurity and GRC teams must distinguish artifacts that demonstrate control operation from evidence that is
+        incomplete, irrelevant, stale, or contradictory. Treating a policy document as proof produces false assurance
+        and weakens institutional accountability.
       </p>
     </section>
 
     <section class="section">
       <h2>Research aim</h2>
       <p>
-        Investigate whether domain adaptation using QLoRA improves Gemma 3 1B IT on a bounded five-class
-        evidence-quality task, under a sealed evaluation protocol, with classical baselines and explicit failure analysis.
+        Determine whether domain adaptation with QLoRA improves Gemma 3 1B IT on a five-class evidence-quality task,
+        using sealed evaluation, classical baselines, and explicit failure analysis.
       </p>
       <div class="def-list">
-        <div><dt>Primary metric</dt><dd>Macro F1 (test + challenge)</dd></div>
-        <div><dt>Hypotheses</dt><dd>H1–H5 frozen in <a href="../assurance/protocol.html">Protocol</a></dd></div>
-        <div><dt>Surface</dt><dd>Compositional evidence packets (v1.1) — disclosed, not oversold as binder OCR</dd></div>
+        <div><dt>Primary metric</dt><dd>Macro F1 on sealed test and challenge splits</dd></div>
+        <div><dt>Hypotheses</dt><dd>H1–H5 in the <a href="../assurance/protocol.html">research protocol</a></dd></div>
+        <div><dt>Benchmark</dt><dd>Synthetic compositional evidence packets (dataset v1.1.0)</dd></div>
       </div>
     </section>
 
     <section class="section">
       <h2>Stakeholders</h2>
       <ul class="findings-list">
-        <li><strong>Primary beneficiaries (aspirational)</strong> — human evidence reviewers in under-resourced assurance teams who need triage aids, not autopilots.</li>
-        <li><strong>Direct users of this artifact</strong> — ML / RAI reviewers, recruiters, MMC evaluators reading the public site.</li>
-        <li><strong>At risk if misused</strong> — organizations that might treat model scores as audit conclusions (prohibited).</li>
-        <li><strong>Not stakeholders we optimize for</strong> — SaaS buyers, live inference customers, document-ingestion pipelines (out of v1 scope).</li>
+        <li><strong>Intended beneficiaries</strong> — human evidence reviewers who need triage support, not autopilots.</li>
+        <li><strong>Readers of this work</strong> — ML and responsible-AI reviewers, hiring managers, and residency evaluators.</li>
+        <li><strong>Protected parties</strong> — organizations that must not treat model scores as audit conclusions.</li>
       </ul>
     </section>
 
     <section class="section">
-      <h2>Intended impact</h2>
+      <h2>Intended outcomes</h2>
       <p>
-        Explore whether small, specialized language models could eventually <em>assist</em> human reviewers in evidence triage
-        while explicitly studying risks of false assurance and inappropriate automation — aligned with
-        <a href="un-sdg.html">SDG 16 institutional accountability</a>.
+        A measured answer to whether small-model adaptation can assist evidence triage, plus a public record of remaining
+        failure modes — supporting <a href="un-sdg.html">SDG 16</a> through more honest assurance practice.
       </p>
-      <h3 style="margin-top:1.5rem;">Prohibited impact (by design)</h3>
+      <h3 style="margin-top:1.5rem;">Out of scope</h3>
       <ul class="findings-list">
-        <li>Automated pass/fail on customer controls without human review</li>
-        <li>Marketing “AI auditor” claims from synthetic-benchmark scores</li>
-        <li>Quiet prompt tuning against the sealed test set</li>
+        <li>Automated pass/fail decisions on customer controls without human review</li>
+        <li>Claims that synthetic-benchmark scores certify production control effectiveness</li>
+        <li>Prompt changes tuned against the sealed test set after protocol lock</li>
       </ul>
       <div class="cta-row" style="margin-top:1.5rem;">
-        <a class="btn btn-secondary" href="../assurance/intended-use.html">Full intended / prohibited use</a>
-        <a class="btn btn-secondary" href="un-sdg.html">UN SDG mapping</a>
+        <a class="btn btn-secondary" href="../assurance/intended-use.html">Intended use</a>
+        <a class="btn btn-secondary" href="un-sdg.html">UN SDG alignment</a>
       </div>
     </section>
   </main>
   <footer class="site-footer">
     <div class="wrap">
-      <span>MMC Capstone · Problem &amp; Impact</span>
-      <a href="index.html">Capstone hub</a>
+      <span>Capstone · Problem &amp; impact</span>
+      <a href="index.html">Capstone home</a>
     </div>
   </footer>
   <script src="../assets/js/nav.js"></script>

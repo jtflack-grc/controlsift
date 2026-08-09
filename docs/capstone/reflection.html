@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
-  <title>Reflection — MMC Capstone</title>
+  <title>Reflection — Capstone</title>
   <meta name="robots" content="noindex" />
   <link rel="stylesheet" href="../assets/css/site.css" />
 </head>
@@ -21,63 +21,60 @@
       <div class="page-intro">
         <h2>Reflection</h2>
         <p>
-          Capstone reflection is incomplete until Gemma runs land — and that incompleteness is stated plainly.
-          Classical-stage lessons already changed the science.
+          Findings from the classical stage, questions reserved for Gemma evaluation,
+          and limits of the current benchmark.
         </p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
     </section>
 
     <section class="section">
-      <h2>What already changed the work</h2>
+      <h2>Findings to date</h2>
       <ul class="findings-list">
-        <li><strong>TF-IDF saturation at 1.0</strong> forced a generator redesign. Lexical shortcuts were not a footnote — they were the first result.</li>
-        <li><strong>Compositional v1.1 surface</strong> made the benchmark harder for bag-of-words (~0.53 macro F1) and introduced a disclosed schema-reading risk.</li>
-        <li><strong>Protocol lock before LLM claims</strong> — prompt and test hashes frozen; HEAD may still advance docs without moving the seal.</li>
-        <li><strong>Label-audit honesty</strong> — we stopped implying “human review done” when the pass was structural/scripted.</li>
+        <li><strong>Lexical shortcuts matter.</strong> An early generator revision let TF-IDF reach perfect macro F1; hardening the dataset brought the baseline to ~0.53 and restored a meaningful research question.</li>
+        <li><strong>Compositional difficulty is uneven.</strong> CONTRADICTORY remains easier for classical models than SUFFICIENT and IRRELEVANT; per-class analysis is required alongside macro F1.</li>
+        <li><strong>Protocol discipline works.</strong> Freezing prompt and split hashes before LLM claims keeps the evaluation contract stable.</li>
+        <li><strong>Label provenance must stay explicit.</strong> Rule-derived labels with audit coverage are sufficient for this stage when disclosed accurately.</li>
       </ul>
     </section>
 
     <section class="section">
-      <h2>What we still do not know (pending GPU)</h2>
+      <h2>Open questions (GPU stage)</h2>
       <ul class="findings-list">
-        <li>Whether zero-shot Gemma discovers packet grammar without tutoring</li>
-        <li>Whether few-shot beats zero-shot on sealed test / challenge</li>
-        <li>Whether QLoRA improves macro F1 enough to matter after uncertainty</li>
-        <li>Which failure modes are new versus classical residual errors</li>
-      </ul>
-      <p style="margin-top:1rem;color:var(--muted);">
-        If adaptation underperforms, that remains a valid MMC / research outcome.
-      </p>
-    </section>
-
-    <section class="section">
-      <h2>What the benchmark still fails to represent</h2>
-      <ul class="findings-list">
-        <li>Multi-document evidence binders and real OCR noise</li>
-        <li>Organization-specific control language and politics of audit negotiation</li>
-        <li>Fully human gold labels at scale</li>
-        <li>Live deployment risk under time pressure (by scope exclusion)</li>
+        <li>How zero-shot Gemma performs on the sealed packet format</li>
+        <li>Whether few-shot prompting improves over zero-shot on test and challenge</li>
+        <li>Whether QLoRA yields a material, uncertainty-aware gain over prompting</li>
+        <li>Which error modes are new relative to the TF-IDF baseline</li>
       </ul>
     </section>
 
     <section class="section">
-      <h2>What should be studied next</h2>
+      <h2>Benchmark limits</h2>
       <ul class="findings-list">
-        <li>Complete Gemma ladder on free GPU; refresh Failure Lab with LLM misses</li>
-        <li>If schema gaming dominates, schedule prose-hardened dataset v1.2 with a new protocol tag</li>
-        <li>Optional human GRC spot-pass on a small challenge sample — labeled as such</li>
+        <li>Single-artifact synthetic packets, not multi-document binders or OCR noise</li>
+        <li>No organization-specific audit politics or negotiation context</li>
+        <li>No claim of large-scale human gold labeling</li>
+        <li>No live deployment study (out of v1 scope)</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Next steps</h2>
+      <ul class="findings-list">
+        <li>Run the Gemma ladder on free GPU and publish metrics from result files</li>
+        <li>Refresh the Failure Lab with model disagreements</li>
+        <li>Extend the research report with H1–H5 answers and uncertainty language</li>
       </ul>
       <div class="cta-row" style="margin-top:1.5rem;">
-        <a class="btn btn-secondary" href="../reports/RESEARCH_REPORT.md">Research report (markdown)</a>
+        <a class="btn btn-secondary" href="../reports/RESEARCH_REPORT.md">Research report</a>
         <a class="btn btn-secondary" href="../reports/ERROR_ANALYSIS.md">Error analysis</a>
       </div>
     </section>
   </main>
   <footer class="site-footer">
     <div class="wrap">
-      <span>MMC Capstone · Reflection</span>
-      <a href="index.html">Capstone hub</a>
+      <span>Capstone · Reflection</span>
+      <a href="index.html">Capstone home</a>
     </div>
   </footer>
   <script src="../assets/js/nav.js"></script>

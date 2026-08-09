@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
-  <title>Methods &amp; Evidence — MMC Capstone</title>
+  <title>Methods &amp; Evidence — Capstone</title>
   <meta name="robots" content="noindex" />
   <link rel="stylesheet" href="../assets/css/site.css" />
 </head>
@@ -19,8 +19,8 @@
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
       <div class="page-intro">
-        <h2>Methods &amp; evidence (evaluator digest)</h2>
-        <p>Pointers into the real receipts. Numbers come only from machine-readable JSON.</p>
+        <h2>Methods &amp; evidence</h2>
+        <p>Dataset, models, evaluation design, and current results. Metrics are sourced from machine-readable files only.</p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
     </section>
@@ -28,13 +28,13 @@
     <section class="section">
       <h2>Dataset</h2>
       <div class="def-list">
-        <div><dt>Size</dt><dd>1,500 synthetic cases · 5 balanced classes</dd></div>
+        <div><dt>Size</dt><dd>1,500 synthetic cases · five balanced classes</dd></div>
         <div><dt>Splits</dt><dd>train 1000 / validation 200 / test 200 / challenge 100 · family-isolated</dd></div>
-        <div><dt>Version</dt><dd>1.1.0 compositional packets · seed 42</dd></div>
-        <div><dt>Labels</dt><dd>Rule-derived · structural audit + scripted spot-check — not full human gold</dd></div>
-        <div><dt>Privacy</dt><dd>No employer / customer evidence · synthetic orgs only</dd></div>
+        <div><dt>Version</dt><dd>1.1.0 · seed 42</dd></div>
+        <div><dt>Labels</dt><dd>Rule-derived, with structural audit and stratified spot-check</dd></div>
+        <div><dt>Privacy</dt><dd>Synthetic organizations only · no customer or employer evidence</dd></div>
       </div>
-      <p style="margin-top:1rem;"><a href="../assurance/data-card.html">Data Card →</a> · <a href="../assurance/human-review.html">Label audit →</a></p>
+      <p style="margin-top:1rem;"><a href="../assurance/data-card.html">Data Card</a> · <a href="../assurance/human-review.html">Label audit</a></p>
     </section>
 
     <section class="section">
@@ -42,44 +42,35 @@
       <ol class="ladder">
         <li><span class="step">B0</span><span class="title">Majority class</span><span class="state done">macro F1 0.067</span></li>
         <li><span class="step">B1</span><span class="title">TF-IDF + logistic regression</span><span class="state done">~0.53 test / ~0.52 challenge</span></li>
-        <li><span class="step">B2</span><span class="title">Gemma 3 1B zero-shot</span><span class="state wait">null · GPU</span></li>
-        <li><span class="step">B3</span><span class="title">Gemma 3 1B few-shot</span><span class="state wait">null · GPU</span></li>
-        <li><span class="step">M4</span><span class="title">Gemma 3 1B + QLoRA</span><span class="state wait">null · GPU</span></li>
+        <li><span class="step">B2</span><span class="title">Gemma 3 1B zero-shot</span><span class="state wait">pending GPU</span></li>
+        <li><span class="step">B3</span><span class="title">Gemma 3 1B few-shot</span><span class="state wait">pending GPU</span></li>
+        <li><span class="step">M4</span><span class="title">Gemma 3 1B + QLoRA</span><span class="state wait">pending GPU</span></li>
       </ol>
       <p style="margin-top:1rem;color:var(--muted);font-size:var(--text-sm);">
-        Gate 1: TF-IDF initially saturated at 1.0; v1.1 harden made the lexical ceiling uncomfortable before protocol seal.
+        An early generator draft allowed TF-IDF to saturate; dataset v1.1 was hardened so the lexical baseline no longer defines the ceiling.
       </p>
     </section>
 
     <section class="section">
-      <h2>Evaluation contract</h2>
+      <h2>Evaluation</h2>
       <ul class="findings-list">
-        <li><strong>Sealed splits</strong> — SHA-256 in <code>governance/PROTOCOL_SEAL.json</code>; tag <code>protocol-v1-locked</code></li>
-        <li><strong>Frozen prompt</strong> — no test-set retuning; packet grammar discovery is a measured outcome</li>
-        <li><strong>Metrics</strong> — macro F1 primary; accuracy, per-class, confusion, challenge, slices</li>
-        <li><strong>Failure Lab</strong> — real TF-IDF mistakes; Gemma slots null until runs land</li>
+        <li><strong>Sealed splits</strong> — hashes in <code>governance/PROTOCOL_SEAL.json</code>; tag <code>protocol-v1-locked</code></li>
+        <li><strong>Frozen prompt</strong> — canonical template held fixed for final LLM evaluation</li>
+        <li><strong>Metrics</strong> — macro F1 primary; accuracy, per-class scores, confusion matrices, challenge set</li>
+        <li><strong>Failure Lab</strong> — documented hard cases from classical errors; LLM predictions to follow</li>
       </ul>
       <div class="cta-row" style="margin-top:1.5rem;">
-        <a class="btn btn-primary" href="../results.html">Public results</a>
+        <a class="btn btn-primary" href="../results.html">Results</a>
         <a class="btn btn-secondary" href="../methods.html">Methods</a>
         <a class="btn btn-secondary" href="../failure-lab.html">Failure Lab</a>
         <a class="btn btn-secondary" href="../reproduce.html">Reproduce</a>
       </div>
     </section>
-
-    <section class="section">
-      <h2>GPU path (when accounts exist)</h2>
-      <p>
-        Secret-safe packaging: <code>python scripts/package_for_kaggle.py</code> →
-        <code>notebooks/kaggle_runner.ipynb</code> with <code>HF_TOKEN</code> in Kaggle Secrets only.
-        Guide: repo <code>notebooks/KAGGLE_SAFE_RUN.md</code>.
-      </p>
-    </section>
   </main>
   <footer class="site-footer">
     <div class="wrap">
-      <span>MMC Capstone · Methods</span>
-      <a href="index.html">Capstone hub</a>
+      <span>Capstone · Methods</span>
+      <a href="index.html">Capstone home</a>
     </div>
   </footer>
   <script src="../assets/js/nav.js"></script>

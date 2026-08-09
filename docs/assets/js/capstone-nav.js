@@ -2,7 +2,7 @@
 (function () {
   const links = [
     { href: "index.html", label: "Hub" },
-    { href: "un-sdg.html", label: "UN SDG / GFE" },
+    { href: "un-sdg.html", label: "UN SDG" },
     { href: "curriculum.html", label: "Curriculum" },
     { href: "problem-impact.html", label: "Problem & Impact" },
     { href: "methods-evidence.html", label: "Methods" },

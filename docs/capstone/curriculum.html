@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
-  <title>DeepMind Curriculum Map — MMC Capstone</title>
+  <title>Curriculum Map — Capstone</title>
   <meta name="robots" content="noindex" />
   <link rel="stylesheet" href="../assets/css/site.css" />
 </head>
@@ -19,102 +19,97 @@
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
       <div class="page-intro">
-        <h2>DeepMind AI Research Foundations → ControlSift</h2>
+        <h2>DeepMind AI Research Foundations</h2>
         <p>
-          Eight-course map. The point is to make the curriculum visible through actual work —
-          not a slide that says “I learned transformers.”
+          How each course in the curriculum appears in ControlSift.
+          Source: Google DeepMind AI Research Foundations (Google Skills), delivered through Mentor Me Collective.
         </p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
-      <div class="callout">
-        <strong>Source curriculum</strong>
-        Google DeepMind AI Research Foundations (Google Skills / ai-foundations), culminating in
-        Capstone: Develop Your Model for Real-World Impact. Delivered in this residency via Mentor Me Collective.
-      </div>
     </section>
 
     <section class="section">
-      <h2>Course → artifact map</h2>
+      <h2>Course map</h2>
       <table class="curriculum-table">
         <thead>
           <tr>
             <th>Course</th>
-            <th>Learning focus</th>
-            <th>ControlSift demonstration</th>
+            <th>Focus</th>
+            <th>Demonstration in ControlSift</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>1 · Build Your Own Small Language Model</td>
-            <td>LM foundations, ML pipelines</td>
-            <td>Task framing as five-class evidence quality; method ladder; sealed protocol before claims</td>
-            <td><span class="status-pill">done</span></td>
+            <td>Language-model foundations</td>
+            <td>Five-class evidence-quality task; method ladder; sealed evaluation protocol</td>
+            <td><span class="status-pill">complete</span></td>
           </tr>
           <tr>
             <td>2 · Represent Your Language Data</td>
-            <td>Text → model-ready representation</td>
-            <td>JSONL schema, prompt packing, tokenizer-compatible evidence fields, compositional v1.1 packets</td>
-            <td><span class="status-pill">done</span></td>
+            <td>Text representation for LMs</td>
+            <td>JSONL schema, prompt formatting, tokenizer-compatible evidence fields</td>
+            <td><span class="status-pill">complete</span></td>
           </tr>
           <tr>
             <td>3 · Design and Train Neural Networks</td>
-            <td>Training dynamics, generalization</td>
-            <td>Train/val splits, learning curves, overfitting vigilance, family-isolated generalization test</td>
-            <td><span class="status-pill">partial</span> classical curve; LLM train pending GPU</td>
+            <td>Training and generalization</td>
+            <td>Train/validation design, learning curves, family-isolated held-out evaluation</td>
+            <td><span class="status-pill">partial</span></td>
           </tr>
           <tr>
             <td>4 · Discover the Transformer Architecture</td>
-            <td>Attention / transformer LMs</td>
-            <td>Gemma 3 1B IT as base; architecture-aware LoRA target module resolution</td>
-            <td><span class="status-pill pending-gpu">code ready</span></td>
+            <td>Transformer language models</td>
+            <td>Gemma 3 1B IT base model; architecture-aware LoRA module selection</td>
+            <td><span class="status-pill pending-gpu">ready</span></td>
           </tr>
           <tr>
             <td>5 · Finetune Your Model</td>
             <td>Task adaptation</td>
-            <td>QLoRA domain adaptation config + training entrypoint; few-shot vs PEFT comparison plan</td>
+            <td>QLoRA domain adaptation; planned comparison to fixed few-shot prompting</td>
             <td><span class="status-pill pending-gpu">pending GPU</span></td>
           </tr>
           <tr>
             <td>6 · Align Your Model</td>
-            <td>Preference / safe behavior themes</td>
-            <td>Instruction-tuned base; parse-fail → UNPARSEABLE; prohibited-use + risk register; no test-set prompt hacking</td>
-            <td><span class="status-pill">process locked</span></td>
+            <td>Aligned model behavior</td>
+            <td>Instruction-tuned base; robust output parsing; risk register and prohibited uses</td>
+            <td><span class="status-pill">complete</span></td>
           </tr>
           <tr>
             <td>7 · Accelerate Your Model</td>
-            <td>GPU, memory, quantization</td>
-            <td>4-bit NF4 QLoRA; Kaggle-safe packaging; smoke vs full run path</td>
+            <td>GPU efficiency</td>
+            <td>4-bit NF4 QLoRA; Kaggle packaging; smoke and full-run paths</td>
             <td><span class="status-pill pending-gpu">packaged</span></td>
           </tr>
           <tr>
             <td>8 · Capstone: Real-World Impact</td>
-            <td>Responsible end-to-end project</td>
-            <td>This <code>/capstone/</code> cluster + public site + UN SDG mapping + reflection + submission bundle</td>
-            <td><span class="status-pill">in progress</span> (LLM results pending)</td>
+            <td>End-to-end responsible project</td>
+            <td>This capstone pathway, public research site, UN SDG alignment, and reflection</td>
+            <td><span class="status-pill">in progress</span></td>
           </tr>
         </tbody>
       </table>
     </section>
 
     <section class="section">
-      <h2>Responsible innovation thread (every course)</h2>
+      <h2>Responsible innovation across the pathway</h2>
       <ul class="findings-list">
-        <li><strong>Ethical dataset design</strong> — synthetic only; no employer/customer evidence; Data Card discloses rule-derived labels.</li>
-        <li><strong>Stakeholder mapping</strong> — GRC reviewers, ML reviewers, recruiters, MMC evaluators; prohibited production auditor use.</li>
-        <li><strong>Environmental / compute honesty</strong> — free-tier GPU path; smoke runs first; no silent re-training against test.</li>
-        <li><strong>Research integrity</strong> — null public LLM metrics until JSON exists; negative findings preserved.</li>
+        <li><strong>Dataset design</strong> — synthetic evidence only; Data Card documents generation and label provenance.</li>
+        <li><strong>Stakeholders</strong> — assurance reviewers, ML/RAI readers, and residency evaluators; production auditor use is out of scope.</li>
+        <li><strong>Compute</strong> — free-tier GPU path with smoke testing before full runs.</li>
+        <li><strong>Integrity</strong> — public LLM metrics publish only from executed result files.</li>
       </ul>
       <div class="cta-row" style="margin-top:1.5rem;">
         <a class="btn btn-secondary" href="methods-evidence.html">Methods &amp; evidence</a>
-        <a class="btn btn-secondary" href="responsible-innovation.html">Responsible AI</a>
+        <a class="btn btn-secondary" href="responsible-innovation.html">Responsible innovation</a>
       </div>
     </section>
   </main>
   <footer class="site-footer">
     <div class="wrap">
-      <span>MMC Capstone · Curriculum</span>
-      <a href="index.html">Capstone hub</a>
+      <span>Capstone · Curriculum</span>
+      <a href="index.html">Capstone home</a>
     </div>
   </footer>
   <script src="../assets/js/nav.js"></script>
