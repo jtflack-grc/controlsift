@@ -1,0 +1,358 @@
+{
+  "version": "1.1.0",
+  "notes": "Rebuilt from TF-IDF test confusions after v1.1 compositional hardening. LLM predictions remain null until Kaggle/HF runs.",
+  "cases": [
+    {
+      "id": "CS-ACL-TERM-108-9474DEF0",
+      "control_statement": "Accounts for terminated employees must be disabled within 24 hours.",
+      "environment": "production identity platform",
+      "evidence_type": "HRIS-to-IAM reconciliation report",
+      "evidence_text": "Uploaded artifact linked to ticket CHG-89431 for Blue Harbor Financial. Substance section: Neon. Section Mercury: A quarterly access certification packet for a non-HR joiner/mover workflow Section Neon: (intended post-CHG-89431 state, not observed on 2025-07-18) Reconciliation report CHG-89431 from ChangeMgmt dated 2025-07-18 for Blue Harbor Financial lists all 30 terminations and shows disablement within 24 hours in prod identity platform. SCOPE: inventory=30; file_rows=30. ROW_DETAIL: No failing termination rows were highlighted in the reviewer excerpt for Blue Harbor Financial on 2025-07-18. Decoy context (present on all classes): (policy restatement only; ChangeMgmt executed values absent) (attestation by harper.silva; field values unpopulated) (intended post-CHG-89431 state, not observed on 2025-07-18) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Blue Harbor Financial) Cover sheet language about 'full population' appears in many binders and is not decisive alone. Ticket CHG-89431 cross-links exist for nearly every packet in this sample. Row detail lines must be read carefully; similar phrasing appears in clean and failing packets. Misfile risk: unrelated material such as 'A quarterly access certification packet for a non-HR joiner/mover workflow' sometimes shares this binder tab. Chat-only failure talk (not ROW_DETAIL): account harper.silva still active / turned off / Still Pending / status Still Open appeared in reviewer notes dated 2023-06-15. Parenthetical hedges such as policy restatement only, attestation, intended state, or missing timestamp appear widely. Period marker examples from other binders: 2023-06-15 and on 2023-06-15. Reference: RPT-ACL-TERM-108-C-6165.",
+      "label": "INSUFFICIENT",
+      "failure_tags": [
+        "missing_execution_proof"
+      ],
+      "why_hard": "TF-IDF predicted PARTIAL vs gold INSUFFICIENT. Inspect SCOPE integers, Substance section pointer, and ROW_DETAIL. Tags: missing_execution_proof.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": "PARTIAL",
+          "note": "Classical baseline"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    },
+    {
+      "id": "CS-ACL-TERM-258-E59859C6",
+      "control_statement": "Accounts for terminated employees must be disabled within 24 hours.",
+      "environment": "production identity platform",
+      "evidence_type": "HRIS-to-IAM reconciliation report",
+      "evidence_text": "Uploaded artifact linked to ticket CHG-25583 for Cedar Ridge Logistics. Substance section: Mercury. Section Mercury: (attestation by liam.silva; field values unpopulated) Reconciliation summary CHG-25583 from PatchOrchestrator dated 2025-03-07 for Cedar Ridge Logistics lists all 30 terminations and indicates disablement within 24 hours in prod identity platform. Section Neon: A quarterly access certification packet for a non-HR joiner/mover workflow SCOPE: inventory=30; file_rows=30. ROW_DETAIL: Sampled termination record for noah.garcia in prod identity platform on 2025-03-07 indicates expected compliant status at Cedar Ridge Logistics. Decoy context (present on all classes): Appendix note (ignore unless primary claim is incomplete): first query returned a subset of terminations. Misfile risk: unrelated material such as 'A quarterly access certification packet for a non-HR joiner/mover workflow' sometimes shares this binder tab. Primary file date on the intake form is 2025-03-07; older 2023-03-15 material may be superseded. (policy restatement only; PatchOrchestrator executed values absent) (attestation by ethan.kim; field values unpopulated) (intended post-CHG-25583 state, not observed on 2025-03-07) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Cedar Ridge Logistics) Parenthetical hedges such as policy restatement only, attestation, intended state, or missing timestamp appear widely. Period marker examples from other binders: 2023-03-15 and on 2023-06-15. Exception discussion appears in reviewer chat; chat alone does not establish a control failure in the artifact. Chat-only failure talk (not ROW_DETAIL): account ethan.kim still active / turned off / Still Pending / status Still Open appeared in reviewer notes dated 2023-03-15. Reference: RPT-ACL-TERM-258-C-4367.",
+      "label": "INSUFFICIENT",
+      "failure_tags": [
+        "self_attestation"
+      ],
+      "why_hard": "TF-IDF predicted IRRELEVANT vs gold INSUFFICIENT. Inspect SCOPE integers, Substance section pointer, and ROW_DETAIL. Tags: self_attestation.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": "IRRELEVANT",
+          "note": "Classical baseline"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    },
+    {
+      "id": "CS-ACL-TERM-258-898689FE",
+      "control_statement": "Accounts for terminated employees must be disabled within 24 hours.",
+      "environment": "production identity platform",
+      "evidence_type": "HRIS-to-IAM reconciliation report",
+      "evidence_text": "Evidence package for Harborline Retail (production identity platform), collected 2025-05-18. Substance section: Mercury. Section Mercury: A quarterly access certification packet for a non-HR joiner/mover workflow Section Neon: Reconciliation summary CHG-70557 from VulnScanner dated 2025-05-18 for Harborline Retail lists all 30 terminations and indicates disablement within 24 hours in production identity platform. SCOPE: inventory=30; file_rows=30. ROW_DETAIL: No failing termination rows were highlighted in the reviewer excerpt for Harborline Retail on 2025-05-18. Decoy context (present on all classes): Cover memos often assert 'no open exceptions' irrespective of row-level values. Recycled binder/OCR text frequently restates a sufficient-looking claim beside off-objective substance. Chat-only failure talk (not ROW_DETAIL): account liam.brooks still active / turned off / Still Pending / status Still Open appeared in reviewer notes dated 2023-10-17. (policy restatement only; VulnScanner executed values absent) (attestation by liam.brooks; field values unpopulated) (intended post-CHG-70557 state, not observed on 2025-05-18) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Harborline Retail) Reviewer sticky: classify from substance of the primary claim, not binder vocabulary. Period marker examples from other binders: 2023-10-17 and on 2023-06-15. Collection runbook for hris-to-iam reconciliation report may be present beside operational rows. Appendix note (ignore unless primary claim is incomplete): first query returned a subset of terminations. Reference: RPT-ACL-TERM-258-D-1029.",
+      "label": "IRRELEVANT",
+      "failure_tags": [
+        "wrong_system",
+        "evidence_not_traceable"
+      ],
+      "why_hard": "TF-IDF predicted SUFFICIENT vs gold IRRELEVANT. Inspect SCOPE integers, Substance section pointer, and ROW_DETAIL. Tags: wrong_system, evidence_not_traceable.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": "SUFFICIENT",
+          "note": "Classical baseline"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    },
+    {
+      "id": "CS-BAK-JOB-008-9B750151",
+      "control_statement": "Critical systems must have successful daily backups and a tested restore.",
+      "environment": "production backup estate",
+      "evidence_type": "backup job and restore test report",
+      "evidence_text": "Uploaded artifact linked to ticket CHG-79144 for Blue Harbor Financial. Substance section: Neon. Section Mercury: Backup summary from BackupVault dated 2025-09-06 for Blue Harbor Financial shows completed daily backups for all 15 critical systems in production backup estate and a restore test completed the same period. Section Neon: An encryption-at-rest configuration sheet for a non-critical sandbox store SCOPE: inventory=15; file_rows=15. ROW_DETAIL: Sampled critical system record for sofia.silva in production backup estate on 2025-09-06 shows expected compliant status at Blue Harbor Financial. Decoy context (present on all classes): Misfile risk: unrelated material such as 'An encryption-at-rest configuration sheet for a non-critical sandbox store' sometimes shares this binder tab. Appendix note (ignore unless primary claim is incomplete): first query returned a subset of critical systems. (policy restatement only; BackupVault executed values absent) (attestation by mia.chen; field values unpopulated) (intended post-CHG-79144 state, not observed on 2025-09-06) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Blue Harbor Financial) Policy/attestation excerpt for 'Critical systems must have successful daily backups and a tested restore.' is zipped for context only. Period marker examples from other binders: 2023-06-12 and on 2023-06-15. Cover memos often assert 'no open exceptions' irrespective of row-level values. Chat-only failure talk (not ROW_DETAIL): account mia.chen still active / disabled / Still Pending / status Still Open appeared in reviewer notes dated 2023-06-12. Ticket CHG-79144 cross-links exist for nearly every packet in this sample. Reference: RPT-BAK-JOB-008-D-6030.",
+      "label": "IRRELEVANT",
+      "failure_tags": [
+        "wrong_system",
+        "evidence_not_traceable"
+      ],
+      "why_hard": "TF-IDF predicted PARTIAL vs gold IRRELEVANT. Inspect SCOPE integers, Substance section pointer, and ROW_DETAIL. Tags: wrong_system, evidence_not_traceable.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": "PARTIAL",
+          "note": "Classical baseline"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    },
+    {
+      "id": "CS-ACL-TERM-258-9D2B8F78",
+      "control_statement": "Accounts for terminated employees must be disabled within 24 hours.",
+      "environment": "production identity platform",
+      "evidence_type": "HRIS-to-IAM reconciliation report",
+      "evidence_text": "Working paper — Harborline Retail / SIEM-Core / 2025-02-04. Substance section: Mercury. Section Mercury: Reconciliation summary CHG-23734 from SIEM-Core dated 2025-02-04 for Harborline Retail lists all 20 terminations and indicates disablement within 24 hours in prod identity platform. Section Neon: A quarterly access certification packet for a non-HR joiner/mover workflow SCOPE: inventory=30; file_rows=20. ROW_DETAIL: No failing termination rows were highlighted in the reviewer excerpt for Harborline Retail on 2025-02-04. Decoy context (present on all classes): Planning memo mentions 30 terminations; do not treat planning memos as coverage proof. Period marker examples from other binders: 2023-04-18 and on 2023-06-15. Chat-only failure talk (not ROW_DETAIL): account sofia.chen still active / turned off / Still Pending / status Still Open appeared in reviewer notes dated 2023-04-18. Reviewer sticky: classify from substance of the primary claim, not binder vocabulary. (policy restatement only; SIEM-Core executed values absent) (attestation by sofia.chen; field values unpopulated) (intended post-CHG-23734 state, not observed on 2025-02-04) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Harborline Retail) Policy/attestation excerpt for 'identities for terminated employees must be disabled within 24 hours.' is zipped for context only. Conflict language is common in working papers for Harborline Retail and requires checking the primary rows. Recycled binder/OCR text frequently restates a sufficient-looking claim beside off-objective substance. Reference: RPT-ACL-TERM-258-B-5141.",
+      "label": "PARTIAL",
+      "failure_tags": [
+        "population_gap",
+        "incomplete_export"
+      ],
+      "why_hard": "TF-IDF predicted IRRELEVANT vs gold PARTIAL. Inspect SCOPE integers, Substance section pointer, and ROW_DETAIL. Tags: population_gap, incomplete_export.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": "IRRELEVANT",
+          "note": "Classical baseline"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    },
+    {
+      "id": "CS-BAK-JOB-038-E8F94A1F",
+      "control_statement": "Critical systems must have successful daily backups and a tested restore.",
+      "environment": "production backup estate",
+      "evidence_type": "backup job and restore test report",
+      "evidence_text": "Working paper — Cedar Ridge Logistics / VulnScanner / 2025-07-26. Substance section: Mercury. Section Mercury: Backup report from VulnScanner dated 2025-07-26 for Cedar Ridge Logistics shows completed daily backups for all 12 critical systems in production backup estate and a restore test completed the same period. Section Neon: An encryption-at-rest configuration sheet for a non-critical sandbox store SCOPE: inventory=15; file_rows=12. ROW_DETAIL: Spot check on VulnScanner for Cedar Ridge Logistics dated 2025-07-26 aligns with 'Critical systems must have successful daily backups and a tested restore.' in production backup estate. Decoy context (present on all classes): Period marker examples from other binders: 2023-03-07 and on 2023-06-15. Cover sheet language about 'full population' appears in many binders and is not decisive alone. Recycled binder/OCR text frequently restates a sufficient-looking claim beside off-objective substance. (policy restatement only; VulnScanner executed values absent) (attestation by liam.okoro; field values unpopulated) (intended post-CHG-61452 state, not observed on 2025-07-26) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Cedar Ridge Logistics) Ticket CHG-61452 cross-links exist for nearly every packet in this sample. Parenthetical hedges such as policy restatement only, attestation, intended state, or missing timestamp appear widely. Chat-only failure talk (not ROW_DETAIL): account liam.okoro still active / Disabled / Still Pending / status Still Open appeared in reviewer notes dated 2023-03-07. Exception discussion appears in reviewer chat; chat alone does not establish a control failure in the artifact. Reference: RPT-BAK-JOB-038-B-3542.",
+      "label": "PARTIAL",
+      "failure_tags": [
+        "population_gap",
+        "incomplete_export"
+      ],
+      "why_hard": "TF-IDF predicted SUFFICIENT vs gold PARTIAL. Inspect SCOPE integers, Substance section pointer, and ROW_DETAIL. Tags: population_gap, incomplete_export.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": "SUFFICIENT",
+          "note": "Classical baseline"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    },
+    {
+      "id": "CS-ACL-TERM-108-7B6AF8A4",
+      "control_statement": "Accounts for terminated employees must be disabled within 24 hours.",
+      "environment": "production identity platform",
+      "evidence_type": "HRIS-to-IAM reconciliation report",
+      "evidence_text": "Uploaded artifact linked to ticket CHG-33667 for Pinecrest Manufacturing. Substance section: Mercury. Section Mercury: Reconciliation report CHG-33667 from PatchOrchestrator dated 2025-08-04 for Pinecrest Manufacturing enumerates all 30 terminations and indicates disablement within 24 hours in production identity platform. Section Neon: A quarterly access certification packet for a non-HR joiner/mover workflow SCOPE: inventory=30; file_rows=30. ROW_DETAIL: No failing termination rows were highlighted in the reviewer excerpt for Pinecrest Manufacturing on 2025-08-04. Decoy context (present on all classes): Row detail lines must be read carefully; similar phrasing appears in clean and failing packets. Ticket CHG-33667 cross-links exist for nearly every packet in this sample. Intake metadata always quotes the control and PatchOrchestrator even when the binary is off-objective. Parenthetical hedges such as policy restatement only, attestation, intended state, or missing timestamp appear widely. Period marker examples from other binders: 2023-07-11 and on 2023-06-15. (policy restatement only; PatchOrchestrator executed values absent) (attestation by ava.kim; field values unpopulated) (intended post-CHG-33667 state, not observed on 2025-08-04) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Pinecrest Manufacturing) Chat-only failure talk (not ROW_DETAIL): account ava.kim still active / disabled / Still Pending / status Still Open appeared in reviewer notes dated 2023-07-11. Cover sheet language about 'full population' appears in many binders and is not decisive alone. Reference: RPT-ACL-TERM-108-A-6229.",
+      "label": "SUFFICIENT",
+      "failure_tags": [],
+      "why_hard": "TF-IDF predicted PARTIAL vs gold SUFFICIENT. Inspect SCOPE integers, Substance section pointer, and ROW_DETAIL. Tags: none.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": "PARTIAL",
+          "note": "Classical baseline"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    },
+    {
+      "id": "CS-ACL-TERM-258-0EFA399E",
+      "control_statement": "Accounts for terminated employees must be disabled within 24 hours.",
+      "environment": "production identity platform",
+      "evidence_type": "HRIS-to-IAM reconciliation report",
+      "evidence_text": "Uploaded artifact linked to ticket CHG-46615 for Atlas Cloud Services. Substance section: Mercury. Section Mercury: Reconciliation summary CHG-46615 from PatchOrchestrator dated 2025-02-28 for Atlas Cloud Services enumerates all 30 terminations and indicates disablement within 24 hours in production identity platform. Section Neon: A quarterly access certification packet for a non-HR joiner/mover workflow SCOPE: inventory=30; file_rows=30. ROW_DETAIL: Sampled termination record for noah.garcia in production identity platform on 2025-02-28 indicates expected compliant status at Atlas Cloud Services. Decoy context (present on all classes): Signed note from mia.nguyen exists in the packet; whether it is the relied-upon artifact depends on the primary claim. Exception discussion appears in reviewer chat; chat alone does not establish a control failure in the artifact. Planning memo mentions 30 terminations; do not treat planning memos as coverage proof. Period marker examples from other binders: 2023-11-25 and on 2023-06-15. Chat-only failure talk (not ROW_DETAIL): account mia.nguyen still active / turned off / Still Pending / status Still Open appeared in reviewer notes dated 2023-11-25. Ticket CHG-46615 cross-links exist for nearly every packet in this sample. Sufficient-looking headers are frequently copied during upload and are not proof of relevance. (policy restatement only; PatchOrchestrator executed values absent) (attestation by mia.nguyen; field values unpopulated) (intended post-CHG-46615 state, not observed on 2025-02-28) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Atlas Cloud Services) Reference: RPT-ACL-TERM-258-A-6836.",
+      "label": "SUFFICIENT",
+      "failure_tags": [],
+      "why_hard": "TF-IDF predicted IRRELEVANT vs gold SUFFICIENT. Inspect SCOPE integers, Substance section pointer, and ROW_DETAIL. Tags: none.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": "IRRELEVANT",
+          "note": "Classical baseline"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    },
+    {
+      "id": "CS-ACL-TERM-183-1678565C",
+      "control_statement": "Accounts for terminated employees must be disabled within 24 hours.",
+      "environment": "production identity platform",
+      "evidence_type": "HRIS-to-IAM reconciliation report",
+      "evidence_text": "Uploaded artifact linked to ticket CHG-53510 for Northwind Health. Substance section: Neon. Section Mercury: A quarterly access certification packet for a non-HR joiner/mover workflow Section Neon: Reconciliation summary CHG-53510 from PatchOrchestrator dated 2025-06-20 for Northwind Health enumerates all 30 terminations and indicates disablement within 24 hours in prod identity platform. SCOPE: inventory=30; file_rows=30. ROW_DETAIL: Reconciliation dated 2025-06-20 shows terminated employee harper.patel still active in production identity platform 3 days after HR termination effective date at Northwind Health. Decoy context (present on all classes): Period marker examples from other binders: 2023-04-18 and on 2023-06-15. Collection runbook for hris-to-iam reconciliation report may be present beside operational rows. Chat-only failure talk (not ROW_DETAIL): account noah.nguyen still active / turned off / Still Pending / status Still Open appeared in reviewer notes dated 2023-04-18. Row detail lines must be read carefully; similar phrasing appears in clean and failing packets. (policy restatement only; PatchOrchestrator executed values absent) (attestation by noah.nguyen; field values unpopulated) (intended post-CHG-53510 state, not observed on 2025-06-20) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Northwind Health) Planning memo mentions 30 terminations; do not treat planning memos as coverage proof. Reviewer sticky: classify from substance of the primary claim, not binder vocabulary. Misfile risk: unrelated material such as 'A quarterly access certification packet for a non-HR joiner/mover workflow' sometimes shares this binder tab. Reference: RPT-ACL-TERM-183-E-3164.",
+      "label": "CONTRADICTORY",
+      "failure_tags": [
+        "control_failure",
+        "source_conflict"
+      ],
+      "why_hard": "Challenge/hard case with gold CONTRADICTORY. Compositional packet packing denies lexical shortcuts. Tags: control_failure, source_conflict.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": null,
+          "note": "Not scored / challenge fill"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    },
+    {
+      "id": "CS-ACL-TERM-183-71EC332E",
+      "control_statement": "Accounts for terminated employees must be disabled within 24 hours.",
+      "environment": "production identity platform",
+      "evidence_type": "HRIS-to-IAM reconciliation report",
+      "evidence_text": "Evidence package for Blue Harbor Financial (prod identity platform), collected 2025-11-22. Substance section: Neon. Section Mercury: A quarterly access certification packet for a non-HR joiner/mover workflow Section Neon: Reconciliation summary CHG-99845 from BackupVault dated 2025-11-22 for Blue Harbor Financial lists all 21 terminations and indicates disablement within 24 hours in production identity platform. SCOPE: inventory=30; file_rows=21. ROW_DETAIL: No failing termination rows were highlighted in the reviewer excerpt for Blue Harbor Financial on 2025-11-22. Decoy context (present on all classes): Cover sheet language about 'full population' appears in many binders and is not decisive alone. (policy restatement only; BackupVault executed values absent) (attestation by ava.kim; field values unpopulated) (intended post-CHG-99845 state, not observed on 2025-11-22) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Blue Harbor Financial) Chat-only failure talk (not ROW_DETAIL): account ava.kim still active / turned off / Still Pending / status Still Open appeared in reviewer notes dated 2023-09-02. Signed note from ava.kim exists in the packet; whether it is the relied-upon artifact depends on the primary claim. Period marker examples from other binders: 2023-09-02 and on 2023-06-15. Conflict language is common in working papers for Blue Harbor Financial and requires checking the primary rows. Reviewer sticky: classify from substance of the primary claim, not binder vocabulary. Intake metadata always quotes the control and BackupVault even when the binary is off-objective. Reference: RPT-ACL-TERM-183-B-5888.",
+      "label": "PARTIAL",
+      "failure_tags": [
+        "population_gap",
+        "incomplete_export"
+      ],
+      "why_hard": "Challenge/hard case with gold PARTIAL. Compositional packet packing denies lexical shortcuts. Tags: population_gap, incomplete_export.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": null,
+          "note": "Not scored / challenge fill"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    },
+    {
+      "id": "CS-ACL-TERM-183-C978D8CD",
+      "control_statement": "Accounts for terminated employees must be disabled within 24 hours.",
+      "environment": "production identity platform",
+      "evidence_type": "HRIS-to-IAM reconciliation report",
+      "evidence_text": "Working paper — Atlas Cloud Services / ChangeMgmt / 2025-11-10. Substance section: Mercury. Section Mercury: A quarterly access certification packet for a non-HR joiner/mover workflow Section Neon: Reconciliation summary CHG-87882 from ChangeMgmt dated 2025-11-10 for Atlas Cloud Services enumerates all 30 terminations and shows disablement within 24 hours in production identity platform. SCOPE: inventory=30; file_rows=30. ROW_DETAIL: Sampled termination record for owen.patel in production identity platform on 2025-11-10 shows expected compliant status at Atlas Cloud Services. Decoy context (present on all classes): (policy restatement only; ChangeMgmt executed values absent) (attestation by mia.kim; field values unpopulated) (intended post-CHG-87882 state, not observed on 2025-11-10) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Atlas Cloud Services) Period marker examples from other binders: 2023-09-14 and on 2023-06-15. Collection runbook for hris-to-iam reconciliation report may be present beside operational rows. Primary file date on the intake form is 2025-11-10; older 2023-09-14 material may be superseded. Sufficient-looking headers are frequently copied during upload and are not proof of relevance. Chat-only failure talk (not ROW_DETAIL): account mia.kim still active / disabled / Still Pending / status Still Open appeared in reviewer notes dated 2023-09-14. Row detail lines must be read carefully; similar phrasing appears in clean and failing packets. Planning memo mentions 30 terminations; do not treat planning memos as coverage proof. Reference: RPT-ACL-TERM-183-D-6656.",
+      "label": "IRRELEVANT",
+      "failure_tags": [
+        "wrong_system",
+        "evidence_not_traceable"
+      ],
+      "why_hard": "Challenge/hard case with gold IRRELEVANT. Compositional packet packing denies lexical shortcuts. Tags: wrong_system, evidence_not_traceable.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": null,
+          "note": "Not scored / challenge fill"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    },
+    {
+      "id": "CS-ACL-TERM-198-12709694",
+      "control_statement": "Accounts for terminated employees must be disabled within 24 hours.",
+      "environment": "production identity platform",
+      "evidence_type": "HRIS-to-IAM reconciliation report",
+      "evidence_text": "Uploaded artifact linked to ticket CHG-12972 for Pinecrest Manufacturing. Substance section: Neon. Section Mercury: A quarterly access certification packet for a non-HR joiner/mover workflow Section Neon: Reconciliation summary CHG-12972 from NetFirewall dated 2025-11-05 for Pinecrest Manufacturing enumerates all 19 terminations and indicates disablement within 24 hours in production identity platform. SCOPE: inventory=30; file_rows=19. ROW_DETAIL: Spot check on NetFirewall for Pinecrest Manufacturing dated 2025-11-05 aligns with 'accounts for terminated employees must be turned off within 24 hours.' in production identity platform. Decoy context (present on all classes): Exception discussion appears in reviewer chat; chat alone does not establish a control failure in the artifact. Ticket CHG-12972 cross-links exist for nearly every packet in this sample. (policy restatement only; NetFirewall executed values absent) (attestation by sofia.okoro; field values unpopulated) (intended post-CHG-12972 state, not observed on 2025-11-05) (collection procedure target, not period output) (capture lacks verifiable timestamp/boundary for Pinecrest Manufacturing) Chat-only failure talk (not ROW_DETAIL): account sofia.okoro still active / Disabled / Still Pending / status Still Open appeared in reviewer notes dated 2023-10-09. Intake metadata always quotes the control and NetFirewall even when the binary is off-objective. Period marker examples from other binders: 2023-10-09 and on 2023-06-15. Appendix note (ignore unless primary claim is incomplete): first query returned a subset of terminations. Collection runbook for hris-to-iam reconciliation summary may be present beside operational rows. Reference: RPT-ACL-TERM-198-B-4429.",
+      "label": "PARTIAL",
+      "failure_tags": [
+        "population_gap",
+        "incomplete_export"
+      ],
+      "why_hard": "Challenge/hard case with gold PARTIAL. Compositional packet packing denies lexical shortcuts. Tags: population_gap, incomplete_export.",
+      "predictions": [
+        {
+          "model": "tfidf",
+          "pred_label": null,
+          "note": "Not scored / challenge fill"
+        },
+        {
+          "model": "gemma_zero_shot",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        },
+        {
+          "model": "gemma_qlora",
+          "pred_label": null,
+          "note": "Pending GPU run"
+        }
+      ]
+    }
+  ]
+}

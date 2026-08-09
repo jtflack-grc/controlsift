@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Model Card — ControlSift</title>
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Model Card</h2>
+        <p>Gemma 3 1B IT + QLoRA adapter for five-class evidence quality classification.</p>
+      </div>
+      <nav class="assurance-nav" data-assurance-nav aria-label="Assurance"></nav>
+
+      <div class="def-list">
+        <div><dt>Base model</dt><dd><code>google/gemma-3-1b-it</code></dd></div>
+        <div><dt>Adaptation</dt><dd>QLoRA · 4-bit NF4 · double quant · r=16 · α=16 · dropout 0.05</dd></div>
+        <div><dt>Task</dt><dd>5-class control-evidence quality</dd></div>
+        <div><dt>Stack</dt><dd>PyTorch, Transformers, PEFT, TRL, bitsandbytes</dd></div>
+        <div><dt>Train entry</dt><dd><code>python -m controlsift.training.train</code></dd></div>
+      </div>
+      <p style="margin-top:1rem;color:var(--muted);">
+        LoRA target modules are resolved from the loaded architecture, not copied from unrelated models.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Intended use</h2>
+      <p>
+        Research comparison of prompting versus PEFT on a synthetic benchmark; portfolio demonstration of evaluation rigor.
+        Human judgment remains authoritative for any real control evidence.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Prohibited use</h2>
+      <ul class="findings-list">
+        <li><strong>Automated audit or compliance certification</strong></li>
+        <li><strong>Regulatory decision-making</strong></li>
+        <li><strong>Replacement for control owners or auditors</strong></li>
+        <li><strong>Scoring real customer evidence in production without human review</strong></li>
+        <li><strong>Claims of real-world compliance determination</strong></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Evaluation status</h2>
+      <div class="callout">
+        <strong>Caveat</strong>
+        Until GPU experiments complete, public macro F1 for Gemma variants remains null. Do not invent placeholder scores.
+      </div>
+      <p style="margin-top:1rem;">
+        Metrics land in <code>results/gemma_qlora/</code> and are synced to the Results page only from those files.
+      </p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Assurance · Model Card</span>
+      <a href="../capstone/index.html">MMC Capstone view</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/assurance-nav.js"></script>
+</body>
+</html>

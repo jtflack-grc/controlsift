@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Methods — ControlSift</title>
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Controlled benchmark, frozen protocol</h2>
+        <p>
+          ControlSift is designed as a small independent research laboratory, not a demo chatbot.
+          The method exists to answer whether domain adaptation helps, with receipts.
+        </p>
+      </div>
+      <div class="callout">
+        <strong>Research question</strong>
+        Can parameter-efficient fine-tuning materially improve a small general-purpose language model’s ability
+        to evaluate the sufficiency and relevance of cybersecurity control evidence?
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Task</h2>
+      <p>Five-class evidence quality classification. Primary evaluation is the label; rationale is secondary.</p>
+      <div class="class-chip-row">
+        <span class="class-chip">SUFFICIENT</span>
+        <span class="class-chip">PARTIAL</span>
+        <span class="class-chip">INSUFFICIENT</span>
+        <span class="class-chip">IRRELEVANT</span>
+        <span class="class-chip">CONTRADICTORY</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Dataset</h2>
+      <div class="meta-strip">
+        <span>Train <strong>1000</strong></span>
+        <span>Validation <strong>200</strong></span>
+        <span>Test <strong>200</strong></span>
+        <span>Challenge <strong>100</strong></span>
+        <span>Seed <strong>42</strong></span>
+      </div>
+      <ul class="findings-list">
+        <li>
+          <strong>Deterministic synthetic generation</strong>
+          Scenario families mutate into labeled variants. No employer or customer evidence enters the corpus.
+        </li>
+        <li>
+          <strong>Family-level split isolation</strong>
+          All variants of one scenario family stay in exactly one split. Leakage fails CI.
+        </li>
+        <li>
+          <strong>Rule-derived labels + human review</strong>
+          Labels are not marketed as fully human-annotated. Challenge set targets 100% review.
+        </li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Model ladder</h2>
+      <ol class="ladder">
+        <li><span class="step">B0</span><span class="title">Majority class</span><span class="state done">shipped</span></li>
+        <li><span class="step">B1</span><span class="title">TF-IDF + logistic regression</span><span class="state done">shipped</span></li>
+        <li><span class="step">B2</span><span class="title">Gemma 3 1B zero-shot</span><span class="state wait">gpu</span></li>
+        <li><span class="step">B3</span><span class="title">Gemma 3 1B few-shot</span><span class="state wait">gpu</span></li>
+        <li><span class="step">M4</span><span class="title">Gemma 3 1B + QLoRA</span><span class="state wait">gpu</span></li>
+      </ol>
+      <p style="margin-top:1rem;">
+        QLoRA defaults: 4-bit NF4, double quant, LoRA r=16 / α=16, max length 512.
+        Target modules are resolved from the loaded Gemma architecture, not copied blindly.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Evaluation</h2>
+      <ul class="findings-list">
+        <li>
+          <strong>Primary metric: macro F1</strong>
+          Also accuracy, macro precision/recall, per-class scores, confusion matrices, parse-success rate.
+        </li>
+        <li>
+          <strong>Deterministic inference + strict parser</strong>
+          Ambiguous model output becomes <code>UNPARSEABLE</code>, never silently “fixed” into the gold label.
+        </li>
+        <li>
+          <strong>Uncertainty and slices</strong>
+          Bootstrap intervals, McNemar for paired comparisons, slices by domain / artifact / difficulty / failure tags.
+        </li>
+        <li>
+          <strong>Protocol seal</strong>
+          Hypotheses, metric, prompt, and test hash freeze before final claims. See the
+          <a href="assurance/protocol.html">Protocol</a> and <a href="assurance.html">Assurance</a> pages.
+        </li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>What this method refuses</h2>
+      <p>
+        No live auditor product, no RAG over real evidence binders, no OCR pipeline, no tuning against the sealed test set,
+        and no fabricated public metrics.
+      </p>
+      <div class="cta-row" style="margin-top:1.25rem;">
+        <a class="btn btn-primary" href="results.html">View results</a>
+        <a class="btn btn-secondary" href="reproduce.html">Reproduce</a>
+        <a class="btn btn-secondary" href="assurance.html">Assurance</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Full charter: <code>ControlSift.md</code></span>
+      <a href="capstone/index.html">MMC Capstone view</a>
+    </div>
+  </footer>
+  <script src="assets/js/nav.js"></script>
+</body>
+</html>

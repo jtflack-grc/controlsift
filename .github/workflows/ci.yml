@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check src tests scripts
+
+      - name: Tests
+        run: pytest -q
+
+      - name: Validate dataset if present
+        run: |
+          if [ -f data/processed/train.jsonl ]; then
+            python scripts/validate_dataset.py
+          else
+            echo "No processed dataset yet; skipping validate_dataset."
+          fi
+
+      # Never download Gemma or run GPU training in CI.

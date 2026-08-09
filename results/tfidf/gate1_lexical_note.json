@@ -1,0 +1,7 @@
+{
+  "warning_threshold_macro_f1": 0.95,
+  "validation_macro_f1": 0.5098306225373002,
+  "test_macro_f1": 0.5327056707870661,
+  "challenge_macro_f1": 0.5237397469334658,
+  "interpretation": "If TF-IDF macro F1 is extremely high on held-out splits, inspect for lexical shortcuts before protocol lock."
+}

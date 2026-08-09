@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+.venv/
+venv/
+.env
+.env.*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Secrets — never commit
+*.pem
+*.key
+hf_token*
+kaggle.json
+.kaggle/
+secrets/
+credentials*
+
+# Model artifacts (large; export metadata only by default)
+adapters/
+checkpoints/
+*.bin
+*.safetensors
+wandb/
+runs/
+outputs/training/
+
+# Local caches
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Temporary
+tmp/
+temp/
+*.tmp
+
+# Packaging / GPU exports
+dist/
+controlsift_gpu_outputs.zip
+results/gemma_qlora/adapter/
+**/adapter_model*.safetensors
+**/adapter_model*.bin

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Assurance — ControlSift</title>
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Assurance is part of the product</h2>
+        <p>
+          ControlSift treats responsible AI and research integrity as public pages, not appendix-only markdown.
+          Repo files under <code>governance/</code> remain the source of truth; these pages are the reading experience.
+        </p>
+      </div>
+      <nav class="assurance-nav" data-assurance-nav aria-label="Assurance"></nav>
+      <div class="callout">
+        <strong>Non-claim</strong>
+        ControlSift is a research benchmark, not an automated auditor, compliance engine, or replacement for human judgment.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Integrity checklist</h2>
+      <p>What has already been secured in the repository versus what still requires GPU execution or human review time.</p>
+      <div class="integrity-grid">
+        <article>
+          <div class="mark">secured</div>
+          <h3>Family-isolated splits + CI leakage tests</h3>
+          <p>Scenario families cannot cross train/validation/test/challenge. Failures break CI.</p>
+        </article>
+        <article>
+          <div class="mark">secured</div>
+          <h3>Gate 1 lexical shortcut detection</h3>
+          <p>TF-IDF saturation forced a generator harden pass before protocol seal.</p>
+        </article>
+        <article>
+          <div class="mark">secured</div>
+          <h3>Null-until-run public metrics</h3>
+          <p>Site and results JSON refuse invented Gemma scores.</p>
+        </article>
+        <article>
+          <div class="mark">secured</div>
+          <h3>Protocol seal artifacts</h3>
+          <p>Hypotheses, metric, prompt contract, and test SHA-256 are recorded for lock.</p>
+        </article>
+        <article>
+          <div class="mark wait">in progress</div>
+          <h3>Challenge-set human review</h3>
+          <p>Review log initialized; 100% challenge review is still an operator task.</p>
+        </article>
+        <article>
+          <div class="mark wait">blocked</div>
+          <h3>Gemma / QLoRA receipts</h3>
+          <p>Training and prompting code is ready; gated free GPU accounts are the remaining path.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Assurance pages</h2>
+      <ul class="receipts">
+        <li><span class="id">PROTOCOL</span><a href="assurance/protocol.html">Frozen hypotheses and evaluation contract</a></li>
+        <li><span class="id">DATA</span><a href="assurance/data-card.html">Data Card</a></li>
+        <li><span class="id">MODEL</span><a href="assurance/model-card.html">Model Card</a></li>
+        <li><span class="id">RISK</span><a href="assurance/risk-register.html">AI risk register</a></li>
+        <li><span class="id">LIMITS</span><a href="assurance/limitations.html">Limitations</a></li>
+        <li><span class="id">USE</span><a href="assurance/intended-use.html">Intended and prohibited use</a></li>
+        <li><span class="id">REVIEW</span><a href="assurance/human-review.html">Human review protocol</a></li>
+      </ul>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Markdown mirrors remain in <code>governance/</code> for the repo</span>
+      <a href="capstone/index.html">MMC Capstone view</a>
+    </div>
+  </footer>
+  <script src="assets/js/nav.js"></script>
+  <script src="assets/js/assurance-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "experiment": "gemma_qlora",
+  "dataset_version": "1.0.0",
+  "model": "google/gemma-3-1b-it+qlora",
+  "seed": 42,
+  "metrics": {
+    "accuracy": null,
+    "macro_f1": null,
+    "macro_precision": null,
+    "macro_recall": null
+  }
+}

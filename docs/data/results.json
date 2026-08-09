@@ -1,0 +1,63 @@
+{
+  "dataset_version": "1.1.0",
+  "primary_metric": "macro_f1",
+  "status": "partial",
+  "experiments": {
+    "majority": {
+      "experiment": "majority",
+      "model": "majority_class",
+      "dataset_version": "1.1.0",
+      "seed": 42,
+      "macro_f1": 0.06666666666666667,
+      "accuracy": 0.2,
+      "macro_precision": 0.04,
+      "macro_recall": 0.2,
+      "challenge_macro_f1": 0.06666666666666667
+    },
+    "tfidf": {
+      "experiment": "tfidf",
+      "model": "tfidf_logistic_regression",
+      "dataset_version": "1.1.0",
+      "seed": 42,
+      "macro_f1": 0.5327056707870661,
+      "accuracy": 0.545,
+      "macro_precision": 0.5334193459992693,
+      "macro_recall": 0.5449999999999999,
+      "challenge_macro_f1": 0.5237397469334658
+    },
+    "gemma_zero_shot": {
+      "experiment": "gemma_zero_shot",
+      "model": "google/gemma-3-1b-it",
+      "dataset_version": "1.0.0",
+      "seed": 42,
+      "macro_f1": null,
+      "accuracy": null,
+      "macro_precision": null,
+      "macro_recall": null,
+      "challenge_macro_f1": null
+    },
+    "gemma_few_shot": {
+      "experiment": "gemma_few_shot",
+      "model": "google/gemma-3-1b-it",
+      "dataset_version": "1.0.0",
+      "seed": 42,
+      "macro_f1": null,
+      "accuracy": null,
+      "macro_precision": null,
+      "macro_recall": null,
+      "challenge_macro_f1": null
+    },
+    "gemma_qlora": {
+      "experiment": "gemma_qlora",
+      "model": "google/gemma-3-1b-it+qlora",
+      "dataset_version": "1.0.0",
+      "seed": 42,
+      "macro_f1": null,
+      "accuracy": null,
+      "macro_precision": null,
+      "macro_recall": null,
+      "challenge_macro_f1": null
+    }
+  },
+  "notes": "Public metrics are copied from results/*/metrics_*.json only. Null means the experiment has not been executed yet."
+}

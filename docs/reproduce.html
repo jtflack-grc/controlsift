@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Reproduce — ControlSift</title>
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <h2>Reproduce</h2>
+      <pre class="panel"><code>python -m venv .venv
+pip install -e ".[dev]"
+python scripts/generate_dataset.py
+python scripts/validate_dataset.py
+python scripts/run_tfidf_baseline.py
+python scripts/run_evaluation.py
+python scripts/build_figures.py
+pytest</code></pre>
+      <p>Gemma runs are free on Kaggle/Colab. Use platform secrets only (never paste tokens into the repo).</p>
+      <pre class="panel"><code>python scripts/package_for_kaggle.py
+# Upload dist/controlsift_kaggle_bundle.zip as a private Kaggle Dataset
+# Open notebooks/kaggle_runner.ipynb with GPU + secret HF_TOKEN
+# See notebooks/KAGGLE_SAFE_RUN.md</code></pre>
+      <pre class="panel"><code>pip install -e ".[gpu]"
+python scripts/run_gemma_baseline.py --mode zero_shot --split validation --limit 8
+python -m controlsift.training.train --smoke
+python scripts/run_gemma_qlora_eval.py --split validation --limit 8</code></pre>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Canonical seed: 42</span>
+      <a href="capstone/index.html">MMC Capstone view</a>
+    </div>
+  </footer>
+  <script src="assets/js/nav.js"></script>
+</body>
+</html>

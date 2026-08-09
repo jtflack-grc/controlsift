@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Human Review — ControlSift</title>
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Human review protocol</h2>
+        <p>How ground truth is audited without overstating human labeling.</p>
+      </div>
+      <nav class="assurance-nav" data-assurance-nav aria-label="Assurance"></nav>
+
+      <div class="callout">
+        <strong>Principle</strong>
+        Do not describe the dataset as fully human-labeled. Rule-derived labels are primary; humans audit for generator defects and ambiguity.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Coverage targets</h2>
+      <div class="def-list">
+        <div><dt>Development</dt><dd>~10% stratified sample across class, domain, difficulty, and major failure tags</dd></div>
+        <div><dt>Challenge</dt><dd>100% of challenge cases</dd></div>
+        <div><dt>Log</dt><dd><code>data/review_log.csv</code></dd></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Status values</h2>
+      <table>
+        <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>unreviewed</code></td><td>Not yet inspected</td></tr>
+          <tr><td><code>reviewed</code></td><td>Inspected; label retained</td></tr>
+          <tr><td><code>corrected</code></td><td>Label or text corrected after review</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:1rem;color:var(--muted);">
+        Current status: review log is initialized; completing challenge review is an operator task on the 12-week runway.
+        Prefer avoiding sealed test edits after protocol lock.
+      </p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Assurance · Human review</span>
+      <a href="../capstone/index.html">MMC Capstone view</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/assurance-nav.js"></script>
+</body>
+</html>

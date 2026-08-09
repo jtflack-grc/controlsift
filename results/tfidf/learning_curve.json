@@ -1,0 +1,28 @@
+{
+  "experiment": "tfidf_learning_curve",
+  "seed": 42,
+  "split": "test",
+  "points": [
+    {
+      "n_train": 100,
+      "macro_f1": 0.20640522115078874
+    },
+    {
+      "n_train": 250,
+      "macro_f1": 0.25923495161063415
+    },
+    {
+      "n_train": 500,
+      "macro_f1": 0.40916539717051226
+    },
+    {
+      "n_train": 750,
+      "macro_f1": 0.45612181840252014
+    },
+    {
+      "n_train": 1000,
+      "macro_f1": 0.5329305924657655
+    }
+  ],
+  "notes": "QLoRA learning curve should be appended after GPU subset runs."
+}

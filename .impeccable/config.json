@@ -1,0 +1,15 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreValues": [
+      {
+        "rule": "pure-black",
+        "value": "#000000",
+        "reason": "OLED-first canvas is an explicit product requirement"
+      }
+    ],
+    "designSystem": {
+      "enabled": true
+    }
+  }
+}

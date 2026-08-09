@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Failure Lab — ControlSift</title>
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Where evidence quality gets hard</h2>
+        <p>
+          These cases come from error analysis and challenge hardness, not invented drama.
+          Compare expected labels with model predictions when receipts exist.
+        </p>
+      </div>
+      <div class="meta-strip">
+        <span>Source <strong>docs/data/failure_lab.json</strong></span>
+        <span>Seed set <strong>TF-IDF errors + hard challenge</strong></span>
+        <span>LLM preds <strong>pending GPU</strong></span>
+      </div>
+      <div class="lab-layout">
+        <ul class="case-list" id="case-list"></ul>
+        <div id="case-view"></div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>ControlSift · Failure Lab · synthetic cases only</span>
+      <a href="capstone/index.html">MMC Capstone view</a>
+    </div>
+  </footer>
+  <script src="assets/js/failure-lab.js"></script>
+  <script src="assets/js/nav.js"></script>
+</body>
+</html>

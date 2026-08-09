@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Applied AI Research Capstone — ControlSift</title>
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Applied AI Research Capstone</h2>
+        <p>
+          This page exists to make Mentor Me Collective evaluation easy.
+          The primary public site remains ControlSift-first; MMC branding stays here.
+        </p>
+      </div>
+
+      <h3>Problem statement</h3>
+      <p>Cybersecurity teams must distinguish artifacts that substantively demonstrate control operation from evidence that is incomplete, irrelevant, stale, or contradictory.</p>
+
+      <h3>Research aim</h3>
+      <p>Investigate whether domain adaptation using QLoRA improves a small language model on this bounded task, with sealed evaluation and explicit failure analysis.</p>
+
+      <h3>Dataset</h3>
+      <p>~1,500 synthetic cases; five classes; family-isolated splits; challenge set. See the <a href="../assurance/data-card.html">Data Card</a>.</p>
+
+      <h3>Model development</h3>
+      <p>Gemma 3 1B IT with QLoRA; classical and prompting baselines for comparison. GPU execution is the remaining critical path.</p>
+
+      <h3>Evaluation</h3>
+      <p>Macro F1, slices, statistics, challenge generalization, Failure Lab. Protocol and seal: <a href="../assurance/protocol.html">Assurance · Protocol</a>.</p>
+
+      <h3>Responsible innovation</h3>
+      <p>Public <a href="../assurance.html">Assurance</a> hub: Model Card, risk register, intended/prohibited use, limitations, human review.</p>
+
+      <h3>Reflection</h3>
+      <p>Gate 1 already forced a dataset harden pass when TF-IDF saturated. Negative Gemma findings will remain valid if adaptation underperforms.</p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Capstone view · secondary to public research site</span>
+      <a href="../index.html">Back to ControlSift</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+</body>
+</html>

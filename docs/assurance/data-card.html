@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Data Card — ControlSift</title>
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Data Card</h2>
+        <p>Synthetic cybersecurity control-evidence benchmark. Not production audit evidence.</p>
+      </div>
+      <nav class="assurance-nav" data-assurance-nav aria-label="Assurance"></nav>
+
+      <div class="def-list">
+        <div><dt>Version</dt><dd>1.0.0</dd></div>
+        <div><dt>Total cases</dt><dd>1,500 (balanced five classes)</dd></div>
+        <div><dt>Splits</dt><dd>train 1000 / validation 200 / test 200 / challenge 100</dd></div>
+        <div><dt>Seed</dt><dd>42</dd></div>
+        <div><dt>Generation</dt><dd>deterministic rule-based (<code>synthetic_rule_based</code>)</dd></div>
+        <div><dt>Domains</dt><dd>13 control domains</dd></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Motivation</h2>
+      <p>
+        Support research on whether PEFT improves small-LM judgment of evidence sufficiency and relevance.
+        The dataset is not intended to train a production auditor.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Composition</h2>
+      <p>
+        Each case includes control statement, environment, evidence type, evidence text, label, failure tags,
+        difficulty, scenario family id, and split. Hidden analytical metadata never enters model prompts.
+      </p>
+      <div class="class-chip-row">
+        <span class="class-chip">SUFFICIENT</span>
+        <span class="class-chip">PARTIAL</span>
+        <span class="class-chip">INSUFFICIENT</span>
+        <span class="class-chip">IRRELEVANT</span>
+        <span class="class-chip">CONTRADICTORY</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Ground truth</h2>
+      <div class="callout">
+        <strong>Important</strong>
+        Primary labels are rule-derived inside the generator. They are not fully human-labeled.
+      </div>
+      <ul class="findings-list" style="margin-top:1rem;">
+        <li><strong>Development corpus</strong> Stratified human review target ≈ 10%.</li>
+        <li><strong>Challenge set</strong> Human review target 100%.</li>
+        <li><strong>Tracking</strong> Statuses in <code>data/review_log.csv</code>: unreviewed / reviewed / corrected.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Split hashes</h2>
+      <table>
+        <thead><tr><th>Split</th><th>n</th><th>SHA-256</th></tr></thead>
+        <tbody>
+          <tr><td>train</td><td>1000</td><td><code>7ca2272892924070eef446c48e839c841eb0e37b5650783e95fe2584914a78fd</code></td></tr>
+          <tr><td>validation</td><td>200</td><td><code>dbbc10c3297b1b10963508f7e3c3aabe5472d541ee64f1ec11a9b8c393cfbbdd</code></td></tr>
+          <tr><td>test</td><td>200</td><td><code>9df94d33d042f3ad9d110f2115f53f470db0457930c21d07771ab59655f92e57</code></td></tr>
+          <tr><td>challenge</td><td>100</td><td><code>09ad84178a1a62f5490630c17fbb089f785b3e5f26e2f918b0f914ff55072f8f</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Risks and limitations</h2>
+      <ul class="findings-list">
+        <li><strong>Synthetic-to-real gap</strong> Generator assumptions may not match real audit evidence.</li>
+        <li><strong>Lexical strength</strong> TF-IDF remains informative; used as a shortcut detector.</li>
+        <li><strong>Label assumptions</strong> Rule-derived labels encode generator mutation logic.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Assurance · Data Card</span>
+      <a href="../capstone/index.html">MMC Capstone view</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/assurance-nav.js"></script>
+</body>
+</html>

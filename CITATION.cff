@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use ControlSift, please cite it as below."
+title: "ControlSift: Domain Adaptation of Gemma 3 for Cybersecurity Control-Evidence Assessment"
+authors:
+  - name: "ControlSift Contributors"
+version: "1.0.0"
+date-released: "2026-08-08"
+url: "https://github.com/controlsift/controlsift"
+abstract: >-
+  Applied AI research investigating whether parameter-efficient fine-tuning
+  (QLoRA) improves a small language model's ability to distinguish strong
+  cybersecurity control evidence from incomplete, irrelevant, or contradictory artifacts.
+keywords:
+  - cybersecurity
+  - evidence evaluation
+  - QLoRA
+  - Gemma
+  - model assurance
+license: MIT

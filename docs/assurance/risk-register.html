@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Risk Register — ControlSift</title>
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>AI risk register</h2>
+        <p>Living register of misuse, integrity, and delivery risks for ControlSift.</p>
+      </div>
+      <nav class="assurance-nav" data-assurance-nav aria-label="Assurance"></nav>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Risk</th>
+            <th>L</th>
+            <th>I</th>
+            <th>Mitigation</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>R1</td><td>Users treat model as automated auditor</td><td>Med</td><td>High</td><td>Non-claims on site, Model Card, Assurance hub</td><td><span class="status-pill open">open</span></td></tr>
+          <tr><td>R2</td><td>Synthetic-to-real generalization overstated</td><td>High</td><td>High</td><td>Challenge set, Failure Lab, limitations page</td><td><span class="status-pill open">open</span></td></tr>
+          <tr><td>R3</td><td>Family / label leakage invalidates results</td><td>Med</td><td>High</td><td>Family splits, CI leakage tests, protocol seal</td><td><span class="status-pill mitigated">mitigated</span></td></tr>
+          <tr><td>R4</td><td>Lexical shortcuts inflate apparent ease</td><td>Med</td><td>Med</td><td>TF-IDF Gate 1; generator harden pass</td><td><span class="status-pill mitigated">mitigated</span></td></tr>
+          <tr><td>R5</td><td>Prompt tuning on test set</td><td>Low</td><td>High</td><td>Protocol lock; AGENTS.md</td><td><span class="status-pill mitigated">mitigated</span></td></tr>
+          <tr><td>R6</td><td>Fabricated public metrics</td><td>Low</td><td>High</td><td>Null-until-run policy; results integrity tests</td><td><span class="status-pill mitigated">mitigated</span></td></tr>
+          <tr><td>R7</td><td>Secret / credential exposure</td><td>Med</td><td>High</td><td>.gitignore; Secrets-only Kaggle path</td><td><span class="status-pill mitigated">mitigated</span></td></tr>
+          <tr><td>R8</td><td>Overclaiming tiny F1 deltas</td><td>Med</td><td>Med</td><td>Bootstrap CIs; cautious report language</td><td><span class="status-pill open">open</span></td></tr>
+          <tr><td>R9</td><td>MMC rubric distracts from research quality</td><td>Low</td><td>Low</td><td>Modular /capstone/ page</td><td><span class="status-pill accepted">accepted</span></td></tr>
+          <tr><td>R10</td><td>Free GPU unavailable delays Gemma runs</td><td>Med</td><td>Med</td><td>Kaggle primary, Colab fallback, 1B model</td><td><span class="status-pill open">open</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Assurance · Risk register</span>
+      <a href="../capstone/index.html">MMC Capstone view</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/assurance-nav.js"></script>
+</body>
+</html>

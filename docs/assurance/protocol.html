@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Protocol — ControlSift</title>
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Research protocol</h2>
+        <p>Frozen research contract before final LLM claims. Repo mirror: <code>governance/PROTOCOL.md</code>.</p>
+      </div>
+      <nav class="assurance-nav" data-assurance-nav aria-label="Assurance"></nav>
+
+      <div class="def-list">
+        <div><dt>Tag target</dt><dd><code>protocol-v1-locked</code></dd></div>
+        <div><dt>Dataset</dt><dd>v1.0.0 · seed 42</dd></div>
+        <div><dt>Primary metric</dt><dd>macro F1</dd></div>
+        <div><dt>Base model</dt><dd><code>google/gemma-3-1b-it</code></dd></div>
+        <div><dt>Adaptation</dt><dd>QLoRA · 4-bit NF4 · LoRA r=16 / α=16</dd></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Hypotheses (frozen)</h2>
+      <ul class="findings-list">
+        <li><strong>H1 · Domain adaptation</strong> QLoRA Gemma beats the same model with a fixed zero-shot prompt on held-out macro F1.</li>
+        <li><strong>H2 · Prompting versus fine-tuning</strong> QLoRA beats a fixed five-class few-shot prompt.</li>
+        <li><strong>H3 · Generalization</strong> Measurable improvement remains on the challenge set.</li>
+        <li><strong>H4 · Data scaling</strong> Performance rises with train size, then diminishes.</li>
+        <li><strong>H5 · Remaining weaknesses</strong> Hard boundaries persist (especially PARTIAL↔SUFFICIENT / PARTIAL↔INSUFFICIENT).</li>
+      </ul>
+      <p style="margin-top:1rem;color:var(--muted);">Negative or mixed findings remain valid research outcomes.</p>
+    </section>
+
+    <section class="section">
+      <h2>Evaluation contract</h2>
+      <ul class="findings-list">
+        <li><strong>Deterministic inference</strong> <code>do_sample=false</code>, temperature 0 where supported.</li>
+        <li><strong>Strict parsing</strong> Ambiguous output becomes <code>UNPARSEABLE</code>, never silently coerced to gold.</li>
+        <li><strong>Uncertainty</strong> Bootstrap CIs; McNemar for paired comparisons where appropriate.</li>
+        <li><strong>Slices</strong> Domain, artifact type, difficulty, failure tags.</li>
+        <li><strong>Prompt freeze</strong> Canonical template in <code>src/controlsift/prompting/templates.py</code>. Do not retune from test failures after lock.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Sealed test hash</h2>
+      <div class="control-block">
+        <span class="label">test.jsonl sha256</span>
+        9df94d33d042f3ad9d110f2115f53f470db0457930c21d07771ab59655f92e57
+      </div>
+      <p style="margin-top:1rem;">Full seal object: <a href="PROTOCOL_SEAL.json">PROTOCOL_SEAL.json</a> (mirrored from governance).</p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Assurance · Protocol</span>
+      <a href="../capstone/index.html">MMC Capstone view</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/assurance-nav.js"></script>
+</body>
+</html>
