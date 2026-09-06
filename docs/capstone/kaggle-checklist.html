@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#07100c" />
+  <title>Kaggle session checklist — Capstone</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <p class="portfolio-lineage"><a href="next-steps.html">Critical path</a> · Track A</p>
+        <h2>Kaggle session checklist</h2>
+        <p>
+          Exact click-path for the Gemma ladder. Keep secrets in Kaggle Secrets only.
+          Local zip is ready: <code>dist/controlsift_kaggle_bundle.zip</code>.
+        </p>
+      </div>
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+    </section>
+
+    <section class="section">
+      <h2>Fast path (no Dataset upload)</h2>
+      <ol class="ladder">
+        <li><span class="step">A</span><span class="title">New Notebook · Session options → <strong>GPU T4</strong> · turn <strong>Internet ON</strong> (git clone; Locate falls back to Release zip if git fails; HF download)</span><span class="state wait">Kaggle</span></li>
+        <li><span class="step">B</span><span class="title">Add-ons → Secrets → <code>HF_TOKEN</code> = HF read token</span><span class="state wait">secret</span></li>
+        <li><span class="step">C</span><span class="title"><strong>Re-upload</strong> <code>kaggle_runner.ipynb</code> from <a href="https://github.com/jtflack-grc/controlsift/raw/kaggle-bundle/notebooks/kaggle_runner.ipynb" rel="noopener">GitHub raw</a> (File → Upload) — Locate + post-train cells live in the notebook, not only the clone</span><span class="state wait">notebook</span></li>
+        <li><span class="step">D</span><span class="title">Config → Locate · confirm printed <code>REF</code> is at/after <code>4bb3e35</code> (or <code>zip:</code> digest) · then <code>SMOKE = True</code> → <strong>Run All</strong></span><span class="state wait">run</span></li>
+      </ol>
+      <p style="margin-top:1rem;color:var(--muted);font-size:var(--text-sm);">
+        Branch: <a href="https://github.com/jtflack-grc/controlsift/tree/kaggle-bundle" rel="noopener">jtflack-grc/controlsift@kaggle-bundle</a>
+        (T4 AMP off · <code>SFTConfig</code> · Locate force-reclone · post-train cwd guards).
+        Dataset upload remains optional backup.
+      </p>
+      <p style="margin-top:0.75rem;color:var(--muted);font-size:var(--text-sm);">
+        <strong>Exact next click:</strong> download fresh notebook → Upload → Session GPU T4 + Internet ON →
+        run Config → run Locate → confirm printed <code>REF</code> is at/after <code>4bb3e35</code> (or <code>zip:</code> digest) → Run All with <code>SMOKE=True</code>.
+        When Output shows <code>controlsift_gpu_outputs.zip</code>, download it to Downloads.
+      </p>
+      <p style="margin-top:0.75rem;color:var(--muted);font-size:var(--text-sm);">
+        <strong>Force refresh:</strong> re-run <em>Locate or fetch repo</em> any time — it
+        fetches into a temp dir first (keeps live <code>WORKDIR</code>/<code>results/</code> if fetch fails),
+        then swaps in <code>kaggle-bundle</code> (git, else Release zip) and prints
+        <code>REF=&lt;sha or zip digest&gt;</code>. If adapter already exists and you only need torchao:
+        <code>!pip -q install -U "torchao&gt;=0.16"</code> then Eval — skip Locate.
+        Re-upload notebook from the
+        <a href="https://github.com/jtflack-grc/controlsift/raw/kaggle-bundle/notebooks/kaggle_runner.ipynb" rel="noopener">raw GitHub URL</a>.
+      </p>
+      <p style="margin-top:0.75rem;color:var(--muted);font-size:var(--text-sm);">
+        <strong>After a train traceback</strong> (e.g. <code>warmup_ratio</code> or bf16
+        <code>GradScaler</code>): re-upload notebook if needed, force-refresh Locate, then
+        install → train. Or restart the session and Run All. Expect a precision print with
+        <code>fp16_amp: False</code> on T4.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Rescue: torchao + eval without Locate</h2>
+      <p style="color:var(--muted);font-size:var(--text-sm);">
+        Prefer this when smoke <strong>train already succeeded</strong> and Locate is failing (clone 128)
+        or you only need the torchao fix. Paste as one cell (or use the matching cell in the refreshed notebook).
+        Assumes <code>/kaggle/working/controlsift</code> already has <code>results/gemma_qlora/adapter</code>.
+      </p>
+      <pre style="font-family:var(--font-mono);font-size:var(--text-sm);padding:1rem;border:1px solid var(--line);background:var(--panel);overflow:auto;"><code># Rescue: torchao + eval without Locate (skip Locate/Train)
+# Assumes WORKDIR already has adapter from a prior successful train.
+import os, sys, json, zipfile, subprocess
+from pathlib import Path
+
+WORKDIR = Path("/kaggle/working/controlsift")
+if not WORKDIR.exists():
+    WORKDIR = Path("/content/controlsift")
+assert WORKDIR.exists(), f"missing {WORKDIR} - need an existing session tree with adapter"
+os.chdir(WORKDIR)
+print("cwd =", Path.cwd())
+
+!pip -q install -U "torchao&gt;=0.16"
+
+adapter = Path("results/gemma_qlora/adapter")
+assert adapter.exists(), f"missing adapter at {adapter.resolve()}"
+
+cmd = [
+    sys.executable,
+    "scripts/run_gemma_qlora_eval.py",
+    "--split",
+    "validation",
+    "--limit",
+    "16",
+]
+print(">>", " ".join(cmd))
+subprocess.run(cmd, check=True)
+print("QLoRA smoke eval complete")
+
+out_zip = Path("/kaggle/working/controlsift_gpu_outputs.zip")
+if not out_zip.parent.exists():
+    out_zip = Path("/content/controlsift_gpu_outputs.zip")
+roots = [
+    Path("results/gemma_zero_shot"),
+    Path("results/gemma_few_shot"),
+    Path("results/gemma_qlora"),
+]
+written = []
+with zipfile.ZipFile(out_zip, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+    for root in roots:
+        if not root.exists():
+            continue
+        for path in root.rglob("*"):
+            if not path.is_file():
+                continue
+            rel = str(path).replace("\\", "/")
+            if path.suffix in {".safetensors", ".bin", ".pt", ".pth"}:
+                continue
+            if "adapter/" in rel and path.name.startswith(("adapter_model", "model")):
+                continue
+            zf.write(path, arcname=rel)
+            written.append(rel)
+print("Wrote", out_zip, "files:", len(written))
+print("Download controlsift_gpu_outputs.zip from Output")
+</code></pre>
+    </section>
+
+    <section class="section">
+      <h2>Before GPU (≈15 minutes)</h2>
+      <ol class="ladder">
+        <li><span class="step">1</span><span class="title">Accept license on <a href="https://huggingface.co/google/gemma-3-1b-it" rel="noopener">google/gemma-3-1b-it</a></span><span class="state wait">HF</span></li>
+        <li><span class="step">2</span><span class="title">Create HF <strong>read</strong> token (never paste into chat/git)</span><span class="state wait">HF</span></li>
+        <li><span class="step">3</span><span class="title">Optional Dataset upload <em>or</em> skip it — runner can clone branch <code>kaggle-bundle</code> from GitHub</span><span class="state wait">upload</span></li>
+        <li><span class="step">4</span><span class="title">Notebook → Add data → attach dataset · Secrets → <code>HF_TOKEN</code> · Session options → <strong>GPU T4</strong> (unlocked after phone verify)</span><span class="state wait">Kaggle</span></li>
+      </ol>
+      <p style="margin-top:1rem;color:var(--muted);font-size:var(--text-sm);">
+        Use the <strong>latest</strong> <code>dist/controlsift_kaggle_bundle.zip</code> (pins <code>transformers&gt;=4.50</code> for Gemma&nbsp;3).
+        If an older Dataset version is already up, publish a new version or run
+        <code>!pip -q install -U "transformers&gt;=4.50"</code> before install.
+      </p>
+      <p style="margin-top:0.75rem;color:var(--muted);font-size:var(--text-sm);">
+        <strong>Accelerators greyed out?</strong> Phone verification:
+        Profile → <a href="https://www.kaggle.com/settings" rel="noopener">Settings</a> → Phone Verification → refresh notebook.
+        Fallback: <a href="colab-checklist.html">Colab checklist</a>
+        (Release: <a href="https://github.com/jtflack-grc/controlsift/releases/tag/kaggle-bundle" rel="noopener">kaggle-bundle</a>).
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>On GPU (smoke first)</h2>
+      <ol class="ladder">
+        <li><span class="step">5</span><span class="title">Open <code>controlsift/notebooks/kaggle_runner.ipynb</code> from Input (path under <code>/kaggle/input/&lt;dataset&gt;/controlsift/notebooks/</code>)</span><span class="state wait">run</span></li>
+        <li><span class="step">6</span><span class="title">Confirm <code>SMOKE = True</code> · Run All · expect minutes; look for <code>HF login OK</code> then eval prints</span><span class="state wait">smoke</span></li>
+        <li><span class="step">7</span><span class="title">If smoke OK: set <code>SMOKE = False</code> · re-run (uses weekly quota)</span><span class="state wait">full</span></li>
+        <li><span class="step">8</span><span class="title">Download <code>controlsift_gpu_outputs.zip</code> from Output</span><span class="state wait">download</span></li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Back on this PC</h2>
+      <pre style="font-family:var(--font-mono);font-size:var(--text-sm);padding:1rem;border:1px solid var(--line);background:var(--panel);overflow:auto;"><code># One shot: extract results/ from the download, then refresh hub + figures
+python scripts/after_kaggle.py --zip "$env:USERPROFILE\Downloads\controlsift_gpu_outputs.zip"
+powershell -File scripts/export_submit_pdfs.ps1   # refresh PDFs after full (non-smoke) metrics land
+</code></pre>
+      <div class="cta-row" style="margin-top:1.25rem;">
+        <a class="btn btn-primary" href="deliverables/artifacts/KAGGLE_SAFE_RUN.md.html">Full safe-run guide</a>
+        <a class="btn btn-secondary" href="https://www.kaggle.com/settings" rel="noopener">Kaggle phone verify ↗</a>
+        <a class="btn btn-secondary" href="colab-checklist.html">Colab fallback</a>
+        <a class="btn btn-secondary" href="https://colab.research.google.com/" rel="noopener">Colab ↗</a>
+        <a class="btn btn-secondary" href="deliverables/artifacts/AFTER_GPU.md.html">After GPU merge</a>
+        <a class="btn btn-secondary" href="next-steps.html">Critical path</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Kaggle checklist · ControlSift</span>
+      <div class="footer-links"><a href="index.html">Capstone hub</a></div>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
+</body>
+</html>

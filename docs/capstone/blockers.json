@@ -1,0 +1,51 @@
+{
+  "updated": "2026-09-06T17:25:00-04:00",
+  "goal": "Close ControlSift MMC remaining gaps",
+  "hard_block": "QLoRA smoke train OK earlier; eval blocked by torchao then Locate clone 128. Prefer Rescue cell (torchao + eval without Locate) on tip 4bb3e35. Waiting on controlsift_gpu_outputs*.zip. Gemma metrics null. Pages 404. Goal NOT complete.",
+  "kaggle_bundle_min_sha": "4bb3e35159b51606e399d5ee3d25df3e4bab3b97",
+  "kaggle_bundle_tip": "4bb3e35",
+  "kaggle_bundle_tip_note": "Safe Locate + torchao + Release zip fallback. Prefer Rescue: torchao + eval without Locate when adapter already exists (skip Locate). Tag kaggle-bundle should track tip after rescue push.",
+  "rescue_path": "notebooks/kaggle_runner.ipynb cell 'Rescue: torchao + eval without Locate' (also docs/capstone/kaggle-checklist.html). pip torchao>=0.16 → chdir WORKDIR → qlora eval validation --limit 16 → package zip. Skip Locate/Train.",
+  "blocked": [
+    {
+      "id": "badge_proof",
+      "status": "complete",
+      "evidence": "mmc/deliverables week03 badge + Skills URL local; not fully on Pages yet"
+    },
+    {
+      "id": "locate_workdir",
+      "status": "complete",
+      "evidence": "Locate temp-fetch preserves WORKDIR on failure; Release zip fallback; WORKDIR/SMOKE defaults; train.py T4 AMP off"
+    },
+    {
+      "id": "torchao_peft",
+      "status": "in_progress",
+      "needs": "Prefer Rescue cell (skip Locate): torchao>=0.16 then QLoRA smoke eval + Package. tip 4bb3e35+"
+    },
+    {
+      "id": "smoke_zip",
+      "status": "in_progress",
+      "needs": "controlsift_gpu_outputs*.zip in Downloads after Package; 90s watcher armed (AGENT_LOOP_WAKE_gpuzip)"
+    },
+    {
+      "id": "after_kaggle",
+      "status": "pending",
+      "needs": "zip lands → python scripts/after_kaggle.py --zip <path>; smoke null test OK"
+    },
+    {
+      "id": "gemma_metrics",
+      "status": "in_progress",
+      "needs": "non-null results/gemma_*/metrics_*.json from zip — do not invent"
+    },
+    {
+      "id": "pages_publish",
+      "status": "blocked",
+      "evidence": "Pages 404; enable Settings → Pages → Source = GitHub Actions once tree on main. No main push unless asked."
+    },
+    {
+      "id": "submit_pack",
+      "status": "pending",
+      "needs": "export_submit_pdfs.ps1 after full metrics; video still manual"
+    }
+  ]
+}
