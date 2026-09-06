@@ -1,10 +1,10 @@
 {
-  "updated": "2026-09-06T17:27:00-04:00",
+  "updated": "2026-09-06T17:32:00-04:00",
   "goal": "Close ControlSift MMC remaining gaps",
-  "hard_block": "QLoRA smoke train OK earlier; eval blocked by torchao then Locate clone 128. Prefer Rescue cell on tip 81ce0b6. Waiting on controlsift_gpu_outputs*.zip. Gemma metrics null. Pages 404. Goal NOT complete.",
-  "kaggle_bundle_min_sha": "81ce0b6a8cd81542c3c2767ab0b6c3382bd74be7",
-  "kaggle_bundle_tip": "81ce0b6",
-  "kaggle_bundle_tip_note": "Rescue cell on tip 81ce0b6 (parent 4bb3e35 Safe Locate). Prefer Rescue: torchao + eval without Locate when adapter exists. Tag kaggle-bundle aligned.",
+  "hard_block": "Smoke zip ingested (partial): val metrics present, test null. QLoRA smoke val macro_f1~0.044 (n=16). Need full SMOKE=False run for test metrics. Pages 404. Goal NOT complete.",
+  "kaggle_bundle_min_sha": "223bb1b419d5ec993284cacb7c2c3a0882840ed9",
+  "kaggle_bundle_tip": "223bb1b",
+  "kaggle_bundle_tip_note": "Rescue cell (torchao+eval skip Locate) on tip; parent Safe Locate 4bb3e35. Fix push may follow for replace() escape.",
   "rescue_path": "notebooks/kaggle_runner.ipynb cell 'Rescue: torchao + eval without Locate' (also docs/capstone/kaggle-checklist.html). pip torchao>=0.16 \u2192 chdir WORKDIR \u2192 qlora eval validation --limit 16 \u2192 package zip. Skip Locate/Train.",
   "blocked": [
     {
@@ -19,23 +19,26 @@
     },
     {
       "id": "torchao_peft",
-      "status": "in_progress",
-      "needs": "Prefer Rescue cell (skip Locate): torchao>=0.16 then QLoRA smoke eval + Package. tip 4bb3e35+"
+      "status": "complete",
+      "needs": "Prefer Rescue cell (skip Locate): torchao>=0.16 then QLoRA smoke eval + Package. tip 4bb3e35+",
+      "evidence": "Smoke eval ran (zip contains qlora validation metrics); prefer Rescue path going forward"
     },
     {
       "id": "smoke_zip",
-      "status": "in_progress",
-      "needs": "controlsift_gpu_outputs*.zip in Downloads after Package; 90s watcher armed (AGENT_LOOP_WAKE_gpuzip)"
+      "status": "complete",
+      "needs": "controlsift_gpu_outputs*.zip in Downloads after Package; 90s watcher armed (AGENT_LOOP_WAKE_gpuzip)",
+      "evidence": "Downloads/controlsift_gpu_outputs.zip ingested 2026-09-06; watcher still armed"
     },
     {
       "id": "after_kaggle",
-      "status": "pending",
-      "needs": "zip lands \u2192 python scripts/after_kaggle.py --zip <path>; smoke null test OK"
+      "status": "complete",
+      "needs": "zip lands \u2192 python scripts/after_kaggle.py --zip <path>; smoke null test OK",
+      "evidence": "after_kaggle.py --zip returned ok/partial; figures rebuilt"
     },
     {
       "id": "gemma_metrics",
       "status": "in_progress",
-      "needs": "non-null results/gemma_*/metrics_*.json from zip \u2014 do not invent"
+      "needs": "validation smoke non-null; TEST still null \u2014 run SMOKE=False Package for public test metrics"
     },
     {
       "id": "pages_publish",
@@ -47,5 +50,22 @@
       "status": "pending",
       "needs": "export_submit_pdfs.ps1 after full metrics; video still manual"
     }
-  ]
+  ],
+  "smoke_metrics_validation": {
+    "gemma_zero_shot": {
+      "accuracy": 0.1875,
+      "macro_f1": 0.08
+    },
+    "gemma_few_shot": {
+      "accuracy": 0.3125,
+      "macro_f1": 0.1723
+    },
+    "gemma_qlora": {
+      "accuracy": 0.0625,
+      "macro_f1": 0.0444,
+      "parse_success_rate": 0.6875
+    },
+    "n": 16,
+    "test": null
+  }
 }
