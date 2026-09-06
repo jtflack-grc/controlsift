@@ -1,0 +1,3 @@
+[console_scripts]
+controlsift-generate = controlsift.data.generate:main_cli
+controlsift-validate = controlsift.data.validate:main_cli

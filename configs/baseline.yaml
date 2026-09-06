@@ -1,0 +1,23 @@
+experiment: tfidf_logistic_regression
+seed: 42
+dataset_version: "1.1.0"
+input_fields:
+  - control_statement
+  - evidence_type
+  - evidence_text
+model:
+  type: tfidf_logistic_regression
+  tfidf:
+    max_features: 20000
+    ngram_range: [1, 2]
+    min_df: 2
+  logistic_regression:
+    max_iter: 2000
+    class_weight: balanced
+    C: 1.0
+paths:
+  train: data/processed/train.jsonl
+  validation: data/processed/validation.jsonl
+  test: data/processed/test.jsonl
+  challenge: data/processed/challenge.jsonl
+  output_dir: results/tfidf

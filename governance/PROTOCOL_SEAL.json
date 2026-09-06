@@ -1,0 +1,14 @@
+{
+  "protocol_tag": "protocol-v1-locked",
+  "sealed_at_utc": "2026-08-09T02:44:25.440295+00:00",
+  "dataset_version": "1.1.0",
+  "seed": 42,
+  "primary_metric": "macro_f1",
+  "model_id": "google/gemma-3-1b-it",
+  "prompt_module": "src/controlsift/prompting/templates.py",
+  "test_sha256": "7476a67ec679b4e0198709a4fb812be43d43364b78d525dacee4ab6c1dab31d1",
+  "validation_sha256": "d14f9bbe0c7d567c12f1a4f1d624bd0e47b1d12d0a6a3d916f9c6b95692ceef8",
+  "challenge_sha256": "735cd57b874ae29e54f74e99c512df0cc0039bc5e0bd85dbf4f21f882b057cfe",
+  "train_sha256": "53b5c057f80f6ae5bd26c63dc2a03c7de96641b73094b4b464ff80ab39438d99",
+  "notes": "Do not modify the canonical prompt or relabel the test set after this seal. Create git tag protocol-v1-locked when committing this file."
+}

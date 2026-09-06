@@ -1,0 +1,258 @@
+# ControlSift scenario family templates (≥10 domains).
+# Instances are expanded by the generator with unique scenario_family_id suffixes.
+
+families:
+  - id_prefix: IAM-MFA
+    control_domain: authentication
+    control_statement: "Privileged accounts must use multi-factor authentication."
+    control_objective: "MFA enrollment for all privileged accounts"
+    evidence_type: "IAM enrollment export"
+    environment: "production identity platform"
+    population_unit: "privileged account"
+    typical_population: 40
+    sufficient_template: >
+      An export from {system} generated on {date} for {org} lists all {pop_expected}
+      privileged accounts in {env} and shows MFA enrollment status for each account.
+    contradiction_template: >
+      An export from {system} dated {date} for {org} shows privileged account {account}
+      in {env} with MFA status Disabled while remaining active.
+    contradiction_tags: [control_failure, contradictory_configuration]
+    irrelevant_artifact: "An IAM password-expiry configuration export from the same identity platform"
+
+  - id_prefix: IAM-ACCESS
+    control_domain: identity_and_access_management
+    control_statement: "User access reviews must be completed quarterly for all production systems."
+    control_objective: "Completed quarterly access certification"
+    evidence_type: "access review certification report"
+    environment: "production cloud tenancy"
+    population_unit: "application"
+    typical_population: 25
+    sufficient_template: >
+      A certification report from {system} dated {date} shows completed quarterly access
+      reviews for all {pop_expected} in-scope applications at {org} in {env}, including reviewer and completion timestamp.
+    contradiction_template: >
+      The access review report for {org} dated {date} shows {count_fail} production applications
+      marked Rejected with lingering entitlements still active in {env}.
+    contradiction_tags: [control_failure, exception_unresolved]
+    irrelevant_artifact: "A privileged elevation approval log for a different control objective on the same tenancy"
+
+  - id_prefix: PAM-JIT
+    control_domain: privileged_access
+    control_statement: "Privileged access must be time-bound and approved before elevation."
+    control_objective: "Just-in-time privileged elevation with approval"
+    evidence_type: "privileged session audit log"
+    environment: "privileged access workstation fleet"
+    population_unit: "elevation request"
+    typical_population: 60
+    sufficient_template: >
+      Audit logs from {system} for {org} covering the period ending {date} show each of
+      {pop_expected} privileged elevation requests in {env} with prior approval id and expiry.
+    contradiction_template: >
+      Privileged session logs from {system} show account {account} elevated in {env} on {date}
+      with approval field blank and session lasting beyond policy maximum.
+    contradiction_tags: [missing_approval, control_failure]
+    irrelevant_artifact: "An MFA enrollment export for standard (non-privileged) workforce accounts"
+
+  - id_prefix: ACL-TERM
+    control_domain: account_lifecycle
+    control_statement: "Accounts for terminated employees must be disabled within 24 hours."
+    control_objective: "Timely deprovisioning of terminated users"
+    evidence_type: "HRIS-to-IAM reconciliation report"
+    environment: "production identity platform"
+    population_unit: "termination"
+    typical_population: 30
+    sufficient_template: >
+      Reconciliation report {ticket} from {system} dated {date} for {org} lists all
+      {pop_expected} terminations and shows disablement within 24 hours in {env}.
+    contradiction_template: >
+      Reconciliation dated {date} shows terminated employee {account} still active in {env}
+      {count_fail} days after HR termination effective date at {org}.
+    contradiction_tags: [control_failure, source_conflict]
+    irrelevant_artifact: "A quarterly access certification packet for a non-HR joiner/mover workflow"
+
+  - id_prefix: LOG-RET
+    control_domain: logging_and_monitoring
+    control_statement: "Security logs for production systems must be retained for at least 90 days."
+    control_objective: "Log retention ≥ 90 days"
+    evidence_type: "SIEM retention configuration export"
+    environment: "enterprise SIEM"
+    population_unit: "log source"
+    typical_population: 50
+    sufficient_template: >
+      SIEM configuration export from {system} on {date} shows retention of {pop_expected}
+      days or greater for all in-scope production log sources at {org} in {env}.
+    contradiction_template: >
+      SIEM export dated {date} shows production log source {system} at {org} configured for
+      {pct} days retention, below the 90-day requirement in {env}.
+    contradiction_tags: [contradictory_configuration]
+    irrelevant_artifact: "A firewall change ticket summary unrelated to log retention settings"
+
+  - id_prefix: CHG-APR
+    control_domain: change_management
+    control_statement: "Production changes must have documented approval before implementation."
+    control_objective: "Pre-implementation change approval"
+    evidence_type: "change ticket record"
+    environment: "change management system"
+    population_unit: "production change"
+    typical_population: 35
+    sufficient_template: >
+      Change ticket {ticket} in {system} for {org} shows CAB approval prior to implementation
+      on {date} for the production change in {env}, including approver and timestamp.
+    contradiction_template: >
+      Change ticket {ticket} was implemented in {env} on {date} with approval status Still Pending
+      and no approver recorded for {org}.
+    contradiction_tags: [missing_approval, control_failure]
+    irrelevant_artifact: "A vulnerability scan summary attached under the change-management binder tab"
+
+  - id_prefix: VULN-SCAN
+    control_domain: vulnerability_management
+    control_statement: "Critical vulnerabilities must be remediated within 15 days of discovery."
+    control_objective: "Critical vuln SLA adherence"
+    evidence_type: "vulnerability scan remediation report"
+    environment: "vulnerability management platform"
+    population_unit: "critical finding"
+    typical_population: 20
+    sufficient_template: >
+      Remediation report from {system} dated {date} for {org} shows all {pop_expected}
+      critical findings in {env} closed within 15 days of discovery with verifier notes.
+    contradiction_template: >
+      Scan report dated {date} lists critical CVE findings on {system} open for more than
+      15 days in {env} for {org}, with status Still Open.
+    contradiction_tags: [control_failure, exception_unresolved]
+    irrelevant_artifact: "A patch compliance export misfiled under the vulnerability remediation request"
+
+  - id_prefix: PATCH-OS
+    control_domain: patch_management
+    control_statement: "Production servers must receive critical OS patches within 30 days of release."
+    control_objective: "Critical patch compliance"
+    evidence_type: "patch compliance report"
+    environment: "production cloud tenancy"
+    population_unit: "server"
+    typical_population: 80
+    sufficient_template: >
+      Patch compliance report from {system} on {date} shows all {pop_expected} production
+      servers at {org} in {env} patched for critical OS updates within 30 days.
+    contradiction_template: >
+      Patch report dated {date} shows {count_fail} production servers in {env} missing
+      critical patches released more than 30 days ago at {org}.
+    contradiction_tags: [control_failure, incomplete_export]
+    irrelevant_artifact: "A backup job success dashboard for endpoints rather than production servers"
+
+  - id_prefix: BAK-JOB
+    control_domain: backup_and_recovery
+    control_statement: "Critical systems must have successful daily backups and a tested restore."
+    control_objective: "Backup success and restore test evidence"
+    evidence_type: "backup job and restore test report"
+    environment: "production backup estate"
+    population_unit: "critical system"
+    typical_population: 15
+    sufficient_template: >
+      Backup report from {system} dated {date} for {org} shows successful daily backups for
+      all {pop_expected} critical systems in {env} and a restore test completed the same period.
+    contradiction_template: >
+      Backup job log dated {date} shows failed backup status for critical system {system}
+      in {env} at {org}, with no successful retry recorded.
+    contradiction_tags: [control_failure]
+    irrelevant_artifact: "An encryption-at-rest configuration sheet for a non-critical sandbox store"
+
+  - id_prefix: ENC-REST
+    control_domain: encryption
+    control_statement: "Sensitive data stores must enforce encryption at rest."
+    control_objective: "Encryption at rest enabled"
+    evidence_type: "encryption configuration export"
+    environment: "encryption key management service"
+    population_unit: "data store"
+    typical_population: 22
+    sufficient_template: >
+      Configuration export from {system} on {date} shows encryption at rest enabled with
+      customer-managed keys for all {pop_expected} sensitive data stores at {org} in {env}.
+    contradiction_template: >
+      Configuration export dated {date} shows encryption at rest Disabled for sensitive
+      datastore attached to {system} in {env} at {org}.
+    contradiction_tags: [contradictory_configuration, control_failure]
+    irrelevant_artifact: "An endpoint EPP coverage report unrelated to datastore encryption"
+
+  - id_prefix: EPP-AV
+    control_domain: endpoint_security
+    control_statement: "Company-managed endpoints must run approved endpoint protection with current signatures."
+    control_objective: "EPP coverage and signature freshness"
+    evidence_type: "endpoint management compliance report"
+    environment: "corporate endpoint management"
+    population_unit: "endpoint"
+    typical_population: 100
+    sufficient_template: >
+      Endpoint compliance report from {system} dated {date} shows approved EPP installed with
+      current signatures on all {pop_expected} company-managed endpoints at {org} in {env}.
+    contradiction_template: >
+      Endpoint report dated {date} lists {count_fail} managed endpoints in {env} with
+      endpoint protection status Stopped and signatures older than policy at {org}.
+    contradiction_tags: [control_failure, contradictory_configuration]
+    irrelevant_artifact: "A network ACL export that does not address endpoint protection coverage"
+
+  - id_prefix: NET-FW
+    control_domain: network_security
+    control_statement: "Inbound administrative access to production networks must be restricted to approved jump hosts."
+    control_objective: "Restricted admin ingress paths"
+    evidence_type: "firewall rule export"
+    environment: "production network edge"
+    population_unit: "firewall rule set"
+    typical_population: 12
+    sufficient_template: >
+      Firewall export from {system} on {date} for {org} shows inbound administrative ports
+      in {env} permitted only from approved jump-host CIDRs across {pop_expected} rule sets.
+    contradiction_template: >
+      Firewall export dated {date} shows any-source allow for TCP/22 into production subnet
+      in {env} at {org}, bypassing jump-host restriction.
+    contradiction_tags: [contradictory_configuration, control_failure]
+    irrelevant_artifact: "A SIEM retention setting screenshot unrelated to inbound admin path restrictions"
+
+  - id_prefix: TPRM-SOC
+    control_domain: third_party_controls
+    control_statement: "Critical vendors must provide a current SOC 2 Type II report covering the audit period."
+    control_objective: "Current third-party assurance report"
+    evidence_type: "vendor SOC 2 Type II report attestation package"
+    environment: "production cloud tenancy"
+    population_unit: "critical vendor"
+    typical_population: 8
+    sufficient_template: >
+      Vendor assurance package for {org} dated {date} includes SOC 2 Type II reports covering
+      the audit period for all {pop_expected} critical vendors supporting {env}.
+    contradiction_template: >
+      Vendor file for critical provider supporting {env} contains a SOC 2 report that expired
+      before the audit period start, with bridge letter absent for {org} as of {date}.
+    contradiction_tags: [stale_evidence, wrong_period]
+    irrelevant_artifact: "An internal control self-assessment spreadsheet without a SOC 2 Type II report"
+
+  - id_prefix: IAM-PWD
+    control_domain: authentication
+    control_statement: "Password length for interactive user accounts must be at least 14 characters."
+    control_objective: "Password policy minimum length"
+    evidence_type: "identity policy configuration export"
+    environment: "production identity platform"
+    population_unit: "policy domain"
+    typical_population: 5
+    sufficient_template: >
+      Identity policy export from {system} on {date} shows minimum password length of 14
+      or greater for all interactive user domains at {org} in {env}.
+    contradiction_template: >
+      Identity policy export dated {date} shows minimum password length set to 8 for the
+      primary interactive domain in {env} at {org}.
+    contradiction_tags: [contradictory_configuration]
+    irrelevant_artifact: "An MFA status export that does not include password-length policy settings"
+
+  - id_prefix: LOG-ALERT
+    control_domain: logging_and_monitoring
+    control_statement: "Privileged authentication failures must generate monitored alerts."
+    control_objective: "Alerting on privileged auth failures"
+    evidence_type: "SIEM alert rule and incident sample"
+    environment: "enterprise SIEM"
+    population_unit: "alert rule"
+    typical_population: 6
+    sufficient_template: >
+      SIEM export from {system} dated {date} shows enabled alert rules for privileged
+      authentication failures in {env} at {org}, with sample triggered incidents and owner assignment.
+    contradiction_template: >
+      SIEM rule export dated {date} shows the privileged authentication failure alert disabled
+      in {env}, with zero incidents routed for {org}.
+    contradiction_tags: [contradictory_configuration, control_failure]
+    irrelevant_artifact: "A log-retention configuration excerpt that does not include privileged auth-failure alert rules"
