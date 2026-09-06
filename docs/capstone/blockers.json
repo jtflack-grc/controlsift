@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-06T17:25:00-04:00",
+  "updated": "2026-09-06T17:27:00-04:00",
   "goal": "Close ControlSift MMC remaining gaps",
-  "hard_block": "QLoRA smoke train OK earlier; eval blocked by torchao then Locate clone 128. Prefer Rescue cell (torchao + eval without Locate) on tip 4bb3e35. Waiting on controlsift_gpu_outputs*.zip. Gemma metrics null. Pages 404. Goal NOT complete.",
-  "kaggle_bundle_min_sha": "4bb3e35159b51606e399d5ee3d25df3e4bab3b97",
-  "kaggle_bundle_tip": "4bb3e35",
-  "kaggle_bundle_tip_note": "Safe Locate + torchao + Release zip fallback. Prefer Rescue: torchao + eval without Locate when adapter already exists (skip Locate). Tag kaggle-bundle should track tip after rescue push.",
-  "rescue_path": "notebooks/kaggle_runner.ipynb cell 'Rescue: torchao + eval without Locate' (also docs/capstone/kaggle-checklist.html). pip torchao>=0.16 → chdir WORKDIR → qlora eval validation --limit 16 → package zip. Skip Locate/Train.",
+  "hard_block": "QLoRA smoke train OK earlier; eval blocked by torchao then Locate clone 128. Prefer Rescue cell on tip 81ce0b6. Waiting on controlsift_gpu_outputs*.zip. Gemma metrics null. Pages 404. Goal NOT complete.",
+  "kaggle_bundle_min_sha": "81ce0b6a8cd81542c3c2767ab0b6c3382bd74be7",
+  "kaggle_bundle_tip": "81ce0b6",
+  "kaggle_bundle_tip_note": "Rescue cell on tip 81ce0b6 (parent 4bb3e35 Safe Locate). Prefer Rescue: torchao + eval without Locate when adapter exists. Tag kaggle-bundle aligned.",
+  "rescue_path": "notebooks/kaggle_runner.ipynb cell 'Rescue: torchao + eval without Locate' (also docs/capstone/kaggle-checklist.html). pip torchao>=0.16 \u2192 chdir WORKDIR \u2192 qlora eval validation --limit 16 \u2192 package zip. Skip Locate/Train.",
   "blocked": [
     {
       "id": "badge_proof",
@@ -30,17 +30,17 @@
     {
       "id": "after_kaggle",
       "status": "pending",
-      "needs": "zip lands → python scripts/after_kaggle.py --zip <path>; smoke null test OK"
+      "needs": "zip lands \u2192 python scripts/after_kaggle.py --zip <path>; smoke null test OK"
     },
     {
       "id": "gemma_metrics",
       "status": "in_progress",
-      "needs": "non-null results/gemma_*/metrics_*.json from zip — do not invent"
+      "needs": "non-null results/gemma_*/metrics_*.json from zip \u2014 do not invent"
     },
     {
       "id": "pages_publish",
       "status": "blocked",
-      "evidence": "Pages 404; enable Settings → Pages → Source = GitHub Actions once tree on main. No main push unless asked."
+      "evidence": "Pages 404; enable Settings \u2192 Pages \u2192 Source = GitHub Actions once tree on main. No main push unless asked."
     },
     {
       "id": "submit_pack",
