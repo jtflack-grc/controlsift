@@ -1,9 +1,9 @@
 {
-  "updated": "2026-09-06T17:36:00-04:00",
+  "updated": "2026-09-06T17:37:00-04:00",
   "goal": "Close ControlSift MMC remaining gaps",
   "hard_block": "Smoke zip ingested (partial): val metrics present, test null. QLoRA smoke val macro_f1~0.044 (n=16). Need full SMOKE=False run for test metrics. Pages 404. Goal NOT complete.",
-  "kaggle_bundle_min_sha": "2d7dd5a7876c691a8f0768e20c7d117b46c0dc2f",
-  "kaggle_bundle_tip": "2d7dd5a",
+  "kaggle_bundle_min_sha": "00113445056399afaab315a2ca1a88ea47ba194c",
+  "kaggle_bundle_tip": "0011344",
   "kaggle_bundle_tip_note": "Rescue cell (torchao+eval skip Locate) + replace() escape fix. Parent Safe Locate 4bb3e35. Tag kaggle-bundle aligned.",
   "rescue_path": "notebooks/kaggle_runner.ipynb cell 'Rescue: torchao + eval without Locate' (also docs/capstone/kaggle-checklist.html). pip torchao>=0.16 \u2192 chdir WORKDIR \u2192 qlora eval validation --limit 16 \u2192 package zip. Skip Locate/Train.",
   "blocked": [
