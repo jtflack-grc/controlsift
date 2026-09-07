@@ -1,8 +1,8 @@
 {
-  "updated": "2026-09-06T21:22:00-04:00",
+  "updated": "2026-09-06T21:28:00-04:00",
   "goal": "Close ControlSift MMC remaining gaps",
-  "hard_block": "User approved publish. Commit+push in flight; Pages must verify live (or clearly block on Settings→Pages→GitHub Actions). Remaining manual: ≤5-min video.",
-  "status": "PUBLISHING_pages",
+  "hard_block": "Code pushed to main (2963a74). Pages still 404 until GitHub Settings→Pages→Source=GitHub Actions; then re-run workflow. Remaining: ≤5-min video.",
+  "status": "PAGES_AWAITING_ACTIONS_ENABLE",
   "ingest": {
     "status": "INGESTED",
     "zip": "C:\\Users\\admin\\Downloads\\controlsift_gpu_outputs(1).zip",
@@ -64,17 +64,17 @@
     {
       "id": "submit_pdfs",
       "status": "complete",
-      "note": "export_submit_pdfs.ps1 OK on :5500 — Report 128258 B, Slides 283468 B in docs/capstone/submit/."
+      "note": "export_submit_pdfs.ps1 OK on :5500 — Report 141157 B, Slides 305522 B in docs/capstone/submit/."
     },
     {
       "id": "pages_publish",
-      "status": "in_progress",
-      "needs": "User approved. Finish secret-safe commit + push master→main; verify https://jtflack-grc.github.io/controlsift/ or Settings→Pages→GitHub Actions."
+      "status": "blocked_settings",
+      "needs": "PUSHED master→main @ 2963a74 (metrics commit 06c8b9d). Workflow failed Setup Pages: enable Settings→Pages→Source=GitHub Actions, then re-run Deploy GitHub Pages. Site still 404 until then."
     },
     {
       "id": "submit_pack",
-      "status": "pending",
-      "needs": "≤5-min video recording after Pages metrics freeze (script beat ready). PDFs + video-script already frozen."
+      "status": "in_progress",
+      "needs": "PDFs + video-script frozen; user still records ≤5-min ControlSift_Capstone_Video.mp4 for GCLP form (not git)."
     }
   ],
   "kaggle_bundle_min_sha": "00113445056399afaab315a2ca1a88ea47ba194c",
@@ -145,13 +145,13 @@
     },
     {
       "id": "pages_publish",
-      "status": "in_progress",
-      "evidence": "User approved publish. Committing Gemma metrics + docs; push via master→main. Verify live Pages or Actions enable."
+      "status": "blocked_settings",
+      "evidence": "Pushed 2963a74 to origin/main. Actions run 34072905722 failed at Setup Pages — repository Pages not enabled for GitHub Actions yet. Site https://jtflack-grc.github.io/controlsift/ still 404."
     },
     {
       "id": "submit_pack",
-      "status": "pending",
-      "needs": "≤5-min video still manual; PDFs + video-script ready"
+      "status": "in_progress",
+      "needs": "≤5-min video still manual; PDFs re-exported; video-script with real TEST numbers ready"
     }
   ],
   "smoke_metrics_validation": {
