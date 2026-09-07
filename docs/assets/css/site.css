@@ -105,14 +105,14 @@
 html {
   scroll-behavior: smooth;
   background: var(--bg);
-  font-family: var(--font-body);
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
   color: var(--fg);
-  font-family: var(--font-body);
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
   font-size: var(--text-md);
   line-height: 1.55;
   /* Segmented fixed green horizon lines */
@@ -218,7 +218,7 @@ a:hover { color: #b8ffd4; }
 }
 
 .brand {
-  font-family: var(--font-display);
+  font-family: "Fraunces", "IBM Plex Sans", Georgia, serif !important;
   font-weight: 600;
   font-size: 1.15rem;
   color: var(--accent);
@@ -242,7 +242,7 @@ a:hover { color: #b8ffd4; }
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
-  font-family: var(--font-body);
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
   font-weight: 500;
   font-size: var(--text-sm);
 }
@@ -259,26 +259,32 @@ main {
 .hero {
   min-height: calc(100vh - 4.25rem);
   display: grid;
-  align-content: start;
-  gap: 0.95rem;
-  padding: 2.25rem 0 2.5rem;
+  align-content: center;
+  gap: 1.1rem;
+  padding: 2.75rem 0 3rem;
   position: relative;
+}
+
+.hero.welcome-door {
+  align-content: center;
+  gap: 1.15rem;
 }
 
 .hero::before {
   content: "";
   position: absolute;
-  inset: -8% -12% auto;
-  height: min(58vh, 28rem);
+  inset: -12% -18% auto;
+  height: min(72vh, 36rem);
   pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 55% at 18% 40%, rgba(56, 232, 129, 0.14), transparent 70%),
-    radial-gradient(ellipse 55% 45% at 78% 20%, rgba(127, 255, 178, 0.08), transparent 65%);
+    radial-gradient(ellipse 75% 60% at 16% 42%, rgba(56, 232, 129, 0.18), transparent 72%),
+    radial-gradient(ellipse 60% 50% at 82% 18%, rgba(127, 255, 178, 0.1), transparent 68%),
+    linear-gradient(180deg, rgba(7, 16, 12, 0) 0%, rgba(7, 16, 12, 0.35) 100%);
   animation: rise 1.1s ease both;
 }
 
 .hero-brand {
-  font-family: var(--font-display);
+  font-family: "Fraunces", "IBM Plex Sans", Georgia, serif !important;
   font-size: var(--text-hero);
   font-weight: 600;
   line-height: 0.92;
@@ -290,23 +296,46 @@ main {
 }
 
 .hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(1.55rem, 3.6vw, 2.15rem);
+  font-family: "Fraunces", "IBM Plex Sans", Georgia, serif !important;
+  font-size: clamp(1.45rem, 3.4vw, 2.05rem);
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.25;
   margin: 0;
-  max-width: 22ch;
+  max-width: 28ch;
   color: var(--fg);
   animation: rise 0.8s ease 0.06s both;
   position: relative;
 }
 
+.hero.welcome-door h1 {
+  max-width: 34ch;
+}
+
 .hero .lede {
-  max-width: 42ch;
+  max-width: 46ch;
   margin: 0;
   color: var(--muted);
-  font-size: var(--text-md);
+  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+  line-height: 1.55;
   animation: rise 0.85s ease 0.12s both;
+  position: relative;
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+.hero-cta {
+  margin-top: 0.55rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-note {
+  margin: 0.15rem 0 0;
+  font-family: "IBM Plex Mono", ui-monospace, monospace !important;
+  font-size: var(--text-xs);
+  color: var(--accent-2);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  animation: rise 1s ease 0.2s both;
   position: relative;
 }
 
@@ -367,10 +396,10 @@ textarea {
 
 .btn {
   display: inline-block;
-  padding: 0.65rem 1rem;
+  padding: 0.75rem 1.15rem;
   border-radius: var(--radius);
   border: 1px solid transparent;
-  font-family: var(--font-body);
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
   font-weight: 600;
   font-size: var(--text-sm);
   text-decoration: none;

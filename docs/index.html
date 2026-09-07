@@ -6,7 +6,76 @@
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#050a08" />
   <title>ControlSift — proof from paperwork</title>
-  <meta name="description" content="ControlSift is open research on whether a small AI model can help tell proof from paperwork in cybersecurity GRC evidence triage. SDG 10. Metrics published; video remaining." />
+  <meta name="description" content="ControlSift helps researchers study whether a small AI can tell real security proof from paperwork. Open synthetic-benchmark research; metrics published." />
+  <link rel="preload" href="assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/ibm-plex-sans-600.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/fraunces-600.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+  <style>
+    /* Undeniable self-hosted faces (paths relative to this HTML page). */
+    @font-face {
+      font-family: "IBM Plex Sans";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("assets/fonts/ibm-plex-sans-400.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "IBM Plex Sans";
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("assets/fonts/ibm-plex-sans-500.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "IBM Plex Sans";
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("assets/fonts/ibm-plex-sans-600.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "IBM Plex Sans";
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url("assets/fonts/ibm-plex-sans-700.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Fraunces";
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("assets/fonts/fraunces-500.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Fraunces";
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url("assets/fonts/fraunces-600.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Fraunces";
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url("assets/fonts/fraunces-700.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "IBM Plex Mono";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("assets/fonts/ibm-plex-mono-400.woff2") format("woff2");
+    }
+    html, body, button, input, nav, .nav, .btn, .lede, p, li, a {
+      font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
+    }
+    h1, h2, h3, .display, .hero-brand, .brand {
+      font-family: "Fraunces", "IBM Plex Sans", Georgia, serif !important;
+    }
+  </style>
   <link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body>
@@ -18,29 +87,17 @@
   </header>
 
   <main>
-    <section class="hero" aria-label="Welcome">
+    <section class="hero welcome-door" aria-label="Welcome">
       <p class="hero-brand">ControlSift</p>
-      <h1>Can a small AI model tell proof from paperwork?</h1>
+      <h1>ControlSift helps researchers study whether a small AI can tell real security proof from paperwork.</h1>
       <p class="lede">
-        A research aid for GRC evidence triage — helping under-resourced teams separate operational proof from administrative binders with a small language model.
+        Open research on a sealed synthetic benchmark and a Gemma model ladder — not a live auditor, and not production software.
       </p>
-      <aside class="welcome-card">
-        <p class="sdg-note">UN SDG 10 · Reduced Inequalities</p>
-        <h2>Welcome</h2>
-        <p>
-          ControlSift studies whether a small LM can help triage cybersecurity control evidence:
-          real proof, partial coverage, policy-only paperwork, off-topic, or contradictory.
-          Sealed synthetic benchmark — not a production auditor.
-        </p>
-        <p>
-          Research metrics, PDFs, badge evidence, and GitHub Pages are published.
-          Only the ≤5-minute capstone video remains for form submit.
-        </p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="capstone/index.html">Enter Capstone</a>
-          <a class="btn btn-secondary" href="results.html">See the numbers</a>
-        </div>
-      </aside>
+      <div class="cta-row hero-cta">
+        <a class="btn btn-primary" href="capstone/index.html">Enter Capstone</a>
+        <a class="btn btn-secondary" href="results.html">See Results</a>
+      </div>
+      <p class="hero-note">UN SDG 10 · Reduced Inequalities · metrics published · video remaining</p>
     </section>
 
     <section class="section">
