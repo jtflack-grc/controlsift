@@ -2,28 +2,49 @@
 (function () {
   const links = [
     { href: "index.html", label: "Hub" },
+    { href: "next-steps.html", label: "Critical Path" },
+    { href: "kaggle-checklist.html", label: "Kaggle Checklist" },
+    { href: "deliverables/index.html", label: "Weekly Labs" },
     { href: "paper.html", label: "Research Paper" },
+    { href: "gclp-checklist.html", label: "GCLP Checklist" },
     { href: "un-sdg.html", label: "UN SDG" },
     { href: "curriculum.html", label: "Curriculum" },
     { href: "problem-impact.html", label: "Problem & Impact" },
     { href: "methods-evidence.html", label: "Methods" },
+    { href: "implementation-plan.html", label: "Implementation" },
+    { href: "report.html", label: "Report" },
+    { href: "slides.html", label: "Slides" },
     { href: "responsible-innovation.html", label: "Responsible AI" },
     { href: "reflection.html", label: "Reflection" },
     { href: "submission.html", label: "Submission" },
   ];
 
+  function currentFile() {
+    return (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+  }
+
+  function inDeliverables() {
+    return window.location.pathname.replace(/\\/g, "/").includes("/deliverables/");
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     const host = document.querySelector("[data-capstone-nav]");
     if (!host) return;
-    const file = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+    const file = currentFile();
+    const nested = inDeliverables();
     host.innerHTML = links
       .map((link) => {
+        let href = link.href;
+        if (nested) {
+          href = link.href.startsWith("deliverables/")
+            ? link.href.replace(/^deliverables\//, "")
+            : "../" + link.href;
+        }
         const name = link.href.toLowerCase();
         const active =
-          file === name ||
-          (file === "" && name === "index.html") ||
-          (file === "index.html" && name === "index.html");
-        return `<a href="${link.href}"${active ? ' aria-current="page"' : ""}>${link.label}</a>`;
+          (!nested && (file === name || (file === "index.html" && name === "index.html"))) ||
+          (nested && name === "deliverables/index.html");
+        return `<a href="${href}"${active ? ' aria-current="page"' : ""}>${link.label}</a>`;
       })
       .join("");
   });

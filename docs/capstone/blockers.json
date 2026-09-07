@@ -1,0 +1,278 @@
+{
+  "updated": "2026-09-06T21:20:00-04:00",
+  "goal": "Close ControlSift MMC remaining gaps",
+  "hard_block": "Full-run metrics INGESTED + Pages prep READY. Still waiting user yes for commit + push_pages. Goal NOT complete until Pages publish.",
+  "status": "INGESTED_awaiting_pages",
+  "ingest": {
+    "status": "INGESTED",
+    "zip": "C:\\Users\\admin\\Downloads\\controlsift_gpu_outputs(1).zip",
+    "zip_bytes": 28133571,
+    "zip_mtime": "2026-09-06T21:01:14-04:00",
+    "smoke_cutoff_excluded": "Downloads/controlsift_gpu_outputs.zip mtime 2026-09-06 17:26:56.303 size 5600641",
+    "after_kaggle": "python scripts/after_kaggle.py --zip \"C:\\Users\\admin\\Downloads\\controlsift_gpu_outputs(1).zip\" → exit 0; gemma_metrics_present validation+test all true; gemma_test_ready=True"
+  },
+  "full_metrics": {
+    "source": "results/gemma_*/metrics_{validation,test,challenge}.json after full SMOKE=False zip",
+    "n_validation": 200,
+    "n_test": 200,
+    "n_challenge": 100,
+    "macro_f1": {
+      "majority": { "test": 0.06666666666666667 },
+      "tfidf": { "test": 0.5327056707870661 },
+      "gemma_zero_shot": {
+        "validation": 0.0941945773524721,
+        "test": 0.07955974842767295,
+        "challenge": 0.10549943883277217,
+        "parse_success_test": 0.76
+      },
+      "gemma_few_shot": {
+        "validation": 0.15867768595041323,
+        "test": 0.13651119643810122,
+        "challenge": 0.17411531447026668,
+        "parse_success_test": 0.985
+      },
+      "gemma_qlora": {
+        "validation": 0.09299974073113818,
+        "test": 0.0826655554183644,
+        "challenge": 0.13089133089133087,
+        "parse_success_test": 0.435
+      }
+    },
+    "honest_summary": "TF-IDF leads (~0.533). Best Gemma ladder = few-shot (~0.137) but low absolute F1. QLoRA ~0.083 with fragile parse_success 0.435."
+  },
+  "todos": [
+    {
+      "id": "smoke_full",
+      "status": "complete",
+      "note": "Smoke zip superseded; full-run zip ingested (26.83 MB)."
+    },
+    {
+      "id": "after_kaggle",
+      "status": "complete",
+      "note": "Full zip ingested; docs/results.json + figures + week pages rebuilt; gemma_test_ready=True."
+    },
+    {
+      "id": "gemma_metrics",
+      "status": "complete",
+      "note": "Non-null validation + TEST + challenge macro_f1 for zero/few/qlora."
+    },
+    {
+      "id": "video_script_metrics",
+      "status": "complete",
+      "note": "video-script.html 2:30–3:30 beat filled with REAL TEST numbers + honest TF-IDF-leads / few-shot-best-LLM / QLoRA parse_success note."
+    },
+    {
+      "id": "submit_pdfs",
+      "status": "complete",
+      "note": "export_submit_pdfs.ps1 OK on :5500 — Report 128258 B, Slides 283468 B in docs/capstone/submit/."
+    },
+    {
+      "id": "pages_publish",
+      "status": "next",
+      "needs": "User approval: commit metrics/docs + powershell -File scripts/push_pages.ps1. Do not auto-commit. Reply yes to commit and push Pages."
+    },
+    {
+      "id": "submit_pack",
+      "status": "pending",
+      "needs": "≤5-min video recording after Pages metrics freeze (script beat ready)."
+    }
+  ],
+  "kaggle_bundle_min_sha": "00113445056399afaab315a2ca1a88ea47ba194c",
+  "kaggle_bundle_tip": "0e60d768f7893836dba7f4a9e30204f569cffff6",
+  "kaggle_bundle_tip_short": "0e60d76",
+  "kaggle_bundle_tip_note": "Tip healthy: Safe Locate (temp fetch + Release zip fallback) + torchao>=0.16 + Rescue cell + train.py T4 AMP off (fp16_amp=False). Tag kaggle-bundle = 0e60d76.",
+  "rescue_path": "notebooks/kaggle_runner.ipynb cell 'Rescue: torchao + eval without Locate' (also docs/capstone/kaggle-checklist.html).",
+  "metrics_auto_pickup": {
+    "do_not_hand_edit_numbers": true,
+    "source_of_truth": "results/gemma_*/metrics_test.json → scripts/after_kaggle.py → scripts/run_evaluation.py → docs/data/results.json",
+    "client_pages": {
+      "docs/results.html": "site.js fetch data/results.json; null → pending",
+      "docs/index.html": "site.js data-metric bindings",
+      "docs/capstone/slides.html": "site.js data-metric + data-pending-until-gemma (no hardcoded Gemma scores)",
+      "docs/capstone/report.html": "site.js data-metric + pending note until non-null",
+      "docs/capstone/deliverables/index.html": "site.js data-hub-gemma-status flips week 7/9/11/12 pills when all Gemma TEST macro_f1 non-null"
+    },
+    "build_time": {
+      "after_kaggle": "run_evaluation + build_figures + week11_comparative + sync_artifacts + build_week_pages",
+      "build_week_pages": "reads docs/data/results.json; flips week 07/09/11/12 status only when Gemma TEST macro_f1 all non-null — never invents scores"
+    },
+    "manual_after_metrics": [
+      "video-script.html after-metrics beat — DONE 2026-09-06",
+      "export_submit_pdfs.ps1 for PDF freeze — DONE 2026-09-06",
+      "≤5-minute video recording"
+    ]
+  },
+  "blocked": [
+    {
+      "id": "badge_proof",
+      "status": "complete",
+      "evidence": "mmc/deliverables week03 badge + Skills URL local; not fully on Pages yet — include paths under pages_plan.badge_proof on Pages commit"
+    },
+    {
+      "id": "locate_workdir",
+      "status": "complete",
+      "evidence": "Locate temp-fetch preserves WORKDIR on failure; Release zip fallback; WORKDIR/SMOKE defaults; train.py T4 AMP off"
+    },
+    {
+      "id": "torchao_peft",
+      "status": "complete",
+      "needs": "Prefer Rescue cell (skip Locate): torchao>=0.16 then QLoRA eval + Package. tip 0e60d76",
+      "evidence": "Smoke eval ran; tip includes torchao install + preflight"
+    },
+    {
+      "id": "smoke_zip",
+      "status": "complete",
+      "needs": "controlsift_gpu_outputs*.zip in Downloads after Package",
+      "evidence": "Smoke: Downloads/controlsift_gpu_outputs.zip mtime 2026-09-06 17:26:56 size 5600641 — excluded. Full run: controlsift_gpu_outputs(1).zip 28133571 bytes mtime 2026-09-06 21:01:14."
+    },
+    {
+      "id": "full_run",
+      "status": "complete",
+      "needs": "SMOKE=False Run All on Kaggle; download NEW zip (mtime after smoke); after_kaggle → non-null metrics_test.json",
+      "evidence": "INGESTED from controlsift_gpu_outputs(1).zip; all gemma metrics_test.json present n=200"
+    },
+    {
+      "id": "after_kaggle",
+      "status": "complete",
+      "needs": "new full-run zip → python scripts/after_kaggle.py --zip <path>; report TEST macro_f1",
+      "evidence": "2026-09-06 after_kaggle exit 0 on (1).zip; gemma_test_ready=True; figures + week pages rebuilt"
+    },
+    {
+      "id": "gemma_metrics",
+      "status": "complete",
+      "needs": "TEST macro_f1 non-null from full zip. Do not invent.",
+      "evidence": "TEST macro_f1: zero_shot=0.07956 few_shot=0.136511 qlora=0.082666; tfidf=0.5327 majority=0.0667 (from metrics_test.json)"
+    },
+    {
+      "id": "pages_publish",
+      "status": "next",
+      "evidence": "Pages 404; prep ready locally (metrics + video-script + PDFs). Awaiting user yes for commit + push_pages.ps1. No auto-commit."
+    },
+    {
+      "id": "submit_pack",
+      "status": "pending",
+      "needs": "≤5-min video still manual; PDFs + video-script ready"
+    }
+  ],
+  "smoke_metrics_validation": {
+    "gemma_zero_shot": {
+      "accuracy": 0.1875,
+      "macro_f1": 0.08
+    },
+    "gemma_few_shot": {
+      "accuracy": 0.3125,
+      "macro_f1": 0.1723
+    },
+    "gemma_qlora": {
+      "accuracy": 0.0625,
+      "macro_f1": 0.0444,
+      "parse_success_rate": 0.6875
+    },
+    "n": 16,
+    "test": null,
+    "note": "Historical smoke-only; superseded by full_metrics"
+  },
+  "pages_publish_prep": {
+    "commit_when": "NOW — non-null results/gemma_*/metrics_test.json from full zip ingested; PDFs + video-script filled",
+    "branch": "master",
+    "push": "powershell -File scripts/push_pages.ps1 (after clean commit; pushes master→main)",
+    "workflow": ".github/workflows/pages.yml on push to main/master paths docs/** results/**",
+    "pages_settings": "GitHub → Settings → Pages → Source = GitHub Actions (once)"
+  },
+  "pages_plan": {
+    "ready": true,
+    "draft_only": true,
+    "do_not_execute_until": "User explicitly replies yes to commit and push Pages",
+    "verified_2026_09_06": {
+      "docs_data_results_json": "non-null Gemma TEST macro_f1 for zero/few/qlora (matches results/*/metrics_test.json)",
+      "docs_results_html": "loads via site.js from data/results.json — will show numbers once Pages serves docs/",
+      "video_script": "honest results beat filled",
+      "export_submit_pdfs": "OK (:5500 + Edge)",
+      "pages_yml": "present .github/workflows/pages.yml",
+      "push_pages_ps1": "master→main mapping confirmed"
+    },
+    "suggested_commit_message": "Publish Gemma TEST metrics, badge proof, and GitHub Pages assets.\n\nFreeze non-null ladder scores (TF-IDF leads; Gemma few-shot best of LLM runs) plus submit PDFs and Pages workflow.",
+    "preflight": [
+      "DONE: full zip controlsift_gpu_outputs(1).zip ingested via after_kaggle",
+      "DONE: TEST macro_f1 reported for gemma_zero_shot / gemma_few_shot / gemma_qlora",
+      "DONE: powershell -File scripts/export_submit_pdfs.ps1 (:5500 + Edge)",
+      "DONE: video-script.html after-metrics beat filled with real numbers",
+      "NEXT: user yes → commit → push_pages.ps1 → Settings→Pages→Actions"
+    ],
+    "commit_file_list": [
+      "results/gemma_zero_shot/metrics_test.json",
+      "results/gemma_zero_shot/metrics_validation.json",
+      "results/gemma_zero_shot/metrics_challenge.json",
+      "results/gemma_zero_shot/predictions_test.jsonl",
+      "results/gemma_zero_shot/predictions_validation.jsonl",
+      "results/gemma_zero_shot/predictions_challenge.jsonl",
+      "results/gemma_few_shot/metrics_test.json",
+      "results/gemma_few_shot/metrics_validation.json",
+      "results/gemma_few_shot/metrics_challenge.json",
+      "results/gemma_few_shot/predictions_test.jsonl",
+      "results/gemma_few_shot/predictions_validation.jsonl",
+      "results/gemma_few_shot/predictions_challenge.jsonl",
+      "results/gemma_qlora/metrics_test.json",
+      "results/gemma_qlora/metrics_validation.json",
+      "results/gemma_qlora/metrics_challenge.json",
+      "results/gemma_qlora/predictions_test.jsonl",
+      "results/gemma_qlora/predictions_validation.jsonl",
+      "results/gemma_qlora/predictions_challenge.jsonl",
+      "results/gemma_qlora/training_meta.json",
+      "docs/data/results.json",
+      "docs/assets/js/site.js",
+      "docs/assets/img/figures/",
+      "docs/results.html",
+      "docs/index.html",
+      "docs/capstone/report.html",
+      "docs/capstone/slides.html",
+      "docs/capstone/video-script.html",
+      "docs/capstone/blockers.json",
+      "docs/capstone/deliverables/",
+      "docs/capstone/submit/ControlSift_Capstone_Report.pdf",
+      "docs/capstone/submit/ControlSift_Capstone_Slides.pdf",
+      "docs/capstone/submit/README.md",
+      "mmc/deliverables/week03_skill_badge.md",
+      "mmc/deliverables/outputs/README_WEEK03_BADGE.md",
+      "mmc/labs/build_week_pages.py",
+      "scripts/after_kaggle.py",
+      "scripts/export_submit_pdfs.ps1",
+      "scripts/push_pages.ps1",
+      ".github/workflows/pages.yml",
+      "reports/figures/ (optional mirror of rebuilt charts)"
+    ],
+    "exclude_from_commit": [
+      "results/gemma_qlora/adapter/** (weights)",
+      "*.safetensors / *.bin / *.pt",
+      "ControlSift_Capstone_Video.mp4 (form upload only)",
+      ".env / secrets / HF tokens",
+      "Untitled.ipynb",
+      "data/raw/",
+      "scripts/_tmp_*.py / scripts/_patch_*.py (local patch helpers)",
+      "vendor/"
+    ],
+    "badge_proof": {
+      "status": "local_only",
+      "include_in_pages_commit": true,
+      "paths": [
+        "mmc/deliverables/week03_skill_badge.md",
+        "mmc/deliverables/outputs/README_WEEK03_BADGE.md",
+        "docs/capstone/deliverables/artifacts/week03_skill_badge.md",
+        "docs/capstone/deliverables/artifacts/README_WEEK03_BADGE.md",
+        "docs/capstone/deliverables/artifacts/week03_skill_badge.md.html",
+        "docs/capstone/deliverables/artifacts/README_WEEK03_BADGE.md.html"
+      ],
+      "note": "Badge proof is complete locally but not yet on GitHub Pages; must be in the metrics publish commit so Pages can serve it."
+    },
+    "push_pages_steps": [
+      "1. Review git status / git diff; stage only paths from commit_file_list (plus after_kaggle-touched docs)",
+      "2. Commit when user says yes (do not auto-commit). Use suggested_commit_message",
+      "3. Ensure working tree clean for staged Pages set",
+      "4. powershell -File scripts/push_pages.ps1  (local master → origin main)",
+      "5. GitHub → Settings → Pages → Source = GitHub Actions (once)",
+      "6. Confirm https://jtflack-grc.github.io/controlsift/ and badge/results paths leave 404"
+    ],
+    "push_command": "powershell -File scripts/push_pages.ps1",
+    "site": "https://jtflack-grc.github.io/controlsift/"
+  }
+}

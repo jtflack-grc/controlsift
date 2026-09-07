@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>gdm_lab_7_4_estimate_gpu_memory.ipynb</title>
+  <link rel="stylesheet" href="../../../../../assets/css/site.css" />
+  <style>
+    .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+    .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
+    pre.source {
+      margin: 0.5rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>gdm_lab_7_4_estimate_gpu_memory.ipynb</h2>
+        <p>
+          <a href="gdm_lab_7_4_estimate_gpu_memory.ipynb">Download .ipynb</a> ·
+          <a href="../../../index.html">Deliverables hub</a>
+        </p>
+        <p>Open in Jupyter from repo: <code>jupyter notebook mmc/notebooks/gdm_lab_7_4_estimate_gpu_memory.ipynb</code></p>
+      </div>
+      <article class="nb-cell nb-markdown"><h3>Cell 1 · markdown</h3><pre class="source"><code>&lt;img src=&quot;https://storage.googleapis.com/dm-educational/assets/ai_foundations/GDM-Labs-banner-image-C6-white-bg.png&quot;&gt;</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 2 · markdown</h3><pre class="source"><code># Lab: Estimate GPU Memory
+
+&lt;a href=&#x27;https://colab.research.google.com/github/google-deepmind/ai-foundations/blob/master/course_7/gdm_lab_7_4_estimate_gpu_memory.ipynb&#x27; target=&#x27;_parent&#x27;&gt;&lt;img src=&#x27;https://colab.research.google.com/assets/colab-badge.svg&#x27; alt=&#x27;Open In Colab&#x27;/&gt;&lt;/a&gt;
+
+Learn how to estimate the GPU memory required to train a model.
+
+15 minutes</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 3 · markdown</h3><pre class="source"><code>In the lab &quot;Estimate Training FLOPs&quot;, you explored the number of computations required to train a model. However, there is another critical resource to consider: GPU memory. Before you can perform a single calculation, all of the necessary data must be loaded into the GPU&#x27;s memory. This includes the model&#x27;s parameters, the input data, and temporary values like gradients.
+
+In this lab, you will build a memory calculator to estimate the total GPU memory required to train a model.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 4 · markdown</h3><pre class="source"><code>### What you will learn:
+
+By the end of this lab, you will be able to:
+
+* Compute the memory required for training a model.
+* Describe why training large models is so challenging on resource-constrained hardware.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 5 · markdown</h3><pre class="source"><code>### Tasks
+
+**In this lab, you will**:
+* Write functions to calculate the memory usage for parameters, input data, gradients, optimizer states, and activations.
+* Use these functions to determine whether a 4-billion parameter model can be trained on a standard 16GB GPU.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 6 · markdown</h3><pre class="source"><code>## How to use Google Colaboratory (Colab)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 7 · markdown</h3><pre class="source"><code>Google Colaboratory (also known as Google Colab) is a platform that allows you to run Python code in your browser. The code is written in **cells** that are excuted on a remote server.
+
+To run a cell, hover over a cell and click on the `run` button to its left. The run button is the circle with the triangle (▶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or ⌘+Return if you are using a Mac).
+
+To try this out, run the following cell. This should print today&#x27;s day of the week below it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 8 · code</h3><pre class="source"><code>from datetime import datetime
+print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 9 · markdown</h3><pre class="source"><code>Note that the **order in which you run the cells matters**. When you are working through a lab, make sure to always run all cells in order, otherwise the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose _Runtime → Run before_  from the menu above (or use the keyboard combination Ctrl/⌘ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>## Imports
+
+In this lab, you will use functions from the custom `ai_foundations` package for formatting memory estimates and verifying your solutions.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 11 · code</h3><pre class="source"><code>%%capture
+# Install the custom package for this course.
+!pip install &quot;git+https://github.com/google-deepmind/ai-foundations.git@main&quot;
+
+from ai_foundations.utils import formatting # For formatting memory estimates.
+# For checking your solutions.
+from ai_foundations.feedback.course_7 import memory as feedback
+
+# Used to format the results of calculations.
+from IPython.display import display, HTML</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 12 · markdown</h3><pre class="source"><code>The following cell sets up all the necessary constants for this lab. These constants define a hypothetical training scenario for the Gemma-4B model. This includes the `PARAM_COUNT`, the `BYTES_PER_PARAMETER` (for 32-bit precision), and other details like `BATCH_SIZE` and `MAX_LENGTH` that are needed to estimate the size of the activation memory.
+
+Run this cell to make these constants available for the rest of the lab.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 13 · code</h3><pre class="source"><code># Model parameters (4 billion).
+PARAM_COUNT = 4e9
+
+# Precision (bytes per parameter).
+# For 32-bit (FP32), each parameter requires 4 bytes of storage.
+BYTES_PER_PARAMETER = 4
+
+# Activation formula constants.
+BATCH_SIZE = 8
+MAX_LENGTH = 1024 # Maximum sequence length.
+NUM_LAYERS = 32
+EMBEDDING_DIM = 2560</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 14 · markdown</h3><pre class="source"><code>## Coding Activity 1: Calculate parameter memory
+
+As a first step, implement a function that computes the amount of memory required to store all the parameters of a model. This and all other functions that you implement as part of this lab will then be used to estimate the total memory requirements for training or fine-tuning a model.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 15 · markdown</h3><pre class="source"><code>------
+&gt; 💻 **Your task**:
+&gt;
+&gt;Complete the function `calculate_param_memory` in the following cell.
+&gt;
+&gt;The memory required is the total number of parameters multiplied by the number of bytes each parameter occupies.
+&gt;
+&gt; Once you have implemented this function, run the first cell to define the function and the second cell to test your code.
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 16 · code</h3><pre class="source"><code>def calculate_param_memory(param_count: float, bytes_per_param: int) -&gt; float:
+    &quot;&quot;&quot;Calculates the memory in GB required to store the model parameters.
+
+    Args:
+      param_count: The total number of parameters in the model.
+      bytes_per_param: The number of bytes used to store a single parameter.
+
+    Returns:
+      The total memory required for parameters, in gigabytes.
+    &quot;&quot;&quot;
+    total_bytes = ...  # Add your code here.
+
+    return formatting.bytes_to_gb(total_bytes)</code></pre></article><article class="nb-cell nb-code"><h3>Cell 17 · code</h3><pre class="source"><code># @title Run this cell to test your implementation
+feedback.test_calculate_param_memory(calculate_param_memory)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 18 · markdown</h3><pre class="source"><code>## Coding Activity 2: Calculate input data memory
+
+During training, fine-tuning, or inference, you must also load the entire batch of input data into the GPU&#x27;s memory. In this activity, compute how much memory is required to store the input for one batch.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 19 · markdown</h3><pre class="source"><code>------
+&gt; 💻 **Your task**:
+&gt;
+&gt;Complete the function `calculate_input_data_memory` below.
+&gt;
+&gt; This function should return the number of bytes required to store the input to a model.
+&gt;
+&gt; Hints:
+&gt; * The GPU processes a whole batch of training examples at once. To find the total memory for the entire input batch, you need to determine the number of bytes in a batch.
+&gt; * A batch contains `batch_size` examples of length `max_length` tokens. Recall that each sequence has `max_length` because we pad and truncate it to length `max_length`.
+&gt; * One input tokens requires `bytes_per_token_id` bytes of memory.
+&gt;
+&gt; Once you have implemented this function, run the following two cells to define the function and test your code.
+
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 20 · code</h3><pre class="source"><code>def calculate_input_data_memory(
+    batch_size: int, max_length: int, bytes_per_token_id: int
+) -&gt; float:
+    &quot;&quot;&quot;Calculates the memory in GB required to store a batch of input token IDs.
+
+    Args:
+      batch_size: The number of sequences in a single batch.
+      max_length: The length of each sequence in tokens after padding.
+      bytes_per_token_id: The number of bytes for each token ID.
+
+    Returns:
+      The total memory required for the input data batch, in gigabytes.
+    &quot;&quot;&quot;
+    total_bytes = ...  # Add your code here.
+
+    return formatting.bytes_to_gb(total_bytes)</code></pre></article><article class="nb-cell nb-code"><h3>Cell 21 · code</h3><pre class="source"><code># @title Run this cell to test your implementation.
+feedback.test_calculate_input_data_memory(calculate_input_data_memory)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 22 · markdown</h3><pre class="source"><code>## Coding Activity 3: Calculate gradient memory
+
+Recall that during the backward pass, the optimizer computes a gradient that indicates how to update the parameters. This gradient has one value for each model parameter and since the gradient is computed in the GPU, this also needs to be stored in the GPU memory.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 23 · markdown</h3><pre class="source"><code>------
+&gt; 💻 **Your task**:
+&gt;
+&gt;Complete the function `calculate_gradient_memory` in the following cell.
+&gt;
+&gt;For each parameter in the model, you have to store one number as part of the gradient. The total memory required is therefore the total number of parameters multiplied by the number of bytes each parameter occupies.
+&gt;
+&gt; Once you have implemented this function, run the following two cells to define the function and test your code.
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 24 · code</h3><pre class="source"><code>def calculate_gradient_memory(param_count: float, bytes_per_param: int) -&gt; float:
+    &quot;&quot;&quot;Calculates the memory in GB required to store the gradients.
+
+    Args:
+      param_count: The total number of parameters in the model.
+      bytes_per_param: The number of bytes used to store a single parameter.
+
+    Returns:
+      The total memory required for gradients, in gigabytes.
+    &quot;&quot;&quot;
+    total_bytes = ...  # Add your code here.
+
+    return formatting.bytes_to_gb(total_bytes)</code></pre></article><article class="nb-cell nb-code"><h3>Cell 25 · code</h3><pre class="source"><code># @title Run this cell to test your implementation.
+feedback.test_calculate_gradient_memory(calculate_gradient_memory)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 26 · markdown</h3><pre class="source"><code>## Coding Activity 4: Calculate optimizer memory
+
+Modern optimizers such as Adam also keep information that is used to compute learning rates for each individual parameter. This information also needs to be stored on the GPU.
+
+
+------
+&gt; 💻 **Your task**:
+&gt;
+&gt;Complete the function `calculate_optimizer_memory` in the following cell.
+&gt;
+&gt;For each parameter in the model, an optimizer such as Adam stores information that is used to compute the learning rate for that specific parameter.
+The memory required is therefore the total number of parameters multiplied by the number of bytes this infomation occupies. Adam stores two states per parameter, so therefore the memory requirement for storing the information to compute the learning rate is 2 times the number of bytes required to store a parameter.
+&gt;
+&gt; Once you have implemented this function, run the following two cells to define the function and test your code.
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 27 · code</h3><pre class="source"><code>def calculate_optimizer_memory(param_count: float, bytes_per_param: int) -&gt; float:
+    &quot;&quot;&quot;Calculates the memory in GB for Adam optimizer states.
+
+    Args:
+      param_count: The total number of parameters in the model.
+      bytes_per_param: The number of bytes used to store a single parameter.
+
+    Returns:
+      The total memory required for optimizer states, in gigabytes.
+    &quot;&quot;&quot;
+    total_bytes = ...  # Add your code here.
+
+    return formatting.bytes_to_gb(total_bytes)</code></pre></article><article class="nb-cell nb-code"><h3>Cell 28 · code</h3><pre class="source"><code># @title Run this cell to test your optimizer calculation
+feedback.test_calculate_optimizer_memory(calculate_optimizer_memory)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 29 · markdown</h3><pre class="source"><code>## Coding Activity 5: Calculate activation memory
+
+When doing a forward pass, the model needs to store the results of each computation (also known as **activations**) in the GPU.
+
+The activation for a single token after passing through one transformer layer is a vector. The size of this vector is the embedding dimension.
+* $\text{memory for one token&#x27;s activation} = \text{embedding dimension} \times \text{bytes per parameter}$
+
+During the forward pass, this activation vector is stored for every single token in the sequence.
+* $\text{memory for one sequence} = \text{maximum sequence length} \times \text{memory for one token&#x27;s activation}$
+
+During training, the activations from every layer are kept in memory because they are needed for the backward pass.
+* $\text{memory for all layers} = \text{number of  layers} \times \text{memory for one sequence}$
+
+Finally, this entire process happens for every example in the batch simultaneously. The GPU must hold the activations for all of them at once.
+* $\text{total activation memory} = \text{batch Size} \times \text{memory for all layers}$
+
+------
+&gt; 💻 **Your task**:
+&gt;
+&gt;Complete the function `calculate_activation_memory` in the following cell.
+&gt;
+&gt; Use the information about activiations provided to derive the formula for the activation memory and then implement this computation in the function within the cell.
+&gt;
+&gt; Once you have implemented this function, run the following two cells to define the function and test your code.
+&gt;
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 30 · code</h3><pre class="source"><code>def calculate_activation_memory(
+    batch_size: int,
+    max_length: int,
+    num_layers: int,
+    embedding_dim: int,
+    bytes_per_param: int,
+) -&gt; float:
+    &quot;&quot;&quot;Estimates the memory in GB required for activations using a simplified
+    formula.
+
+    Args:
+      batch_size: The number of sequences in the batch.
+      max_length: The length of each sequence in tokens after padding.
+      num_layers: The number of transformer layers in the model.
+      embedding_dim: The hidden dimension size of the model.
+      bytes_per_param: The number of bytes used for the activation values.
+
+    Returns:
+      The estimated total memory for activations, in gigabytes.
+    &quot;&quot;&quot;
+    total_bytes = ... # Add your code here.
+
+    return formatting.bytes_to_gb(total_bytes)</code></pre></article><article class="nb-cell nb-code"><h3>Cell 31 · code</h3><pre class="source"><code># @title Run this cell to test your implementation.
+feedback.test_calculate_activation_memory(calculate_activation_memory)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 32 · markdown</h3><pre class="source"><code>## Computing total memory
+
+Now that you have created the functions to calculate memory for each component, run the next cell to compute the total GPU memory required for Gemma-4B. The cell uses all the indiviual functions that you implemented in this lab to output a breakdown of the memory requirements of the invidiual components.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 33 · code</h3><pre class="source"><code># Calculate memory for each component using your functions.
+param_mem = calculate_param_memory(PARAM_COUNT, BYTES_PER_PARAMETER)
+input_data_mem = calculate_input_data_memory(
+    BATCH_SIZE, MAX_LENGTH, BYTES_PER_PARAMETER
+)
+grad_mem = calculate_gradient_memory(PARAM_COUNT, BYTES_PER_PARAMETER)
+optim_mem = calculate_optimizer_memory(PARAM_COUNT, BYTES_PER_PARAMETER)
+activ_mem = calculate_activation_memory(
+    BATCH_SIZE, MAX_LENGTH, NUM_LAYERS, EMBEDDING_DIM, BYTES_PER_PARAMETER
+)
+
+total_inference_memory = param_mem + input_data_mem + activ_mem
+
+# Sum them.
+total_training_memory = total_inference_memory + grad_mem + optim_mem
+
+# Display the results.
+display(HTML(&quot;&lt;h3&gt;--- GPU memory consumption breakdown ---&lt;/h3&gt;&quot;))
+display(HTML(&quot;&lt;h4&gt;------ During training and inference ------&lt;/h4&gt;&quot;))
+
+# Use the existing function for each component.
+formatting.display_memory(&quot;model parameters&quot;, param_mem)
+formatting.display_memory(&quot;input data batch&quot;, input_data_mem, decimal_places=6)
+formatting.display_memory(&quot;activations&quot;, activ_mem)
+display(HTML(&quot;&lt;h4&gt;------ During training only ------&lt;/h4&gt;&quot;))
+formatting.display_memory(&quot;gradients&quot;, grad_mem)
+formatting.display_memory(&quot;optimizer states (Adam)&quot;, optim_mem)
+
+# Display the formatted separator and total.
+display(
+    HTML(
+        f&quot;&lt;h3&gt;Total estimated GPU memory required during inference: &quot;
+        f&quot;{total_inference_memory:.2f} GB&lt;/h3&gt;&quot;
+    )
+)
+display(
+    HTML(
+        f&quot;&lt;h3&gt;Total estimated GPU memory required during training or &quot;
+        f&quot;fine-tuning: {total_training_memory:.2f} GB&lt;/h3&gt;&quot;
+    )
+)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 34 · markdown</h3><pre class="source"><code>Look at the total estimated GPU memory from the cell above. The Google Colab environment typically provides a GPU which has slightly less than **16 GB of memory**.
+
+As your calculation shows, the required memory to both perform inference using the 4B Gemma model and to train or fine-tune the 4-billion parameter Gemma model with these settings is greater than 16 GB. In its current form, it&#x27;s impossible to fit all of the required data onto this GPU. As you observed in the previous lab, attempting to load or train this model with these settings or perform full-parameter fine-tuning would immediately fail with an &quot;out-of-memory&quot; error.
+
+Fortunately, this memory limitation is a common problem for which a number of solutions have been developed. In the following activities, you will learn about several techniques to improve hardware efficiency. These will allow you to fine-tune larger models using the GPU you have available.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 35 · markdown</h3><pre class="source"><code>## Reducing memory requirements with bfloat16
+
+In the article &quot;Smart numbers,&quot; you learned about the **bfloat16** format that was developed specifically for reducing memory requirements of deep learning models without significantly sacrificing model performance. In the final activity of this lab, compute the memory requirements of the Gemma-4B model when the parameters, gradients, and activations are stored as bfloat16 numbers instead of 32-bit floating point numbers.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 36 · code</h3><pre class="source"><code># Set the number of bytes per parameter to 2 as bfloat16 uses only two bytes
+# to store each parameter, gradient, and activation.
+BYTES_PER_PARAMETER = 2
+
+param_mem = calculate_param_memory(PARAM_COUNT, BYTES_PER_PARAMETER)
+input_data_mem = calculate_input_data_memory(
+    BATCH_SIZE, MAX_LENGTH, BYTES_PER_PARAMETER
+)
+grad_mem = calculate_gradient_memory(PARAM_COUNT, BYTES_PER_PARAMETER)
+optim_mem = calculate_optimizer_memory(PARAM_COUNT, BYTES_PER_PARAMETER)
+activ_mem = calculate_activation_memory(
+    BATCH_SIZE, MAX_LENGTH, NUM_LAYERS, EMBEDDING_DIM, BYTES_PER_PARAMETER
+)
+
+total_inference_memory = param_mem + input_data_mem + activ_mem
+
+# Sum them.
+total_training_memory = total_inference_memory + grad_mem + optim_mem
+
+# Display the results.
+display(HTML(&quot;&lt;h3&gt;--- GPU memory consumption breakdown ---&lt;/h3&gt;&quot;))
+display(HTML(&quot;&lt;h4&gt;------ During training and inference ------&lt;/h4&gt;&quot;))
+
+# Use the existing function for each component.
+formatting.display_memory(&quot;model parameters&quot;, param_mem)
+formatting.display_memory(&quot;input data batch&quot;, input_data_mem, decimal_places=6)
+formatting.display_memory(&quot;activations&quot;, activ_mem)
+display(HTML(&quot;&lt;h4&gt;------ During training only ------&lt;/h4&gt;&quot;))
+formatting.display_memory(&quot;gradients&quot;, grad_mem)
+formatting.display_memory(&quot;optimizer states (Adam)&quot;, optim_mem)
+
+# Display the formatted separator and total.
+display(
+    HTML(
+        f&quot;&lt;h3&gt;Total estimated GPU memory required during inference: &quot;
+        f&quot;{total_inference_memory:.2f} GB&lt;/h3&gt;&quot;
+    )
+)
+display(
+    HTML(
+        f&quot;&lt;h3&gt;Total estimated GPU memory required during training or &quot;
+        f&quot;fine-tuning: {total_training_memory:.2f} GB&lt;/h3&gt;&quot;
+    )
+)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 37 · markdown</h3><pre class="source"><code>As this computation shows, representing numbers using bfloat16 halves the memory requirements. This, for example, allows you to perform inference with a 4 billion parameter model on a GPU with 16GB. You will make use of this technique in the next lab. Here you will load and fine-tune the Gemma-4B model using this more efficient number representation for storing parameters, gradients, and optimizer states.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 38 · markdown</h3><pre class="source"><code>## Summary
+
+This lab provided a practical guide to estimating the memory required to train a language model. The five main components that need to be stored in the GPU&#x27;s memory are:
+ * Model parameters
+ * Input data
+ * Gradients
+ * Optimizer states
+ * Activations
+
+A model can fail to train because these components together require more memory than is available on a GPU. In the next activity, you will apply techniques to overcome these memory limitations.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 39 · markdown</h3><pre class="source"><code>## Solutions
+
+The following cells provide reference solutions to the coding activities in this notebook. If you really get stuck after trying to solve the activities yourself, you may want to consult these solutions.
+
+It is recommended that you *only* look at the solutions after you have tried to solve the activities *multiple times*. The best way to learn challenging concepts in computer science and artificial intelligence is to debug your code piece-by-piece until it works, rather than copying existing solutions.
+
+If you feel stuck, you may want to first try to debug your code. For example, by adding additional print statements to see what your code is doing at every step. This will provide you with a much deeper understanding of the code and the materials. It will also provide you with practice on how to solve challenging coding problems beyond this course.
+
+To view the solutions for an activity, click on the arrow to the left of the activity name. If you consult the solutions, do not copy and paste them into the cells above. Instead, look at them, and type them manually into the cell. This will help you understand where you went wrong.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 40 · markdown</h3><pre class="source"><code>### Coding Activity 1</code></pre></article><article class="nb-cell nb-code"><h3>Cell 41 · code</h3><pre class="source"><code>def calculate_param_memory(param_count: int, bytes_per_param: int) -&gt; float:
+    &quot;&quot;&quot;Calculates the memory in GB required to store the model parameters.
+
+    Args:
+      param_count: The total number of parameters in the model.
+      bytes_per_param: The number of bytes used to store a single parameter.
+
+    Returns:
+      The total memory required for parameters, in gigabytes.
+    &quot;&quot;&quot;
+    total_bytes = param_count * bytes_per_param
+    return formatting.bytes_to_gb(total_bytes)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 42 · markdown</h3><pre class="source"><code>### Coding Activity 2</code></pre></article><article class="nb-cell nb-code"><h3>Cell 43 · code</h3><pre class="source"><code>def calculate_input_data_memory(
+    batch_size: int, max_length: int, bytes_per_token_id: int
+) -&gt; float:
+    &quot;&quot;&quot;Calculates the memory in GB required to store a batch of input token IDs.
+
+    Args:
+      batch_size: The number of sequences in a single batch.
+      max_length: The length of each sequence in tokens after padding.
+      bytes_per_token_id: The number of bytes for each token ID (default is 4).
+
+    Returns:
+      The total memory required for the input data batch, in gigabytes.
+    &quot;&quot;&quot;
+    total_bytes = batch_size * max_length * bytes_per_token_id
+    return formatting.bytes_to_gb(total_bytes)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 44 · markdown</h3><pre class="source"><code>### Coding Activity 3</code></pre></article><article class="nb-cell nb-code"><h3>Cell 45 · code</h3><pre class="source"><code>def calculate_gradient_memory(param_count: int, bytes_per_param: int) -&gt; float:
+    &quot;&quot;&quot;Calculates the memory in GB required to store the gradients.
+
+    Args:
+      param_count: The total number of parameters in the model.
+      bytes_per_param: The number of bytes used to store a single parameter.
+
+    Returns:
+      The total memory required for gradients, in gigabytes.
+    &quot;&quot;&quot;
+    total_bytes = param_count * bytes_per_param
+    return formatting.bytes_to_gb(total_bytes)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 46 · markdown</h3><pre class="source"><code>### Coding Activity 4</code></pre></article><article class="nb-cell nb-code"><h3>Cell 47 · code</h3><pre class="source"><code>def calculate_optimizer_memory(param_count: int, bytes_per_param: int) -&gt; float:
+    &quot;&quot;&quot;Calculates the memory in GB for Adam optimizer states.
+
+    Args:
+      param_count: The total number of parameters in the model.
+      bytes_per_param: The number of bytes used to store a single parameter.
+
+    Returns:
+      The total memory required for optimizer states, in gigabytes.
+    &quot;&quot;&quot;
+    total_bytes = 2 * param_count * bytes_per_param
+    return formatting.bytes_to_gb(total_bytes)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 48 · markdown</h3><pre class="source"><code>### Coding Activity 5</code></pre></article><article class="nb-cell nb-code"><h3>Cell 49 · code</h3><pre class="source"><code>def calculate_activation_memory(
+    batch_size: int,
+    max_length: int,
+    num_layers: int,
+    embedding_dim: int,
+    bytes_per_param: int,
+) -&gt; float:
+    &quot;&quot;&quot;Estimates the memory in GB required for activations using a simplified formula.
+
+    Args:
+      batch_size: The number of sequences in the batch.
+      max_length: The length of each sequence in tokens after padding.
+      num_layers: The number of transformer layers in the model.
+      embedding_dim: The hidden dimension size of the model.
+      bytes_per_param: The number of bytes used for the activation values.
+
+    Returns:
+      The estimated total memory for activations, in gigabytes.
+    &quot;&quot;&quot;
+    total_bytes = batch_size * max_length * num_layers * embedding_dim * bytes_per_param
+    return formatting.bytes_to_gb(total_bytes)</code></pre></article>
+    </section>
+  </main>
+</body>
+</html>

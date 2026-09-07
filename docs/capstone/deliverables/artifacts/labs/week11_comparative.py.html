@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>week11_comparative.py</title>
+  <link rel="stylesheet" href="../../../../assets/css/site.css" />
+  <style>
+    pre.source {
+      margin: 1rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>week11_comparative.py</h2>
+        <p><a href="week11_comparative.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p>
+      </div>
+      <pre class="source"><code>&quot;&quot;&quot;Week 11 deliverable helper: comparative analysis table from results/.&quot;&quot;&quot;
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from mmc.labs.paths import ROOT, ensure_out
+
+
+def _load_macro(path: Path) -&gt; float | None:
+    if not path.is_file():
+        return None
+    data = json.loads(path.read_text(encoding=&quot;utf-8&quot;))
+    metrics = data.get(&quot;metrics&quot;) or data
+    return metrics.get(&quot;macro_f1&quot;)
+
+
+def run() -&gt; dict:
+    out = ensure_out()
+    rows = []
+    experiments = [
+        (&quot;majority&quot;, &quot;results/majority/metrics_test.json&quot;, &quot;results/majority/metrics_challenge.json&quot;),
+        (&quot;tfidf&quot;, &quot;results/tfidf/metrics_test.json&quot;, &quot;results/tfidf/metrics_challenge.json&quot;),
+        (&quot;gemma_zero_shot&quot;, &quot;results/gemma_zero_shot/metrics_test.json&quot;, &quot;results/gemma_zero_shot/metrics_challenge.json&quot;),
+        (&quot;gemma_few_shot&quot;, &quot;results/gemma_few_shot/metrics_test.json&quot;, &quot;results/gemma_few_shot/metrics_challenge.json&quot;),
+        (&quot;gemma_qlora&quot;, &quot;results/gemma_qlora/metrics_test.json&quot;, &quot;results/gemma_qlora/metrics_challenge.json&quot;),
+    ]
+    for name, test_p, chal_p in experiments:
+        test = _load_macro(ROOT / test_p)
+        chal = _load_macro(ROOT / chal_p)
+        rows.append(
+            {
+                &quot;experiment&quot;: name,
+                &quot;test_macro_f1&quot;: test,
+                &quot;challenge_macro_f1&quot;: chal,
+                &quot;status&quot;: &quot;complete&quot; if test is not None else &quot;pending_gpu&quot;,
+            }
+        )
+
+    public = ROOT / &quot;docs&quot; / &quot;data&quot; / &quot;results.json&quot;
+    public_blob = json.loads(public.read_text(encoding=&quot;utf-8&quot;)) if public.is_file() else {}
+
+    payload = {
+        &quot;deliverable&quot;: &quot;week11_comparative_analysis&quot;,
+        &quot;primary_metric&quot;: &quot;macro_f1&quot;,
+        &quot;seed&quot;: 42,
+        &quot;dataset_version&quot;: public_blob.get(&quot;dataset_version&quot;),
+        &quot;rows&quot;: rows,
+        &quot;weights&quot;: {
+            &quot;toy_lora_scaffold&quot;: &quot;mmc/deliverables/outputs/week07_lora_adapter.npz&quot;,
+            &quot;gemma_qlora_dir&quot;: &quot;results/gemma_qlora/&quot;,
+            &quot;gemma_qlora_present&quot;: (ROOT / &quot;results&quot; / &quot;gemma_qlora&quot;).exists()
+            and any((ROOT / &quot;results&quot; / &quot;gemma_qlora&quot;).glob(&quot;*&quot;)),
+        },
+        &quot;failure_lab&quot;: &quot;docs/data/failure_lab.json&quot;,
+        &quot;notes&quot;: [
+            &quot;Null / missing LLM metrics are intentional until GPU result files exist.&quot;,
+            &quot;Re-run this script after each Gemma evaluation.&quot;,
+        ],
+    }
+    (out / &quot;week11_comparative_analysis.json&quot;).write_text(json.dumps(payload, indent=2), encoding=&quot;utf-8&quot;)
+    return payload
+
+
+if __name__ == &quot;__main__&quot;:
+    print(json.dumps(run(), indent=2))
+</code></pre>
+    </section>
+  </main>
+</body>
+</html>

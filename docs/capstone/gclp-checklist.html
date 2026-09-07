@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>GCLP Capstone Checklist — ControlSift</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>GCLP / MMC capstone checklist</h2>
+        <p>
+          Mapped against the Google Cloud Launchpad Capstone Project Outline and Capstone GitHub Project Structure
+          (scholar materials). The live Scholar Handbook Doc was access-restricted from this environment; if a handbook
+          tab differs, reconcile to the official Doc before form submit.
+        </p>
+      </div>
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+    </section>
+
+    <section class="section">
+      <h2>Outline requirements</h2>
+      <table class="curriculum-table">
+        <thead>
+          <tr><th>Requirement</th><th>Status</th><th>Where</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>One official SDG from Goals 1, 2, 3, 10, 13</td>
+            <td><span class="status-pill">meets</span></td>
+            <td><a href="un-sdg.html">SDG 10</a></td>
+          </tr>
+          <tr>
+            <td>Problem identification grounded in real-world evidence</td>
+            <td><span class="status-pill">meets</span></td>
+            <td>Public sources on <a href="un-sdg.html">UN SDG</a> + <a href="problem-impact.html">Problem</a>; synthetic modeling data disclosed</td>
+          </tr>
+          <tr>
+            <td>Research and analysis</td>
+            <td><span class="status-pill">meets</span></td>
+            <td><a href="methods-evidence.html">Methods</a> · <a href="../results.html">Results</a></td>
+          </tr>
+          <tr>
+            <td>Solution development</td>
+            <td><span class="status-pill pending-gpu">partial</span></td>
+            <td>Classical complete; Gemma/QLoRA pending GPU</td>
+          </tr>
+          <tr>
+            <td>Implementation plan + risks</td>
+            <td><span class="status-pill">meets</span></td>
+            <td><a href="implementation-plan.html">Implementation plan</a></td>
+          </tr>
+          <tr>
+            <td>Documentation ≤8 pages</td>
+            <td><span class="status-pill">meets</span></td>
+            <td><a href="report.html">report.html</a> (print to PDF)</td>
+          </tr>
+          <tr>
+            <td>Presentation ≤8 slides</td>
+            <td><span class="status-pill">meets</span></td>
+            <td><a href="slides.html">slides.html</a></td>
+          </tr>
+          <tr>
+            <td>Video ≤5 minutes</td>
+            <td><span class="status-pill pending-gpu">script ready</span></td>
+            <td><a href="video-script.html">Script</a> — recording still required for form upload</td>
+          </tr>
+          <tr>
+            <td>Not an AI-generated project</td>
+            <td><span class="status-pill">meets</span></td>
+            <td>Authorship attestation in report §7</td>
+          </tr>
+          <tr>
+            <td>Solo or ≤5 group; one submitter</td>
+            <td><span class="status-pill">meets</span></td>
+            <td>Solo project</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>GitHub structure requirements</h2>
+      <table class="curriculum-table">
+        <thead>
+          <tr><th>Component</th><th>Status</th><th>Location</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>README with problem, data, findings, tools</td><td><span class="status-pill">meets</span></td><td><code>README.md</code> (+ CRISP-DM section)</td></tr>
+          <tr><td>requirements.txt</td><td><span class="status-pill">meets</span></td><td><code>requirements.txt</code></td></tr>
+          <tr><td>data/raw + data/processed</td><td><span class="status-pill">meets</span></td><td><code>data/raw/</code> · <code>data/processed/</code></td></tr>
+          <tr><td>Notebooks with explanations</td><td><span class="status-pill">meets</span></td><td><code>notebooks/01_…</code>–<code>06_…</code></td></tr>
+          <tr><td>reports/figures</td><td><span class="status-pill">meets</span></td><td><code>reports/figures/</code></td></tr>
+          <tr><td>reflection/project_reflection.md</td><td><span class="status-pill">meets</span></td><td><code>reflection/project_reflection.md</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>DeepMind weekly labs (Weeks 1–9)</h2>
+      <p>
+        Handbook course deliverables are tracked separately under
+        <a href="deliverables/index.html">Weekly Labs</a> and <code>mmc/</code>.
+        Capstone pages alone do not replace n-gram / BPE / MLP / transformer lab artifacts.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Still on you before form submit</h2>
+      <p>
+        Sequenced checklist (do not skip Track&nbsp;A before claiming LLM outcomes):
+        <a href="next-steps.html">Critical path</a>.
+      </p>
+      <ul class="findings-list">
+        <li>HF + Kaggle → smoke → Gemma metrics into <code>results/</code>.</li>
+        <li>Drop badge proof into Week&nbsp;3 deliverable folder.</li>
+        <li>Record the ≤5-minute video from the script + slides.</li>
+        <li>Export <a href="report.html">report.html</a> and <a href="slides.html">slides.html</a> to PDF if the form prefers files.</li>
+        <li>Re-read the live Handbook tabs in case cohort dates/forms differ from the Outline copy.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Capstone · GCLP checklist</span>
+      <a href="index.html">Capstone home</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>gdm_lab_5_5_implement_lora_for_parameter_efficient_fine_tuning.ipynb</title>
+  <link rel="stylesheet" href="../../../../../assets/css/site.css" />
+  <style>
+    .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+    .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
+    pre.source {
+      margin: 0.5rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>gdm_lab_5_5_implement_lora_for_parameter_efficient_fine_tuning.ipynb</h2>
+        <p>
+          <a href="gdm_lab_5_5_implement_lora_for_parameter_efficient_fine_tuning.ipynb">Download .ipynb</a> ·
+          <a href="../../../index.html">Deliverables hub</a>
+        </p>
+        <p>Open in Jupyter from repo: <code>jupyter notebook mmc/notebooks/gdm_lab_5_5_implement_lora_for_parameter_efficient_fine_tuning.ipynb</code></p>
+      </div>
+      <article class="nb-cell nb-markdown"><h3>Cell 1 · markdown</h3><pre class="source"><code>&gt; &lt;p&gt;&lt;small&gt;&lt;small&gt;This Notebook is made available subject to the licence and terms set out in the &lt;a href = &quot;http://www.github.com/google-deepmind/ai-foundations&quot;&gt;AI Research Foundations Github README file&lt;/a&gt;.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 2 · markdown</h3><pre class="source"><code>&lt;img src=&quot;https://storage.googleapis.com/dm-educational/assets/ai_foundations/GDM-Labs-banner-image-C5-white-bg.png&quot;&gt;</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 3 · markdown</h3><pre class="source"><code># Lab: Implement LoRA for Parameter-Efficient Fine-Tuning
+
+&lt;a href=&#x27;https://colab.research.google.com/github/google-deepmind/ai-foundations/blob/master/course_5/gdm_lab_5_5_implement_lora_for_parameter_efficient_fine_tuning.ipynb&#x27; target=&#x27;_parent&#x27;&gt;&lt;img src=&#x27;https://colab.research.google.com/assets/colab-badge.svg&#x27; alt=&#x27;Open In Colab&#x27;/&gt;&lt;/a&gt;
+
+40 minutes
+
+Apply LoRA (Low-Rank Adaptation) for parameter-efficient fine-tuning.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 4 · markdown</h3><pre class="source"><code>## Overview
+
+In the last lab, you observed that it is difficult or impossible to perform full-parameter fine-tuning of a large language model without access to special resources. The solution to this problem is to use fewer parameters following a strategy of **parameter-efficient fine-tuning**.
+
+As you have encountered in the previous article, **Low-Rank Adaptation (LoRA)** is a widely used strategy to fine-tune a transformer without training all of its parameters [1]. LoRA is based on the idea that many matrices can be approximated by multiplying two considerably smaller matrices. The weight updates during fine-tuning then affect only these smaller matrices, which makes LoRA a lot more efficient than full-parameter fine-tuning. Furthermore, in practice, LoRA achieves about the same performance as full-parameter fine-tuning, so despite the lower memory requirement, there is little to no degradation in performance.
+
+In this lab, you will implement LoRA for your small language model.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 5 · markdown</h3><pre class="source"><code>### What you will learn:
+
+By the end of this lab, you will be able to:
+
+* Explain the mathematical principles underlying the LoRA method.
+* Implement LoRA.
+* Quantify the memory savings of using LoRA compared with full parameter fine-tuning.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 6 · markdown</h3><pre class="source"><code>### Tasks
+
+**In this lab, you will**:
+* Familiarize yourself with the mathematics behind LoRA.
+* Implement your own LoRA layer in Keras.
+* Compute how many fewer trainable parameters there are in LoRA compared with full parameter fine-tuning.
+
+Note that you will focus on the implementation of a single layer, which can be done on a **Colab instance with a CPU**.
+
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 7 · markdown</h3><pre class="source"><code>## How to use Google Colaboratory (Colab)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 8 · markdown</h3><pre class="source"><code>Google Colaboratory (also known as Google Colab) is a platform that allows you to run Python code in your browser. The code is written in cells that are executed on a remote server.
+
+To run a cell, hover over a cell, and click the `run` button to its left. The run button is the circle with the triangle (▶). Alternatively, you can also click a cell and use the keyboard combination Ctrl+Return (or ⌘+Return if you are using a Mac).
+
+To try this out, run the following cell. This should print today&#x27;s day of the week below it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 9 · code</h3><pre class="source"><code>from datetime import datetime
+print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>Note that the order in which you run the cells matters. When you are working through a lab, make sure to always run all cells in order. Otherwise, the code might not work. If you take a break while working on a lab, Colab may disconnect you; in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime → Run before__  from the menu above (or use the keyboard combination Ctrl/⌘ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 11 · markdown</h3><pre class="source"><code>### Using Colab with a GPU
+
+Follow these steps to run the activities in this lab on a GPU:
+
+1.  In the top menu bar, click **Runtime**.
+2.  Select **Change runtime type** from the dropdown menu.
+3.  In the pop-up window under **Hardware Accelerator**, select **GPU** (usually listed as `T4 GPU`).
+4.  Click **Save**.
+
+Your Colab session will now restart with GPU access.
+
+Note that access to GPUs is limited and at times, you may not be able to run this lab on a GPU. All activities will still work but they will run slower and you will have to wait longer for some of the cells to finish running.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 12 · markdown</h3><pre class="source"><code>## Imports
+
+In this lab, you will use the Keras package for defining your LoRA layer and the Jax package for working with vectors and matrices.
+
+Run the following cell to import the required packages.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 13 · code</h3><pre class="source"><code>%%capture
+# Install the custom package for this course.
+!pip install &quot;git+https://github.com/google-deepmind/ai-foundations.git@main&quot;
+
+import os # For setting Keras configuration variables.
+
+# The following two lines provide configuration for Keras.
+os.environ[&quot;KERAS_BACKEND&quot;] = &quot;jax&quot;
+
+import keras # For building a model.
+from keras import layers # As base class for a custom LoRA layer.
+keras.utils.set_random_seed(812) # For Keras layers.
+
+import jax # For working with vectors and matrices.
+import jax.numpy as jnp # For working with vectors and matrices.
+
+# For checking your solutions.
+from ai_foundations.feedback.course_5 import lora as feedback</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 14 · markdown</h3><pre class="source"><code>## Recap
+
+In the lab &quot;Full-Parameter Fine-Tuning&quot;, you fine-tuned a small transformer by continuing to update all of its parameters. You observed that this approach did not work for large models. When you tried to train all the parameters of Gemma-1B in Colab, it ran out of memory.  Even though you could circumvent this problem by buying or renting machines with more powerful GPUs, this is costly. Further, this issue gets worse when you consider bigger models. For example, Gemma-1B with its 1 billion parameters is relatively small for a large language model and there exist implementations of Gemma with considerably more parameters, such as Gemma-27B [2]. Full-parameter fine-tuning such a model on a single GPU would be impossible even with the most powerful GPUs available today.
+
+As mentioned before, LoRA does not directly update the weights of a matrix $W$. Instead, it keeps the pre-trained weights frozen in $W_0$, and encodes any updates to $W$ as the sum of the pre-trained weights $W_0$ and the weight updates $\Delta W$:
+
+$W = W_0 + \Delta W$
+
+The key property that makes LoRA so efficient is to approximate the weight updates during fine-tuning $\Delta W$ with two much smaller matrices $A$ and $B$, as shown in the figure below:
+
+$\Delta W = BA$
+
+The following section helps you to build your intuition of how LoRA works. For simplicity, consider the weight matrix of one layer of a multi-layer perceptron. Note, this general concept could be applied to any weight matrix of any type of layer.
+
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 15 · markdown</h3><pre class="source"><code>&lt;img src=&quot;https://storage.googleapis.com/dm-educational/assets/ai_foundations/lora.png&quot;&gt;</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 16 · markdown</h3><pre class="source"><code>## Intuition behind matrix decomposition with lower ranks
+
+A dense weight matrix, that is a matrix where every entry is assigned a value, explicitly defines the weights for every input and every neuron in a layer. For example, the number in row 5 and column 3 is the weight that goes from the fifth input unit to compute the output of the third neuron. The number of rows is the number of inputs, the number of columns is the number of neurons.
+
+Imagine that you have designed a weight matrix manually based on the data that you observe. You would not, and probably could not, observe each connection individually. You would rather make some general observations, for example:
+*   Inputs 1 and 2 do not matter at all.
+*   Inputs 3 and 6 reverse the sign.
+*   For any input, outputs 4 and 7 have five times the magnitude of the other outputs.
+
+You can encode these observations about the outputs in a matrix with one row, matrix $A$, and you can encode the observations about the inputs in one column, matrix $B$. The product of $B$ and $A$ will be a full weight matrix that specifies each connection between each input and each neuron&#x27;s output.
+
+The following code implements the above observations in matrices $A$ and $B$, and multiplies them.
+
+Run the following code and carefully inspect the output of the matrix $\Delta W$ in relation to the matrices $A$ and $B$.
+
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 17 · code</h3><pre class="source"><code>A = jnp.array([[1, 1, 1, 5, 1, 1, 5, 1]]) # Matrix with one row.
+B = jnp.array([[0, 0,-1, 1, 1,-1, 1, 1]])
+B = jnp.transpose(B) # One column.
+
+# Compute Δ𝑊 by performing the matrix multiplication B x A.
+delta_W = jnp.matmul(B,A)
+print(delta_W)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 18 · markdown</h3><pre class="source"><code>As this matrix shows, the resulting matrix product leads to several regularities. This is no coincidence. The zeros in B lead to the rows of zeros in $\Delta W$ and the elements that are negative in B lead to the negative rows in $\Delta W$. The fives in A lead to a five times higher weight in columns 4 and 7.
+
+You can investigate these regularities further with some example inputs:
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 19 · code</h3><pre class="source"><code># All ones input.
+x = jnp.array([1, 1, 1, 1, 1, 1, 1, 1])
+y = jnp.matmul(x,delta_W)
+
+print(f&quot;Output for ones only: {y}&quot;)
+
+# High values in inputs that do not matter.
+x = jnp.array([100, 100, 1, 1, 1, 1, 1, 1])
+y = jnp.matmul(x,delta_W)
+
+print(f&quot;Output for high 1st and 2nd input: {y}&quot;)
+
+# Higher values (7) in the two inputs that reverse the sign.
+x = jnp.array([1, 1, 7, 1, 1, 7, 1, 1])
+y = jnp.matmul(x,delta_W)
+
+print(f&quot;Output with input that reverses the sign: {y}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 20 · markdown</h3><pre class="source"><code>If you add an additional row to $A$, and an additional column to $B$, you can add an additional observation, such as:
+* Input 3 has no effect on output 7.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 21 · code</h3><pre class="source"><code>A = jnp.array(
+    [
+        [1, 1, 1, 5, 1, 1, 5, 1],
+        [0, 0, 0, 0, 0, 0, 5, 0]
+    ]
+)
+B = jnp.array(
+    [
+        [0, 0,-1, 1, 1,-1, 1, 1],
+        [0, 0, 1, 0, 0, 0, 0, 0 ]
+    ]
+)
+B = jnp.transpose(B)
+
+delta_W = jnp.matmul(B, A)
+print(delta_W)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 22 · markdown</h3><pre class="source"><code>As you can see in the output, the value in the seventh column of the third row of the resulting matrix ends up being 0, encoding the observation above. The encoding of this observation in $A$ and $B$ is a less direct than in the cases above (the 5 in the second row of $A$ and the 1 in the second column of $B$ cancel out the -5 in $\delta W$ above) but what this example demonstrates is that adding more columns to $B$ and more rows to $A$ allows you to encode additional observations.
+
+Weight matrices in a transformer have hundreds or thousands of inputs and outputs. When you decompose $\Delta W$ with two matrices of rank 8, $A$ and $B$ are much smaller than $\Delta W$ but they can still each encode several such general observations, which is often sufficient when performing fine-tuning.
+
+In this context, also note that you are using $\Delta W$ to store only the updates relative to the full pre-trained weight matrix $W_0$. The low-rank approximation of LoRA generally gives the model enough flexibility to encode the details needed to learn the intricacies of a specific task, while the full weight matrix $W_0$ can still encode large quantities of information acquired during pre-training.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 23 · markdown</h3><pre class="source"><code>## Coding Activity 1: Implement LoRA
+
+You will now implement this method as part of a layer in a multi-layer-perceptron. Recall from the course 03 Design and Train Neural Networks that you can define a hidden layer in Keras using a `Dense` layer.
+
+As a first step, study the cell below that implements a simplified version of the `Dense` layer in Keras. You do not need to run this code but consider the following questions:
+
+- What does the `__init__` function do?.
+- How are weights added with `add_weight()`?
+- That the `call()` method computes the weighted sum for each neuron and adds the bias term `b`.
+
+
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 24 · code</h3><pre class="source"><code>class SimplifiedDense(layers.Layer):
+    &quot;&quot;&quot;A simplified implementation of a dense layer.
+
+    Args:
+      output_dim: The number of neurons in the layer.
+      input_dim: The number of inputs to each neuron.
+    &quot;&quot;&quot;
+    def __init__(self, output_dim: int = 32, input_dim: int = 32):
+        &quot;&quot;&quot; Initializes a Dense layer.&quot;&quot;&quot;
+        super().__init__() # Call the constructor of the base class.
+
+        self.w = self.add_weight( # w is a weight matrix.
+            shape=(input_dim, output_dim), # Shape of w.
+            initializer=&quot;random_normal&quot;, # Intialize the weights randomly.
+            trainable=True # w shall be updated during training.
+        )
+        # Add b as bias weights, which is a vector.
+        self.b = self.add_weight(
+            shape=(output_dim,),
+            initializer=&quot;zeros&quot;,
+            trainable=True
+        )
+
+    def call(self, inputs: jax.Array):
+        &quot;&quot;&quot;Multiplies inputs with weight matrix and adds bias.
+
+        Args:
+          inputs: The input to the layer.
+
+        Returns:
+          The output of the layer.
+        &quot;&quot;&quot;
+
+        # Compute y = XW + b
+        return jnp.matmul(inputs, self.w) + self.b</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 25 · markdown</h3><pre class="source"><code>You will now extend this class so that it implements LoRA. The goal here is to write a class that can act as a replacement of a regular `Dense` layer when fine-tuning a model.
+
+This layer therefore needs to:
+1. Store the original weight matrix $W_0$.
+2. Initialize the weight matrices $A$ and $B$ using rank $r$.
+3. In the forward pass (implemented in `call`):
+    *  Compute $\Delta W$ using $A$ and $B$.
+    *  Compute the new weight matrix $W = W_0 + \Delta W$.
+
+------
+&gt; **💻 Your task:**
+&gt;
+&gt; Your task is to implement the forward function (the `call` method).
+&gt;
+&gt; The following cell already defines the constructor of the LoRA layer that both stores the original weight matrix $W_0$ and initializes the LoRA weights $A$ and $B$ in the constructor `__init__`.
+&gt;
+&gt; Walk through the constructor below and then implement the `call` method as outlined in Step 3 above.
+&gt;
+------
+
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 26 · code</h3><pre class="source"><code>class LoraDense(layers.Layer):
+  &quot;&quot;&quot;An implementation of a dense layer with LoRA.
+
+  Args:
+    pretrained_layer: The original pre-trained dense layer.
+    rank: The rank of the LoRA matrices.
+
+  Attributes:
+    num_units: The number of units in the dense layer.
+    rank: The rank of the LoRA matrices.
+    A: The LoRA matrix A.
+    B: The LoRA matrix B.
+    W0: The pre-trained weights.
+    bias: The pre-trained bias parameters.
+  &quot;&quot;&quot;
+  def __init__(self , pretrained_layer: layers.Dense, rank: int = 8, **kwargs):
+    &quot;&quot;&quot;Initializes a LoRA layer.
+
+    Args:
+      pretrained_layer: The original pre-trained dense layer.
+      rank: The rank of the LoRA matrices.
+    &quot;&quot;&quot;
+
+    super().__init__(**kwargs)  # Call the constructor of the base class.
+
+    # Shape of the weight matrix W of the pre-trained layer.
+    pretrained_layer_shape = pretrained_layer.weights[0].shape
+    # Shape of the bias in the pre-trained layer.
+    bias_shape = pretrained_layer.weights[1].shape
+    # Number of units = number of columns of W of the pre-trained layer.
+    self.num_units = pretrained_layer_shape[1]
+    # Rank of the Lora matrices.
+    self.rank = rank
+
+    # LoRA matrix A, shape rank x num_units.
+    # Note that in the original LoRA paper, this matrix is initialized
+    # with random numbers. This implementation also uses this convention.
+    self.A = self.add_weight(
+        shape=(rank, self.num_units),
+        initializer=keras.initializers.RandomNormal(stddev=0.01),
+        trainable=True, # These parameters should be updated during fine-tuning.
+    )
+    # LoRA matrix B, shape number of inputs x r.
+    # Note that in the original LoRA paper, this matrix is initialized
+    # with all values being set to 0. This implementation also uses this
+    # convention.
+    self.B = self.add_weight(
+        shape=(pretrained_layer_shape[0], rank),
+        initializer=keras.initializers.Zeros(),
+        trainable=True, # These parameters should be updated during fine-tuning.
+    )
+    # Pre-trained weights W0, copied from pre-trained layer.
+    self.W0 = self.add_weight(
+        shape=(pretrained_layer_shape),
+        initializer=keras.initializers.Constant(pretrained_layer.weights[0]),
+        trainable=False, # These parameters are frozen during fine-tuning.
+    )
+    # Bias weights bias, copied from pre-trained layer.
+    self.bias = self.add_weight(
+        shape=(bias_shape),
+        initializer=keras.initializers.Constant(pretrained_layer.weights[1]),
+        trainable=True, # These parameters should be updated during fine-tuning.
+    )
+
+  def call(self, x: jax.Array):
+    &quot;&quot;&quot;
+      Forward pass through the layer.
+
+      Args:
+        x: The input to the layer.
+
+      Returns:
+        The output of the layer.
+    &quot;&quot;&quot;
+
+    # Compute ΔW = BA.
+    delta_W = # Add your code here.
+
+    # Compute W = W0 + ΔW.
+    W = # Add your code here.
+
+    # Compute layer output y = xW + b.
+    y = # Add your code here.
+
+    return y</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 27 · markdown</h3><pre class="source"><code>To test the implemenation of your LoRA layer, you can implement a small one-layer MLP and then replace its dense layer with a LoRA layer.
+
+The following cell first defines a model that takes the role of a pre-trained model (`pretrained_model`) and then initializes another model with a LoRA dense layer (`lora_model`).
+
+Run the following cell to make sure your code executes correctly. It should print the shape of the output of both models. If you implemented the forward function correctly, it should execute without any errors and the two output shapes should be identical.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 28 · code</h3><pre class="source"><code># Number of units for inputs and outputs.
+# In a transformer, this is typically the embedding space, size of the
+# attention mechanism, and the output of a transformer block.
+num_units = 512
+rank = 8
+
+# Define a model with a single dense layer in pretrained_model.
+x = layers.Input(shape=(num_units,))
+y = layers.Dense(units=num_units, name=&quot;dense_layer_1&quot;)(x)
+pretrained_model = keras.Model(inputs=x, outputs=y)
+
+# Take the dense layer to convert to a LoRA layer.
+pretrained_layer = pretrained_model.get_layer(&quot;dense_layer_1&quot;)
+
+# Define a model with a single LoRA layer.
+x = layers.Input(shape=(num_units,))
+y = LoraDense(
+    pretrained_layer=pretrained_layer,
+    rank=rank,
+    name=&quot;lora_dense_layer_1&quot;
+)(x)
+lora_model = keras.Model(inputs=x, outputs=y)
+
+# Pass an example input through both the original model and the LoRA model.
+input = jnp.ones((1, num_units))
+output_original = pretrained_model(input)
+output_lora = lora_model(input)
+
+# Print the shapes of the output from both models.
+print(f&quot;Shape of original model output: {output_original.shape}&quot;)
+print(f&quot;Shape of LoRA model output: {output_lora.shape}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 29 · markdown</h3><pre class="source"><code>## Coding Activity 2: Compare number of trainable parameters
+
+As a final step, investigate how much the LoRA layer reduces the number of trainable parameters in a model.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 30 · markdown</h3><pre class="source"><code>------
+&gt; 💻 **Your task:**
+&gt;
+&gt; Call the [`summary()`](https://keras.io/api/models/model/#summary-method) method for the pre-trained model (`pretrained_model`) and the LoRA model (`lora_model`) above.
+&gt;
+&gt; Consider the following questions:
+&gt;*   How many weights do each of the two layers have?
+&gt;*   How many of those weights are trained?
+&gt;
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 31 · code</h3><pre class="source"><code># Add your code here.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 32 · markdown</h3><pre class="source"><code>### What did you observe?
+
+When you consider the number of total parameters, you should have observed that this number was greater for the LoRA model than for the original model. This is because the LoRA model adds the matrices $A$ and $B$ to the model. However, given that both matrices are relatively small compared to the full weight matrix $W_0$, the increase in parameters is also relatively small.
+
+On the other hand, when you consider the number of *trainable* parameters, then this number is a lot smaller for the LoRA model than for the original model. This is because the LoRA model is not updating $W_0$, which defines the majority of the model parameters.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 33 · markdown</h3><pre class="source"><code>### Activity 3: Compute the proportion of trainable parameters</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 34 · markdown</h3><pre class="source"><code>In the previous activity, you observed that the number of trainable parameters is smaller for the LoRA model than for the original model. In this activity,
+consider how much LoRA reduces the number of trainable parameters.
+
+
+------
+&gt; 💻 **Your task:**
+&gt;
+&gt; Compute the proportion of trainable parameters in a dense layer with LoRA compared to a regular dense layer.
+&gt;
+&gt; Assume that the input and output size is 512.
+&gt;
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 35 · code</h3><pre class="source"><code># @title Enter your response (a number between 0.0 and 1.0) here
+answer = 0.0331 #@param {type: &quot;number&quot;}</code></pre></article><article class="nb-cell nb-code"><h3>Cell 36 · code</h3><pre class="source"><code># @title Run this cell to check your answer
+
+feedback.check_loralab_answer(answer, num_units=512, rank=8)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 37 · markdown</h3><pre class="source"><code>## LoRA in a transformer
+
+The goal of LoRA is to reduce the number of parameters when fine-tuning a model. Since both the attention mechanism and the multi-layer perceptron in every transformer block contain dense layers, it is possible to apply LoRA to some or all of these dense layers, resulting in a much lower number of layers that need to be trained [1].
+
+LoRA has become an important tool for fine-tuning neural networks and in fact, the [`layers.Dense`](https://keras.io/api/layers/core_layers/dense/) class in Keras already implements LoRA out of the box, so generally you do not have to implement this from scratch.
+
+To illustrate how you would use this in a real model, consider the transformer model from the course 04 Discover the Transformer Architecture. If you wanted to apply LoRA to this model, you could simply add the parameters `lora_rank` to all dense layers in the model. During pre-training, you would set this parameter to `None`, which disables the application of LoRA. During fine-tuning, you could then set it to a reasonable rank, such as $r=8$ to reduce the number of parameters that need to be updated.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 38 · markdown</h3><pre class="source"><code>## Summary
+
+In this lab, you implemented LoRA for a dense layer. You learned how $A$ and $B$ affect the rows and columns of $\Delta W$.
+
+In the next lab, you will fine-tune Gemma with LoRA and observe how this makes it possible to fine-tune a much larger model on a GPU such as the T4 GPU available through Colab.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 39 · markdown</h3><pre class="source"><code>## Solutions
+
+The following cells provide reference solutions to the coding activities in this notebook. If you really get stuck after trying to solve the activities yourself, you may want to consult these solutions.
+
+It is recommended that you *only* look at the solutions after you have tried to solve the activities *multiple times*. The best way to learn challenging concepts in computer science and artificial intelligence is to debug your code piece-by-piece until it works, rather than copying existing solutions.
+
+If you feel stuck, you may want to first try to debug your code. For example, by adding additional print statements to see what your code is doing at every step. This will provide you with a much deeper understanding of the code and the materials. It will also provide you with practice on how to solve challenging coding problems beyond this course.
+
+To view the solutions for an activity, click on the arrow to the left of the activity name. If you consult the solutions, do not copy and paste them into the cells above. Instead, look at them, and type them manually into the cell. This will help you understand where you went wrong.
+
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 40 · markdown</h3><pre class="source"><code>### Coding Activity 1</code></pre></article><article class="nb-cell nb-code"><h3>Cell 41 · code</h3><pre class="source"><code># Complete implementation of forward pass.
+def call(self, x: jax.Array) -&gt; jax.Array:
+    &quot;&quot;&quot;
+      Forward pass through the layer.
+
+      Args:
+        x: The input to the layer.
+
+      Returns:
+        The output of the layer.
+    &quot;&quot;&quot;
+
+    # Compute ΔW = BA.
+    delta_W = jnp.matmul(self.B, self.A)
+
+    # Compute W = W0 + ΔW.
+    W = self.W0 + delta_W
+
+    # Compute layer output y = xW + b.
+    y = jnp.matmul(x, W) + self.bias
+
+    return y</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 42 · markdown</h3><pre class="source"><code>### Coding Activity 2
+
+
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 43 · code</h3><pre class="source"><code># Add this code to the cell above.
+pretrained_model.summary()
+lora_model.summary()</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 44 · markdown</h3><pre class="source"><code>### Activity 3</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 45 · markdown</h3><pre class="source"><code>In the scenario stated in the question, the full weight matrix has 512 x 512 = 262,144 parameters. These are trained in full-parameter tuning and fixed in $W_0$ when using LoRA.
+
+Matrix $A$ has 8 x 512 = 4,096 parameters. Matrix $B$ also has 4,096 parameters. These are trained with LoRA.
+
+Thus, the proportion is (4,096 + 4,096) / 262,144 = 0.03125, or roughly 3.1%.
+If you consider bias weights, the calculation is (4,096 + 4,096 + 512) / (262,144 + 512) ≈ 0.03314.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 46 · markdown</h3><pre class="source"><code>## References
+
+[1] Edward Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, and Weizhu Chen. 2022. LoRA: Low-rank adaptation of large language models. In International Conference on Learning Representations (ICLR 2022). https://openreview.net/pdf?id=nZeVKeeFYf9
+
+[2] Google AI. 2025. Gemma 3 model overview. https://ai.google.dev/gemma/docs/core
+
+[3] François Chollet. 2023. Making new layers and models via subclassing. Keras. https://keras.io/guides/making_new_layers_and_models_via_subclassing/
+</code></pre></article>
+    </section>
+  </main>
+</body>
+</html>

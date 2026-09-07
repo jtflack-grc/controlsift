@@ -1,16 +1,19 @@
-/* impeccable-disable pure-black: OLED-first canvas is intentional (#000) */
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
+/* ControlSift research site — aligned to i on GRC portfolio mothership.
+   OLED-adjacent ink canvas + IBM Plex; green evidence accent (portfolio --green). */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap");
 
 :root {
   color-scheme: dark;
-  --bg: #000000;
-  --fg: #e7e9e4;
-  --muted: #9aa39a;
-  --line: #1a1d1a;
-  --panel: #070807;
-  --accent: #d2f27a;
-  --accent-ink: #0b1200;
-  --warn: #f0a35a;
+  --bg: #07100c;
+  --fg: #e8f4ec;
+  --muted: #91aa9b;
+  --line: rgba(105, 255, 164, 0.16);
+  --panel: #09110d;
+  --panel-2: #0c1711;
+  --accent: #7fffb2;
+  --accent-2: #38e881;
+  --accent-ink: #021008;
+  --warn: #f2b84b;
   --danger: #ff7a7a;
   --max: 1080px;
   --font-display: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
@@ -23,6 +26,7 @@
   --text-xl: 2.75rem;   /* 44 */
   --text-hero: clamp(3.25rem, 9vw, 4.5rem); /* ~52–72 */
   --radius: 2px;
+  --portfolio-url: https://jtflack-grc.github.io/portfolio/;
 }
 
 *,
@@ -41,8 +45,79 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-md);
   line-height: 1.55;
-  background: var(--bg);
+  /* Portfolio mothership: segmented fixed green horizon lines */
+  background:
+    linear-gradient(
+        90deg,
+        transparent 0 4%,
+        rgba(56, 232, 129, 0.13) 4% 27%,
+        transparent 27% 61%,
+        rgba(127, 255, 178, 0.08) 61% 90%,
+        transparent 90%
+      )
+      0 8% / 100% 1px no-repeat fixed,
+    linear-gradient(
+        90deg,
+        transparent 0 14%,
+        rgba(127, 255, 178, 0.2) 14% 43%,
+        transparent 43% 72%,
+        rgba(56, 232, 129, 0.1) 72% 96%,
+        transparent 96%
+      )
+      0 18% / 100% 2px no-repeat fixed,
+    linear-gradient(
+        90deg,
+        transparent 0 1%,
+        rgba(56, 232, 129, 0.08) 1% 19%,
+        transparent 19% 38%,
+        rgba(127, 255, 178, 0.15) 38% 78%,
+        transparent 78%
+      )
+      0 33% / 100% 1px no-repeat fixed,
+    linear-gradient(
+        90deg,
+        transparent 0 27%,
+        rgba(56, 232, 129, 0.17) 27% 63%,
+        transparent 63% 84%,
+        rgba(127, 255, 178, 0.08) 84% 97%,
+        transparent 97%
+      )
+      0 49% / 100% 2px no-repeat fixed,
+    linear-gradient(
+        90deg,
+        transparent 0 7%,
+        rgba(127, 255, 178, 0.09) 7% 39%,
+        transparent 39% 66%,
+        rgba(56, 232, 129, 0.18) 66% 89%,
+        transparent 89%
+      )
+      0 65% / 100% 1px no-repeat fixed,
+    linear-gradient(
+        90deg,
+        transparent 0 17%,
+        rgba(56, 232, 129, 0.11) 17% 51%,
+        transparent 51% 64%,
+        rgba(127, 255, 178, 0.14) 64% 93%,
+        transparent 93%
+      )
+      0 80% / 100% 3px no-repeat fixed,
+    linear-gradient(
+        90deg,
+        transparent 0 3%,
+        rgba(127, 255, 178, 0.16) 3% 24%,
+        transparent 24% 74%,
+        rgba(56, 232, 129, 0.1) 74% 99%,
+        transparent 99%
+      )
+      0 93% / 100% 1px no-repeat fixed,
+    #07100c;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Portfolio disables the CRT scanline once the horizon lines are present. */
+body::before {
+  display: none;
 }
 
 a {
@@ -51,13 +126,14 @@ a {
   text-underline-offset: 0.15em;
 }
 
-a:hover { color: #e8ff9a; }
+a:hover { color: #b8ffd4; }
 
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 20;
-  background: rgba(0, 0, 0, 0.92);
+  z-index: 30;
+  background: rgba(7, 16, 12, 0.94);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
 
@@ -73,13 +149,44 @@ a:hover { color: #e8ff9a; }
 }
 
 .brand {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--fg);
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--accent);
   text-decoration: none;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.035em;
+  line-height: 1.15;
 }
+
+.brand .brand-mark {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.28rem;
+}
+
+.brand .brand-mark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--warn);
+}
+
+.brand .brand-parent {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.brand:hover { color: #b8ffd4; }
+.brand:hover .brand-parent { color: var(--fg); }
 
 .nav-links {
   display: flex;
@@ -88,6 +195,7 @@ a:hover { color: #e8ff9a; }
   list-style: none;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
 .nav-links a {
@@ -99,6 +207,18 @@ a:hover { color: #e8ff9a; }
 
 .nav-links a:hover,
 .nav-links a[aria-current="page"] { color: var(--fg); }
+
+.nav-links a.nav-external {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.nav-links a.nav-external .ext {
+  margin-left: 0.2em;
+  opacity: 0.75;
+}
 
 main {
   max-width: var(--max);
@@ -115,13 +235,13 @@ main {
 }
 
 .hero-brand {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: var(--text-hero);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 0.92;
   margin: 0;
-  letter-spacing: -0.045em;
-  color: var(--fg);
+  letter-spacing: -0.02em;
+  color: var(--accent);
   animation: rise 0.7s ease both;
 }
 
@@ -170,7 +290,7 @@ main {
 }
 
 .btn-primary:hover {
-  background: #e8ff9a;
+  background: #b8ffd4;
   color: var(--accent-ink);
 }
 
@@ -407,6 +527,8 @@ pre code {
   color: var(--muted);
   font-size: var(--text-sm);
   background: var(--bg);
+  position: relative;
+  z-index: 25;
 }
 
 .site-footer .wrap {
@@ -416,10 +538,33 @@ pre code {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+  align-items: baseline;
 }
 
 .site-footer a { color: var(--muted); }
 .site-footer a:hover { color: var(--accent); }
+
+.site-footer .footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.1rem;
+}
+
+.portfolio-lineage {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.portfolio-lineage a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.portfolio-lineage a:hover { color: #b8ffd4; }
 
 /* —— Research lab extensions —— */
 
@@ -806,6 +951,141 @@ pre code {
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
+
+.curriculum-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin-top: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.curriculum-jump a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.curriculum-jump a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.course-block .course-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.course-block .course-head h2 {
+  margin: 0.15rem 0 0;
+  font-size: var(--text-lg);
+  line-height: 1.25;
+}
+
+.course-kicker {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.course-public {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  max-width: 62rem;
+}
+
+.course-public strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.course-block h3 {
+  margin: 0 0 0.5rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.course-artifacts {
+  margin: 1rem 0 0;
+  font-size: var(--text-sm);
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.course-artifacts strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.course-artifacts code {
+  font-size: var(--text-xs);
+}
+
+.topic-map {
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.topic-map > h3 {
+  margin: 1.5rem 0 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.topic-map > h3:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.topic-map > h4 {
+  margin: 1rem 0 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.topic-map .why {
+  margin: 0 0 0.75rem;
+  font-size: var(--text-sm);
+  color: var(--muted);
+  max-width: 62rem;
+  line-height: 1.55;
+}
+
+.topic-map .why strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.topic-map .meet {
+  display: inline-block;
+  margin-right: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.topic-map .meet.partial { color: var(--warn); }
+.topic-map .meet.planned { color: var(--warn); }
 
 .status-pill.pending-gpu {
   color: var(--warn);

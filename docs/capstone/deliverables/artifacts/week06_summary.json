@@ -1,0 +1,9 @@
+{
+  "deliverable": "week06_transformer_decoder",
+  "seq_len": 12,
+  "d_model": 32,
+  "output_norm": 23.97550149062746,
+  "attention_png": "C:\\Users\\admin\\Desktop\\sifter\\mmc\\deliverables\\outputs\\week06_attention.png",
+  "causal": true,
+  "heads": 1
+}

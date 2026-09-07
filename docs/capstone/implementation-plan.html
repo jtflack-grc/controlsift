@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <title>Implementation Plan — Capstone</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Implementation plan</h2>
+        <p>
+          Steps, timeline, resources, and risk mitigations for completing the ControlSift GCLP / DeepMind capstone
+          within the twelve-week runway. Classical stage is complete; GPU stage is the remaining execution path.
+        </p>
+      </div>
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+    </section>
+
+    <section class="section">
+      <h2>Phases</h2>
+      <div class="def-list">
+        <div><dt>Phase 0 · Done</dt><dd>Problem framing, SDG&nbsp;10 selection, synthetic benchmark v1.1, protocol seal, classical baselines, Assurance, MMC hub.</dd></div>
+        <div><dt>Phase 1 · Week 1–2</dt><dd>Hugging Face Gemma license + Kaggle account; package zip review; smoke notebook (tiny subset).</dd></div>
+        <div><dt>Phase 2 · Week 2–4</dt><dd>Gemma zero-shot and few-shot on sealed test/challenge; write <code>results/gemma_*</code>; sync public Results.</dd></div>
+        <div><dt>Phase 3 · Week 4–7</dt><dd>QLoRA train on free GPU; validate LoRA target modules; evaluate; compare to prompted baselines.</dd></div>
+        <div><dt>Phase 4 · Week 7–9</dt><dd>Error analysis + Failure Lab refresh; research report H1–H5 answers with uncertainty language.</dd></div>
+        <div><dt>Phase 5 · Week 9–12</dt><dd>Finalize 8-page PDF export, 8-slide deck, ≤5&nbsp;min video; form submission; portfolio polish.</dd></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Resources</h2>
+      <ul class="findings-list">
+        <li><strong>Compute</strong> — Kaggle GPU (primary) / Colab fallback; 4-bit NF4 QLoRA; smoke before full.</li>
+        <li><strong>Accounts</strong> — Hugging Face (Gemma license + read token in Kaggle Secrets only).</li>
+        <li><strong>Code</strong> — this repository; <code>dist/controlsift_kaggle_bundle.zip</code>; <code>notebooks/kaggle_runner.ipynb</code>.</li>
+        <li><strong>People</strong> — solo project; optional mentor check-ins for review of claims honesty.</li>
+        <li><strong>Time</strong> — ~12 weeks remaining; GPU legs sized for weekend free-tier sessions.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Risk management</h2>
+      <table class="curriculum-table">
+        <thead>
+          <tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HF / Kaggle access delayed</td>
+            <td>LLM metrics stay null</td>
+            <td>Keep classical results public; runway already plans GPU early; no fabricated scores.</td>
+          </tr>
+          <tr>
+            <td>GPU OOM / quota</td>
+            <td>Training fails</td>
+            <td>QLoRA 4-bit, batch 1, grad accum 8, smoke path, 1B model only.</td>
+          </tr>
+          <tr>
+            <td>Schema gaming / overclaim</td>
+            <td>False success narrative</td>
+            <td>RESEARCH_SURFACE disclosure; Failure Lab; per-class metrics; human judgment remains authoritative.</td>
+          </tr>
+          <tr>
+            <td>GCLP “AI-generated project” flag</td>
+            <td>Submission incomplete</td>
+            <td>Human-directed research; authorship attestation; tool-assisted drafting disclosed; core design/seal/evals are project-owned.</td>
+          </tr>
+          <tr>
+            <td>Wrong official SDG</td>
+            <td>Rubric miss on problem ID</td>
+            <td>Official goal locked to SDG&nbsp;10; supporting context labeled as non-official.</td>
+          </tr>
+          <tr>
+            <td>Missed deliverable format</td>
+            <td>Form rejection</td>
+            <td>8-page report, 8-slide deck, 5-min script prepared under <code>docs/capstone/</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="cta-row" style="margin-top:1.5rem;">
+        <a class="btn btn-secondary" href="report.html">8-page report</a>
+        <a class="btn btn-secondary" href="slides.html">8-slide deck</a>
+        <a class="btn btn-secondary" href="gclp-checklist.html">GCLP checklist</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Capstone · Implementation</span>
+      <a href="index.html">Capstone home</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
+</body>
+</html>

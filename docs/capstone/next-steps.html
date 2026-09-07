@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#07100c" />
+  <title>Critical path — Capstone</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <p class="portfolio-lineage">
+          <a href="https://jtflack-grc.github.io/portfolio/" rel="noopener">i on GRC</a>
+          · remaining execution only
+        </p>
+        <h2>Critical path</h2>
+        <p>
+          Everything below is what’s left. Packaging, classical baselines, weekly lab trail, and MMC docs are already in place.
+          Do these in order — later steps depend on earlier ones.
+        </p>
+      </div>
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+    </section>
+
+    <section class="section">
+      <h2>Status at a glance</h2>
+      <div class="meta-strip">
+        <span>Classical <strong>done</strong></span>
+        <span>Weekly labs <strong>packaged</strong></span>
+        <span>Week 3 badge <strong>attached</strong></span>
+        <span>Gemma metrics <strong>null</strong></span>
+        <span>Video <strong>script only</strong></span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Track A · Research (blocks honest claims)</h2>
+      <ol class="ladder">
+        <li>
+          <span class="step">A1</span>
+          <span class="title">HF + Kaggle accounts</span>
+          <span class="state wait">you</span>
+        </li>
+        <li>
+          <span class="step">A2</span>
+          <span class="title">Package zip · upload dataset · HF_TOKEN secret</span>
+          <span class="state wait">you</span>
+        </li>
+        <li>
+          <span class="step">A3</span>
+          <span class="title">Smoke run (SMOKE=True)</span>
+          <span class="state wait">gpu</span>
+        </li>
+        <li>
+          <span class="step">A4</span>
+          <span class="title">Zero-shot + few-shot → results/gemma_*</span>
+          <span class="state wait">gpu</span>
+        </li>
+        <li>
+          <span class="step">A5</span>
+          <span class="title">QLoRA train/eval → publish Results</span>
+          <span class="state wait">gpu</span>
+        </li>
+      </ol>
+      <div class="callout" style="margin-top:1.25rem;">
+        <strong>Primary guide:</strong>
+        <a href="../reproduce.html">Reproduce</a> ·
+        mirrored notes in
+        <a href="deliverables/artifacts/KAGGLE_SAFE_RUN.md.html">KAGGLE_SAFE_RUN</a>
+        · runner <code>notebooks/kaggle_runner.ipynb</code>
+      </div>
+      <pre style="font-family:var(--font-mono);font-size:var(--text-sm);padding:1rem;border:1px solid var(--line);background:var(--panel);overflow:auto;margin-top:1rem;"><code># Local, before Kaggle session
+python scripts/package_for_kaggle.py
+# After downloading GPU outputs into the repo
+python scripts/after_kaggle.py --zip "$env:USERPROFILE\Downloads\controlsift_gpu_outputs.zip"</code></pre>
+    </section>
+
+    <section class="section">
+      <h2>Track B · MMC evidence (can run in parallel)</h2>
+      <table class="curriculum-table">
+        <thead>
+          <tr><th>#</th><th>Item</th><th>Action</th><th>Blocks submit?</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>B1</td>
+            <td>Skill badge proof</td>
+            <td>Drop screenshot/PDF into <code>mmc/deliverables/outputs/week03_skill_badge.*</code>; fill URL in <code>week03_skill_badge.md</code>; re-sync artifacts</td>
+            <td>Week 3 checkbox</td>
+          </tr>
+          <tr>
+            <td>B2</td>
+            <td>Course 6 alignment</td>
+            <td>Confirm Skills coverage; our safety report already covers the artifact</td>
+            <td>Handbook honesty</td>
+          </tr>
+          <tr>
+            <td>B3</td>
+            <td>Week 9 memory numbers</td>
+            <td>Fill after A3 smoke / A5 run</td>
+            <td>Partial until GPU</td>
+          </tr>
+          <tr>
+            <td>B4</td>
+            <td>GitHub + Pages</td>
+            <td>Push repo; set <code>docs/data/repo.json</code> <code>github_slug</code></td>
+            <td>Career capital / Colab links</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Track C · Submit pack (after A4 at minimum)</h2>
+      <ol class="ladder">
+        <li>
+          <span class="step">C1</span>
+          <span class="title">Refresh report / slides / paper from real metrics</span>
+          <span class="state wait">after GPU</span>
+        </li>
+        <li>
+          <span class="step">C2</span>
+          <span class="title">PDF export (report + slides)</span>
+          <span class="state done">draft PDFs ready</span>
+        </li>
+        <li>
+          <span class="step">C3</span>
+          <span class="title">Record ≤5 min video from script</span>
+          <span class="state wait">form</span>
+        </li>
+        <li>
+          <span class="step">C4</span>
+          <span class="title">Re-read live Handbook tabs · form submit</span>
+          <span class="state wait">final</span>
+        </li>
+      </ol>
+      <p style="margin-top:1rem;color:var(--muted);font-size:var(--text-sm);">
+        Draft PDFs (re-export after Gemma numbers):
+        <a href="submit/ControlSift_Capstone_Report.pdf">Report PDF</a> ·
+        <a href="submit/ControlSift_Capstone_Slides.pdf">Slides PDF</a>
+      </p>
+      <div class="cta-row" style="margin-top:1.25rem;">
+        <a class="btn btn-primary" href="kaggle-checklist.html">Kaggle checklist</a>
+        <a class="btn btn-secondary" href="colab-checklist.html">Colab fallback</a>
+        <a class="btn btn-secondary" href="video-script.html">Video script</a>
+        <a class="btn btn-secondary" href="report.html">Report</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Blocked on you (cannot automate)</h2>
+      <table class="curriculum-table">
+        <thead>
+          <tr><th>Gap</th><th>Evidence needed</th><th>Fast path</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Week 3 badge proof</td>
+            <td>Screenshot of <em>Train a Small Language Model</em></td>
+            <td><span class="status-pill">complete</span> · <a href="deliverables/artifacts/week03_skill_badge.png">badge.png</a></td>
+          </tr>
+          <tr>
+            <td>HF + Kaggle auth</td>
+            <td>Gemma license accepted · <code>HF_TOKEN</code> in Kaggle Secrets</td>
+            <td><a href="https://huggingface.co/google/gemma-3-1b-it" rel="noopener">HF model page</a> · Kaggle GPU notebook</td>
+          </tr>
+          <tr>
+            <td>Gemma metrics</td>
+            <td>Non-null <code>results/gemma_*/metrics_*.json</code></td>
+            <td>Upload <code>dist/controlsift_kaggle_bundle.zip</code> · smoke then full · <code>python scripts/after_kaggle.py --zip …</code></td>
+          </tr>
+          <tr>
+            <td>≤5 min video</td>
+            <td>Recorded file for form upload</td>
+            <td><a href="video-script.html">video-script.html</a> + slides PDF</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top:1rem;">
+        Session launcher:
+        <code>powershell -File scripts/open_critical_path.ps1</code>
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Ready on disk now</h2>
+      <ul class="findings-list">
+        <li><strong>Kaggle zip</strong> — <code>dist/controlsift_kaggle_bundle.zip</code> (regenerate anytime with <code>python scripts/package_for_kaggle.py</code>)</li>
+        <li><strong>Runner</strong> — <code>notebooks/kaggle_runner.ipynb</code> · start with <code>SMOKE = True</code></li>
+        <li><strong>After GPU download</strong> — <code>python scripts/after_kaggle.py --zip path\to\controlsift_gpu_outputs.zip</code> extracts <code>results/</code> and refreshes Results, figures, Week&nbsp;11 comparative, and docs sync</li>
+        <li><strong>Badge drop zone</strong> — <code>mmc/deliverables/outputs/week03_skill_badge.png|.pdf|.jpg</code></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Do-next session</h2>
+      <p>
+        Badge proof is done. Next is Track&nbsp;A only —
+        follow the <a href="kaggle-checklist.html">Kaggle session checklist</a>.
+      </p>
+      <ul class="findings-list">
+        <li><strong>1.</strong> Accept Gemma 3 1B IT license on Hugging Face; create read token (secrets only).</li>
+        <li><strong>2.</strong> Upload <code>dist/controlsift_kaggle_bundle.zip</code> as a private Kaggle dataset.</li>
+        <li><strong>3.</strong> Notebook + GPU + <code>HF_TOKEN</code> secret · keep <code>SMOKE = True</code> first.</li>
+        <li><strong>4.</strong> Download outputs → <code>python scripts/after_kaggle.py --zip …</code>.</li>
+        <li><strong>5.</strong> Optional credential URL in Week&nbsp;3 record if you have a public Skills profile link.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Critical path · ControlSift</span>
+      <div class="footer-links">
+        <a href="index.html">Capstone hub</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
+</body>
+</html>

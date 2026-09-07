@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>gdm_lab_3_6_mitigate_overfitting.ipynb</title>
+  <link rel="stylesheet" href="../../../../../assets/css/site.css" />
+  <style>
+    .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+    .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
+    pre.source {
+      margin: 0.5rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>gdm_lab_3_6_mitigate_overfitting.ipynb</h2>
+        <p>
+          <a href="gdm_lab_3_6_mitigate_overfitting.ipynb">Download .ipynb</a> ·
+          <a href="../../../index.html">Deliverables hub</a>
+        </p>
+        <p>Open in Jupyter from repo: <code>jupyter notebook mmc/notebooks/gdm_lab_3_6_mitigate_overfitting.ipynb</code></p>
+      </div>
+      <article class="nb-cell nb-markdown"><h3>Cell 1 · markdown</h3><pre class="source"><code>&gt; &lt;p&gt;&lt;small&gt;&lt;small&gt;This Notebook is made available subject to the licence and terms set out in the &lt;a href = &quot;http://www.github.com/google-deepmind/ai-foundations&quot;&gt;AI Research Foundations Github README file&lt;/a&gt;.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 2 · markdown</h3><pre class="source"><code>&lt;img src=&quot;https://storage.googleapis.com/dm-educational/assets/ai_foundations/GDM-Labs-banner-image-C3-white-bg.png&quot;&gt;</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 3 · markdown</h3><pre class="source"><code># Lab: Mitigate Overfitting
+
+&lt;a href=&#x27;https://colab.research.google.com/github/google-deepmind/ai-foundations/blob/master/course_3/gdm_lab_3_6_mitigate_overfitting.ipynb&#x27; target=&#x27;_parent&#x27;&gt;&lt;img src=&#x27;https://colab.research.google.com/assets/colab-badge.svg&#x27; alt=&#x27;Open In Colab&#x27;/&gt;&lt;/a&gt;
+
+Apply weight decay, dropout, and early stopping to prevent overfitting.
+
+25 minutes</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 4 · markdown</h3><pre class="source"><code>## Overview
+
+In the previous activity, you explored how large models can easily overfit to small datasets. In this lab, you will continue your work tuning hyperparameters. You will take on the role of a researcher and experiment with three common tools to **control overfitting**:
+- **Weight decay**: A method that penalizes large weights.
+- **Dropout**: Randomly sets output of neurons to 0 during training.
+- **Early stopping**: Stops training once the test loss starts getting worse.
+
+As you perform each experiment you will keep a record of how well each method works.
+
+
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 5 · markdown</h3><pre class="source"><code>### What you will learn:
+
+By the end of this lab, you will:
+* Understand how applying weight decay, dropout, and early stopping affects a model&#x27;s ability to generalize.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 6 · markdown</h3><pre class="source"><code>### Tasks
+
+In this lab, you will again use the dataset from the previous labs in which the classifier aims to predict the next token from the three words &quot;mat&quot;, &quot;apple&quot;, and &quot;bank&quot;. You will again train models with different hyperparameters and investigate their learning behavior through inspecting the learning curves, their accuracy, and their decision boundaries.
+
+**In this lab, you will**:
+* Load the dataset of 2-dimensional embeddings.
+* Set different hyperparameters.
+* Train the models and plot the learning curve and decision boundary.
+
+All of these steps are described in detail in the following sections.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 7 · markdown</h3><pre class="source"><code>## How to use Google Colaboratory (Colab)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 8 · markdown</h3><pre class="source"><code>Google Colaboratory (also known as Google Colab) is a platform that allows you to run Python code in your browser. The code is written in *cells* that are executed on a remote server.
+
+To run a cell, hover over a cell and click on the `run` button to its left. The run button is the circle with the triangle (▶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or ⌘+Return if you are using a Mac).
+
+To try this out, run the following cell. This should print today&#x27;s day of the week below it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 9 · code</h3><pre class="source"><code>from datetime import datetime
+
+print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>Note that the order in which you run the cells matters. When you are working through a lab, make sure to always run all cells in order, otherwise the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime → Run before__  from the menu above (or use the keyboard combination Ctrl/⌘ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 11 · markdown</h3><pre class="source"><code>## Imports
+
+In this lab, you will primarily use functions from the custom `ai_foundations` package for training the model and for creating plots.
+
+Run the following cell to import all required packages.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 12 · code</h3><pre class="source"><code>%%capture
+# Install the custom package for this course.
+!pip install &quot;git+https://github.com/google-deepmind/ai-foundations.git@main&quot;
+
+import os # For adjusting Keras settings.
+os.environ[&quot;KERAS_BACKEND&quot;] = &quot;jax&quot; # Set a parameter for Keras.
+
+# Packages used.
+from collections import namedtuple # For storing hyperparameter configs.
+import keras # For defining your MLP.
+import jax.numpy as jnp # For defining matrices.
+import pandas as pd # For loading the dataset.
+# For splitting data into train and test splits.
+from sklearn import model_selection
+
+from ai_foundations import machine_learning # For training your MLP.
+from ai_foundations import visualizations # For visualizing data and boundaries.
+from ai_foundations import training # For logging the loss during training.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 13 · markdown</h3><pre class="source"><code>## Load the dataset
+
+Run the following cell to load the dataset and prepare the `jax.Arrays` with the training and test data. As in the previous lab, the data here is split manually into a training set and a test set such that the most challenging examples (all outliers) appear in the test set.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 14 · code</h3><pre class="source"><code># Load data using pandas.
+df = pd.read_csv(&quot;https://storage.googleapis.com/dm-educational/assets/ai_foundations/mat-apple-bank-dataset.csv&quot;)
+
+# Extract embeddings (Embedding_dim_1, Embedding_dim_2) and labels.
+X = jnp.array(df[[&quot;Embedding_dim_1&quot;, &quot;Embedding_dim_2&quot;]].values)
+# Labels: 0 (&quot;mat&quot;), 1 (&quot;apple&quot;), or 2 (&quot;bank&quot;).
+y = jnp.array(df[&quot;Label&quot;].values)
+
+# Human-readable labels.
+labels = [&quot;mat&quot;, &quot;apple&quot;, &quot;bank&quot;]
+
+# Manually split the data.
+X_train, X_test, y_train, y_test = X[0:61, :], X[61:, :], y[0:61], y[61:]</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 15 · markdown</h3><pre class="source"><code>## An MLP with dropout
+
+The following cell implements an MLP that works with dropout. Crucially, dropout is applied *only during training*, and therefore when you generate predictions from the model, you have to specify whether this prediction happens during training or during testing.
+
+As discussed in the previous article, dropout works by randomly setting neurons to 0, which makes the network more robust to differences in input. The model defined in the following cell, adds dropout to the output of each hidden layer. This can be done by adding a `keras.layers.Dropout` operation. The dropout rate (`dropout_rate`) defines the probability with which a neuron&#x27;s value is set to 0.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 16 · code</h3><pre class="source"><code>def build_mlp(
+    hidden_dims: list[int], n_classes: int, dropout_rate: float
+) -&gt; keras.Model:
+    &quot;&quot;&quot;
+    A function that builds an MLP with a SoftMax layer as the output
+    layer. After each hidden layer dropout is applied.
+
+    Args:
+      hidden_dims: A list of dimensions for all hidden layers.
+      n_classses: Number of classes for the output layer.
+      dropout_rate: Dropout rate, the probability with which a neuron&#x27;s value is
+        set to 0.
+
+    Returns:
+      A list of operations in the form of Keras Layer instances.
+    &quot;&quot;&quot;
+    operations = []
+    for dim in hidden_dims:
+        operations.append(keras.layers.Dense(dim))
+        operations.append(keras.layers.Activation(&quot;relu&quot;))
+        operations.append(keras.layers.Dropout(dropout_rate))
+
+    operations.append(keras.layers.Dense(n_classes))  # Output layer: n_classes.
+    operations.append(keras.layers.Softmax())
+
+    return keras.Sequential(operations)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 17 · markdown</h3><pre class="source"><code>## Tune hyperparameters
+
+In the following cells, you will change one hyperparameter at a time. For each set of hyperparameters, you will train and evaluate a model. You will also inspect the loss curves and accuracy curves for each training run.
+
+Run the following cell to define a function that performs the training and visualizations for a given set of hyperparameters. In this function, you will see all components required for training a model, such as the loss function and the optimizer. For now, ignore these details. You will learn more about each of these components in later articles and labs.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 18 · code</h3><pre class="source"><code># A named tuple for storing hyperparameter configurations.
+HyperParameterConfig = namedtuple(
+    &quot;HyperParameterConfig&quot;,
+    [
+        &quot;hidden_dims&quot;,
+        &quot;dropout_rate&quot;,
+        &quot;weight_decay_strength&quot;,
+        &quot;use_early_stopping&quot;,
+    ],
+)
+
+# A dictionary to store the results of all your experiments.
+experiment_log = {}
+
+
+def train_and_visualize(
+    hidden_dims: tuple[int, ...] | list[int],
+    dropout_rate: float,
+    weight_decay_strength: float,
+    use_early_stopping: bool,
+):
+    keras.utils.set_random_seed(124)  # For reproducibility.
+    model = build_mlp(list(hidden_dims), 3, dropout_rate)
+
+    loss_fn = keras.losses.SparseCategoricalCrossentropy()
+
+    learning_rate = 0.01
+    optimizer = keras.optimizers.Adam(
+        learning_rate=learning_rate, weight_decay=weight_decay_strength
+    )
+
+    model.compile(optimizer=optimizer, loss=loss_fn, metrics=[&quot;accuracy&quot;])
+
+    epochs = 400
+    # Set the patience parameter for early stopping. After this many epochs of
+    # the test loss going up, the model will stop training.
+    patience = 20
+
+    training_logger = training.CustomAccuracyPrinter(print_every=20)
+
+    callbacks = [training_logger]
+    if use_early_stopping:
+        callbacks.append(
+            keras.callbacks.EarlyStopping(
+                monitor=&quot;val_loss&quot;, verbose=1, patience=patience
+            )
+        )
+
+    # Train the model with early stopping.
+    training_history = model.fit(
+        X_train,
+        y_train,
+        validation_data=(X_test, y_test),
+        epochs=epochs,
+        verbose=0,
+        callbacks=callbacks,
+    )
+
+    # Plot loss curves and accuracy curves.
+    visualizations.plot_loss_curve(training_history.history)
+    visualizations.plot_accuracy_curve(training_history.history)
+
+    visualizations.plot_data_and_mlp(
+        X_train,
+        y_train,
+        labels=labels,
+        features_test=X_test,
+        label_ids_test=y_test,
+        mlp_model=model,
+        title=&quot;Decision Boundaries&quot;,
+    )
+
+    print(f&quot;Final test loss: {training_history.history[&#x27;val_loss&#x27;][-1]}&quot;)
+    print(
+        f&quot;Final test accuracy:&quot;
+        f&quot; {training_history.history[&#x27;val_accuracy&#x27;][-1]*100:.2f}%&quot;
+    )</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 19 · markdown</h3><pre class="source"><code>### The baseline: A first set of hyperparameters
+
+The following cell defines the first set of hyperparameters. This will serve as the baseline that you will compare every other run to. For the purpose of this activity, the hyperparameters in there have been chosen such that the model has too much capacity. This means it is very prone to overfitting. Instead of fixing the model capacity, you will explore other strategies for mitigating overfitting.
+
+In this baseline configuration, all other strategies have been disabled.
+
+Run the following cell to define this set of parameters, train the model, and generate the visualizations.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 20 · code</h3><pre class="source"><code>hyperparameters_baseline = HyperParameterConfig(
+    hidden_dims=(10, 1000), # Define MLP with many parameters.
+    dropout_rate=0.0, # A dropout rate of 0.0 means no dropout is applied.
+    weight_decay_strength=0.00, # Value of 0.0 means no weight decay.
+    use_early_stopping=False # Early stopping is not enabled.
+)
+
+train_and_visualize(*hyperparameters_baseline)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 21 · markdown</h3><pre class="source"><code>#### What did you observe?
+
+In the training run above, you likely observed that the test loss curve steadily increases after a small number of epochs and continues to increase. Furthermore, the accuracy continues to decrease as you continue training the model. Both of these trends are classic signs of an **overfitting model**.
+
+&lt;br /&gt;
+
+------
+&gt; **ℹ️ Research skills focus: Experiment log**
+&gt;
+&gt; When experimenting with different methods for mitigating overfitting, you should keep a record of how well each of the methods works. In practice, researchers often perform many dozens or even hundreds of model training runs with different hyperparameters to determine which hyperparameters work best for a given dataset and task. As you take on the role of a researcher and perform these experiments, it is important that you keep a record of all results. This will enable you to effectively analyze and compare them.
+&gt;
+&gt; To do this, this lab defines a dictionary `experiment_log` which you can fill with the final test loss of every run. At the end of this lab, you will be able to visualize how each of the hyperparameters affected the test loss, which provides an indication of which models generalize well.
+&gt;
+&gt; The following cell already contains the loss from the baseline experiment. Run the next cell to save the result.
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 22 · code</h3><pre class="source"><code># Save the final test loss from the baseline experiment.
+experiment_log[hyperparameters_baseline] = 0.7096465229988098</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 23 · markdown</h3><pre class="source"><code>### Coding activity 1: Early stopping
+
+------
+&gt; **💻 Your task:**
+&gt;
+&gt;The first overfitting mitigation strategy that you will explore is early stopping. Enter the hyperparameters below. Use the exact settings from the baseline experiment, making only one change: **activate early stopping**. This will allow you to see the direct effect of using early stopping. Every other aspect about the training process is the same between the baseline experiment and the experiment below, so any change in the test loss can be attributed to activating early stopping.
+&gt;
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 24 · code</h3><pre class="source"><code># Set the hyperparameters here.
+hyperparameters_early_stopping = HyperParameterConfig(
+    hidden_dims=(10, 1000),
+    dropout_rate=,
+    weight_decay_strength=,
+    use_early_stopping=
+)
+
+train_and_visualize(*hyperparameters_early_stopping)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 25 · markdown</h3><pre class="source"><code>#### What did you observe?
+
+In the training run with early stopping, you likely observed that the test loss didn&#x27;t increase much. This is because the early stopping mechanism terminated the process as soon as the loss started rising (in this case, after 49 epochs). This also resulted in higher accuracy for this run. The model successfully classified all test data points correctly, avoiding overfitting to the training data patterns.
+
+Add the final test loss in the cell below and run it to store this experimental result.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 26 · code</h3><pre class="source"><code># Add the final test loss from the early stopping experiment here.
+experiment_log[hyperparameters_early_stopping] =</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 27 · markdown</h3><pre class="source"><code>### Coding activity 2: Medium dropout
+
+------
+&gt; **💻 Your task:**
+&gt;
+&gt; In this activity, you will experiment with dropout. Fill in the hyperparameters below. Keep all settings the same as the baseline experiment, but set the dropout rate to 0.3. This will instruct the model to set the ouput of each neuron in the hidden layers to 0 with a probability of 0.3 during training.
+&gt;
+------
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 28 · code</h3><pre class="source"><code># Set the hyperparameters here.
+hyperparameters_dropout_medium = HyperParameterConfig(
+    hidden_dims=(10, 1000),
+    dropout_rate=,
+    weight_decay_strength=,
+    use_early_stopping=
+)
+
+train_and_visualize(*hyperparameters_dropout_medium)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 29 · markdown</h3><pre class="source"><code>#### What did you observe?
+
+In the training run with a dropout rate of 0.3, you likely observed that both the training and the test loss fluctuated considerably from epoch to epoch. This is due to the random nature of dropout. However, this strategy worked. While for some epochs the test loss increased, it generally remained low even as you trained the model for many epochs. This is because dropout prevents the model from latching onto noise. This occurs because the random nature of dropout means the outputs of the neurons change on every epoch, as it is randomly decided which outputs are set to 0.
+
+Add the final test loss in the cell below and run it to store this experimental result.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 30 · code</h3><pre class="source"><code>experiment_log[hyperparameters_dropout_medium] =</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 31 · markdown</h3><pre class="source"><code>### Coding activity 3: High dropout
+
+------
+&gt; **💻 Your task:**
+&gt;
+&gt; In this activity, you will experiment with more dropout. Fill in the hyperparameters below. Ensure that all settings remain the same as in the baseline experiment, but set the dropout rate to 0.7. This will instruct the model to set the ouput of each neuron in the hidden layers to 0 with a probability of 0.7 during training. This means that, on average, more than half of the neurons in each layer is randomly deactivated (i.e., their output set to 0), introducing considerable noise into the training process.
+&gt;
+------
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 32 · code</h3><pre class="source"><code># Set the hyperparameters here.
+hyperparameters_dropout_high = HyperParameterConfig(
+    hidden_dims=(10, 1000),
+    dropout_rate= ,
+    weight_decay_strength= ,
+    use_early_stopping=
+)
+
+train_and_visualize(*hyperparameters_dropout_high)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 33 · markdown</h3><pre class="source"><code>#### What did you observe?
+
+In the training run with a dropout rate of 0.7, you likely observed that the training loss and test loss fluctuated even more between epochs. This is again because of the random nature of dropout.
+With such a high value of dropout, the strategy no longer works properly. When the dropout probability is so high, it introduces so much noise that the model is no longer able to learn the signal. This leads to it misclassifying both examples in the training data and the test data. Consequently it **underfits**.
+
+This highlights that methods like dropout must be used in moderation. If you add too much randomness, then the model will also fail to learn useful patterns and will not be able to generalize well.
+
+Add the final test loss in the cell below and run it to store this experimental result.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 34 · code</h3><pre class="source"><code>experiment_log[hyperparameters_dropout_high] =</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 35 · markdown</h3><pre class="source"><code>### Coding activity 4: Medium weight decay strength
+
+------
+&gt; **💻 Your task:**
+&gt;
+&gt; In this activity, you will experiment with the weight decay strength. Fill in the hyperparameters below. Ensure that all settings remain the same as in the baseline experiment, but set the weight decay strength to 0.5. This will instruct the training procedure to penalize weights that are very big in magnitude and assign a lower loss to simpler models.
+&gt;
+------
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 36 · code</h3><pre class="source"><code># Set the hyperparameters here.
+hyperparameters_weight_decay_medium = HyperParameterConfig(
+    hidden_dims=(10, 1000),
+    dropout_rate=,
+    weight_decay_strength=,
+    use_early_stopping=
+)
+
+train_and_visualize(*hyperparameters_weight_decay_medium)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 37 · markdown</h3><pre class="source"><code>#### What did you observe?
+
+In the training run with weight decay strength of 0.5, you likely observed that the test loss increased much more slowly than in the baseline model. This is because the model is penalized for learning very strong associations with patterns in the training data and is therefore less prone to overfitting.
+
+Add the final test loss in the cell below and run it to store this experimental result.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 38 · code</h3><pre class="source"><code>experiment_log[hyperparameters_weight_decay_medium] =</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 39 · markdown</h3><pre class="source"><code>### Coding activity 5: High weight decay strength
+
+------
+&gt; **💻 Your task:**
+&gt;
+&gt; In this activity, you will experiment with the weight decay strength. Fill in the hyperparameters below. Ensure that all settings remain the same as in the baseline experiment, but set the weight decay strength to 50 i.e., 100 times higher than in the previous experiment. This will instruct the training procedure to put an even stronger penalty on weights that are very big in magnitude and assign a lower loss to simpler models.
+&gt;
+------
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 40 · code</h3><pre class="source"><code># Set the hyperparameters here.
+hyperparameters_weight_decay_high = HyperParameterConfig(
+    hidden_dims=(10, 1000),
+    dropout_rate=,
+    weight_decay_strength=,
+    use_early_stopping=
+)
+
+train_and_visualize(*hyperparameters_weight_decay_high)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 41 · markdown</h3><pre class="source"><code>#### What did you observe?
+
+In the training run with a weight decay strength of 50.0, you likely observed that the model failed to learn anything. Similar to when you set the dropout rate to too high a value, using too much weight decay also leads to underfitting and the model neither does well on examples in its training data nor on examples in its test data.
+
+Add the final test loss in the cell below and run it to store this experimental result.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 42 · code</h3><pre class="source"><code>experiment_log[hyperparameters_weight_decay_high] =</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 43 · markdown</h3><pre class="source"><code>## Analyze the results
+
+Throughout this lab, you have experimented with different combinations of hyperparameters, and you have kept track of how well the model generalized to the test dataset on each run.
+
+You can now use this log to get a sense of how well the different settings work.
+
+Run the following cell to visualize the relationship between the hyperparameter setting and the loss for each of the three hyperparameters. Before you run this cell, make sure that you have added the loss values to `experiment_log` for each of the experiments.
+
+
+
+
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 44 · code</h3><pre class="source"><code>visualizations.visualize_hyperparameter_loss(experiment_log)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 45 · markdown</h3><pre class="source"><code>Inspect the plots above. Which of the overfitting methods worked well in terms of reducing the test loss? Which ones less so?
+
+You probably noticed that for both the dropout rate and weight decay strength, the model&#x27;s performance initially improved compared to the baseline when you set them to a smaller value. However, performance worsened significantly when you set either of these values too high. This is a very common pattern and usually you have to try several values until you find the one that works best for your model and dataset.
+
+In this lab, you also modified one hyperparameter at a time. In practice, you often want to combine overfitting methods, for example dropout and early stopping. If you want to experiment further, add more cells to this lab and try out additional combinations of hyperparameters.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 46 · markdown</h3><pre class="source"><code>## Summary
+
+In this activity, you took on the role of researcher who aims to find the best hyperparameters for their model to prevent overfitting. You experimented with the following three overfitting mitigation methods:
+* Early stopping
+* Dropout
+* Weight decay
+
+You also saw how keeping an **experiment log** can be used to visualize the relationship between hyperparameters and the loss on the test dataset. This will be a useful process when you are training your own models.
+
+In the next activity, you will learn a bit more about hyperparameter tuning and learn why you want to have a separate dataset for tuning hyperparameters.
+
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 47 · markdown</h3><pre class="source"><code>## Solutions
+
+The following cells provide reference solutions to the coding activities in this notebook. If you really get stuck after trying to solve the activities yourself, you may want to consult these solutions.
+
+It is recommended that you *only* look at the solutions after you have tried to solve the activities *multiple times*. The best way to learn challenging concepts in computer science and artificial intelligence is to debug your code piece-by-piece until it works, rather than copying existing solutions.
+
+If you feel stuck, you may want to first try to debug your code. For example, by adding additional print statements to see what your code is doing at every step. This will provide you with a much deeper understanding of the code and the materials. It will also provide you with practice on how to solve challenging coding problems beyond this course.
+
+To view the solutions for an activity, click on the arrow to the left of the activity name. If you consult the solutions, do not copy and paste them into the cells above. Instead, look at them, and type them manually into the cell. This will help you understand where you went wrong.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 48 · markdown</h3><pre class="source"><code>### Coding Activity 1</code></pre></article><article class="nb-cell nb-code"><h3>Cell 49 · code</h3><pre class="source"><code># Add this to the cell above.
+hyperparameters_early_stopping = HyperParameterConfig(
+    hidden_dims=(10, 1000),
+    dropout_rate=0.0,
+    weight_decay_strength=0.00,
+    use_early_stopping=True
+)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 50 · markdown</h3><pre class="source"><code>### Coding Activity 2</code></pre></article><article class="nb-cell nb-code"><h3>Cell 51 · code</h3><pre class="source"><code># Add this to the cell above.
+hyperparameters_dropout_medium = HyperParameterConfig(
+    hidden_dims=(10, 1000),
+    dropout_rate=0.3,
+    weight_decay_strength=0.00,
+    use_early_stopping=False
+)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 52 · markdown</h3><pre class="source"><code>### Coding Activity 3</code></pre></article><article class="nb-cell nb-code"><h3>Cell 53 · code</h3><pre class="source"><code># Add this to the cell above.
+hyperparameters_dropout_high = HyperParameterConfig(
+    hidden_dims=(10, 1000),
+    dropout_rate=0.7,
+    weight_decay_strength=0.00,
+    use_early_stopping=False
+)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 54 · markdown</h3><pre class="source"><code>### Coding Activity 4</code></pre></article><article class="nb-cell nb-code"><h3>Cell 55 · code</h3><pre class="source"><code># Add this to the cell above.
+hyperparameters_regularization_medium = HyperParameterConfig(
+    hidden_dims=(10, 1000),
+    dropout_rate=0.00,
+    weight_decay_strength=0.5,
+    use_early_stopping=False
+)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 56 · markdown</h3><pre class="source"><code>### Coding Activity 5</code></pre></article><article class="nb-cell nb-code"><h3>Cell 57 · code</h3><pre class="source"><code># Add this to the cell above.
+hyperparameters_regularization_high = HyperParameterConfig(
+    hidden_dims=(10, 1000),
+    dropout_rate=0.0,
+    weight_decay_strength=50.0,
+    use_early_stopping=False
+)</code></pre></article>
+    </section>
+  </main>
+</body>
+</html>

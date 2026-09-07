@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>week06_transformer.py</title>
+  <link rel="stylesheet" href="../../../../assets/css/site.css" />
+  <style>
+    pre.source {
+      margin: 1rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>week06_transformer.py</h2>
+        <p><a href="week06_transformer.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p>
+      </div>
+      <pre class="source"><code>&quot;&quot;&quot;Week 6 deliverable: tiny Transformer decoder block + attention visualization.&quot;&quot;&quot;
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import matplotlib
+
+matplotlib.use(&quot;Agg&quot;)
+import matplotlib.pyplot as plt
+import numpy as np
+
+from mmc.labs.paths import DOCS_DELIV, ensure_out
+
+
+def softmax(x: np.ndarray, axis: int = -1) -&gt; np.ndarray:
+    x = x - x.max(axis=axis, keepdims=True)
+    e = np.exp(x)
+    return e / e.sum(axis=axis, keepdims=True)
+
+
+class TinyDecoderBlock:
+    &quot;&quot;&quot;Single-head self-attention + FFN (NumPy).&quot;&quot;&quot;
+
+    def __init__(self, d_model: int = 32, seed: int = 42) -&gt; None:
+        rng = np.random.default_rng(seed)
+        self.d_model = d_model
+        scale = 0.2
+        self.wq = rng.normal(0, scale, (d_model, d_model))
+        self.wk = rng.normal(0, scale, (d_model, d_model))
+        self.wv = rng.normal(0, scale, (d_model, d_model))
+        self.wo = rng.normal(0, scale, (d_model, d_model))
+        self.w1 = rng.normal(0, scale, (d_model, 4 * d_model))
+        self.w2 = rng.normal(0, scale, (4 * d_model, d_model))
+
+    def attention(self, x: np.ndarray) -&gt; tuple[np.ndarray, np.ndarray]:
+        # x: [T, D]
+        q = x @ self.wq
+        k = x @ self.wk
+        v = x @ self.wv
+        scores = (q @ k.T) / np.sqrt(self.d_model)
+        # causal mask
+        t = x.shape[0]
+        mask = np.triu(np.ones((t, t)), k=1) * -1e9
+        weights = softmax(scores + mask, axis=-1)
+        ctx = weights @ v
+        return ctx @ self.wo, weights
+
+    def forward(self, x: np.ndarray) -&gt; tuple[np.ndarray, np.ndarray]:
+        attn, weights = self.attention(x)
+        h = x + attn
+        ff = np.tanh(h @ self.w1) @ self.w2
+        return h + ff, weights
+
+
+def run() -&gt; dict:
+    out = ensure_out()
+    docs = DOCS_DELIV
+    docs.mkdir(parents=True, exist_ok=True)
+
+    rng = np.random.default_rng(42)
+    t, d = 12, 32
+    # pretend token embeddings
+    x = rng.normal(0, 0.5, (t, d))
+    block = TinyDecoderBlock(d_model=d)
+    y, weights = block.forward(x)
+
+    fig, ax = plt.subplots(figsize=(5, 4))
+    im = ax.imshow(weights, cmap=&quot;viridis&quot;)
+    ax.set_title(&quot;Causal self-attention weights&quot;)
+    ax.set_xlabel(&quot;key&quot;)
+    ax.set_ylabel(&quot;query&quot;)
+    fig.colorbar(im, ax=ax, fraction=0.046)
+    fig.tight_layout()
+    png = out / &quot;week06_attention.png&quot;
+    fig.savefig(png, dpi=120)
+    plt.close(fig)
+    (docs / &quot;week06_attention.png&quot;).write_bytes(png.read_bytes())
+
+    np.savez(out / &quot;week06_decoder_weights.npz&quot;, wq=block.wq, wk=block.wk, wv=block.wv, wo=block.wo)
+    summary = {
+        &quot;deliverable&quot;: &quot;week06_transformer_decoder&quot;,
+        &quot;seq_len&quot;: t,
+        &quot;d_model&quot;: d,
+        &quot;output_norm&quot;: float(np.linalg.norm(y)),
+        &quot;attention_png&quot;: str(png),
+        &quot;causal&quot;: True,
+        &quot;heads&quot;: 1,
+    }
+    (out / &quot;week06_summary.json&quot;).write_text(json.dumps(summary, indent=2), encoding=&quot;utf-8&quot;)
+    return summary
+
+
+if __name__ == &quot;__main__&quot;:
+    print(json.dumps(run(), indent=2))
+</code></pre>
+    </section>
+  </main>
+</body>
+</html>

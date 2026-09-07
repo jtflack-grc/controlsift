@@ -1,0 +1,15 @@
+Privileged accounts must use multi factor authentication in production.
+Audit export lists every privileged account with MFA enrollment confirmed.
+A written policy alone is not sufficient proof of control operation.
+Irrelevant HR vacation calendar does not demonstrate identity control effectiveness.
+Contradictory evidence shows a privileged user without MFA while policy claims coverage.
+Partial evidence covers some systems but omits contractors and break glass accounts.
+Insufficient evidence is a screenshot with no inventory scope or time window.
+ControlSift studies whether small language models can triage evidence quality.
+Synthetic packets keep private customer binders out of the training corpus.
+Family isolated splits prevent leakage across train validation test and challenge.
+Classical baselines establish difficulty before any large language model claims.
+Macro F1 is the primary metric on a balanced five class task.
+Human judgment remains authoritative for real control evidence decisions.
+Tokenization embeddings attention and LoRA appear across the DeepMind foundations path.
+Responsible innovation requires data cards risk registers and intended use limits.

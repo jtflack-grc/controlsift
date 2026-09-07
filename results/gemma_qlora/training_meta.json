@@ -1,0 +1,14 @@
+{
+  "model_id": "google/gemma-3-1b-it",
+  "seed": 42,
+  "lora_target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj"
+  ],
+  "output_dir": "/kaggle/working/controlsift/results/gemma_qlora/adapter",
+  "train_runtime": 2908.5681,
+  "train_loss": 0.6686202252705892,
+  "status": "completed"
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#07100c" />
+  <title>5-Minute Video Script — Capstone</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Video presentation script</h2>
+        <p>Target length: ≤5 minutes for GCLP form upload. Speak with the 8-slide deck on screen.</p>
+      </div>
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+    </section>
+
+    <section class="section">
+      <h2>Recording checklist</h2>
+      <ul class="findings-list">
+        <li>Open <a href="slides.html">slides.html</a> (or the <a href="submit/ControlSift_Capstone_Slides.pdf">PDF</a>) full-screen.</li>
+        <li>Record with Windows Xbox Game Bar (<kbd>Win+G</kbd>), OBS, or Zoom local record — 1080p, mic only or mic+system.</li>
+        <li>Hard cap <strong>5:00</strong>. Prefer ~4:30 so encoding/padding does not overrun.</li>
+        <li>TEST metrics are filled below from result files (zero-shot ≈0.080 / few-shot ≈0.137 / QLoRA ≈0.083; TF-IDF ≈0.533 still leads). Do not invent other numbers.</li>
+        <li>Re-export slides PDF (<code>scripts/export_submit_pdfs.ps1</code>) → record with the filled 2:30–3:30 beat → upload.</li>
+        <li>Confirm on-screen slides match spoken TEST macro F1 (zero-shot / few-shot / QLoRA) before upload.</li>
+        <li>Export file name suggestion: <code>ControlSift_Capstone_Video.mp4</code> (keep out of git if large; form upload only).</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Script (~4:30–5:00)</h2>
+      <div class="def-list">
+        <div>
+          <dt>0:00–0:40</dt>
+          <dd>
+            “I’m presenting ControlSift, my Mentor Me Collective DeepMind AI Research Foundations capstone.
+            Official SDG: Goal 10, Reduced Inequalities. The question: can a small language model help teams with less
+            GRC budget tell proof from paperwork?”
+          </dd>
+        </div>
+        <div>
+          <dt>0:40–1:30</dt>
+          <dd>
+            “High-quality assurance review is expensive. Smaller organizations often inherit binders that look compliant
+            when controls don’t operate. That inequality is the problem I’m targeting—not by replacing auditors, but by
+            researching an open triage aid.”
+          </dd>
+        </div>
+        <div>
+          <dt>1:30–2:30</dt>
+          <dd>
+            “Methods: a sealed synthetic benchmark of 1,500 five-class evidence packets, family-isolated splits, and a
+            frozen evaluation protocol. Ladder: majority, TF-IDF, then Gemma 3 1B zero-shot, few-shot, and QLoRA on a
+            free-tier GPU path. Primary metric is macro F1.”
+          </dd>
+        </div>
+        <div>
+          <dt>2:30–3:30 — after full metrics (filled from TEST result files)</dt>
+          <dd>
+            <p style="margin:0 0 0.75rem;font-family:ui-monospace,Consolas,monospace;font-size:var(--text-sm);">
+              From <code>results/*/metrics_test.json</code> (n=200 each):<br />
+              MAJORITY_TEST_MACRO_F1 = 0.0667<br />
+              TFIDF_TEST_MACRO_F1 = 0.5327<br />
+              ZERO_SHOT_TEST_MACRO_F1 = 0.0796 · parse_success = 0.760<br />
+              FEW_SHOT_TEST_MACRO_F1 = 0.1365 · parse_success = 0.985<br />
+              QLORA_TEST_MACRO_F1 = 0.0827 · parse_success = 0.435<br />
+              ZERO_SHOT_TEST_ACC = 0.140 · FEW_SHOT_TEST_ACC = 0.200 · QLORA_TEST_ACC = 0.075
+            </p>
+            <p style="margin:0;">
+              “Classical results are complete: majority macro F1 is about 0.067; TF-IDF still leads at about 0.53 after we
+              hardened the dataset so bag-of-words could not cheat. On the sealed test set, the Gemma 3 1B ladder is much
+              weaker in absolute terms: zero-shot macro F1 is about <strong>0.080</strong>; few-shot is best of the LLM
+              runs at about <strong>0.137</strong>; and QLoRA lands around <strong>0.083</strong>—but QLoRA’s label-parse
+              success is only about 44%, so that score is fragile. Honest takeaway: lexical TF-IDF wins this benchmark;
+              the small LLM ladder is a research baseline, not a replacement. Numbers come straight from the published
+              result files—no invented scores.”
+            </p>
+          </dd>
+        </div>
+        <div>
+          <dt>3:30–4:20</dt>
+          <dd>
+            “Responsible innovation: synthetic data only, Data Card, Risk Register, Failure Lab, and a clear Intended Use—
+            research and education, not a production auditor. The curriculum map shows how this project exercises the
+            DeepMind path end to end.”
+          </dd>
+        </div>
+        <div>
+          <dt>4:20–5:00</dt>
+          <dd>
+            “Results and figures are published from the result files once Pages is live. Capstone report, slides, and this
+            walkthrough close the MMC submission. Thanks for reviewing.”
+          </dd>
+        </div>
+      </div>
+      <p style="margin-top:1.25rem;color:var(--muted);font-size:var(--text-sm);">
+        Recording tip: use slides.html full-screen; keep total runtime under 5:00; one scholar submits the form.
+      </p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Capstone · Video script</span>
+      <a href="index.html">Capstone home</a>
+    </div>
+  </footer>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
+</body>
+</html>

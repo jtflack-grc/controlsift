@@ -12,6 +12,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import sys
 from pathlib import Path
 
 from controlsift import CANONICAL_SEED
@@ -31,6 +33,9 @@ from controlsift.prompting.templates import (
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MODEL_ID = "google/gemma-3-1b-it"
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _torchao_preflight import ensure_torchao_compatible  # noqa: E402
+
 
 def _load_model():
     try:
@@ -39,12 +44,37 @@ def _load_model():
     except ImportError as exc:
         raise SystemExit('Install GPU extras: pip install -e ".[gpu]"') from exc
 
+    os.environ.setdefault("CUDA_VISIBLE_DEVICES", "0")
+    ensure_torchao_compatible()
+
     tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL_ID,
-        device_map="auto",
-        torch_dtype=getattr(torch, "bfloat16", torch.float16),
+    # Gemma 3 text IT: prefer Gemma3ForCausalLM when available (transformers>=4.50).
+    try:
+        from transformers import Gemma3ForCausalLM
+
+        model_cls = Gemma3ForCausalLM
+    except ImportError:
+        model_cls = AutoModelForCausalLM
+    dtype = (
+        torch.bfloat16
+        if torch.cuda.is_available() and torch.cuda.get_device_capability(0)[0] >= 8
+        else torch.float16
     )
+    try:
+        model = model_cls.from_pretrained(
+            MODEL_ID,
+            device_map={"": 0},
+            torch_dtype=dtype,
+        )
+    except ImportError as exc:
+        msg = str(exc)
+        if "torchao" in msg.lower():
+            raise SystemExit(
+                f"{msg}\n"
+                "Fix: re-run Install cell (pip install -U torchao>=0.16), "
+                "or: pip uninstall -y torchao"
+            ) from exc
+        raise
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     return tokenizer, model
@@ -53,13 +83,15 @@ def _load_model():
 def generate(tokenizer, model, prompt: str, max_new_tokens: int = 128) -> str:
     import torch
 
-    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+    device = getattr(model, "device", None)
+    if device is None:
+        device = next(model.parameters()).device
+    inputs = tokenizer(prompt, return_tensors="pt").to(device)
     with torch.no_grad():
         out = model.generate(
             **inputs,
             max_new_tokens=max_new_tokens,
             do_sample=False,
-            temperature=None,
             pad_token_id=tokenizer.eos_token_id,
         )
     text = tokenizer.decode(out[0][inputs["input_ids"].shape[-1] :], skip_special_tokens=True)

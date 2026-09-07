@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>gdm_lab_2_3_tokenize_texts_into_subword_tokens.ipynb</title>
+  <link rel="stylesheet" href="../../../../../assets/css/site.css" />
+  <style>
+    .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+    .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
+    pre.source {
+      margin: 0.5rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>gdm_lab_2_3_tokenize_texts_into_subword_tokens.ipynb</h2>
+        <p>
+          <a href="gdm_lab_2_3_tokenize_texts_into_subword_tokens.ipynb">Download .ipynb</a> ·
+          <a href="../../../index.html">Deliverables hub</a>
+        </p>
+        <p>Open in Jupyter from repo: <code>jupyter notebook mmc/notebooks/gdm_lab_2_3_tokenize_texts_into_subword_tokens.ipynb</code></p>
+      </div>
+      <article class="nb-cell nb-markdown"><h3>Cell 1 · markdown</h3><pre class="source"><code>&gt; &lt;p&gt;&lt;small&gt;&lt;small&gt;This Notebook is made available subject to the licence and terms set out in the &lt;a href = &quot;http://www.github.com/google-deepmind/ai-foundations&quot;&gt;AI Research Foundations Github README file&lt;/a&gt;.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 2 · markdown</h3><pre class="source"><code>![](https://storage.googleapis.com/dm-educational/assets/ai_foundations/GDM-Labs-banner-image-C2-white-bg.png)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 3 · markdown</h3><pre class="source"><code># Lab: Tokenize Texts into Subword Tokens
+
+
+&lt;a href=&#x27;https://colab.research.google.com/github/google-deepmind/ai-foundations/blob/master/course_2/gdm_lab_2_3_tokenize_texts_into_subword_tokens.ipynb&#x27; target=&#x27;_parent&#x27;&gt;&lt;img src=&#x27;https://colab.research.google.com/assets/colab-badge.svg&#x27; alt=&#x27;Open In Colab&#x27;/&gt;&lt;/a&gt;
+
+Explore how Gemma&#x27;s tokenizer splits texts into units between characters and words.
+
+10 minutes</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 4 · markdown</h3><pre class="source"><code>## Overview
+
+In this lab, you will experiment with the **tokenizer** of the **Google Gemma** language model. You will explore how this model is able to deal with rare words or words that do not appear in its training data while still representing common words as their own tokens.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 5 · markdown</h3><pre class="source"><code>### What you will learn
+
+By the end of this lab, you will understand:
+
+* What subword tokenization is.
+* How subword tokenizers handle rare and unseen words, and emojis.
+* The purpose of special tokens in tokenizers for language models.
+
+
+### Tasks
+
+In this lab, you will:
+
+* Experiment with Gemma&#x27;s tokenizer to explore subword tokenization.
+* Implement a function to tokenize the made-up word &quot;Clusterophonexia&quot;.
+* Inspect how Gemma handles emojis and the purpose of its special tokens.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 6 · markdown</h3><pre class="source"><code>## How to use Google Colaboratory (Colab)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 7 · markdown</h3><pre class="source"><code>Google Colaboratory (also known as Google Colab) is a platform that allows you to run Python code in your browser. The code is written in **cells** that are executed on a remote server.
+
+To run a cell, hover over the cell and click on the `run` button to its left. The run button is the circle with the triangle (▶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or ⌘+Return if you are using a Mac).
+
+To try this out, run the following cell. This should print today&#x27;s day of the week below it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 8 · code</h3><pre class="source"><code>from datetime import datetime
+
+print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 9 · markdown</h3><pre class="source"><code>Note that the *order in which you run the cells matters*. When you are working through a lab, make sure to always run *all* cells in order, otherwise the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime → Run before__  from the menu above (or use the keyboard combination Ctrl/⌘ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>## Imports
+
+In this lab, you will primarily work with the tokenizer from the `gemma` package.
+
+Run the following cell to import the required packages.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 11 · code</h3><pre class="source"><code>%%capture
+
+# Install the custom package for this course. This also installs the gemma
+# package.
+!pip install &quot;git+https://github.com/google-deepmind/ai-foundations.git@main&quot;
+
+from gemma import gm # For interacting with the Gemma tokenizer.
+# For providing feedback on your implementations.
+from ai_foundations.feedback.course_2 import subword_tokens as feedback</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 12 · markdown</h3><pre class="source"><code>## Subword tokenization
+
+In the last activity, you saw the trade-offs between two main tokenization strategies. Character-level tokenization can handle any word but creates very long sequences and is not able to capture the inherent meaning of entire words. On the other hand, word-level tokenization is intuitive but struggles with rare or unseen words (the out-of-vocabulary problem).
+
+One method that finds a good middle ground and provides the best of both worlds is **subword tokenization**. This approach offers a clever compromise between character-level and word-level tokenization:
+
+* Frequent words (like &quot;the&quot; or &quot;is&quot;) are kept as single, complete tokens.
+
+* Rare or complex words (like &quot;Baobab&quot;) are broken down into smaller, meaningful sub-units.
+
+This way, the model maintains a manageable, fixed-size vocabulary while still being able to represent any word you can think of.
+
+As a first step, consider how Gemma tokenizes the following text:
+
+&quot;The Baobab (genus Adansonia) is&quot;
+
+It turns this text into the following tokens:
+
+```python
+[&quot;The&quot;, &quot; Ba&quot;, &quot;ob&quot;, &quot;ab&quot;, &quot; (&quot;, &quot;genus&quot;, &quot; Ad&quot;, &quot;ans&quot;, &quot;onia&quot;, &quot;)&quot;, &quot; is&quot;]
+```
+You will notice that spaces are part of the tokens that form the first part of a word (or an entire word). Further, the word &quot;Baobab&quot; is broken up into three tokens. This is done using the  **byte pair encoding**  (BPE) algorithm, one of the most popular algorithms for subword tokenization, which you will implement yourself in the next lab.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 13 · markdown</h3><pre class="source"><code>### Load and experiment with the Gemma tokenizer
+
+To gain a better intuition of how the Gemma tokenizer works, run the following cell to load it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 14 · code</h3><pre class="source"><code># Load the tokenizer.
+gemma_tokenizer = gm.text.Gemma3Tokenizer()
+
+# Inspect the vocabaulary size.
+print(f&quot;Gemma&#x27;s vocabulary consists of {gemma_tokenizer.vocab_size:,} tokens.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 15 · markdown</h3><pre class="source"><code>As you can see, Gemma has a very large vocabulary size of more than 260,000 tokens. This is because the list of unique tokens has been determined using a much larger dataset than Africa Galore. Furthermore, the tokenizer has been designed with the goal of allowing the model to capture a wide spectrum of input, from common words and frequent subword patterns, to emojis like `&#x27;☺️&#x27;`, to the character sets of different languages. With such an expansive vocabulary, Gemma can often tokenize text more precisely. This reduces instances of the meaningless `&lt;UNK&gt;` token and better preserves the semantic richness of the original input.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 16 · markdown</h3><pre class="source"><code>#### Encoding and decoding
+
+To translate an arbitrary input text to the token IDs that Gemma can process, you can use the `encode` function of the tokenizer. This is demonstrated in the following cell.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 17 · code</h3><pre class="source"><code># Encode a text into token IDs.
+text = &quot;The Baobab (genus Adansonia) is one of the most iconic trees.&quot;
+
+gemma_tokens = gemma_tokenizer.encode(text)
+print(f&quot;Result of tokenizing the text \&quot;{text}\&quot;:&quot;)
+print(gemma_tokens)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 18 · markdown</h3><pre class="source"><code>This process can be reversed using the `decode` method that translates the token IDs back to a text.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 19 · code</h3><pre class="source"><code># Decode the tokens back to a text.
+decoded_text = gemma_tokenizer.decode(gemma_tokens)
+print(f&quot;Decoded sentence from tokens: {decoded_text}\n&quot;)
+
+# Check whether this results in the same text as the original one.
+is_equal = &quot;✅&quot; if text == decoded_text else &quot;❌&quot;
+print(
+    f&quot;Decoding the tokens results in the same text as the original one:&quot;
+    f&quot; {is_equal}\n&quot;
+)
+
+# Decode individual tokens.
+for token in gemma_tokens:
+    decoded_token = gemma_tokenizer.decode(token)
+    print(f&quot;Token {token}:\t{decoded_token}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 20 · markdown</h3><pre class="source"><code>### Coding Activity 1: Tokenize a made-up word
+
+As mentioned, this approach has the advantage that it can represent almost any word as a combination of multiple subword tokens.
+
+&lt;br /&gt;
+
+------
+&gt; **💻 Your task:**
+&gt;
+&gt; Use the `encode` and `decode` methods of the Gemma tokenizer to investigate how Gemma tokenizes the made-up word &quot;Clusterophonexia&quot;.
+&gt;
+&gt; Store the list of token IDs in `clusterophonexia_tokens` and turn the first token ID back into a string and store it in `first_token_as_text`.
+&gt;
+------
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 21 · code</h3><pre class="source"><code># Set the following two variables as described in the instructions above.
+clusterophonexia_tokens =
+first_token_as_text =</code></pre></article><article class="nb-cell nb-code"><h3>Cell 22 · code</h3><pre class="source"><code># @title Run this cell to test your code
+feedback.test_gemma_subword_tokenization(clusterophonexia_tokens,
+                                         first_token_as_text,
+                                         gemma_tokenizer
+)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 23 · markdown</h3><pre class="source"><code>As you have observed, the Gemma tokenizer can even tokenize made-up words, such as &quot;Clusterophonexia&quot;. In this case the model has access to tokens it has been trained on. For example, if the meaning of &quot;Clusterophonexia&quot; is related to the word &quot;cluster&quot;, then the Gemma tokenization would provide some information about what this word is supposed to mean. In this case, the blanket `&lt;UNK&gt;` token would not provide any information about the word&#x27;s meaning.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 24 · markdown</h3><pre class="source"><code>### Tokenizing Unicode characters
+
+Gemma&#x27;s large vocabulary also includes many Unicode characters, such as emojis. Run the next cell to see how the sentence &quot;I am smiling ☺️!&quot; is tokenized:</code></pre></article><article class="nb-cell nb-code"><h3>Cell 25 · code</h3><pre class="source"><code>gemma_tokens = gemma_tokenizer.encode(&quot;I am smiling ☺️!&quot;)
+
+for i, token in enumerate(gemma_tokens):
+    decoded_token = gemma_tokenizer.decode(token)
+    print(f&quot;Token {token}:\t{decoded_token}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 26 · markdown</h3><pre class="source"><code>As you can see observe, the tokenizer is also able to map emojis to token IDs. In this case, the emoji ☺️ is mapped to ID 145233.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 27 · markdown</h3><pre class="source"><code>## Special tokens
+
+Beyond the regular tokens that represent words or subwords, a tokenizer&#x27;s vocabulary includes special tokens. These tokens don&#x27;t represent content. Instead, they provide structural information to the model, such as marking boundaries or handling sequences of different lengths.
+
+The following list includes several common special tokens:
+
+* **`&lt;BOS&gt;`** and **`&lt;EOS&gt;`**:
+
+  These stand for &quot;beginning of sequence&quot; (BOS) and &quot;end of sequence&quot; (EOS). Their primary job is to mark the start and end of a distinct piece of text. This comes with the following two advantages:
+
+  * Efficient batching: By clearly marking where each sequence begins and ends, we can feed multiple documents to the model in a single batch without having to pad them extensively.
+
+  * Dynamic generation: During text generation, the `&lt;EOS&gt;` token serves as a stop signal. Instead of generating a fixed number of tokens, the model can generate text until it produces an `&lt;EOS&gt;` token, allowing it to decide when a response is complete.
+
+* **`&lt;PAD&gt;`**:
+
+  As you have encountered, the padding token is used to make all input sequences in a batch the same length. Transformer models require inputs to have a fixed size, so shorter sequences are &quot;padded&quot; with this token until they match the length of the longest sequence in the batch.
+
+* **`&lt;UNK&gt;`**:
+
+  The unknown token, `&lt;UNK&gt;`, acts as a placeholder for a character or symbol that is not in the tokenizer&#x27;s vocabulary. While subword tokenizers are great at representing almost any text, they can sometimes encounter a character that they have never been trained on. In these rare cases, the tokenizer will use `&lt;UNK&gt;` to represent it.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 28 · markdown</h3><pre class="source"><code>### Special tokens in Gemma
+
+As an example of how to work with special tokens, consider the implementation of special tokens in Gemma. These can be accessed through `gemma_tokenizer.special_tokens`. For example, the following two cells demonstrate how to access the BOS and EOS tokens in Gemma.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 29 · code</h3><pre class="source"><code># Beginning of sentence (BOS) token.
+gemma_tokenizer.special_tokens.BOS</code></pre></article><article class="nb-cell nb-code"><h3>Cell 30 · code</h3><pre class="source"><code># End of sentence (EOS) token.
+gemma_tokenizer.special_tokens.EOS</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 31 · markdown</h3><pre class="source"><code>The tokenizer also supports automatically adding the BOS and EOS tokens to a sequence. This can be very useful, for example, when you are preparing data for finetuning a chatbot on prompts and model answers, to get the model to learn when it should stop generating.
+
+This can be very useful. For example, when you are preparing data for finetuning a chatbot on prompts and model answers as it enables the model to learn when it should stop generating.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 32 · code</h3><pre class="source"><code>token_ids = gemma_tokenizer.encode(&quot;Hello world!&quot;, add_bos=True, add_eos=True)
+token_ids</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 33 · markdown</h3><pre class="source"><code>## Summary
+
+In this lab, you explored how a **subword tokenizer**, such as the one used by the Gemma model, works. You explored how it splits entire texts into tokens of varying granularity, how it can represent words that are not part of its vocabulary, and how it can represent Unicode characters e.g., emojis.
+
+You also learned about the **common special tokens** `&lt;BOS&gt;`, `&lt;EOS&gt;`, `&lt;PAD&gt;`, and `&lt;UNK&gt;` and how they can be used to encode structural information in texts.
+
+In the next activities, you will learn how you can implement a subword tokenizer using the byte pair encoding (BPE) algorithm.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 34 · markdown</h3><pre class="source"><code>## Solutions
+
+The following cells provide reference solutions to the coding activities above. If you really get stuck after trying to solve the activities yourself, you may want to consult these solutions.
+
+We recommend that you *only* look at the solutions after you have tried to solve the activities above *multiple times*. The best way to learn challenging concepts in computer science and artificial intelligence is to debug your code piece-by-piece until it works rather than copying existing solutions.
+
+If you feel stuck, you may want to first try to debug your code. For example, by adding additional print statements to see what your code is doing at every step. This will provide you with a much deeper understanding of the code and the materials. It will also provide you with practice on how to solve challenging coding problems beyond this course.
+
+To view the solutions for an activity, click on the arrow to the left of the activity name. If you consult the solutions, do not copy and paste them into the cells above. Instead, look at them and then type them manually into the cell. This will help you understand where you went wrong.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 35 · markdown</h3><pre class="source"><code>### Coding Activity 1</code></pre></article><article class="nb-cell nb-code"><h3>Cell 36 · code</h3><pre class="source"><code># Add the following two lines to the cell above.
+clusterophonexia_tokens = gemma_tokenizer.encode(&quot;Clusterophonexia&quot;)
+first_token_as_text = gemma_tokenizer.decode(clusterophonexia_tokens[0])
+</code></pre></article>
+    </section>
+  </main>
+</body>
+</html>

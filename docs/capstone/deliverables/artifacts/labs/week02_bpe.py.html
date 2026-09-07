@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>week02_bpe.py</title>
+  <link rel="stylesheet" href="../../../../assets/css/site.css" />
+  <style>
+    pre.source {
+      margin: 1rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>week02_bpe.py</h2>
+        <p><a href="week02_bpe.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p>
+      </div>
+      <pre class="source"><code>&quot;&quot;&quot;Week 2 deliverable: custom BPE tokenizer + vocabulary export.&quot;&quot;&quot;
+
+from __future__ import annotations
+
+import json
+import re
+from collections import Counter
+from pathlib import Path
+
+from mmc.labs.paths import CORPUS, ensure_out
+
+
+def word_freqs(text: str) -&gt; Counter[str]:
+    words = re.findall(r&quot;[A-Za-z0-9]+|[^\sA-Za-z0-9]&quot;, text.lower())
+    return Counter(words)
+
+
+def train_bpe(text: str, num_merges: int = 40) -&gt; tuple[list[tuple[str, str]], dict[str, int]]:
+    freqs = word_freqs(text)
+    splits: dict[str, list[str]] = {w: list(w) + [&quot;&lt;/w&gt;&quot;] for w in freqs}
+    merges: list[tuple[str, str]] = []
+    vocab: dict[str, int] = {}
+
+    def recompute_vocab() -&gt; None:
+        vocab.clear()
+        i = 0
+        for syms in splits.values():
+            for s in syms:
+                if s not in vocab:
+                    vocab[s] = i
+                    i += 1
+
+    recompute_vocab()
+    for _ in range(num_merges):
+        pair_counts: Counter[tuple[str, str]] = Counter()
+        for word, freq in freqs.items():
+            syms = splits[word]
+            for i in range(len(syms) - 1):
+                pair_counts[(syms[i], syms[i + 1])] += freq
+        if not pair_counts:
+            break
+        best = pair_counts.most_common(1)[0][0]
+        merges.append(best)
+        bigram = best[0] + best[1]
+        for word in list(splits):
+            syms = splits[word]
+            i = 0
+            new: list[str] = []
+            while i &lt; len(syms):
+                if i &lt; len(syms) - 1 and syms[i] == best[0] and syms[i + 1] == best[1]:
+                    new.append(bigram)
+                    i += 2
+                else:
+                    new.append(syms[i])
+                    i += 1
+            splits[word] = new
+        recompute_vocab()
+    return merges, vocab
+
+
+def encode(text: str, merges: list[tuple[str, str]]) -&gt; list[str]:
+    tokens: list[str] = []
+    for word in re.findall(r&quot;[A-Za-z0-9]+|[^\sA-Za-z0-9]&quot;, text.lower()):
+        syms = list(word) + [&quot;&lt;/w&gt;&quot;]
+        for a, b in merges:
+            i = 0
+            new: list[str] = []
+            while i &lt; len(syms):
+                if i &lt; len(syms) - 1 and syms[i] == a and syms[i + 1] == b:
+                    new.append(a + b)
+                    i += 2
+                else:
+                    new.append(syms[i])
+                    i += 1
+            syms = new
+        tokens.extend(syms)
+    return tokens
+
+
+def run(corpus_path: Path | None = None) -&gt; dict:
+    out = ensure_out()
+    text = (corpus_path or CORPUS).read_text(encoding=&quot;utf-8&quot;)
+    merges, vocab = train_bpe(text, num_merges=50)
+    sample_tokens = encode(text.splitlines()[0], merges)
+    payload = {
+        &quot;deliverable&quot;: &quot;week02_bpe&quot;,
+        &quot;num_merges&quot;: len(merges),
+        &quot;vocab_size&quot;: len(vocab),
+        &quot;sample_line_tokens&quot;: sample_tokens,
+        &quot;data_card&quot;: &quot;governance/DATA_CARD.md&quot;,
+        &quot;controlsift_data_card_html&quot;: &quot;docs/assurance/data-card.html&quot;,
+    }
+    (out / &quot;week02_merges.json&quot;).write_text(json.dumps(merges, indent=2), encoding=&quot;utf-8&quot;)
+    (out / &quot;week02_vocab.json&quot;).write_text(json.dumps(vocab, indent=2), encoding=&quot;utf-8&quot;)
+    (out / &quot;week02_summary.json&quot;).write_text(json.dumps(payload, indent=2), encoding=&quot;utf-8&quot;)
+    return payload
+
+
+if __name__ == &quot;__main__&quot;:
+    print(json.dumps(run(), indent=2))
+</code></pre>
+    </section>
+  </main>
+</body>
+</html>

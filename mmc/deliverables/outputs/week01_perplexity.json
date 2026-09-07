@@ -1,0 +1,9 @@
+{
+  "deliverable": "week01_ngram",
+  "n": 3,
+  "train_tokens": 140,
+  "test_tokens": 36,
+  "vocab_size": 109,
+  "perplexity": 160.90886520134038,
+  "sample_generation": "proof of control operation . irrelevant hr vacation calendar does not demonstrate identity control effectiveness . contradictory evidence shows a privileged user without mfa while policy claims coverage . partial evidence covers some systems but omits contractors and break glass accounts ."
+}

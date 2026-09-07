@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>run_all.py</title>
+  <link rel="stylesheet" href="../../../../assets/css/site.css" />
+  <style>
+    pre.source {
+      margin: 1rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>run_all.py</h2>
+        <p><a href="run_all.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p>
+      </div>
+      <pre class="source"><code>&quot;&quot;&quot;Run MMC weekly lab deliverables 1–2, 4–7 and regenerate dashboards.&quot;&quot;&quot;
+
+from __future__ import annotations
+
+import json
+
+from mmc.labs import (
+    build_notebooks,
+    build_week_pages,
+    sync_artifacts,
+    week01_ngram,
+    week02_bpe,
+    week04_mlp,
+    week05_diagnostics,
+    week06_transformer,
+    week07_lora_scaffold,
+    week11_comparative,
+)
+
+
+def main() -&gt; None:
+    build_notebooks.main()
+    results = {
+        &quot;week01&quot;: week01_ngram.run(),
+        &quot;week02&quot;: week02_bpe.run(),
+        &quot;week04&quot;: week04_mlp.run(),
+        &quot;week05&quot;: week05_diagnostics.run(),
+        &quot;week06&quot;: week06_transformer.run(),
+        &quot;week07&quot;: week07_lora_scaffold.run(),
+        &quot;week11&quot;: week11_comparative.run(),
+    }
+    sync_artifacts.run()
+    build_week_pages.main()
+    print(json.dumps({k: {&quot;ok&quot;: True, **{kk: vv for kk, vv in v.items() if kk != &quot;sample_generation&quot;}} for k, v in results.items()}, indent=2))
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+    </section>
+  </main>
+</body>
+</html>

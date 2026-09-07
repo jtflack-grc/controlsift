@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>week05_diagnostics.py</title>
+  <link rel="stylesheet" href="../../../../assets/css/site.css" />
+  <style>
+    pre.source {
+      margin: 1rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>week05_diagnostics.py</h2>
+        <p><a href="week05_diagnostics.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p>
+      </div>
+      <pre class="source"><code>&quot;&quot;&quot;Week 5 deliverable: diagnostics dashboard (loss curves + metrics HTML).&quot;&quot;&quot;
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import matplotlib
+
+matplotlib.use(&quot;Agg&quot;)
+import matplotlib.pyplot as plt
+import numpy as np
+
+from mmc.labs.paths import DOCS_DELIV, ensure_out
+from mmc.labs.week04_mlp import MLP, make_moons
+
+
+def run() -&gt; dict:
+    out = ensure_out()
+    docs = DOCS_DELIV
+    docs.mkdir(parents=True, exist_ok=True)
+
+    x, y = make_moons(300)
+    # underfit: tiny hidden + few epochs
+    under = MLP(hidden=2, seed=0)
+    under_losses = under.fit(x[:200], y[:200], epochs=40, lr=0.05)
+    under_acc = float((under.predict(x[200:]) == y[200:]).mean())
+
+    # overfit-prone: larger net, no early stop, tiny train
+    over = MLP(hidden=64, seed=1)
+    over_losses = over.fit(x[:40], y[:40], epochs=500, lr=0.2)
+    over_acc = float((over.predict(x[200:]) == y[200:]).mean())
+
+    # healthy
+    ok = MLP(hidden=16, seed=42)
+    ok_losses = ok.fit(x[:200], y[:200], epochs=300, lr=0.1)
+    ok_acc = float((ok.predict(x[200:]) == y[200:]).mean())
+
+    fig, ax = plt.subplots(figsize=(7, 4))
+    ax.plot(under_losses, label=f&quot;underfit (acc={under_acc:.2f})&quot;)
+    ax.plot(over_losses, label=f&quot;overfit-prone (acc={over_acc:.2f})&quot;)
+    ax.plot(ok_losses, label=f&quot;regular run (acc={ok_acc:.2f})&quot;)
+    ax.set_xlabel(&quot;epoch&quot;)
+    ax.set_ylabel(&quot;loss&quot;)
+    ax.set_title(&quot;Week 5 — training dynamics diagnostics&quot;)
+    ax.legend()
+    fig.tight_layout()
+    png = out / &quot;week05_loss_curves.png&quot;
+    fig.savefig(png, dpi=120)
+    plt.close(fig)
+
+    # copy into docs for the dashboard
+    docs_png = docs / &quot;week05_loss_curves.png&quot;
+    docs_png.write_bytes(png.read_bytes())
+
+    metrics = {
+        &quot;deliverable&quot;: &quot;week05_diagnostics_dashboard&quot;,
+        &quot;underfit_test_acc&quot;: under_acc,
+        &quot;overfit_prone_test_acc&quot;: over_acc,
+        &quot;healthy_test_acc&quot;: ok_acc,
+        &quot;notes&quot;: [
+            &quot;Underfit: capacity too small / too few epochs.&quot;,
+            &quot;Overfit-prone: tiny train set + high capacity → train loss collapses, test weaker.&quot;,
+            &quot;Healthy: moderate capacity and train size.&quot;,
+        ],
+    }
+    (out / &quot;week05_metrics.json&quot;).write_text(json.dumps(metrics, indent=2), encoding=&quot;utf-8&quot;)
+
+    html = f&quot;&quot;&quot;&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;title&gt;Week 5 Diagnostics&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../../assets/css/site.css&quot;/&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;header class=&quot;site-header&quot;&gt;&lt;nav class=&quot;nav&quot;&gt;&lt;a class=&quot;brand&quot; href=&quot;../../index.html&quot;&gt;ControlSift&lt;/a&gt;
+&lt;ul class=&quot;nav-links&quot; data-site-nav&gt;&lt;/ul&gt;&lt;/nav&gt;&lt;/header&gt;
+&lt;main&gt;&lt;section class=&quot;section&quot; style=&quot;border-top:0;padding-top:1rem;&quot;&gt;
+&lt;nav class=&quot;capstone-nav&quot; data-capstone-nav&gt;&lt;/nav&gt;
+&lt;div class=&quot;page-intro&quot;&gt;&lt;h2&gt;Week 5 · Diagnostics dashboard&lt;/h2&gt;
+&lt;p&gt;Interactive-enough static dashboard for overfitting / underfitting experiments (handbook deliverable).&lt;/p&gt;&lt;/div&gt;
+&lt;img src=&quot;week05_loss_curves.png&quot; alt=&quot;Loss curves&quot; style=&quot;max-width:100%;border:1px solid var(--line);&quot;/&gt;
+&lt;pre style=&quot;margin-top:1rem;font-family:var(--font-mono);font-size:var(--text-sm);overflow:auto;&quot;&gt;{json.dumps(metrics, indent=2)}&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;index.html&quot;&gt;← Deliverables hub&lt;/a&gt;&lt;/p&gt;
+&lt;/section&gt;&lt;/main&gt;
+&lt;script src=&quot;../../assets/js/nav.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../../assets/js/capstone-nav.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;&lt;/html&gt;
+&quot;&quot;&quot;
+    (docs / &quot;week05-dashboard.html&quot;).write_text(html, encoding=&quot;utf-8&quot;)
+    metrics[&quot;dashboard&quot;] = &quot;docs/capstone/deliverables/week05-dashboard.html&quot;
+    return metrics
+
+
+if __name__ == &quot;__main__&quot;:
+    print(json.dumps(run(), indent=2))
+</code></pre>
+    </section>
+  </main>
+</body>
+</html>

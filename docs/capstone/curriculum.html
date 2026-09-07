@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#000000" />
   <title>Curriculum Map — Capstone</title>
   <meta name="robots" content="noindex" />
+  <meta name="description" content="Dense subtopic map of ControlSift against the public Google DeepMind AI Research Foundations curriculum." />
   <link rel="stylesheet" href="../assets/css/site.css" />
 </head>
 <body>
@@ -21,87 +22,474 @@
       <div class="page-intro">
         <h2>DeepMind AI Research Foundations</h2>
         <p>
-          How each course in the curriculum appears in ControlSift.
-          Source: Google DeepMind AI Research Foundations (Google Skills), delivered through Mentor Me Collective.
+          Subtopic-level map of ControlSift against the public eight-course path.
+          Curriculum sources:
+          <a href="https://www.skills.google/paths/3135" rel="noopener">Google Skills path</a>
+          ·
+          <a href="https://www.skills.google/collections/deepmind" rel="noopener">DeepMind collection</a>
+          ·
+          <a href="https://github.com/google-deepmind/ai-foundations" rel="noopener">open labs</a>
+          · public module outlines mirrored on DataCamp for courses 01–05 and 07.
+          Knowledge checks, quizzes, “how to study,” glossary, and wrap-up modules are omitted; every substantive topic below has a ControlSift rationale.
         </p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
     </section>
 
     <section class="section">
-      <h2>Course map</h2>
+      <h2>How to read this page</h2>
+      <p>
+        Under each course: public Skills link → module headings → curriculum subtopics →
+        <span class="meet">meets</span> /
+        <span class="meet partial">partial</span> /
+        <span class="meet planned">planned</span>
+        with why. Partial means the learning goal is satisfied by an applied analogue (e.g. using Gemma rather than re-deriving attention equations). Planned means packaged and sealed, awaiting GPU result files.
+      </p>
+      <nav class="curriculum-jump" aria-label="Jump to course">
+        <a href="#c01">01</a>
+        <a href="#c02">02</a>
+        <a href="#c03">03</a>
+        <a href="#c04">04</a>
+        <a href="#c05">05</a>
+        <a href="#c06">06</a>
+        <a href="#c07">07</a>
+        <a href="#c08">08</a>
+      </nav>
+    </section>
+
+    <section class="section">
+      <h2>At a glance</h2>
       <table class="curriculum-table">
         <thead>
-          <tr>
-            <th>Course</th>
-            <th>Focus</th>
-            <th>Demonstration in ControlSift</th>
-            <th>Status</th>
-          </tr>
+          <tr><th>Course</th><th>ControlSift demonstration</th><th>Status</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1 · Build Your Own Small Language Model</td>
-            <td>Language-model foundations</td>
-            <td>Five-class evidence-quality task; method ladder; sealed evaluation protocol</td>
-            <td><span class="status-pill">complete</span></td>
-          </tr>
-          <tr>
-            <td>2 · Represent Your Language Data</td>
-            <td>Text representation for LMs</td>
-            <td>JSONL schema, prompt formatting, tokenizer-compatible evidence fields</td>
-            <td><span class="status-pill">complete</span></td>
-          </tr>
-          <tr>
-            <td>3 · Design and Train Neural Networks</td>
-            <td>Training and generalization</td>
-            <td>Train/validation design, learning curves, family-isolated held-out evaluation</td>
-            <td><span class="status-pill">partial</span></td>
-          </tr>
-          <tr>
-            <td>4 · Discover the Transformer Architecture</td>
-            <td>Transformer language models</td>
-            <td>Gemma 3 1B IT base model; architecture-aware LoRA module selection</td>
-            <td><span class="status-pill pending-gpu">ready</span></td>
-          </tr>
-          <tr>
-            <td>5 · Finetune Your Model</td>
-            <td>Task adaptation</td>
-            <td>QLoRA domain adaptation; planned comparison to fixed few-shot prompting</td>
-            <td><span class="status-pill pending-gpu">pending GPU</span></td>
-          </tr>
-          <tr>
-            <td>6 · Align Your Model</td>
-            <td>Aligned model behavior</td>
-            <td>Instruction-tuned base; robust output parsing; risk register and prohibited uses</td>
-            <td><span class="status-pill">complete</span></td>
-          </tr>
-          <tr>
-            <td>7 · Accelerate Your Model</td>
-            <td>GPU efficiency</td>
-            <td>4-bit NF4 QLoRA; Kaggle packaging; smoke and full-run paths</td>
-            <td><span class="status-pill pending-gpu">packaged</span></td>
-          </tr>
-          <tr>
-            <td>8 · Capstone: Real-World Impact</td>
-            <td>End-to-end responsible project</td>
-            <td>This capstone pathway, public research site, UN SDG alignment, and reflection</td>
-            <td><span class="status-pill">in progress</span></td>
-          </tr>
+          <tr><td><a href="#c01">01 · Build Your Own Small Language Model</a></td><td>Problem, pipeline, classical vs LM ladder</td><td><span class="status-pill">complete</span></td></tr>
+          <tr><td><a href="#c02">02 · Represent Your Language Data</a></td><td>Schema, prompts, Data Card, privacy boundary</td><td><span class="status-pill">complete</span></td></tr>
+          <tr><td><a href="#c03">03 · Design and Train Neural Networks</a></td><td>Splits, ceiling harden, curves, anticipation</td><td><span class="status-pill">complete</span></td></tr>
+          <tr><td><a href="#c04">04 · Discover the Transformer Architecture</a></td><td>Gemma 3 base, LoRA targets, stakeholders</td><td><span class="status-pill pending-gpu">ready</span></td></tr>
+          <tr><td><a href="#c05">05 · Fine-Tune Your Model</a></td><td>QLoRA on Gemma 3 1B; format; governance</td><td><span class="status-pill pending-gpu">pending GPU</span></td></tr>
+          <tr><td><a href="#c06">06 · Align Your Model</a></td><td>Use-alignment, parsing, risks, intended use</td><td><span class="status-pill">complete</span></td></tr>
+          <tr><td><a href="#c07">07 · Accelerate Your Model</a></td><td>4-bit, grad accum, free-tier sustainability</td><td><span class="status-pill pending-gpu">packaged</span></td></tr>
+          <tr><td><a href="#c08">08 · Capstone: Real-World Impact</a></td><td>Aims, data, LoRA workflow, eval, public site</td><td><span class="status-pill">in progress</span></td></tr>
         </tbody>
       </table>
     </section>
 
+    <!-- ===================== 01 ===================== -->
+    <section class="section course-block" id="c01">
+      <header class="course-head">
+        <div>
+          <p class="course-kicker">Course 01 · <a href="https://www.skills.google/course_templates/1341" rel="noopener">Google Skills</a></p>
+          <h2>Build Your Own Small Language Model</h2>
+        </div>
+        <span class="status-pill">complete</span>
+      </header>
+      <p class="course-public">
+        Public intent: language-model fundamentals, the ML pipeline, n-gram vs transformer limits, research-engineer practice, and a community-relevant problem framed responsibly.
+      </p>
+      <div class="topic-map">
+        <h3>Introduction to the language modeling problem</h3>
+        <h4>The power of language models</h4>
+        <p class="why"><span class="meet">meets</span> ControlSift is an applied LM research project: can a small instruction-tuned model judge evidence quality? The research site and paper state why LMs are relevant here without claiming production audit automation.</p>
+        <h4>Predict the next word / role of probabilities</h4>
+        <p class="why"><span class="meet">meets</span> Classification is framed as constrained next-token generation over five labels. Temperature 0.0 inference is specified so sampling noise does not inflate variance. Majority baseline (macro F1 0.067) makes class-prior probability explicit before any model claim.</p>
+        <h4>Lab: Create your own probability distribution</h4>
+        <p class="why"><span class="meet">meets</span> Balanced five-class design plus majority-class baseline quantify the chance floor. Per-class F1 and confusion matrices show where probability mass concentrates for classical models (e.g. CONTRADICTORY vs SUFFICIENT).</p>
+
+        <h3>From n-grams to transformers</h3>
+        <h4>N-grams and language patterns</h4>
+        <p class="why"><span class="meet">meets</span> TF-IDF + logistic regression is the explicit bag-of-words / n-gram-family baseline on the same sealed splits—ControlSift’s stand-in for “what lexical patterns alone can do.”</p>
+        <h4>Lab: Experiment with n-grams</h4>
+        <p class="why"><span class="meet">meets</span> <code>scripts/run_tfidf_baseline.py</code> trains and scores TF-IDF on train→test/challenge; results live under <code>results/tfidf/</code> and the public Results page.</p>
+        <h4>Limitations of n-grams</h4>
+        <p class="why"><span class="meet">meets</span> Early draft data let TF-IDF saturate (label-unique phrases). That was treated as a dataset failure, not success. v1.1 dual-section packing + adversarial surface harden restored a meaningful ceiling (~0.53 macro F1), proving lexical shortcuts are insufficient for the intended judgment task.</p>
+        <h4>How research engineers approach real problems</h4>
+        <p class="why"><span class="meet">meets</span> Protocol seal before LLM claims, family-isolated splits, Failure Lab, structural + scripted audits, and machine-readable metrics only—research-engineer discipline rather than demo theater.</p>
+        <h4>Values, culture, and ethical choice</h4>
+        <p class="why"><span class="meet">meets</span> Project values are explicit: honesty over polish, human judgment remains authoritative, no fabricated metrics, no employer data, no production-auditor replacement. Documented in Intended Use, AGENTS.md, and SDG framing (strong institutions via accountable evidence triage).</p>
+
+        <h3>Transformer models</h3>
+        <h4>Compare n-gram models and transformer language models</h4>
+        <p class="why"><span class="meet planned">planned</span> Ladder is majority → TF-IDF → Gemma zero-shot → few-shot → QLoRA. Classical comparison is complete; transformer legs publish when GPU result files exist.</p>
+        <h4>Anatomy of a language model</h4>
+        <p class="why"><span class="meet">meets</span> Model Card and configs name Gemma&nbsp;3 1B IT, quantization, LoRA rank/alpha, sequence length, and inference settings—enough anatomy for an applied PEFT study without reimplementing a toy SLM.</p>
+        <h4>What it means to train a model</h4>
+        <p class="why"><span class="meet">meets</span> Training means supervised adaptation on sealed train/validation with fixed seed, frozen prompt, and held-out test/challenge never used for tuning. Early stopping / eval steps are in the QLoRA config.</p>
+        <h4>Values framework for LLM development</h4>
+        <p class="why"><span class="meet">meets</span> Assurance hub + risk register + limitations act as the operational values framework: what may be claimed, what is prohibited, and who is protected.</p>
+
+        <h3>Training a model</h3>
+        <h4>Machine learning development pipeline</h4>
+        <p class="why"><span class="meet">meets</span> End-to-end pipeline: generate → validate → seal → classical baselines → Gemma baselines → QLoRA → aggregate evaluation → Failure Lab → public Results. Documented in Methods and Reproduce.</p>
+        <h4>Prepare the dataset for training</h4>
+        <p class="why"><span class="meet">meets</span> Deterministic generator, JSONL splits, validators, manifest hashes, protocol seal tag <code>protocol-v1-locked</code>.</p>
+        <h4>Train a small language model / evaluate performance</h4>
+        <p class="why"><span class="meet partial">partial</span> ControlSift adapts a 1B instruction-tuned model rather than training an SLM from scratch (the from-scratch pedagogy is covered by classical baselines + PEFT workflow). Evaluation uses macro F1, accuracy, per-class scores, and challenge set.</p>
+
+        <h3>Challenge</h3>
+        <h4>Anticipating benefits</h4>
+        <p class="why"><span class="meet">meets</span> Intended benefit: faster, more honest triage for human reviewers—not autopilot audits. SDG&nbsp;16 articulates institutional accountability upside; Limitations and Risk Register bound downside.</p>
+        <h4>Develop your problem statement</h4>
+        <p class="why"><span class="meet">meets</span> Published problem statement and research aim on Problem &amp; impact and in the research paper: distinguish proof from paperwork on a sealed five-class synthetic benchmark.</p>
+      </div>
+      <p class="course-artifacts"><strong>Artifacts:</strong> <a href="paper.html">Paper</a> · <a href="problem-impact.html">Problem &amp; impact</a> · <a href="../results.html">Results</a> · <a href="../assurance/protocol.html">Protocol</a></p>
+    </section>
+
+    <!-- ===================== 02 ===================== -->
+    <section class="section course-block" id="c02">
+      <header class="course-head">
+        <div>
+          <p class="course-kicker">Course 02 · <a href="https://www.skills.google/course_templates/1452" rel="noopener">Google Skills</a></p>
+          <h2>Represent Your Language Data</h2>
+        </div>
+        <span class="status-pill">complete</span>
+      </header>
+      <p class="course-public">
+        Public intent: prepare and represent text for LMs (tokenization, embeddings), critique bias/exclusion in data work, and design datasets ethically with Data Cards.
+      </p>
+      <div class="topic-map">
+        <h3>Introduction to text data</h3>
+        <h4>Teaching a machine the “soul” of language / types and sources of text</h4>
+        <p class="why"><span class="meet">meets</span> ControlSift uses synthetic compositional evidence packets (not scraped binders). RESEARCH_SURFACE.md states what the text is and is not—compositional structure vs naturalistic OCR—so meaning and limits are not smuggled past the reader.</p>
+        <h4>Exploring raw data</h4>
+        <p class="why"><span class="meet">meets</span> Dataset exploration notebook, processed JSONL, Failure Lab examples, and Data Card composition fields expose raw case shape to reviewers.</p>
+        <h4>Ownership, consent, privacy, exclusion</h4>
+        <p class="why"><span class="meet">meets</span> Synthetic organizations only; no employer/customer evidence; no private logs. Privacy and non-extraction are hard scope rules in AGENTS.md and the Data Card.</p>
+
+        <h3>Preprocessing</h3>
+        <h4>Lab: Preprocess data</h4>
+        <p class="why"><span class="meet">meets</span> Generator emits normalized dual-section packets with shared SCOPE/ROW_DETAIL scaffolding, substance pointers, and decoys—deliberate preprocessing for hardness, not cosmetic cleaning.</p>
+        <h4>Data resources / who owns the data?</h4>
+        <p class="why"><span class="meet">meets</span> All training text is project-generated under the repo license posture; there is no third-party proprietary evidence corpus to misappropriate. Provenance is rule-derived labels + audit trail.</p>
+
+        <h3>Tokenization</h3>
+        <h4>Character / word / subword tokenization (incl. BPE)</h4>
+        <p class="why"><span class="meet partial">partial</span> ControlSift does not reimplement a BPE trainer; it uses Gemma’s tokenizer at inference/training time and designs evidence text so token-level shortcuts alone cannot solve the task (shared decoys, dual sections). Lexical baseline tests the “word-ish” representation extreme.</p>
+        <h4>Whose voice is missing? / digital exclusion</h4>
+        <p class="why"><span class="meet">meets</span> Scope honesty: English synthetic GRC packets are not global language coverage. Limitations and SDG&nbsp;4 supporting claim are about open research craft, not pretending multilingual inclusion was achieved.</p>
+
+        <h3>Embeddings</h3>
+        <h4>What embeddings are / properties of embeddings</h4>
+        <p class="why"><span class="meet partial">partial</span> Classical path uses sparse TF-IDF vectors; neural path uses Gemma hidden states / LoRA-adapted representations. We do not ship a custom embedding visualization lab; we do ship Failure Lab cases that show when surface similarity misleads.</p>
+        <h4>Prepare a dataset for an SLM with a tokenizer</h4>
+        <p class="why"><span class="meet">meets</span> Prompt templates format control + evidence into instruction turns compatible with Gemma&nbsp;3 IT; max sequence length and packing constraints live in config.</p>
+
+        <h3>Challenge — ethical dataset design</h3>
+        <h4>Why document data?</h4>
+        <p class="why"><span class="meet">meets</span> Without documentation, synthetic packets could be mistaken for production binders or human gold labels. Documentation is mandatory for integrity.</p>
+        <h4>Build a dataset ethically with a Data Card</h4>
+        <p class="why"><span class="meet">meets</span> Full Data Card: motivation, composition, labeling (rule-derived + audits), splits, risks, and intended use. Public HTML + governance markdown.</p>
+      </div>
+      <p class="course-artifacts"><strong>Artifacts:</strong> <a href="../assurance/data-card.html">Data Card</a> · <code>governance/RESEARCH_SURFACE.md</code> · <code>src/controlsift/data/generate.py</code> · <code>src/controlsift/prompting/</code></p>
+    </section>
+
+    <!-- ===================== 03 ===================== -->
+    <section class="section course-block" id="c03">
+      <header class="course-head">
+        <div>
+          <p class="course-kicker">Course 03 · <a href="https://www.skills.google/course_templates/1450" rel="noopener">Google Skills</a></p>
+          <h2>Design and Train Neural Networks</h2>
+        </div>
+        <span class="status-pill">complete</span>
+      </header>
+      <p class="course-public">
+        Public intent: generalization, over/underfitting, MLP/training mechanics, hyperparameter discipline, alignment/safety awareness, and anticipation of social impacts.
+      </p>
+      <div class="topic-map">
+        <h3>Signal and noise</h3>
+        <h4>Signal vs noise in model performance</h4>
+        <p class="why"><span class="meet">meets</span> Label-unique phrases were noise masquerading as signal. Removing them (v1.1 harden) forced models to use judgment-relevant structure. Failure Lab preserves hard cases where noise still wins for classical models.</p>
+        <h4>Overfitting and underfitting</h4>
+        <p class="why"><span class="meet">meets</span> Perfect TF-IDF = overfit to leakage. Majority F1 0.067 = underfit / chance. Lexical ceiling test (<code>tests/test_lexical_ceiling.py</code>) guards against both extremes regressing.</p>
+
+        <h3>Generalization</h3>
+        <h4>Bias–variance trade-off</h4>
+        <p class="why"><span class="meet">meets</span> Macro F1 and per-class tables make class-wise bias visible (SUFFICIENT weak; CONTRADICTORY easier). Challenge set probes generalization beyond the main test slice.</p>
+        <h4>Training and test splits</h4>
+        <p class="why"><span class="meet">meets</span> 1000/200/200/100 with scenario-family isolation—families do not cross partitions. Hashes sealed in PROTOCOL_SEAL.json.</p>
+        <h4>Loss curves / diagnostics</h4>
+        <p class="why"><span class="meet">meets</span> Learning-curve script for classical models; QLoRA config defines eval/logging steps for training diagnostics once GPU runs.</p>
+        <h4>Anticipating risks</h4>
+        <p class="why"><span class="meet">meets</span> Risk register written before LLM claims: false assurance, schema gaming, overclaiming human labels, metric fabrication.</p>
+
+        <h3>The multilayer perceptron</h3>
+        <h4>Single-layer vs multilayer classification</h4>
+        <p class="why"><span class="meet partial">partial</span> Logistic regression on TF-IDF is the linear classifier baseline; Gemma provides the deep nonlinear model. We do not reimplement an MLP-from-scratch lab in-repo because the applied ladder already spans linear → transformer PEFT.</p>
+        <h4>Non-linearly separable structure</h4>
+        <p class="why"><span class="meet">meets</span> Dual-section packets with decoys intentionally create cases where a single lexical cue is insufficient—requiring compositional reading.</p>
+
+        <h3>Preventing overfitting and improving generalization</h3>
+        <h4>Hyperparameters</h4>
+        <p class="why"><span class="meet">meets</span> Documented in <code>configs/</code>: LoRA r/alpha/dropout, LR, epochs, batch/grad-accum, max seq length, seed 42. Classical baseline configs similarly pinned.</p>
+        <h4>Validation dataset / mitigate overfitting</h4>
+        <p class="why"><span class="meet">meets</span> Held-out validation for model selection; test and challenge sealed. Protocol forbids tuning against the held-out test set.</p>
+        <h4>Alignment and safety (course module)</h4>
+        <p class="why"><span class="meet">meets</span> Intended Use + prohibited production claims + parse constraints keep the system’s behavior tied to research goals—preview of Course&nbsp;06, already enforced in governance.</p>
+
+        <h3>Gradients and backpropagation</h3>
+        <h4>Gradient descent, backprop, optimizers (SGD/Adam)</h4>
+        <p class="why"><span class="meet partial">partial</span> ControlSift does not re-derive JAX gradients; QLoRA training uses the standard PEFT/transformers stack (AdamW-family optimizer settings in config). The learning goal—parameters update from loss on labeled data—is the actual adaptation path.</p>
+
+        <h3>Challenge — anticipation</h3>
+        <h4>Anticipating social impacts / impact statement</h4>
+        <p class="why"><span class="meet">meets</span> Problem &amp; impact, Risk Register, Limitations, and SDG pages are the impact statement: who benefits, who must not be automated away, what false assurance looks like.</p>
+      </div>
+      <p class="course-artifacts"><strong>Artifacts:</strong> <a href="../failure-lab.html">Failure Lab</a> · <a href="../assurance/risk-register.html">Risk register</a> · <code>scripts/run_learning_curve.py</code> · <code>tests/test_lexical_ceiling.py</code></p>
+    </section>
+
+    <!-- ===================== 04 ===================== -->
+    <section class="section course-block" id="c04">
+      <header class="course-head">
+        <div>
+          <p class="course-kicker">Course 04 · <a href="https://www.skills.google/course_templates/1451" rel="noopener">Google Skills</a></p>
+          <h2>Discover the Transformer Architecture</h2>
+        </div>
+        <span class="status-pill pending-gpu">ready</span>
+      </header>
+      <p class="course-public">
+        Public intent: attention and transformer blocks, positional information, generation trade-offs, community engagement, and stakeholder mapping.
+      </p>
+      <div class="topic-map">
+        <h3>Introduction</h3>
+        <h4>Architecture of modern LLMs / what drives predictions</h4>
+        <p class="why"><span class="meet">meets</span> Base model is Gemma&nbsp;3 1B Instruct—a modern decoder transformer. Frozen prompt design makes control statement + evidence the conditioning context for the label token(s).</p>
+        <h4>Attention weights (conceptual use of Gemma attention)</h4>
+        <p class="why"><span class="meet partial">partial</span> We do not ship an attention-visualization notebook in v1; we do design packets so the model must integrate claim + distractor sections—the applied reason attention matters for this task. Future error analysis can inspect attention if needed after GPU runs.</p>
+        <h4>Community values shaping AI meaning</h4>
+        <p class="why"><span class="meet">meets</span> Values here = institutional accountability and review integrity (SDG&nbsp;16), not replacing auditors. Explicit non-users protected in stakeholder map.</p>
+
+        <h3>The attention mechanism</h3>
+        <h4>Combining token information / masked &amp; multi-head attention</h4>
+        <p class="why"><span class="meet partial">partial</span> Pedagogy of implementing attention equations is covered by the curriculum labs; ControlSift’s meeting criterion is correct use of a multi-head transformer (Gemma) with architecture-aware LoRA module selection—not a from-scratch attention rewrite.</p>
+        <h4>Human meaning vs automated systems</h4>
+        <p class="why"><span class="meet">meets</span> Intended Use: human judgment remains authoritative. Automation is triage research, not decision replacement—directly answering the “what may be lost” prompt.</p>
+
+        <h3>Assembling a transformer</h3>
+        <h4>Positional embeddings / transformer blocks / MLP / layer norm</h4>
+        <p class="why"><span class="meet partial">partial</span> Consumed via Gemma&nbsp;3; Model Card + config document parameter-efficient adaptation points. Trainable LoRA parameters are the project’s explicit trainable subset.</p>
+        <h4>Trainable parameters in the transformer</h4>
+        <p class="why"><span class="meet">meets</span> QLoRA freezes base weights (4-bit) and trains low-rank adapters; <code>target_modules</code> must be verified on load—documented as a required GPU step, not a blind copy from other families.</p>
+
+        <h3>Reflection and practice</h3>
+        <h4>Pros and cons of transformers</h4>
+        <p class="why"><span class="meet">meets</span> Pros: contextual reading of dual-section packets. Cons: compute need, schema-gaming risk, opaque errors—named in RESEARCH_SURFACE and Limitations.</p>
+        <h4>Decoding and generation</h4>
+        <p class="why"><span class="meet">meets</span> Inference settings: temperature 0.0, do_sample false; robust label parsing; invalid outputs scored as errors—not remapped to a preferred class.</p>
+        <h4>Why engagement matters</h4>
+        <p class="why"><span class="meet">meets</span> Public research site, Assurance docs, and MMC hub are the engagement surface for evaluators and RAI readers—not a silent private notebook.</p>
+
+        <h3>Challenge</h3>
+        <h4>Mapping stakeholders and social values</h4>
+        <p class="why"><span class="meet">meets</span> Problem &amp; impact lists beneficiaries (human reviewers), readers (ML/RAI/residency), and protected parties (orgs that must not treat scores as audit conclusions).</p>
+        <h4>Mini-engagement plan</h4>
+        <p class="why"><span class="meet">meets</span> Engagement plan = public Results + Failure Lab + Assurance + this hub + research paper; structural/scripted audits instead of fake “human gold.”</p>
+      </div>
+      <p class="course-artifacts"><strong>Artifacts:</strong> <a href="problem-impact.html">Stakeholders</a> · <a href="../assurance/model-card.html">Model Card</a> · <code>configs/gemma3_1b_qlora.yaml</code></p>
+    </section>
+
+    <!-- ===================== 05 ===================== -->
+    <section class="section course-block" id="c05">
+      <header class="course-head">
+        <div>
+          <p class="course-kicker">Course 05 · <a href="https://www.skills.google/course_templates/1556" rel="noopener">Google Skills</a></p>
+          <h2>Fine-Tune Your Model</h2>
+        </div>
+        <span class="status-pill pending-gpu">pending GPU</span>
+      </header>
+      <p class="course-public">
+        Public intent: why fine-tune; task formatting; full-parameter vs LoRA/PEFT on Gemma-scale models; SFT limits vs RL overview; foresight and governance.
+      </p>
+      <div class="topic-map">
+        <h3>Introduction to fine-tuning</h3>
+        <h4>Importance of specialization / how will your model respond?</h4>
+        <p class="why"><span class="meet">meets</span> Pretrained Gemma is not a control-evidence classifier out of the box. Zero-shot/few-shot legs exist specifically to measure the gap that fine-tuning must justify.</p>
+        <h4>Lab: Prompt your SLM with questions</h4>
+        <p class="why"><span class="meet planned">planned</span> <code>scripts/run_gemma_baseline.py</code> and notebooks implement prompted classification; metrics publish after GPU execution.</p>
+        <h4>Gemma: fine-tuning for specific tasks</h4>
+        <p class="why"><span class="meet">meets</span> Task is fixed: five-class evidence quality on sealed data. Model ID <code>google/gemma-3-1b-it</code> in config.</p>
+
+        <h3>Formatting</h3>
+        <h4>Input/output formats / turn-based dialogue formatting</h4>
+        <p class="why"><span class="meet">meets</span> Frozen instruction template turns control + evidence into a constrained classification prompt with parseable label space—same spirit as task formatting labs, domain-specific content.</p>
+
+        <h3>Full-parameter fine-tuning</h3>
+        <h4>Advantages of fine-tuning / when to stop</h4>
+        <p class="why"><span class="meet">meets</span> Hypotheses in the protocol compare adapted vs prompted models. Eval steps and epoch caps define stopping; test set remains sealed.</p>
+        <h4>Full-parameter fine-tuning of an SLM / of Gemma</h4>
+        <p class="why"><span class="meet partial">partial</span> Full-parameter Gemma fine-tuning is intentionally not the v1 path (memory). We meet the learning goal by documenting why PEFT is chosen and by keeping classical + prompted baselines so PEFT gains are interpretable.</p>
+        <h4>Imagining AI in cultural contexts / narrative reflection</h4>
+        <p class="why"><span class="meet">meets</span> Reflection page + research paper Limitations/RAI sections play the narrative/foresight role: what this tool would mean if overclaimed in GRC culture.</p>
+
+        <h3>Parameter-efficient fine-tuning</h3>
+        <h4>Foundation models</h4>
+        <p class="why"><span class="meet">meets</span> Gemma&nbsp;3 1B IT is the foundation model; domain adaptation is the research question.</p>
+        <h4>Low-rank adaptation (LoRA) / implement LoRA / fine-tune Gemma3-1B with LoRA</h4>
+        <p class="why"><span class="meet planned">planned</span> Exact course target: LoRA/QLoRA on Gemma&nbsp;3 1B. Config, training/eval scripts, and Kaggle runner are ready; metrics pending GPU.</p>
+
+        <h3>Opportunities and limitations of SFT</h3>
+        <h4>Limits of supervised fine-tuning</h4>
+        <p class="why"><span class="meet">meets</span> Disclosed: SFT on synthetic labels can teach schema reading; RESEARCH_SURFACE and error-analysis plan monitor that failure mode. Labels are rule-derived, not preference data.</p>
+        <h4>Reinforcement learning from human feedback (overview)</h4>
+        <p class="why"><span class="meet partial">partial</span> ControlSift does not run RLHF/DPO. Meeting criterion: understand and state that preference optimization is out of v1 scope; alignment is handled via IT base + use constraints (Course&nbsp;06).</p>
+
+        <h3>Challenge — foresight and governance</h3>
+        <h4>Foresight and governance / governance blueprint</h4>
+        <p class="why"><span class="meet">meets</span> Assurance hub is the blueprint: Protocol, Data Card, Model Card, Intended Use, Risk Register, Limitations, Human Review honesty, AGENTS.md non-negotiables.</p>
+      </div>
+      <p class="course-artifacts"><strong>Artifacts:</strong> <code>configs/gemma3_1b_qlora.yaml</code> · <code>scripts/run_gemma_qlora_eval.py</code> · <a href="../assurance.html">Assurance</a> · <a href="methods-evidence.html">Methods</a></p>
+    </section>
+
+    <!-- ===================== 06 ===================== -->
+    <section class="section course-block" id="c06">
+      <header class="course-head">
+        <div>
+          <p class="course-kicker">Course 06 · <a href="https://www.skills.google/paths/3135" rel="noopener">Official path</a> (labs not yet in public GitHub tree)</p>
+          <h2>Align Your Model</h2>
+        </div>
+        <span class="status-pill">complete</span>
+      </header>
+      <p class="course-public">
+        Public intent (path-level): align model behavior with intended goals, values, and safer use.
+        ControlSift maps this as use-alignment and behavioral constraint for a research classifier—not as an RLHF training run.
+      </p>
+      <div class="topic-map">
+        <h3>Intended goals and values</h3>
+        <h4>Define what “good behavior” means for this system</h4>
+        <p class="why"><span class="meet">meets</span> Good behavior = emit one of five labels consistently with sealed ground truth for research measurement; never present as an audit decision. Codified in Intended Use and Protocol hypotheses.</p>
+
+        <h3>Starting from an aligned base</h3>
+        <h4>Instruction-tuned foundation model</h4>
+        <p class="why"><span class="meet">meets</span> Gemma&nbsp;3 1B IT already carries instruction-following priors; ControlSift does not start from a raw base checkpoint for v1.</p>
+
+        <h3>Behavioral constraints at inference</h3>
+        <h4>Constrained outputs and robust parsing</h4>
+        <p class="why"><span class="meet">meets</span> Label parser; invalid generations count as errors. No silent remapping to a preferred class when the model disagrees—preserves research integrity (AGENTS.md).</p>
+        <h4>Deterministic decoding for evaluation</h4>
+        <p class="why"><span class="meet">meets</span> Temperature 0.0 / do_sample false reduces alignment-irrelevant sampling noise during scored runs.</p>
+
+        <h3>Risk reduction and refusal surface</h3>
+        <h4>Prohibited uses and bright lines</h4>
+        <p class="why"><span class="meet">meets</span> No production auditor claims; no secrets; no fabricated metrics; no test-set tuning; no describing synthetic evidence as production evidence.</p>
+        <h4>Risk register</h4>
+        <p class="why"><span class="meet">meets</span> Documented failure modes (false assurance, schema gaming, overclaiming label provenance) with mitigation status.</p>
+
+        <h3>Preference optimization boundary</h3>
+        <h4>SFT vs RLHF/DPO (what we do not claim)</h4>
+        <p class="why"><span class="meet">meets</span> Explicit non-claim: v1 does not train a reward model or run preference optimization. Alignment work is governance + IT base + evaluation honesty—transparent about the method boundary.</p>
+
+        <h3>Human oversight</h3>
+        <h4>Human judgment remains authoritative</h4>
+        <p class="why"><span class="meet">meets</span> Stated on Intended Use, homepage posture, and capstone pages. Label audits are structural/scripted—never sold as large-scale human gold.</p>
+      </div>
+      <p class="course-artifacts"><strong>Artifacts:</strong> <a href="responsible-innovation.html">Responsible innovation</a> · <a href="../assurance/intended-use.html">Intended use</a> · <a href="../assurance/risk-register.html">Risk register</a> · <code>AGENTS.md</code></p>
+    </section>
+
+    <!-- ===================== 07 ===================== -->
+    <section class="section course-block" id="c07">
+      <header class="course-head">
+        <div>
+          <p class="course-kicker">Course 07 · <a href="https://www.skills.google/course_templates/1555" rel="noopener">Google Skills</a></p>
+          <h2>Accelerate Your Model</h2>
+        </div>
+        <span class="status-pill pending-gpu">packaged</span>
+      </header>
+      <p class="course-public">
+        Public intent: single-GPU training, efficiency vs performance, FLOPs/memory estimation, bfloat16, gradient accumulation, environmental justice and a sustainability plan.
+      </p>
+      <div class="topic-map">
+        <h3>Introduction</h3>
+        <h4>Efficiency versus performance</h4>
+        <p class="why"><span class="meet">meets</span> Chose 1B + QLoRA over larger full fine-tunes so the research question fits free-tier GPUs. Classical baselines remain so “faster/cheaper” never substitutes for measured quality.</p>
+        <h4>Lab: Compare models of different sizes</h4>
+        <p class="why"><span class="meet partial">partial</span> Ladder compares method classes (majority / TF-IDF / prompted 1B / QLoRA 1B) rather than a multi-size Gemma sweep—size is fixed; method varies. Honest scope for v1 compute.</p>
+        <h4>GPU architecture (applied)</h4>
+        <p class="why"><span class="meet planned">planned</span> Execution path targets a single Kaggle/Colab-class GPU via packaged runner.</p>
+        <h4>Environmental impacts / stakeholder map of impacts</h4>
+        <p class="why"><span class="meet">meets</span> Sustainability choices: smallest adequate model, free-tier, smoke before full, no multi-GPU cluster requirement. Stakeholders for compute impact = learner/researcher budget and shared free-tier queues.</p>
+
+        <h3>Compute</h3>
+        <h4>Training vs inference compute / reducing compute</h4>
+        <p class="why"><span class="meet">meets</span> 4-bit NF4 + LoRA reduces trainable and resident footprint; inference uses greedy decoding. Packaging separates smoke vs full runs to avoid wasted cycles.</p>
+        <h4>Lab: Estimate training FLOPs (applied discipline)</h4>
+        <p class="why"><span class="meet partial">partial</span> No separate FLOPs notebook in-repo; compute humility is operationalized by model size choice, PEFT, and smoke tests rather than a FLOPs spreadsheet.</p>
+        <h4>Mapping carbon / developer role</h4>
+        <p class="why"><span class="meet">meets</span> Documented preference for free-tier single-GPU and against unnecessary re-runs; metrics publish only from completed jobs—no vanity re-training.</p>
+
+        <h3>GPU memory</h3>
+        <h4>Hitting memory walls / estimating GPU memory</h4>
+        <p class="why"><span class="meet">meets</span> QLoRA + batch size 1 + grad accumulation 8 is the designed answer to the memory wall on free GPUs.</p>
+        <h4>Lab: Fine-tune with bfloat16</h4>
+        <p class="why"><span class="meet">meets</span> Config sets <code>bnb_4bit_compute_dtype: bfloat16</code> for the QLoRA path.</p>
+
+        <h3>Other considerations</h3>
+        <h4>Gradient accumulation</h4>
+        <p class="why"><span class="meet">meets</span> <code>gradient_accumulation_steps: 8</code> with per-device batch 1—direct course technique, applied to Gemma&nbsp;3 1B.</p>
+        <h4>Advanced scaling techniques</h4>
+        <p class="why"><span class="meet partial">partial</span> v1 stops at QLoRA/single GPU; no FSDP/multi-node. Scope discipline is intentional.</p>
+
+        <h3>Challenge — sustainability plan</h3>
+        <h4>AI and environmental justice / design a sustainability plan</h4>
+        <p class="why"><span class="meet">meets</span> Plan: (1) 1B not 7B+/full FT, (2) 4-bit + LoRA, (3) smoke then full, (4) free-tier only, (5) seal data so failed runs are not repeated for leakage hunting. Written into KAGGLE_SAFE_RUN and Reproduce.</p>
+      </div>
+      <p class="course-artifacts"><strong>Artifacts:</strong> <code>scripts/package_for_kaggle.py</code> · <code>notebooks/KAGGLE_SAFE_RUN.md</code> · <code>notebooks/kaggle_runner.ipynb</code> · <a href="../reproduce.html">Reproduce</a></p>
+    </section>
+
+    <!-- ===================== 08 ===================== -->
+    <section class="section course-block" id="c08">
+      <header class="course-head">
+        <div>
+          <p class="course-kicker">Course 08 · <a href="https://www.skills.google/course_templates/1557" rel="noopener">Google Skills</a></p>
+          <h2>Develop Your Model for Real-World Impact</h2>
+        </div>
+        <span class="status-pill">in progress</span>
+      </header>
+      <p class="course-public">
+        Public intent: plan aims and impact; collect/prepare data; implement Gemma&nbsp;3 + LoRA fine-tuning; evaluate; emphasize adaptation and experimentation.
+        Open labs offer classification, summarization, and conversation tracks—ControlSift is the classification track.
+      </p>
+      <div class="topic-map">
+        <h3>Plan the project</h3>
+        <h4>Project aims and intended impact</h4>
+        <p class="why"><span class="meet">meets</span> Research aim + SDG&nbsp;16 primary impact + supporting SDG&nbsp;9/4. Capstone hub and paper state aims before results.</p>
+        <h4>Problem of your choosing</h4>
+        <p class="why"><span class="meet">meets</span> Self-chosen domain: cybersecurity / GRC evidence-quality judgment—community-relevant institutional accountability problem.</p>
+
+        <h3>Collect and prepare data</h3>
+        <h4>Classification stage — prepare data for building your model</h4>
+        <p class="why"><span class="meet">meets</span> Generator, validators, v1.1 harden, manifests, seal, Data Card, review_log—prepared and frozen before LLM claims.</p>
+
+        <h3>Train and evaluate (classification track)</h3>
+        <h4>Worked example / train and evaluate your model</h4>
+        <p class="why"><span class="meet partial">partial</span> Classical train/eval complete and published. Gemma&nbsp;3 + LoRA workflow implemented and packaged; scores pending GPU. Capstone status is therefore in progress, not falsely “done.”</p>
+        <h4>Full fine-tuning workflow using Gemma&nbsp;3 with LoRA</h4>
+        <p class="why"><span class="meet planned">planned</span> Matches the Skills capstone requirement line-for-line in design; execution is the remaining gate.</p>
+
+        <h3>Evaluate and communicate</h3>
+        <h4>Performance evaluation</h4>
+        <p class="why"><span class="meet">meets</span> Macro F1 primary; challenge set; Failure Lab; public Results from machine-readable files only.</p>
+        <h4>Responsible communication</h4>
+        <p class="why"><span class="meet">meets</span> Research paper, MMC hub, Assurance, null Gemma slots until real runs—communication aligned with evidence.</p>
+
+        <h3>Adaptation and experimentation</h3>
+        <h4>Iterate when the baseline is “too good”</h4>
+        <p class="why"><span class="meet">meets</span> Lexical saturation forced a dataset redesign—exactly the experimental adaptation the capstone emphasizes.</p>
+      </div>
+      <p class="course-artifacts"><strong>Artifacts:</strong> <a href="index.html">Hub</a> · <a href="paper.html">Paper</a> · <a href="un-sdg.html">UN SDG</a> · <a href="submission.html">Submission</a> · <a href="../index.html">Research site</a></p>
+    </section>
+
     <section class="section">
-      <h2>Responsible innovation across the pathway</h2>
+      <h2>Capstone evidence checklist</h2>
       <ul class="findings-list">
-        <li><strong>Dataset design</strong> — synthetic evidence only; Data Card documents generation and label provenance.</li>
-        <li><strong>Stakeholders</strong> — assurance reviewers, ML/RAI readers, and residency evaluators; production auditor use is out of scope.</li>
-        <li><strong>Compute</strong> — free-tier GPU path with smoke testing before full runs.</li>
-        <li><strong>Integrity</strong> — public LLM metrics publish only from executed result files.</li>
+        <li><strong>Aims</strong> — Problem statement, SDG framing, Intended Use.</li>
+        <li><strong>Data</strong> — Sealed v1.1, Data Card, audits.</li>
+        <li><strong>Model workflow</strong> — Gemma&nbsp;3 + QLoRA packaged; run pending.</li>
+        <li><strong>Evaluation</strong> — Classical live; LLM null until files exist.</li>
+        <li><strong>Subtopic coverage</strong> — This page: every substantive public module topic mapped with why.</li>
       </ul>
       <div class="cta-row" style="margin-top:1.5rem;">
-        <a class="btn btn-secondary" href="methods-evidence.html">Methods &amp; evidence</a>
+        <a class="btn btn-primary" href="paper.html">Research paper</a>
+        <a class="btn btn-secondary" href="submission.html">Submission package</a>
         <a class="btn btn-secondary" href="responsible-innovation.html">Responsible innovation</a>
       </div>
     </section>

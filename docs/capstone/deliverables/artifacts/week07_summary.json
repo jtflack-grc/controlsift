@@ -1,0 +1,14 @@
+{
+  "deliverable": "week07_lora_adapter_checkpoint",
+  "status": "scaffold_complete_gpu_pending_for_gemma",
+  "toy_adapter": "C:\\Users\\admin\\Desktop\\sifter\\mmc\\deliverables\\outputs\\week07_lora_adapter.npz",
+  "rank": 8,
+  "delta_frobenius": 0.0679537142530034,
+  "production_path": {
+    "config": "configs/gemma3_1b_qlora.yaml",
+    "train_script": "scripts/run_gemma_qlora_eval.py",
+    "expected_output_dir": "results/gemma_qlora/",
+    "note": "Replace toy adapter with real PEFT adapter after Kaggle/HF run."
+  },
+  "formula": "delta_W = A @ B  (LoRA)"
+}

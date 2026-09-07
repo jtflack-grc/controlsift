@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>gdm_lab_4_2_implement_attention_equation.ipynb</title>
+  <link rel="stylesheet" href="../../../../../assets/css/site.css" />
+  <style>
+    .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+    .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
+    pre.source {
+      margin: 0.5rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>gdm_lab_4_2_implement_attention_equation.ipynb</h2>
+        <p>
+          <a href="gdm_lab_4_2_implement_attention_equation.ipynb">Download .ipynb</a> ·
+          <a href="../../../index.html">Deliverables hub</a>
+        </p>
+        <p>Open in Jupyter from repo: <code>jupyter notebook mmc/notebooks/gdm_lab_4_2_implement_attention_equation.ipynb</code></p>
+      </div>
+      <article class="nb-cell nb-markdown"><h3>Cell 1 · markdown</h3><pre class="source"><code>&gt; &lt;p&gt;&lt;small&gt;&lt;small&gt;This Notebook is made available subject to the licence and terms set out in the &lt;a href = &quot;http://www.github.com/google-deepmind/ai-foundations&quot;&gt;AI Research Foundations Github README file&lt;/a&gt;.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 2 · markdown</h3><pre class="source"><code>![](https://storage.googleapis.com/dm-educational/assets/ai_foundations/GDM-Labs-banner-image-C4-white-bg.png)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 3 · markdown</h3><pre class="source"><code># Lab: Implement the Attention Equation
+
+
+&lt;a href=&#x27;https://colab.research.google.com/github/google-deepmind/ai-foundations/blob/master/course_4/gdm_lab_4_2_implement_attention_equation.ipynb&#x27; target=&#x27;_parent&#x27;&gt;&lt;img src=&#x27;https://colab.research.google.com/assets/colab-badge.svg&#x27; alt=&#x27;Open In Colab&#x27;/&gt;&lt;/a&gt;
+
+Compute the attention weight vector for all layers of a transformer model.
+
+15 minutes</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 4 · markdown</h3><pre class="source"><code>## Overview
+
+In this lab, you will implement the attention equation yourself. You will use the learned projection matrices $W_Q$, $W_K$, $W_V$ from the Gemma-1B model and use these three matrices to compute the attention weights and the new contextual embedding.
+
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 5 · markdown</h3><pre class="source"><code>
+### What you will learn
+
+By the end of this lab, you will:
+
+* Understand how the attention weights are computed from query, key, and value matrices.
+
+### Tasks
+
+In this lab, you will:
+
+* Load the pre-trained **Gemma-1B** model and use this model to compute query, key, and value matrices.
+* Implement the attention equation.
+* Visualize and compare your attention weights with those of the reference implementation.
+
+If you are able to, we recommend running the code in this lab on **a Colab instance with a GPU**. See the section &quot;How to use Google Colaboratory (Colab)&quot; below for instructions on how to do this.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 6 · markdown</h3><pre class="source"><code>## How to use Google Colaboratory (Colab)
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 7 · markdown</h3><pre class="source"><code>Google Colaboratory (also known as Google Colab) is a platform that allows you to run Python code in your browser. The code is written in **cells** that are executed on a remote server.
+
+To run a cell, hover over the cell and click on the `run` button to its left. The run button is the circle with the triangle (▶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or ⌘+Return if you are using a Mac).
+
+To try this out, run the following cell. This should print today&#x27;s day of the week below it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 8 · code</h3><pre class="source"><code>from datetime import datetime
+
+print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 9 · markdown</h3><pre class="source"><code>Note that the *order in which you run the cells matters*. When you are working through a lab, make sure to always run *all* cells in order, otherwise the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime → Run before__  from the menu above (or use the keyboard combination Ctrl/⌘ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>### Using Colab with a GPU
+
+A **GPU** is a special type of hardware that can significantly speed up some types of computations of machine learning models. Several of the activities in this lab will also run a lot faster if you run them on a GPU.
+
+Follow these steps to run the activities in this lab on a GPU:
+
+1.  In the top menu bar, click on **Runtime**.
+2.  Select **Change runtime type** from the dropdown menu.
+3.  In the pop-up window under **Hardware Accelerator**, select **GPU** (usually listed as `T4 GPU`).
+5.  Click **Save**.
+
+Your Colab session will now restart with GPU access.
+
+Note that access to GPUs is limited and at times, you may not be able to run this lab on a GPU. All activities will still work but they will run slower and you will have to wait longer for some of the cells to finish running.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 11 · markdown</h3><pre class="source"><code>## Imports
+
+In this lab, you will mainly work with the JAX package to modify vectors and matrices. You will also use functions from the custom `ai_foundations` package to load Gemma and extract its parameters and to generate visualizations.
+
+Run the following cell to import the required packages.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 12 · code</h3><pre class="source"><code>%%capture
+# Install the custom package for this course.
+!pip install &quot;git+https://github.com/google-deepmind/ai-foundations.git@main&quot;
+
+import jax # For working with vectors and matrices.
+import jax.numpy as jnp # For working with vectors and matrices.
+from ai_foundations import generation # For prompting the Gemma model.
+from ai_foundations import visualizations # For visualizing attention weights.
+from ai_foundations import attention # For working with Q,K,V matrices.
+# For providing feedback on your implementation.
+from ai_foundations.feedback.course_4 import attention as attention_feedback</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 13 · markdown</h3><pre class="source"><code>## Load the model and visualize attention weights
+
+As mentioned, you will use the parameters from the Gemma-1B model to compute the attention weights.
+
+Run the following cell to load the Gemma-1B parameters. This also initializes a cache that speeds up the visualizations if you only adjust the layer parameter.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 14 · code</h3><pre class="source"><code># Initialize caches for prompts.
+previous_prompt = None
+previous_prompt2 = None
+
+# Load special version of the Gemma-1B model that provides access to attention
+# weights and QKV matrices.
+print(&quot;Loading Gemma-1B...&quot;)
+model = generation.load_gemma(&quot;Gemma-1B-AttentionWeight&quot;)
+print(&quot;Loaded Gemma-1B.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 15 · markdown</h3><pre class="source"><code>The following cell allows you to visualize the Gemma attention weights, as in the previous lab. You can use this cell as a reference and compare your own implementation to the output of the reference implementation to make sure that you have implemented everything accurately.
+
+This visualization also includes an additional `show_all_weights` option. If you select this option, then the visualization will include attention weights for all target tokens, not just for the final token.
+
+Make sure to run this cell for at least one prompt as it also extracts the query, key, and value matrices that you will use in later exercises.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 16 · code</h3><pre class="source"><code># @title Visualize attention weights (reference implementation)
+layer = 19  # @param {type:&quot;slider&quot;, min: 0, max: 25}
+
+prompt = &quot;Jide was hungry so she went looking for&quot;  # @param {type: &quot;string&quot;}
+# @markdown Check the following box to display the attention weights for all tokens, not just for the generated one:
+show_all_weights = True  # @param {type:&quot;boolean&quot;}
+
+
+if prompt != previous_prompt:
+  (
+      output_text,
+      _,
+      tokenizer,
+      attention_weights,
+      _,
+      qkv_dict,
+  ) = generation.prompt_attention_transformer_model(
+      prompt, model, sampling_mode=&quot;greedy&quot;
+  )
+  tokens = [tokenizer.tokens[t] for t in tokenizer.encode(output_text)]
+  previous_prompt = prompt
+
+print(f&quot;Generated text: {output_text}&quot;)
+
+visualizations.visualize_attention(
+    tokens,
+    attention_weights[f&quot;layer_{layer}&quot;],
+    layer,
+    min_line_thickness=0,
+    max_line_thickness=5,
+    show_all_weights=show_all_weights,
+)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 17 · markdown</h3><pre class="source"><code>## Coding Activity 1: Attention equation
+
+------
+&gt; **💻 Your task:**
+&gt;
+&gt;Implement the attention mechanism for a specific layer in the following cell. To simplify things, the cell already makes a call to `get_qkv_matrices` which contains the query, key, and value projections for every token in the sentence.
+&gt;
+&gt;1. Inspect the query, key, and value projection matrices. What is their dimension?
+&gt;
+&gt;2. Compute $d_k$, the dimension of the key vectors which you need to compute the normalization factor. You can use [`.shape`](https://docs.jax.dev/en/latest/_autosummary/jax.Array.shape.html) for this.
+&gt;
+&gt; 3. Compute the logits by performing a matrix multiplication between the query projections and the key projections and normalizing them by the square root of $d_k$:
+&gt;
+&gt;    $$\mbox{logits} = \frac{QK^T}{\sqrt{d_k}}$$
+&gt;
+&gt;    Instead of `jnp.matmul`, you can also use the [`@` operator](https://docs.jax.dev/en/latest/_autosummary/jax.numpy.matmul.html) to multiply two matrices. For example, `A @ B` computes the matrix product between matrices `A` and `B`. To compute the square root, use the function `jnp.sqrt`. Finally, remember that you can transpose a matrix `A` by calling [`A.T`](https://docs.jax.dev/en/latest/_autosummary/jax.Array.T.html).
+&gt;
+&gt; 4. Compute the attention weights `alpha` by applying the SoftMax function to the logits. You can either implement your own SoftMax function or use [`jax.nn.softmax`](https://docs.jax.dev/en/latest/_autosummary/jax.nn.softmax.html):
+&gt;
+&gt; $$\alpha = \mbox{SoftMax}(\mbox{logits})$$
+&gt;
+&gt;5. Compute the output of the attention mechanism by multiplying the attention weights $\alpha$ with the value projections:
+&gt;$$Y = \alpha V$$
+&gt;
+&gt;Once you have implemented the computations by filling in the missing parts of the next cell, run the test cell and the &quot;Visualize attention weights (your implementation)&quot; cell to see the attention weights.
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 18 · code</h3><pre class="source"><code>def compute_attention(
+    qkv_dict: dict[str, dict[str, jax.Array]], layer: int
+) -&gt; tuple[jax.Array, jax.Array, jax.Array]:
+  &quot;&quot;&quot;Computes the attention weights for a layer.
+
+  Args:
+    qkv_dict: A dictionary containing the raw query, key, and value
+      projections for all layers. The keys are strings identifying the layers
+      and matrix types, and values are the corresponding JAX arrays.
+    layer: The specific layer for which to compute the attention weights.
+
+  Returns:
+    Y: The output of the attention layer. Shape: (n_tokens, embedding_dim).
+    alpha: The attention weights. Shape: (n_tokens, n_tokens).
+    logits: The raw logits used to compute the attention weights.
+      Shape: (n_tokens, n_tokens).
+  &quot;&quot;&quot;
+  # Extract the query, key, and value projection matrices from `qkv_dict`.
+  query_proj, key_proj, value_proj = attention.get_qkv_matrices(qkv_dict, layer)
+
+  logits = ...  # Compute the logits here.
+
+  alpha = ...  # Compute the attention vector here.
+
+  Y = ...  # Compute the output here.
+
+  return Y, alpha, logits</code></pre></article><article class="nb-cell nb-code"><h3>Cell 19 · code</h3><pre class="source"><code># @title Run this cell to test your implementation
+attention_feedback.test_compute_attention(compute_attention, qkv_dict)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 20 · markdown</h3><pre class="source"><code>### Visualize your attention weights
+
+The following cell uses your implementation of the attention weights and visualizes the output of the `compute_attention` function. Enter the same prompt as you entered before and compare the visualization of your attention weights to the original ones that were extracted from Gemma.
+
+For the same layer and the same prompt, both visualizations should be identical. If they are not, make sure to check your original implementation and try again.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 21 · code</h3><pre class="source"><code># @title Visualize attention weights (your implementation)
+layer = 19  # @param {type:&quot;slider&quot;, min: 0, max: 25}
+
+prompt = &quot;Jide was hungry so she went looking for&quot;  # @param {type: &#x27;string&#x27;}
+# @markdown Check the following box to display the attention weights for all tokens, not just for the generated one:
+show_all_weights = True  # @param {type:&quot;boolean&quot;, label: &quot;sfdsf&quot;}
+
+model_name = &quot;Gemma-1B&quot;
+
+if prompt != previous_prompt2:
+  (
+      output_text2,
+      _,
+      tokenizer,
+      attention_weights2,
+      attention_mask2,
+      qkv_dict2,
+  ) = generation.prompt_attention_transformer_model(
+      prompt, model, sampling_mode=&quot;greedy&quot;
+  )
+  tokens2 = [tokenizer.tokens[t] for t in tokenizer.encode(output_text2)]
+  previous_prompt2 = prompt
+
+print(f&quot;Generated text: {output_text2}&quot;)
+
+
+attn_out, attn_weights, attn_logits = compute_attention(qkv_dict2, layer)
+# Post-process attention weights to apply masking (to be covered in subsequent
+# activities), so that the attention weights are idential to the ones computed
+# by Gemma.
+attn_weights_post_processed = attention.post_process_attention(
+    attn_logits, attention_mask2
+)
+
+visualizations.visualize_attention(
+    tokens2,
+    attn_weights_post_processed,
+    layer,
+    min_line_thickness=0,
+    max_line_thickness=5,
+    show_all_weights=show_all_weights,
+)
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 22 · markdown</h3><pre class="source"><code>## Summary
+
+In this lab, you implemented the computation of the attention mechanism of a transformer model. You used the key, query, and value projections from the Gemma model and combined them to compute the attention weights and the output of the attention mechanism.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 23 · markdown</h3><pre class="source"><code>## Solutions
+
+
+The following cells provide reference solutions to the coding activities in this notebook. If you really get stuck after trying to solve the activities yourself, you may want to consult these solutions.
+
+It is recommended that you *only* look at the solutions after you have tried to solve the activities *multiple times*. The best way to learn challenging concepts in computer science and artificial intelligence is to debug your code piece-by-piece until it works, rather than copying existing solutions.
+
+
+If you feel stuck, you may want to first try to debug your code. For example, by adding additional print statements to see what your code is doing at every step. This will provide you with a much deeper understanding of the code and the materials. It will also provide you with practice on how to solve challenging coding problems beyond this course.
+
+
+To view the solutions for an activity, click on the arrow to the left of the activity name. If you consult the solutions, do not copy and paste them into the cells above. Instead, look at them, and type them manually into the cell. This will help you understand where you went wrong.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 24 · markdown</h3><pre class="source"><code>### Coding Activity 1</code></pre></article><article class="nb-cell nb-code"><h3>Cell 25 · code</h3><pre class="source"><code># Complete implementation of compute_attention.
+def compute_attention(
+    qkv_dict: dict[str, dict[str, jax.Array]], layer: int
+) -&gt; tuple[jax.Array, jax.Array, jax.Array]:
+  &quot;&quot;&quot;Computes the attention weights for a layer.
+
+  Args:
+    qkv_dict: A dictionary containing the raw query, key, and value
+      projections for all layers. The keys are strings identifying the layers
+      and matrix types, and values are the corresponding JAX arrays.
+    layer: The specific layer for which to compute the attention weights.
+
+  Returns:
+    Y: The output of the attention layer.
+    alpha: The attention weights.
+    logits: The raw logits used to compute the attention weights.
+  &quot;&quot;&quot;
+  # Extract the query, key, and value projection matrices from `qkv_dict`.
+  query_proj, key_proj, value_proj = attention.get_qkv_matrices(qkv_dict, layer)
+
+  # Extract d_k.
+  _, dim_key = key_proj.shape
+
+  # Compute the logits = QK.T/sqrt(d_k)
+  logits = (query_proj @ key_proj.T) / jnp.sqrt(dim_key)
+
+  # Compute the attention weights 𝛼.
+  alpha = jax.nn.softmax(logits)
+
+  # Compute the output Y = 𝛼V.
+  Y = alpha @ value_proj
+
+  return Y, alpha, logits
+</code></pre></article>
+    </section>
+  </main>
+</body>
+</html>

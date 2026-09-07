@@ -26,14 +26,23 @@ dev = [
   "pytest>=7.4",
   "ruff>=0.1",
 ]
+notebooks = [
+  "jupyterlab>=4.0",
+  "notebook>=7.0",
+  "ipykernel>=6.29",
+  "nbformat>=5.10",
+  "nbclient>=0.10",
+]
 gpu = [
   "torch>=2.1",
-  "transformers>=4.45",
+  "transformers>=4.50",
   "datasets>=2.16",
   "accelerate>=0.26",
   "peft>=0.10",
-  "trl>=0.8",
+  "trl>=0.14",
   "bitsandbytes>=0.42",
+  # peft>=0.16 rejects installed torchao <0.16; pin so Kaggle preinstalls upgrade.
+  "torchao>=0.16",
 ]
 
 [project.scripts]
@@ -45,7 +54,7 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = ["src", "."]
 
 [tool.ruff]
 line-length = 120

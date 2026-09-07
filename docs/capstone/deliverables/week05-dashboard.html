@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><title>Week 5 Diagnostics</title>
+<link rel="stylesheet" href="../../assets/css/site.css"/></head>
+<body>
+<header class="site-header"><nav class="nav"><a class="brand" href="../../index.html">ControlSift</a>
+<ul class="nav-links" data-site-nav></ul></nav></header>
+<main><section class="section" style="border-top:0;padding-top:1rem;">
+<nav class="capstone-nav" data-capstone-nav></nav>
+<div class="page-intro"><h2>Week 5 · Diagnostics dashboard</h2>
+<p>Interactive-enough static dashboard for overfitting / underfitting experiments (handbook deliverable).</p></div>
+<img src="week05_loss_curves.png" alt="Loss curves" style="max-width:100%;border:1px solid var(--line);"/>
+<pre style="margin-top:1rem;font-family:var(--font-mono);font-size:var(--text-sm);overflow:auto;">{
+  "deliverable": "week05_diagnostics_dashboard",
+  "underfit_test_acc": 0.91,
+  "overfit_prone_test_acc": 0.95,
+  "healthy_test_acc": 0.89,
+  "notes": [
+    "Underfit: capacity too small / too few epochs.",
+    "Overfit-prone: tiny train set + high capacity \u2192 train loss collapses, test weaker.",
+    "Healthy: moderate capacity and train size."
+  ]
+}</pre>
+<p><a href="index.html">← Deliverables hub</a></p>
+</section></main>
+<script src="../../assets/js/nav.js"></script>
+<script src="../../assets/js/capstone-nav.js"></script>
+</body></html>

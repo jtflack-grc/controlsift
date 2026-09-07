@@ -20,9 +20,27 @@
     <section class="section" style="border-top:0;padding-top:1rem;">
       <div class="page-intro">
         <h2>Submission package</h2>
-        <p>Materials for Mentor Me Collective review of the ControlSift residency project.</p>
+        <p>Materials for Mentor Me Collective / GCLP review of the ControlSift residency project.</p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+    </section>
+
+    <section class="section">
+      <h2>Form upload bundle</h2>
+      <ul class="findings-list">
+        <li><strong>Weekly DeepMind labs</strong> — <a href="deliverables/index.html">Weeks 1–9 deliverables hub</a></li>
+        <li><strong>GCLP checklist</strong> — <a href="gclp-checklist.html">Outline + GitHub requirements</a></li>
+        <li><strong>≤8-page report</strong> — <a href="report.html">report.html</a> · PDF: <a href="submit/ControlSift_Capstone_Report.pdf">submit/ControlSift_Capstone_Report.pdf</a></li>
+        <li><strong>≤8-slide deck</strong> — <a href="slides.html">slides.html</a> · PDF: <a href="submit/ControlSift_Capstone_Slides.pdf">submit/ControlSift_Capstone_Slides.pdf</a></li>
+        <li><strong>≤5-minute video</strong> — <a href="video-script.html">script ready</a> (recording still required)</li>
+        <li><strong>Official SDG</strong> — <a href="un-sdg.html">Goal 10</a></li>
+        <li><strong>Implementation plan</strong> — <a href="implementation-plan.html">phases + risks</a></li>
+        <li><strong>Critical path</strong> — <a href="next-steps.html">ordered remaining work</a></li>
+      </ul>
+      <p style="color:var(--muted);font-size:var(--text-sm);">
+        Regenerate PDFs: <code>powershell -File scripts/export_submit_pdfs.ps1</code> (docs server must be on :5500).
+        Re-export after Gemma metrics land so the report numbers match Results.
+      </p>
     </section>
 
     <section class="section">
@@ -30,10 +48,10 @@
       <ul class="findings-list">
         <li><strong>Research paper</strong> — <a href="paper.html">Full narrative digest</a></li>
         <li><strong>Capstone home</strong> — <a href="index.html">Overview</a></li>
-        <li><strong>UN SDG alignment</strong> — <a href="un-sdg.html">SDG 16 / 9 / 4</a></li>
-        <li><strong>Curriculum map</strong> — <a href="curriculum.html">DeepMind course table</a></li>
+        <li><strong>Curriculum map</strong> — <a href="curriculum.html">DeepMind path, subtopics</a></li>
         <li><strong>Research site</strong> — <a href="../index.html">Home</a> · <a href="../results.html">Results</a> · <a href="../failure-lab.html">Failure Lab</a> · <a href="../assurance.html">Assurance</a></li>
-        <li><strong>Repository documents</strong> — README · research report · governance cards · protocol seal</li>
+        <li><strong>GitHub reflection</strong> — <code>reflection/project_reflection.md</code></li>
+        <li><strong>Repository documents</strong> — README (CRISP-DM) · governance cards · protocol seal</li>
       </ul>
     </section>
 
@@ -50,7 +68,7 @@
           <tr><td>Failure Lab</td><td><code>docs/data/failure_lab.json</code></td><td>complete (classical)</td></tr>
           <tr><td>Figures</td><td><code>reports/figures/</code></td><td>complete</td></tr>
           <tr><td>Label audit</td><td><code>data/review_log.csv</code> · audit reports</td><td>complete</td></tr>
-          <tr><td>Reflection</td><td><a href="reflection.html">Capstone reflection</a></td><td>classical complete</td></tr>
+          <tr><td>Reflection</td><td><a href="reflection.html">Capstone reflection</a> · <code>reflection/project_reflection.md</code></td><td>classical complete</td></tr>
         </tbody>
       </table>
     </section>
@@ -59,7 +77,7 @@
       <h2>Acknowledgement</h2>
       <p>
         ControlSift was developed as an independent applied-AI research project following participation in
-        Google DeepMind’s AI Research Foundations curriculum through Mentor Me Collective.
+        Google DeepMind’s AI Research Foundations curriculum through Mentor Me Collective / Google Cloud Launchpad.
       </p>
     </section>
   </main>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>week07_lora_scaffold.py</title>
+  <link rel="stylesheet" href="../../../../assets/css/site.css" />
+  <style>
+    pre.source {
+      margin: 1rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>week07_lora_scaffold.py</h2>
+        <p><a href="week07_lora_scaffold.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p>
+      </div>
+      <pre class="source"><code>&quot;&quot;&quot;Week 7 deliverable: LoRA adapter checkpoint scaffold (+ path for real Gemma QLoRA).&quot;&quot;&quot;
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import numpy as np
+
+from mmc.labs.paths import ensure_out
+
+
+def run() -&gt; dict:
+    out = ensure_out()
+    rng = np.random.default_rng(42)
+    # Educational LoRA factors for a toy weight matrix (simulates ΔW = A @ B)
+    d, r = 64, 8
+    a = rng.normal(0, 0.02, (d, r))
+    b = rng.normal(0, 0.02, (r, d))
+    delta = a @ b
+    path = out / &quot;week07_lora_adapter.npz&quot;
+    np.savez(path, lora_A=a, lora_B=b, delta_w=delta, rank=r)
+    summary = {
+        &quot;deliverable&quot;: &quot;week07_lora_adapter_checkpoint&quot;,
+        &quot;status&quot;: &quot;scaffold_complete_gpu_pending_for_gemma&quot;,
+        &quot;toy_adapter&quot;: str(path),
+        &quot;rank&quot;: r,
+        &quot;delta_frobenius&quot;: float(np.linalg.norm(delta)),
+        &quot;production_path&quot;: {
+            &quot;config&quot;: &quot;configs/gemma3_1b_qlora.yaml&quot;,
+            &quot;train_script&quot;: &quot;scripts/run_gemma_qlora_eval.py&quot;,
+            &quot;expected_output_dir&quot;: &quot;results/gemma_qlora/&quot;,
+            &quot;note&quot;: &quot;Replace toy adapter with real PEFT adapter after Kaggle/HF run.&quot;,
+        },
+        &quot;formula&quot;: &quot;delta_W = A @ B  (LoRA)&quot;,
+    }
+    (out / &quot;week07_summary.json&quot;).write_text(json.dumps(summary, indent=2), encoding=&quot;utf-8&quot;)
+    return summary
+
+
+if __name__ == &quot;__main__&quot;:
+    print(json.dumps(run(), indent=2))
+</code></pre>
+    </section>
+  </main>
+</body>
+</html>

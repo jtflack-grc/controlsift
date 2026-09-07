@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#07100c" />
+  <title>Capstone Slides (8) — ControlSift</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+  <style>
+    .deck { display: grid; gap: 1.25rem; margin-top: 1rem; }
+    .slide {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 1.5rem 1.6rem;
+      min-height: 14rem;
+    }
+    .slide-num {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 0 0 0.6rem;
+    }
+    .slide h3 { margin: 0 0 0.75rem; font-size: 1.35rem; }
+    .slide ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
+    .slide li { margin: 0.35rem 0; }
+    .slide .big { font-size: 1.1rem; color: var(--fg); margin: 0; max-width: 40rem; }
+    @media print {
+      .site-header, .site-footer, .capstone-nav, .page-intro p, .cta-row { display: none !important; }
+      .slide { break-after: page; min-height: 90vh; border: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Capstone presentation deck</h2>
+        <p>Exactly eight slides for GCLP submission (print to PDF if needed). Pair with the ≤5-minute video script.</p>
+      </div>
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+
+      <div class="deck">
+        <article class="slide">
+          <p class="slide-num">Slide 01 / 08</p>
+          <h3>ControlSift</h3>
+          <p class="big">Can a small language model help under-resourced teams tell proof from paperwork?</p>
+          <ul>
+            <li>MMC · DeepMind AI Research Foundations capstone</li>
+            <li>Official SDG: <strong>Goal 10 — Reduced Inequalities</strong></li>
+          </ul>
+        </article>
+
+        <article class="slide">
+          <p class="slide-num">Slide 02 / 08</p>
+          <h3>Problem</h3>
+          <ul>
+            <li>GRC expertise is unequally distributed</li>
+            <li>Policy PDFs get treated as operational proof</li>
+            <li>False assurance hits smaller organizations hardest</li>
+          </ul>
+        </article>
+
+        <article class="slide">
+          <p class="slide-num">Slide 03 / 08</p>
+          <h3>Research aim</h3>
+          <ul>
+            <li>Five-class evidence quality on a sealed synthetic benchmark</li>
+            <li>Compare classical → prompted Gemma → QLoRA</li>
+            <li>Primary metric: macro F1 · seed 42 · human judgment remains final</li>
+          </ul>
+        </article>
+
+        <article class="slide">
+          <p class="slide-num">Slide 04 / 08</p>
+          <h3>Method</h3>
+          <ul>
+            <li>1,500 compositional packets · family-isolated splits</li>
+            <li>Protocol sealed before LLM claims</li>
+            <li>Gemma&nbsp;3 1B IT + QLoRA on free-tier GPU path</li>
+          </ul>
+        </article>
+
+        <article class="slide">
+          <p class="slide-num">Slide 05 / 08</p>
+          <h3>Results so far</h3>
+          <ul>
+            <li>Majority macro F1: <span data-metric="macro_f1" data-experiment="majority">pending</span></li>
+            <li>TF-IDF: <span data-metric="macro_f1" data-experiment="tfidf">pending</span> test / <span data-metric="challenge_macro_f1" data-experiment="tfidf">pending</span> challenge</li>
+            <li>Gemma zero-shot: <span data-metric="macro_f1" data-experiment="gemma_zero_shot">pending</span></li>
+            <li>Gemma few-shot: <span data-metric="macro_f1" data-experiment="gemma_few_shot">pending</span></li>
+            <li>Gemma QLoRA: <span data-metric="macro_f1" data-experiment="gemma_qlora">pending</span></li>
+            <li data-pending-until-gemma class="pending">Gemma ladder pending GPU — null until <code>docs/data/results.json</code> updates (never invented)</li>
+          </ul>
+        </article>
+
+        <article class="slide">
+          <p class="slide-num">Slide 06 / 08</p>
+          <h3>Responsible innovation</h3>
+          <ul>
+            <li>Synthetic data only · Data Card · Risk Register</li>
+            <li>No production-auditor claims</li>
+            <li>Failure Lab documents hard cases</li>
+          </ul>
+        </article>
+
+        <article class="slide">
+          <p class="slide-num">Slide 07 / 08</p>
+          <h3>Impact (SDG 10)</h3>
+          <ul>
+            <li>Open methods reduce dependence on expensive GRC consulting</li>
+            <li>Free-tier reproduction keeps access wide</li>
+            <li>Triage aid — not automated certification</li>
+          </ul>
+        </article>
+
+        <article class="slide">
+          <p class="slide-num">Slide 08 / 08</p>
+          <h3>Next steps &amp; ask</h3>
+          <ul>
+            <li data-pending-until-gemma>Complete Gemma ladder on Kaggle/HF (SMOKE=False → after_kaggle)</li>
+            <li data-ready-when-gemma hidden>Gemma TEST metrics published from result files</li>
+            <li>Publish metrics from files; refresh Failure Lab</li>
+            <li>Artifacts: research site · report · Assurance · curriculum map</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="cta-row" style="margin-top:1.5rem;">
+        <a class="btn btn-primary" href="video-script.html">Video script</a>
+        <a class="btn btn-secondary" href="report.html">8-page report</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Capstone · Slides</span>
+      <a href="index.html">Capstone home</a>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js"></script>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
+</body>
+</html>

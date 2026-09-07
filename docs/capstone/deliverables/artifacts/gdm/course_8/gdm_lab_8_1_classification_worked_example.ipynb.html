@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>gdm_lab_8_1_classification_worked_example.ipynb</title>
+  <link rel="stylesheet" href="../../../../../assets/css/site.css" />
+  <style>
+    .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+    .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
+    pre.source {
+      margin: 0.5rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>gdm_lab_8_1_classification_worked_example.ipynb</h2>
+        <p>
+          <a href="gdm_lab_8_1_classification_worked_example.ipynb">Download .ipynb</a> ·
+          <a href="../../../index.html">Deliverables hub</a>
+        </p>
+        <p>Open in Jupyter from repo: <code>jupyter notebook mmc/notebooks/gdm_lab_8_1_classification_worked_example.ipynb</code></p>
+      </div>
+      <article class="nb-cell nb-markdown"><h3>Cell 1 · markdown</h3><pre class="source"><code>&lt;p&gt;&lt;small&gt;&lt;small&gt;This Notebook is made available subject to the licence and terms set out in the &lt;a href = &quot;http://www.github.com/google-deepmind/ai-foundations&quot;&gt;AI Research Foundations Github README file&lt;/a&gt;.&lt;/small&gt;&lt;/small&gt;&lt;/p&gt;</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 2 · markdown</h3><pre class="source"><code>&lt;img src=&quot;https://storage.googleapis.com/dm-educational/assets/ai_foundations/GDM-Labs-banner-image-C7.png&quot;&gt;</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 3 · markdown</h3><pre class="source"><code># Lab: Inspect Classification Data
+
+&lt;a href=&#x27;https://colab.research.google.com/github/google-deepmind/ai-foundations/blob/master/course_8/gdm_lab_8_1_classification_worked_example.ipynb&#x27; target=&#x27;_parent&#x27;&gt;&lt;img src=&#x27;https://colab.research.google.com/assets/colab-badge.svg&#x27; alt=&#x27;Open In Colab&#x27;/&gt;&lt;/a&gt;
+
+30 min
+
+**Project pathway:** Classification
+
+This notebook is a worked example that demonstrates how you can inspect the African Galore dataset for a classification task. This notebook does not contain any specific activities but you may want to adapt it if you want to inspect a similar dataset.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 4 · markdown</h3><pre class="source"><code>## Imports
+
+This notebook uses the Pandas package for storing and processing data, as well as standard Python libraries like `random`, `re`, and `collections`.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 5 · code</h3><pre class="source"><code>import json # For writing data to a JSONL file.
+import pandas as pd # For loading and processing data.
+import random # For random sampling.
+import re # For defining regular expressions.
+import textwrap # For printing long paragraphs.
+
+from google.colab import drive # For mounting Google Drive.
+
+from typing import Any, Dict, List, Tuple
+import collections
+
+Counter = collections.Counter</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 6 · markdown</h3><pre class="source"><code>## Load the data
+
+This notebook uses the Africa Galore Dataset and downloads it from a public URL. If you would like to use your own dataset or store the processed data, it is recommended that you connect Colab to Google Drive.
+
+### Connect Colab with Google Drive
+
+The following cell mounts your Google Drive so that you can access files by adding `/content/drive/MyDrive/` to the beginning of your file path. Running this cell will open a dialog that asks you whether you want to connect Colab to Google Drive. Follow the instructions and enable all permissions, so that Colab can read and write files from Google Drive.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 7 · code</h3><pre class="source"><code>drive.mount(&#x27;/content/drive&#x27;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 8 · markdown</h3><pre class="source"><code>The following cell downloads the Africa Galore dataset, stores it in a Pandas dataframe, and prints some basic statistics.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 9 · code</h3><pre class="source"><code># Download the file from a link.
+filepath = &quot;https://storage.googleapis.com/dm-educational/assets/ai_foundations/africa_galore_large.json&quot;
+
+# Read with pandas.
+df = pd.read_json(filepath, lines=True)
+
+# Other file-type examples:
+# For loading JSON files.
+# df = pd.read_json(filepath, orient=&quot;records&quot;)
+
+# For loading a CSV file.
+# df = pd.read_csv(filepath, encoding=&quot;utf-8&quot;)
+
+# If you are using an API, implement a function, such as `load_from_api()`
+# that downloads the data using an API.
+# df = load_from_api()
+
+# Take a quick look at the first few rows.
+display(df.head())
+
+# Take a detailed look at the first example:
+print(&quot;-&quot; * 80 + &quot;\nFirst example:\n&quot;)
+
+print(f&quot;Category: {df[&#x27;category&#x27;][0]}&quot;)
+print(f&quot;Name: {df[&#x27;name&#x27;][0]}&quot;)
+print(f&quot;Description: {textwrap.fill(df[&#x27;description&#x27;][0])}&quot;)
+
+print(&quot;\n&quot; + &quot;-&quot; * 80 + &quot;\n&quot;)
+
+print(&quot;Columns:&quot;, df.columns.tolist())
+print(&quot;Number of rows:&quot;, len(df))
+
+# Display unique values from the &#x27;category&#x27; column.
+print(&quot;Unique categories:&quot;, df[&quot;category&quot;].unique())</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>## Compute statistics of your dataset
+
+To get a better sense of the composition of your dataset, you can compute some summary statistics of your data.
+
+The following code gives you a breakdown of how many examples exist per category.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 11 · code</h3><pre class="source"><code># Compute the number of examples per category.
+category_counts = Counter(df[&quot;category&quot;])
+
+print(&quot;Number of examples per category:\n&quot;)
+for cat in category_counts:
+  print(f&quot;{cat}: {category_counts[cat]}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 12 · markdown</h3><pre class="source"><code>As you can see, this dataset has many more examples with the category &quot;Story&quot; than examples with other categories. If this is also true for your dataset, you likely will have to balance the number of examples across categories. The next notebook contains a worked example on how to do that for the Africa Galore dataset.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 13 · markdown</h3><pre class="source"><code>## Save the dataset to Google Drive
+
+Once you have an idea of the composition of your dataset, run the following cell to save the dataset to Google Drive. This will allow you to further process the dataset and use it for fine-tuning a classification model in later parts of this capstone.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 14 · code</h3><pre class="source"><code># Save classification dataset to a JSONL file.
+df.to_json(&#x27;/content/drive/MyDrive/africa_galore_large_classification.jsonl&#x27;,
+           orient=&#x27;records&#x27;,
+           lines=True)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 15 · markdown</h3><pre class="source"><code>## Summary
+
+This short notebook showed you how to inspect individual examples in the  Africa Galore dataset that could be used for training a classification model.  If you are also using an existing dataset for your classification task, this worked example may be a good starting point for getting familiar with your classification dataset.</code></pre></article>
+    </section>
+  </main>
+</body>
+</html>

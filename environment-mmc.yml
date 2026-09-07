@@ -1,0 +1,26 @@
+# Conda env for MMC / DeepMind show-work notebooks (CPU labs).
+# Create:  conda env create -f environment-mmc.yml
+# Update:  conda env update -f environment-mmc.yml --prune
+# Activate: conda activate controlsift-mmc
+# Launch:  powershell -File scripts/start_mmc_jupyter.ps1
+name: controlsift-mmc
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - numpy>=1.26
+  - pandas>=2.1
+  - scikit-learn>=1.3
+  - scipy>=1.11
+  - matplotlib>=3.8
+  - pyyaml>=6.0
+  - jupyterlab>=4.0
+  - notebook>=7.0
+  - ipykernel>=6.29
+  - nbformat>=5.10
+  - nbclient>=0.10
+  - pip:
+      - pydantic>=2.5
+      - kaggle>=1.7
+      - -e ".[dev]"

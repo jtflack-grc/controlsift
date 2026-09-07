@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>week04_mlp.py</title>
+  <link rel="stylesheet" href="../../../../assets/css/site.css" />
+  <style>
+    pre.source {
+      margin: 1rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>week04_mlp.py</h2>
+        <p><a href="week04_mlp.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p>
+      </div>
+      <pre class="source"><code>&quot;&quot;&quot;Week 4 deliverable: MLP classifier from scratch (NumPy only).&quot;&quot;&quot;
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import numpy as np
+
+from mmc.labs.paths import ensure_out
+
+
+def make_moons(n: int = 200, seed: int = 42) -&gt; tuple[np.ndarray, np.ndarray]:
+    rng = np.random.default_rng(seed)
+    n2 = n // 2
+    t = rng.uniform(0, np.pi, n2)
+    x1 = np.stack([np.cos(t), np.sin(t)], axis=1) + rng.normal(0, 0.08, (n2, 2))
+    x2 = np.stack([1 - np.cos(t), 1 - np.sin(t) - 0.5], axis=1) + rng.normal(0, 0.08, (n2, 2))
+    x = np.concatenate([x1, x2], axis=0)
+    y = np.concatenate([np.zeros(n2), np.ones(n2)])
+    idx = rng.permutation(n)
+    return x[idx], y[idx]
+
+
+class MLP:
+    def __init__(self, in_dim: int = 2, hidden: int = 16, seed: int = 42) -&gt; None:
+        rng = np.random.default_rng(seed)
+        self.w1 = rng.normal(0, 0.5, (in_dim, hidden))
+        self.b1 = np.zeros(hidden)
+        self.w2 = rng.normal(0, 0.5, (hidden, 1))
+        self.b2 = np.zeros(1)
+
+    @staticmethod
+    def _sigmoid(z: np.ndarray) -&gt; np.ndarray:
+        return 1.0 / (1.0 + np.exp(-np.clip(z, -30, 30)))
+
+    def forward(self, x: np.ndarray) -&gt; tuple[np.ndarray, np.ndarray, np.ndarray]:
+        h = np.tanh(x @ self.w1 + self.b1)
+        logits = h @ self.w2 + self.b2
+        p = self._sigmoid(logits)
+        return h, logits, p
+
+    def fit(self, x: np.ndarray, y: np.ndarray, epochs: int = 400, lr: float = 0.1) -&gt; list[float]:
+        y = y.reshape(-1, 1)
+        losses: list[float] = []
+        n = x.shape[0]
+        for _ in range(epochs):
+            h, _, p = self.forward(x)
+            eps = 1e-9
+            loss = float(-np.mean(y * np.log(p + eps) + (1 - y) * np.log(1 - p + eps)))
+            losses.append(loss)
+            dlogits = (p - y) / n
+            dw2 = h.T @ dlogits
+            db2 = dlogits.sum(axis=0)
+            dh = dlogits @ self.w2.T * (1 - h**2)
+            dw1 = x.T @ dh
+            db1 = dh.sum(axis=0)
+            self.w2 -= lr * dw2
+            self.b2 -= lr * db2
+            self.w1 -= lr * dw1
+            self.b1 -= lr * db1
+        return losses
+
+    def predict(self, x: np.ndarray) -&gt; np.ndarray:
+        return (self.forward(x)[2] &gt;= 0.5).astype(int).ravel()
+
+
+def run() -&gt; dict:
+    out = ensure_out()
+    x, y = make_moons(240)
+    split = 180
+    mlp = MLP()
+    losses = mlp.fit(x[:split], y[:split])
+    pred = mlp.predict(x[split:])
+    acc = float((pred == y[split:]).mean())
+    # persist weights as the &quot;from scratch&quot; artifact
+    np.savez(out / &quot;week04_mlp_weights.npz&quot;, w1=mlp.w1, b1=mlp.b1, w2=mlp.w2, b2=mlp.b2)
+    summary = {
+        &quot;deliverable&quot;: &quot;week04_mlp_from_scratch&quot;,
+        &quot;implementation&quot;: &quot;numpy&quot;,
+        &quot;train_size&quot;: split,
+        &quot;test_accuracy&quot;: acc,
+        &quot;final_loss&quot;: losses[-1],
+        &quot;weights&quot;: str(out / &quot;week04_mlp_weights.npz&quot;),
+    }
+    (out / &quot;week04_summary.json&quot;).write_text(json.dumps(summary, indent=2), encoding=&quot;utf-8&quot;)
+    (out / &quot;week04_loss_curve.json&quot;).write_text(json.dumps(losses), encoding=&quot;utf-8&quot;)
+    return summary
+
+
+if __name__ == &quot;__main__&quot;:
+    print(json.dumps(run(), indent=2))
+</code></pre>
+    </section>
+  </main>
+</body>
+</html>

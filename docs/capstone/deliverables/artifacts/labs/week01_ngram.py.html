@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>week01_ngram.py</title>
+  <link rel="stylesheet" href="../../../../assets/css/site.css" />
+  <style>
+    pre.source {
+      margin: 1rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>week01_ngram.py</h2>
+        <p><a href="week01_ngram.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p>
+      </div>
+      <pre class="source"><code>&quot;&quot;&quot;Week 1 deliverable: n-gram LM + perplexity logs.&quot;&quot;&quot;
+
+from __future__ import annotations
+
+import json
+import math
+import random
+from collections import Counter, defaultdict
+from pathlib import Path
+
+from mmc.labs.paths import CORPUS, ensure_out
+
+
+def tokenize(text: str) -&gt; list[str]:
+    return text.lower().replace(&quot;.&quot;, &quot; .&quot;).replace(&quot;,&quot;, &quot; ,&quot;).split()
+
+
+class NGramLM:
+    def __init__(self, n: int = 3) -&gt; None:
+        self.n = n
+        self.ngrams: dict[tuple[str, ...], Counter[str]] = defaultdict(Counter)
+        self.unigrams: Counter[str] = Counter()
+
+    def fit(self, tokens: list[str]) -&gt; None:
+        self.unigrams.update(tokens)
+        if len(tokens) &lt; self.n:
+            return
+        for i in range(len(tokens) - self.n + 1):
+            ctx = tuple(tokens[i : i + self.n - 1])
+            nxt = tokens[i + self.n - 1]
+            self.ngrams[ctx][nxt] += 1
+
+    def _prob(self, ctx: tuple[str, ...], token: str) -&gt; float:
+        counts = self.ngrams.get(ctx)
+        if counts and sum(counts.values()) &gt; 0:
+            return (counts[token] + 1.0) / (sum(counts.values()) + len(self.unigrams))
+        # backoff to unigram add-one
+        return (self.unigrams[token] + 1.0) / (sum(self.unigrams.values()) + len(self.unigrams))
+
+    def perplexity(self, tokens: list[str]) -&gt; float:
+        if len(tokens) &lt; self.n:
+            return float(&quot;inf&quot;)
+        log_sum = 0.0
+        n_pred = 0
+        for i in range(self.n - 1, len(tokens)):
+            ctx = tuple(tokens[i - self.n + 1 : i])
+            p = max(self._prob(ctx, tokens[i]), 1e-12)
+            log_sum += math.log(p)
+            n_pred += 1
+        return math.exp(-log_sum / n_pred)
+
+    def generate(self, max_tokens: int = 40, seed: int = 42) -&gt; str:
+        rng = random.Random(seed)
+        if not self.ngrams:
+            return &quot;&quot;
+        ctx = list(rng.choice(list(self.ngrams.keys())))
+        out = list(ctx)
+        for _ in range(max_tokens):
+            counts = self.ngrams.get(tuple(ctx))
+            if not counts:
+                break
+            tokens, weights = zip(*counts.items())
+            nxt = rng.choices(list(tokens), weights=list(weights), k=1)[0]
+            out.append(nxt)
+            ctx = (ctx + [nxt])[-(self.n - 1) :]
+        return &quot; &quot;.join(out)
+
+
+def run(corpus_path: Path | None = None) -&gt; dict:
+    out = ensure_out()
+    text = (corpus_path or CORPUS).read_text(encoding=&quot;utf-8&quot;)
+    tokens = tokenize(text)
+    split = int(0.8 * len(tokens))
+    train, test = tokens[:split], tokens[split:]
+    model = NGramLM(n=3)
+    model.fit(train)
+    ppl = model.perplexity(test if len(test) &gt;= 3 else train)
+    sample = model.generate()
+    log = {
+        &quot;deliverable&quot;: &quot;week01_ngram&quot;,
+        &quot;n&quot;: 3,
+        &quot;train_tokens&quot;: len(train),
+        &quot;test_tokens&quot;: len(test),
+        &quot;vocab_size&quot;: len(model.unigrams),
+        &quot;perplexity&quot;: ppl,
+        &quot;sample_generation&quot;: sample,
+    }
+    (out / &quot;week01_perplexity.json&quot;).write_text(json.dumps(log, indent=2), encoding=&quot;utf-8&quot;)
+    (out / &quot;week01_sample.txt&quot;).write_text(sample + &quot;\n&quot;, encoding=&quot;utf-8&quot;)
+    return log
+
+
+if __name__ == &quot;__main__&quot;:
+    print(json.dumps(run(), indent=2))
+</code></pre>
+    </section>
+  </main>
+</body>
+</html>

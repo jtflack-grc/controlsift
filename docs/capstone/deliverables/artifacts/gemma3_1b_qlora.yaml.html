@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>gemma3_1b_qlora.yaml</title>
+  <link rel="stylesheet" href="../../../assets/css/site.css" />
+  <style>
+    pre.source {
+      margin: 1rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>gemma3_1b_qlora.yaml</h2>
+        <p><a href="gemma3_1b_qlora.yaml">Download raw file</a> · <a href="../index.html">Deliverables hub</a></p>
+      </div>
+      <pre class="source"><code>experiment: gemma3_1b_qlora
+seed: 42
+dataset_version: &quot;1.0.0&quot;
+model_id: google/gemma-3-1b-it
+# LoRA target modules must be verified against the loaded Gemma 3 architecture.
+# Do not blindly copy names from other transformers.
+quantization:
+  load_in_4bit: true
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_use_double_quant: true
+  bnb_4bit_compute_dtype: bfloat16
+lora:
+  r: 16
+  lora_alpha: 16
+  lora_dropout: 0.05
+  bias: none
+  task_type: CAUSAL_LM
+  # Placeholder — verify after model load on GPU:
+  target_modules: null
+training:
+  num_train_epochs: 3
+  learning_rate: 2.0e-4
+  max_seq_length: 512
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 8
+  logging_steps: 10
+  eval_strategy: steps
+  eval_steps: 50
+  save_strategy: steps
+  save_steps: 100
+  warmup_ratio: 0.03
+  lr_scheduler_type: cosine
+paths:
+  train: data/processed/train.jsonl
+  validation: data/processed/validation.jsonl
+  output_dir: results/gemma_qlora
+inference:
+  temperature: 0.0
+  do_sample: false
+  max_new_tokens: 128
+</code></pre>
+    </section>
+  </main>
+</body>
+</html>

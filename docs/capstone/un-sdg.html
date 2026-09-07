@@ -21,59 +21,84 @@
       <div class="page-intro">
         <h2>UN Sustainable Development Goals</h2>
         <p>
-          ControlSift is scoped as a UN SDG project build under Mentor Me Collective’s global-futures residency model.
-          The work strengthens institutional accountability around cybersecurity evidence — and keeps responsible AI practice inspectable.
+          GCLP Capstone Project Outline requires selecting <strong>one</strong> official goal from
+          Goals&nbsp;1, 2, 3, 10, or 13. ControlSift’s official submission goal is
+          <strong>SDG&nbsp;10 (Reduced Inequalities)</strong>. Supporting context below does not replace that selection.
         </p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
     </section>
 
     <section class="section">
-      <h2>Primary goal</h2>
+      <h2>Official GCLP goal</h2>
       <div class="sdg-grid">
         <article>
-          <div class="sdg-id">SDG 16 · Peace, justice &amp; strong institutions</div>
-          <h3>Accountable institutions need honest evidence</h3>
+          <div class="sdg-id">SDG 10 · Reduced inequalities</div>
+          <h3>Unequal access to trustworthy assurance expertise</h3>
           <p>
-            Organizations certify controls with artifacts that often fail to prove those controls operate.
-            Confusing policy language with operational proof weakens audits, certifications, and public trust.
-            ControlSift measures whether a small language model can support human reviewers in distinguishing
-            sufficient, partial, insufficient, irrelevant, and contradictory evidence — under a sealed protocol
-            that treats false assurance as a first-class risk.
+            High-quality governance, risk, and compliance (GRC) review is expensive. Well-resourced organizations buy
+            deep human assurance; smaller teams, nonprofits, clinics, schools, and community providers often inherit
+            template binders and rubber-stamp evidence. That inequality shows up as false assurance: paperwork that
+            looks compliant while controls do not operate.
+          </p>
+          <p>
+            ControlSift studies whether a small, free-tier-trainable language model can help human reviewers triage
+            evidence quality—sufficient, partial, insufficient, irrelevant, contradictory—so under-resourced teams
+            gain access to a research-grade triage aid they could not otherwise afford. The model never replaces the
+            human reviewer; it aims to reduce the expertise gap that currently tracks wealth and consulting access.
           </p>
           <p style="color:var(--muted);font-size:var(--text-sm);margin-top:0.75rem;">
-            Focus areas: accountable institutions (16.6) and informed oversight culture (16.10) through better evidence hygiene.
+            GCLP cybersecurity example for Goal&nbsp;10 emphasizes empowering communities with unequal digital protection.
+            ControlSift applies that lens to unequal access to honest evidence review.
           </p>
         </article>
         <article>
           <div class="sdg-id">Contribution</div>
-          <h3>Reduce automation bias in assurance workflows</h3>
+          <h3>Lower the barrier without automating away judgment</h3>
           <p>
-            The project pairs model development with a Failure Lab, prohibited-use boundaries, and public metrics that stay
-            empty until experiments actually run. The goal is triage support that makes institutional claims more honest —
-            not an automated auditor that rubber-stamps paperwork.
+            The deliverable is an open research artifact: sealed synthetic benchmark, classical baselines, planned
+            Gemma&nbsp;3 + QLoRA adaptation on free GPU tiers, Failure Lab, and Assurance docs. Success means a
+            reproducible method that smaller organizations and learners can inspect—not a paid black-box auditor.
           </p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <h2>Supporting goals</h2>
+      <h2>Problem identification sources (public evidence)</h2>
+      <p>
+        Per GCLP guidance to ground the problem in real-world evidence (while the modeling corpus itself remains
+        synthetic for privacy and leakage control), problem framing draws on public sources such as:
+      </p>
+      <ul class="findings-list">
+        <li><strong>Verizon DBIR / industry breach reports</strong> — recurring control failures where documentation did not equal operation.</li>
+        <li><strong>CISA / NIST cybersecurity guidance</strong> — evidence and control assessment expectations for organizations of uneven maturity.</li>
+        <li><strong>Public audit and certification discourse</strong> — known tension between “paper compliance” and operational proof.</li>
+        <li><strong>Kaggle / open security datasets</strong> — used as landscape context for the domain; not as private customer evidence.</li>
+      </ul>
+      <p style="margin-top:1rem;color:var(--muted);font-size:var(--text-sm);">
+        Modeling uses a sealed synthetic packet benchmark so no employer, patient, or customer evidence enters the repo.
+        That is a deliberate privacy and integrity choice, disclosed in the Data Card.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Supporting context (not the official selection)</h2>
       <div class="sdg-grid">
         <article>
-          <div class="sdg-id">SDG 9 · Industry, innovation &amp; infrastructure</div>
-          <h3>Research methods that run on free GPU tiers</h3>
+          <div class="sdg-id">SDG 16 · Strong institutions</div>
+          <h3>Mechanism of impact</h3>
           <p>
-            Training and evaluation are designed for accessible compute (Kaggle / Colab) using QLoRA and 4-bit quantization,
-            so adaptation research remains reproducible without enterprise infrastructure.
+            Honest evidence triage strengthens institutional accountability. This explains <em>how</em> reducing
+            inequality in assurance access works; it is not the GCLP official goal selection.
           </p>
         </article>
         <article>
-          <div class="sdg-id">SDG 4 · Quality education</div>
-          <h3>Open, curriculum-aligned research craft</h3>
+          <div class="sdg-id">SDG 9 &amp; 4</div>
+          <h3>Access &amp; learning</h3>
           <p>
-            The DeepMind AI Research Foundations pathway is demonstrated through a public research site:
-            data and model cards, sealed evaluation, classical baselines, and structured reflection.
+            Free-tier PEFT methods (SDG&nbsp;9 adjacent) and a curriculum-visible public site (SDG&nbsp;4 adjacent)
+            support accessibility of the research craft.
           </p>
         </article>
       </div>
@@ -82,12 +107,13 @@
     <section class="section">
       <h2>Impact statement</h2>
       <p>
-        If small models can be adapted to flag weak evidence without claiming certainty, assurance teams gain a triage aid
-        that strengthens institutional honesty. ControlSift measures that possibility under a locked protocol and publishes
-        where the approach still fails.
+        If small models can help flag weak evidence under a locked protocol, organizations with less GRC budget gain a
+        triage aid that makes institutional claims more honest. ControlSift measures that possibility and publishes
+        where the approach still fails—so the benefit is shared as knowledge, not sold as certainty.
       </p>
       <div class="cta-row" style="margin-top:1.5rem;">
         <a class="btn btn-secondary" href="problem-impact.html">Problem &amp; impact</a>
+        <a class="btn btn-secondary" href="implementation-plan.html">Implementation plan</a>
         <a class="btn btn-secondary" href="../assurance/intended-use.html">Intended use</a>
       </div>
     </section>

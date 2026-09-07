@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>week04_mlp.executed.ipynb</title>
+  <link rel="stylesheet" href="../../../../assets/css/site.css" />
+  <style>
+    .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+    .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
+    pre.source {
+      margin: 0.5rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>week04_mlp.executed.ipynb</h2>
+        <p>
+          <a href="week04_mlp.executed.ipynb">Download .ipynb</a> ·
+          <a href="../../index.html">Deliverables hub</a>
+        </p>
+        <p>Open in Jupyter from repo: <code>jupyter notebook mmc/notebooks/week04_mlp.executed.ipynb</code></p>
+      </div>
+      <article class="nb-cell nb-markdown"><h3>Cell 1 · markdown</h3><pre class="source"><code># Week 4 — MLP from scratch
+
+**MMC / DeepMind track** — show-work notebook.
+
+### How to run
+
+- **Local (Anaconda):** from repo root  
+  `conda activate controlsift-mmc` then `powershell -File scripts/start_mmc_jupyter.ps1`  
+  or open this file in JupyterLab and use kernel **Python (controlsift-mmc)**.
+- **GitHub Pages cannot execute notebooks** (static hosting only). After the repo is on GitHub, use **Open in Colab** / Binder links on the deliverables hub, or clone and run locally.
+
+## Official DeepMind labs (checkbox)
+
+- `vendor/ai-foundations/course_3/gdm_lab_3_4_design_your_own_mlp.ipynb`
+
+Full map: `mmc/GDM_LAB_MAP.md`. Upstream clone: `vendor/ai-foundations/`.
+
+## ControlSift exceed path
+
+Run the cells below to regenerate **this repo&#x27;s** graded artifacts under `mmc/deliverables/outputs/`.
+Do not invent Gemma metrics; leave GPU rows null until a real HF/Kaggle run.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 2 · code</h3><pre class="source"><code>from pathlib import Path
+import os
+import sys
+
+# Resolve repo root whether Jupyter cwd is repo root or mmc/notebooks/
+here = Path.cwd().resolve()
+root = None
+for candidate in [here, *here.parents]:
+    if (candidate / &quot;mmc&quot; / &quot;labs&quot;).is_dir() and (candidate / &quot;mmc&quot; / &quot;notebooks&quot;).is_dir():
+        root = candidate
+        break
+if root is None:
+    raise RuntimeError(&quot;Could not find ControlSift repo root (expected mmc/labs/). Open Jupyter from the repo.&quot;)
+os.chdir(root)
+if str(root) not in sys.path:
+    sys.path.insert(0, str(root))
+print(&quot;cwd:&quot;, Path.cwd())
+print(&quot;python:&quot;, sys.executable)
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 3 · code</h3><pre class="source"><code>from mmc.labs.week04_mlp import run
+import json
+
+result = run()
+show = {k: result.get(k) for k in [&#x27;final_loss&#x27;, &#x27;test_accuracy&#x27;, &#x27;weights&#x27;]} if [&#x27;final_loss&#x27;, &#x27;test_accuracy&#x27;, &#x27;weights&#x27;] else result
+print(json.dumps(show, indent=2, default=str))
+result
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 4 · markdown</h3><pre class="source"><code>### Next
+
+1. Open the matching official GDM notebook under `vendor/ai-foundations/` and complete it on Skills/Colab if your cohort requires the upstream lab.
+2. Confirm artifacts landed in `mmc/deliverables/outputs/`.
+3. Sync the public hub: `python -m mmc.labs.sync_artifacts`.
+</code></pre></article>
+    </section>
+  </main>
+</body>
+</html>

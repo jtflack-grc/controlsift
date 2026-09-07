@@ -1,0 +1,388 @@
+{
+  "experiment": "gemma_zero_shot",
+  "dataset_version": "1.0.0",
+  "model": "google/gemma-3-1b-it",
+  "seed": 42,
+  "metrics": {
+    "accuracy": 0.165,
+    "macro_f1": 0.0941945773524721,
+    "macro_precision": 0.07257777777777778,
+    "macro_recall": 0.16499999999999998,
+    "weighted_f1": 0.09419457735247208,
+    "parse_success_rate": 0.81,
+    "per_class": {
+      "SUFFICIENT": {
+        "precision": 0.224,
+        "recall": 0.7,
+        "f1": 0.3393939393939394,
+        "support": 40
+      },
+      "PARTIAL": {
+        "precision": 0.1388888888888889,
+        "recall": 0.125,
+        "f1": 0.13157894736842105,
+        "support": 40
+      },
+      "INSUFFICIENT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 40
+      },
+      "IRRELEVANT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 40
+      },
+      "CONTRADICTORY": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 40
+      }
+    },
+    "confusion_matrix": [
+      [
+        28,
+        6,
+        0,
+        0,
+        0
+      ],
+      [
+        28,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        26,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        21,
+        11,
+        0,
+        0,
+        0
+      ],
+      [
+        22,
+        9,
+        1,
+        0,
+        0
+      ]
+    ],
+    "confusion_matrix_normalized": [
+      [
+        0.8235294117647058,
+        0.17647058823529413,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.8484848484848485,
+        0.15151515151515152,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.8387096774193549,
+        0.16129032258064516,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.65625,
+        0.34375,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.6875,
+        0.28125,
+        0.03125,
+        0.0,
+        0.0
+      ]
+    ],
+    "labels": [
+      "SUFFICIENT",
+      "PARTIAL",
+      "INSUFFICIENT",
+      "IRRELEVANT",
+      "CONTRADICTORY"
+    ],
+    "n": 200
+  },
+  "slices": {
+    "control_domain": {
+      "account_lifecycle": {
+        "n": 10,
+        "macro_f1": 0.08,
+        "accuracy": 0.2
+      },
+      "authentication": {
+        "n": 40,
+        "macro_f1": 0.06,
+        "accuracy": 0.15
+      },
+      "backup_and_recovery": {
+        "n": 20,
+        "macro_f1": 0.11153846153846154,
+        "accuracy": 0.15
+      },
+      "change_management": {
+        "n": 5,
+        "macro_f1": 0.13333333333333333,
+        "accuracy": 0.2
+      },
+      "encryption": {
+        "n": 5,
+        "macro_f1": 0.2333333333333333,
+        "accuracy": 0.4
+      },
+      "endpoint_security": {
+        "n": 10,
+        "macro_f1": 0.06666666666666667,
+        "accuracy": 0.2
+      },
+      "identity_and_access_management": {
+        "n": 15,
+        "macro_f1": 0.05714285714285714,
+        "accuracy": 0.13333333333333333
+      },
+      "logging_and_monitoring": {
+        "n": 10,
+        "macro_f1": 0.15714285714285714,
+        "accuracy": 0.2
+      },
+      "network_security": {
+        "n": 5,
+        "macro_f1": 0.06666666666666667,
+        "accuracy": 0.2
+      },
+      "patch_management": {
+        "n": 10,
+        "macro_f1": 0.05714285714285714,
+        "accuracy": 0.1
+      },
+      "privileged_access": {
+        "n": 15,
+        "macro_f1": 0.17575757575757572,
+        "accuracy": 0.26666666666666666
+      },
+      "third_party_controls": {
+        "n": 20,
+        "macro_f1": 0.05714285714285714,
+        "accuracy": 0.1
+      },
+      "vulnerability_management": {
+        "n": 35,
+        "macro_f1": 0.08783068783068783,
+        "accuracy": 0.14285714285714285
+      }
+    },
+    "evidence_type": {
+      "HRIS-to-IAM reconciliation report": {
+        "n": 10,
+        "macro_f1": 0.08,
+        "accuracy": 0.2
+      },
+      "IAM enrollment export": {
+        "n": 20,
+        "macro_f1": 0.04,
+        "accuracy": 0.1
+      },
+      "SIEM retention configuration export": {
+        "n": 10,
+        "macro_f1": 0.15714285714285714,
+        "accuracy": 0.2
+      },
+      "access review certification report": {
+        "n": 15,
+        "macro_f1": 0.05714285714285714,
+        "accuracy": 0.13333333333333333
+      },
+      "backup job and restore test report": {
+        "n": 20,
+        "macro_f1": 0.11153846153846154,
+        "accuracy": 0.15
+      },
+      "change ticket record": {
+        "n": 5,
+        "macro_f1": 0.13333333333333333,
+        "accuracy": 0.2
+      },
+      "encryption configuration export": {
+        "n": 5,
+        "macro_f1": 0.2333333333333333,
+        "accuracy": 0.4
+      },
+      "endpoint management compliance report": {
+        "n": 10,
+        "macro_f1": 0.06666666666666667,
+        "accuracy": 0.2
+      },
+      "firewall rule export": {
+        "n": 5,
+        "macro_f1": 0.06666666666666667,
+        "accuracy": 0.2
+      },
+      "identity policy configuration export": {
+        "n": 20,
+        "macro_f1": 0.08,
+        "accuracy": 0.2
+      },
+      "patch compliance report": {
+        "n": 10,
+        "macro_f1": 0.05714285714285714,
+        "accuracy": 0.1
+      },
+      "privileged session audit log": {
+        "n": 15,
+        "macro_f1": 0.17575757575757572,
+        "accuracy": 0.26666666666666666
+      },
+      "vendor SOC 2 Type II report attestation package": {
+        "n": 20,
+        "macro_f1": 0.05714285714285714,
+        "accuracy": 0.1
+      },
+      "vulnerability scan remediation report": {
+        "n": 35,
+        "macro_f1": 0.08783068783068783,
+        "accuracy": 0.14285714285714285
+      }
+    },
+    "difficulty": {
+      "easy": {
+        "n": 21,
+        "macro_f1": 0.16666666666666669,
+        "accuracy": 0.7142857142857143
+      },
+      "hard": {
+        "n": 124,
+        "macro_f1": 0.017391304347826087,
+        "accuracy": 0.016129032258064516
+      },
+      "medium": {
+        "n": 55,
+        "macro_f1": 0.13408521303258145,
+        "accuracy": 0.2909090909090909
+      }
+    },
+    "failure_tags": {
+      "(none)": {
+        "n": 40,
+        "macro_f1": 0.16470588235294117,
+        "accuracy": 0.7
+      },
+      "contradictory_configuration": {
+        "n": 6,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "contradictory_configuration,control_failure": {
+        "n": 8,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "control_failure": {
+        "n": 4,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "control_failure,exception_unresolved": {
+        "n": 10,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "control_failure,incomplete_export": {
+        "n": 2,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "control_failure,missing_approval": {
+        "n": 4,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "control_failure,source_conflict": {
+        "n": 2,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "evidence_not_traceable,wrong_system": {
+        "n": 40,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "incomplete_export,population_gap": {
+        "n": 35,
+        "macro_f1": 0.031578947368421054,
+        "accuracy": 0.08571428571428572
+      },
+      "incomplete_export,population_gap,wrong_period": {
+        "n": 5,
+        "macro_f1": 0.11428571428571428,
+        "accuracy": 0.4
+      },
+      "missing_execution_proof": {
+        "n": 5,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "missing_execution_proof,stale_evidence": {
+        "n": 1,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "missing_timestamp,unverifiable_screenshot": {
+        "n": 5,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "policy_only": {
+        "n": 13,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "policy_only,stale_evidence": {
+        "n": 1,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "procedure_only": {
+        "n": 4,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "procedure_only,stale_evidence": {
+        "n": 2,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "self_attestation": {
+        "n": 9,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "stale_evidence,wrong_period": {
+        "n": 4,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      }
+    }
+  }
+}

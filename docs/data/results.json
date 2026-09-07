@@ -30,33 +30,33 @@
       "model": "google/gemma-3-1b-it",
       "dataset_version": "1.0.0",
       "seed": 42,
-      "macro_f1": null,
-      "accuracy": null,
-      "macro_precision": null,
-      "macro_recall": null,
-      "challenge_macro_f1": null
+      "macro_f1": 0.07955974842767295,
+      "accuracy": 0.14,
+      "macro_precision": 0.06076680672268908,
+      "macro_recall": 0.13999999999999999,
+      "challenge_macro_f1": 0.10549943883277217
     },
     "gemma_few_shot": {
       "experiment": "gemma_few_shot",
       "model": "google/gemma-3-1b-it",
       "dataset_version": "1.0.0",
       "seed": 42,
-      "macro_f1": null,
-      "accuracy": null,
-      "macro_precision": null,
-      "macro_recall": null,
-      "challenge_macro_f1": null
+      "macro_f1": 0.13651119643810122,
+      "accuracy": 0.2,
+      "macro_precision": 0.10952247453509019,
+      "macro_recall": 0.2,
+      "challenge_macro_f1": 0.17411531447026668
     },
     "gemma_qlora": {
       "experiment": "gemma_qlora",
       "model": "google/gemma-3-1b-it+qlora",
       "dataset_version": "1.0.0",
       "seed": 42,
-      "macro_f1": null,
-      "accuracy": null,
-      "macro_precision": null,
-      "macro_recall": null,
-      "challenge_macro_f1": null
+      "macro_f1": 0.0826655554183644,
+      "accuracy": 0.075,
+      "macro_precision": 0.18673469387755104,
+      "macro_recall": 0.07500000000000001,
+      "challenge_macro_f1": 0.13089133089133087
     }
   },
   "notes": "Public metrics are copied from results/*/metrics_*.json only. Null means the experiment has not been executed yet."

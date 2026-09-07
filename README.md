@@ -88,6 +88,19 @@ TF-IDF is weakest on **SUFFICIENT / IRRELEVANT / PARTIAL** compositional cues; *
 5. Held-out + challenge evaluation, slices, statistics, error analysis
 6. Data Card, Model Card, AI risk register
 
+## CRISP-DM mapping (GCLP GitHub structure)
+
+| CRISP-DM step | ControlSift |
+|---------------|-------------|
+| Business understanding | SDG 10 problem: unequal access to honest evidence review (`docs/capstone/`) |
+| Data understanding | `notebooks/01_dataset_exploration.ipynb`, Data Card, `data/raw/` note |
+| Data preparation | Generator → `data/processed/`; validators; protocol seal |
+| Modeling | `notebooks/02_traditional_baseline.ipynb` … `04_gemma_qlora_training.ipynb` |
+| Evaluation | `notebooks/05_final_evaluation.ipynb`, `06_error_analysis.ipynb`, Results / Failure Lab |
+| Deployment | Out of scope for v1 (research artifact + public site only) |
+
+Reflection: [`reflection/project_reflection.md`](reflection/project_reflection.md).
+
 ## Reproduction
 
 ```bash
@@ -112,8 +125,18 @@ ControlSift is **not** an automated auditor, compliance engine, or replacement f
 
 ## Repository structure
 
-See Section 46 of `ControlSift.md`. Package code lives under `src/controlsift/`.
+Aligned with GCLP Capstone GitHub guidance plus research layout:
+
+```text
+README.md · requirements.txt
+data/raw/ · data/processed/ · data/scenarios/
+notebooks/01_…–06_… · notebooks/kaggle_runner.ipynb
+reports/figures/ · reflection/project_reflection.md
+src/controlsift/ · scripts/ · governance/ · docs/ · docs/capstone/
+```
+
+See also Section 46 of `ControlSift.md`.
 
 ## Acknowledgements
 
-Independent research project. Mentor Me Collective / DeepMind curriculum context (if any) does not define the public identity of ControlSift.
+Independent applied research project developed in the Mentor Me Collective / DeepMind AI Research Foundations context. Official GCLP capstone SDG selection: **Goal 10**.

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#07100c" />
+  <title>Capstone Report (≤8 pages) — ControlSift</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+  <style>
+    @media print {
+      .site-header, .site-footer, .capstone-nav, .cta-row, .no-print { display: none !important; }
+      body { background: #fff; color: #111; }
+      a { color: #111; text-decoration: none; }
+      .section { border-color: #ccc; page-break-inside: avoid; }
+      .paper-title { font-size: 22pt; }
+    }
+    .report-page-hint { color: var(--muted); font-size: var(--text-sm); margin: 0.5rem 0 0; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="../index.html">ControlSift</a>
+      <ul class="nav-links" data-site-nav></ul>
+    </nav>
+  </header>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>Capstone project report</h2>
+        <p class="report-page-hint no-print">
+          GCLP limit: ≤8 pages. Print / Save as PDF from this page for form upload.
+          Authorship: human-directed residency research project (not an AI-generated submission).
+        </p>
+      </div>
+      <nav class="capstone-nav no-print" data-capstone-nav aria-label="Capstone"></nav>
+    </section>
+
+    <article class="paper">
+      <h1 class="paper-title">ControlSift: Reducing Inequality in Evidence Assurance with Small-Model Triage Research</h1>
+      <p class="paper-meta">
+        Mentor Me Collective · Google Cloud Launchpad · DeepMind AI Research Foundations Capstone<br />
+        Official UN SDG: <strong>Goal 10 — Reduced Inequalities</strong> · Dataset v1.1.0 · Protocol <code>protocol-v1-locked</code><br />
+        Solo project · Primary metric: macro F1 · Seed 42
+      </p>
+
+      <section class="h-block" id="r1">
+        <h2>1. Problem statement and objectives</h2>
+        <p>
+          Organizations with limited GRC budgets face unequal access to high-quality evidence review. Template binders and
+          policy PDFs are often treated as proof that controls operate. That false assurance harms smaller clinics, schools,
+          nonprofits, and community providers more than enterprises that can buy deep audits.
+        </p>
+        <p>
+          <strong>Objective:</strong> Determine whether QLoRA adaptation of Gemma&nbsp;3 1B Instruct improves five-class
+          evidence-quality classification (SUFFICIENT, PARTIAL, INSUFFICIENT, IRRELEVANT, CONTRADICTORY) on a sealed
+          synthetic benchmark—so triage methods can be published openly for under-resourced reviewers.
+        </p>
+        <p>
+          <strong>Scope:</strong> Research and education only. No production auditor. No private customer evidence.
+          Human judgment remains authoritative.
+        </p>
+      </section>
+
+      <section class="h-block" id="r2">
+        <h2>2. Research and analysis</h2>
+        <p>
+          Problem identification used public cybersecurity and assurance sources (industry breach reporting, CISA/NIST
+          guidance, public discourse on paper compliance). Modeling data is synthetic by design: 1,500 compositional
+          evidence packets, family-isolated splits (1000/200/200/100), rule-derived labels with structural audit and
+          scripted spot-check. An early draft allowed TF-IDF to saturate; dataset v1.1 was hardened so lexical shortcuts
+          no longer define the ceiling.
+        </p>
+        <p>
+          Classical results (sealed test): majority macro F1
+          <span data-metric="macro_f1" data-experiment="majority">pending</span>;
+          TF-IDF + logistic regression
+          <span data-metric="macro_f1" data-experiment="tfidf">pending</span>
+          (challenge <span data-metric="challenge_macro_f1" data-experiment="tfidf">pending</span>).
+          Gemma zero-shot
+          <span data-metric="macro_f1" data-experiment="gemma_zero_shot">pending</span>,
+          few-shot <span data-metric="macro_f1" data-experiment="gemma_few_shot">pending</span>,
+          QLoRA <span data-metric="macro_f1" data-experiment="gemma_qlora">pending</span>.
+          <span data-pending-until-gemma class="pending">
+            Gemma TEST metrics stay null until <code>after_kaggle</code> refreshes
+            <code>docs/data/results.json</code> — never invented.
+          </span>
+        </p>
+      </section>
+
+      <section class="h-block" id="r3">
+        <h2>3. Solution development</h2>
+        <p>
+          Solution ladder: majority → TF-IDF → Gemma zero-shot → few-shot → Gemma&nbsp;3 1B + QLoRA (4-bit NF4).
+          Evaluation protocol frozen before LLM claims. Public research site includes Failure Lab, Assurance (Data Card,
+          Model Card, Risk Register, Intended Use), and curriculum map against DeepMind AI Research Foundations.
+        </p>
+        <p>
+          Practicality: free-tier GPU packaging, smoke-then-full runs, open documentation. Sustainability: methods are
+          inspectable and reproducible without enterprise spend—aligned with SDG&nbsp;10 access goals.
+        </p>
+      </section>
+
+      <section class="h-block" id="r4">
+        <h2>4. Implementation plan</h2>
+        <p>
+          Phase 0 (complete): benchmark, seal, classical baselines, MMC hub. Phase 1–2: HF license + Kaggle smoke and
+          prompted Gemma baselines. Phase 3: QLoRA train/eval. Phase 4: error analysis. Phase 5: finalize PDF, 8-slide
+          deck, ≤5-minute video, form submission. Risks (access delay, OOM, overclaim, format miss) and mitigations are
+          listed on the implementation-plan page.
+        </p>
+      </section>
+
+      <section class="h-block" id="r5">
+        <h2>5. Outcomes to date</h2>
+        <ul class="findings-list">
+          <li>Sealed protocol and public classical receipts.</li>
+          <li>Meaningful lexical ceiling after dataset harden (~0.53 macro F1).</li>
+          <li>Failure Lab + Assurance pack for honest communication.</li>
+          <li data-pending-until-gemma>Open items: Gemma ladder TEST metrics; final video recording for form upload.</li>
+          <li data-ready-when-gemma hidden>Gemma ladder TEST metrics loaded from published result files; video recording still manual for form upload.</li>
+        </ul>
+      </section>
+
+      <section class="h-block" id="r6">
+        <h2>6. Recommendations</h2>
+        <p>
+          Proceed with free-GPU execution; publish only from result files; keep human-in-the-loop boundaries; treat
+          per-class weakness (especially SUFFICIENT) as first-class findings. Do not deploy as an audit autopilot.
+        </p>
+      </section>
+
+      <section class="h-block" id="r7">
+        <h2>7. Authorship attestation</h2>
+        <p>
+          This capstone is a human-directed applied research project. Assistive tools were used for drafting and
+          engineering support; problem selection, experimental design, protocol seal, dataset decisions, and integrity
+          rules are the author’s responsibility. It is not an AI-generated project submission.
+        </p>
+      </section>
+    </article>
+
+    <section class="section no-print">
+      <div class="cta-row">
+        <a class="btn btn-primary" href="slides.html">8-slide deck</a>
+        <a class="btn btn-secondary" href="video-script.html">5-minute video script</a>
+        <a class="btn btn-secondary" href="gclp-checklist.html">GCLP checklist</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Capstone · Report</span>
+      <a href="index.html">Capstone home</a>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js"></script>
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/capstone-nav.js"></script>
+</body>
+</html>

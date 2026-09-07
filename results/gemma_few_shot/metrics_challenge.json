@@ -1,0 +1,343 @@
+{
+  "experiment": "gemma_few_shot",
+  "dataset_version": "1.0.0",
+  "model": "google/gemma-3-1b-it",
+  "seed": 42,
+  "metrics": {
+    "accuracy": 0.23,
+    "macro_f1": 0.17411531447026668,
+    "macro_precision": 0.2167461579226285,
+    "macro_recall": 0.22999999999999998,
+    "weighted_f1": 0.1741153144702667,
+    "parse_success_rate": 1.0,
+    "per_class": {
+      "SUFFICIENT": {
+        "precision": 0.16216216216216217,
+        "recall": 0.3,
+        "f1": 0.21052631578947367,
+        "support": 20
+      },
+      "PARTIAL": {
+        "precision": 0.2549019607843137,
+        "recall": 0.65,
+        "f1": 0.36619718309859156,
+        "support": 20
+      },
+      "INSUFFICIENT": {
+        "precision": 0.3333333333333333,
+        "recall": 0.05,
+        "f1": 0.08695652173913043,
+        "support": 20
+      },
+      "IRRELEVANT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 20
+      },
+      "CONTRADICTORY": {
+        "precision": 0.3333333333333333,
+        "recall": 0.15,
+        "f1": 0.20689655172413793,
+        "support": 20
+      }
+    },
+    "confusion_matrix": [
+      [
+        6,
+        12,
+        0,
+        0,
+        2
+      ],
+      [
+        4,
+        13,
+        1,
+        0,
+        2
+      ],
+      [
+        13,
+        6,
+        1,
+        0,
+        0
+      ],
+      [
+        5,
+        12,
+        1,
+        0,
+        2
+      ],
+      [
+        9,
+        8,
+        0,
+        0,
+        3
+      ]
+    ],
+    "confusion_matrix_normalized": [
+      [
+        0.3,
+        0.6,
+        0.0,
+        0.0,
+        0.1
+      ],
+      [
+        0.2,
+        0.65,
+        0.05,
+        0.0,
+        0.1
+      ],
+      [
+        0.65,
+        0.3,
+        0.05,
+        0.0,
+        0.0
+      ],
+      [
+        0.25,
+        0.6,
+        0.05,
+        0.0,
+        0.1
+      ],
+      [
+        0.45,
+        0.4,
+        0.0,
+        0.0,
+        0.15
+      ]
+    ],
+    "labels": [
+      "SUFFICIENT",
+      "PARTIAL",
+      "INSUFFICIENT",
+      "IRRELEVANT",
+      "CONTRADICTORY"
+    ],
+    "n": 100
+  },
+  "slices": {
+    "control_domain": {
+      "account_lifecycle": {
+        "n": 15,
+        "macro_f1": 0.27,
+        "accuracy": 0.26666666666666666
+      },
+      "authentication": {
+        "n": 10,
+        "macro_f1": 0.08,
+        "accuracy": 0.2
+      },
+      "backup_and_recovery": {
+        "n": 10,
+        "macro_f1": 0.05714285714285714,
+        "accuracy": 0.1
+      },
+      "change_management": {
+        "n": 10,
+        "macro_f1": 0.05714285714285714,
+        "accuracy": 0.1
+      },
+      "endpoint_security": {
+        "n": 10,
+        "macro_f1": 0.26,
+        "accuracy": 0.4
+      },
+      "identity_and_access_management": {
+        "n": 5,
+        "macro_f1": 0.1,
+        "accuracy": 0.2
+      },
+      "logging_and_monitoring": {
+        "n": 10,
+        "macro_f1": 0.21428571428571427,
+        "accuracy": 0.3
+      },
+      "network_security": {
+        "n": 10,
+        "macro_f1": 0.08,
+        "accuracy": 0.2
+      },
+      "patch_management": {
+        "n": 15,
+        "macro_f1": 0.2038095238095238,
+        "accuracy": 0.26666666666666666
+      },
+      "privileged_access": {
+        "n": 5,
+        "macro_f1": 0.08,
+        "accuracy": 0.2
+      }
+    },
+    "evidence_type": {
+      "HRIS-to-IAM reconciliation report": {
+        "n": 15,
+        "macro_f1": 0.27,
+        "accuracy": 0.26666666666666666
+      },
+      "SIEM alert rule and incident sample": {
+        "n": 5,
+        "macro_f1": 0.1,
+        "accuracy": 0.2
+      },
+      "SIEM retention configuration export": {
+        "n": 5,
+        "macro_f1": 0.3333333333333333,
+        "accuracy": 0.4
+      },
+      "access review certification report": {
+        "n": 5,
+        "macro_f1": 0.1,
+        "accuracy": 0.2
+      },
+      "backup job and restore test report": {
+        "n": 10,
+        "macro_f1": 0.05714285714285714,
+        "accuracy": 0.1
+      },
+      "change ticket record": {
+        "n": 10,
+        "macro_f1": 0.05714285714285714,
+        "accuracy": 0.1
+      },
+      "endpoint management compliance report": {
+        "n": 10,
+        "macro_f1": 0.26,
+        "accuracy": 0.4
+      },
+      "firewall rule export": {
+        "n": 10,
+        "macro_f1": 0.08,
+        "accuracy": 0.2
+      },
+      "identity policy configuration export": {
+        "n": 10,
+        "macro_f1": 0.08,
+        "accuracy": 0.2
+      },
+      "patch compliance report": {
+        "n": 15,
+        "macro_f1": 0.2038095238095238,
+        "accuracy": 0.26666666666666666
+      },
+      "privileged session audit log": {
+        "n": 5,
+        "macro_f1": 0.08,
+        "accuracy": 0.2
+      }
+    },
+    "difficulty": {
+      "easy": {
+        "n": 9,
+        "macro_f1": 0.04,
+        "accuracy": 0.1111111111111111
+      },
+      "hard": {
+        "n": 62,
+        "macro_f1": 0.1413919413919414,
+        "accuracy": 0.1774193548387097
+      },
+      "medium": {
+        "n": 29,
+        "macro_f1": 0.18434782608695652,
+        "accuracy": 0.3793103448275862
+      }
+    },
+    "failure_tags": {
+      "(none)": {
+        "n": 20,
+        "macro_f1": 0.09230769230769231,
+        "accuracy": 0.3
+      },
+      "contradictory_configuration": {
+        "n": 3,
+        "macro_f1": 0.1,
+        "accuracy": 0.3333333333333333
+      },
+      "contradictory_configuration,control_failure": {
+        "n": 5,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "control_failure": {
+        "n": 2,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "control_failure,exception_unresolved": {
+        "n": 1,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "control_failure,incomplete_export": {
+        "n": 3,
+        "macro_f1": 0.1,
+        "accuracy": 0.3333333333333333
+      },
+      "control_failure,missing_approval": {
+        "n": 3,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "control_failure,source_conflict": {
+        "n": 3,
+        "macro_f1": 0.1,
+        "accuracy": 0.3333333333333333
+      },
+      "evidence_not_traceable,wrong_system": {
+        "n": 20,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "incomplete_export,population_gap": {
+        "n": 16,
+        "macro_f1": 0.15384615384615385,
+        "accuracy": 0.625
+      },
+      "incomplete_export,population_gap,wrong_period": {
+        "n": 4,
+        "macro_f1": 0.17142857142857143,
+        "accuracy": 0.75
+      },
+      "missing_execution_proof": {
+        "n": 1,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "missing_timestamp,stale_evidence,unverifiable_screenshot": {
+        "n": 1,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "missing_timestamp,unverifiable_screenshot": {
+        "n": 3,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "policy_only": {
+        "n": 5,
+        "macro_f1": 0.06666666666666667,
+        "accuracy": 0.2
+      },
+      "procedure_only": {
+        "n": 2,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      },
+      "self_attestation": {
+        "n": 8,
+        "macro_f1": 0.0,
+        "accuracy": 0.0
+      }
+    }
+  }
+}

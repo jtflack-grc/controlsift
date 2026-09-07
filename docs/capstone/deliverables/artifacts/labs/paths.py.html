@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>paths.py</title>
+  <link rel="stylesheet" href="../../../../assets/css/site.css" />
+  <style>
+    pre.source {
+      margin: 1rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>paths.py</h2>
+        <p><a href="paths.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p>
+      </div>
+      <pre class="source"><code>from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+MMC = ROOT / &quot;mmc&quot;
+OUT = MMC / &quot;deliverables&quot; / &quot;outputs&quot;
+CORPUS = MMC / &quot;labs&quot; / &quot;sample_corpus.txt&quot;
+DOCS_DELIV = ROOT / &quot;docs&quot; / &quot;capstone&quot; / &quot;deliverables&quot;
+
+
+def ensure_out() -&gt; Path:
+    OUT.mkdir(parents=True, exist_ok=True)
+    return OUT
+</code></pre>
+    </section>
+  </main>
+</body>
+</html>

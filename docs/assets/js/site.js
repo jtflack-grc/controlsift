@@ -1,6 +1,7 @@
 async function loadResults() {
+  const url = resolveResultsUrl();
   try {
-    const res = await fetch("data/results.json", { cache: "no-store" });
+    const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) throw new Error("missing results");
     return await res.json();
   } catch (err) {
@@ -9,10 +10,32 @@ async function loadResults() {
   }
 }
 
+function resolveResultsUrl() {
+  if (document.body && document.body.dataset.resultsUrl) {
+    return document.body.dataset.resultsUrl;
+  }
+  const meta = document.querySelector('meta[name="results-url"]');
+  if (meta && meta.content) return meta.content;
+  const script = document.querySelector('script[src*="assets/js/site.js"]');
+  if (script) {
+    const src = script.getAttribute("src") || "";
+    const base = src.replace(/assets\/js\/site\.js(\?.*)?$/, "");
+    return `${base}data/results.json`;
+  }
+  return "data/results.json";
+}
+
 function fmt(value) {
   if (value === null || value === undefined) return "pending";
   if (typeof value === "number") return value.toFixed(3);
   return String(value);
+}
+
+function gemmaTestReady(data) {
+  if (!data || !data.experiments) return false;
+  return ["gemma_zero_shot", "gemma_few_shot", "gemma_qlora"].every(
+    (key) => data.experiments[key] && data.experiments[key].macro_f1 != null
+  );
 }
 
 function fillMetrics(data) {
@@ -29,6 +52,17 @@ function fillMetrics(data) {
     }
     el.textContent = fmt(value);
     el.classList.toggle("pending", value === null || value === undefined);
+  });
+}
+
+function fillPendingUntilGemma(data) {
+  const ready = gemmaTestReady(data);
+  document.querySelectorAll("[data-pending-until-gemma]").forEach((el) => {
+    el.hidden = ready;
+    el.classList.toggle("pending", !ready);
+  });
+  document.querySelectorAll("[data-ready-when-gemma]").forEach((el) => {
+    el.hidden = !ready;
   });
 }
 
@@ -77,9 +111,21 @@ function fillMacroBars(data) {
   });
 }
 
+function fillHubGemmaStatus(data) {
+  const ready = gemmaTestReady(data);
+  document.querySelectorAll("[data-hub-gemma-status]").forEach((el) => {
+    const pendingLabel = el.getAttribute("data-pending-label") || "pending GPU";
+    const readyLabel = el.getAttribute("data-ready-label") || "meets";
+    el.textContent = ready ? readyLabel : pendingLabel;
+    el.classList.toggle("pending-gpu", !ready);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const data = await loadResults();
   fillMetrics(data);
+  fillPendingUntilGemma(data);
+  fillHubGemmaStatus(data);
   fillResultsTable(data);
   fillMacroBars(data);
   const status = document.querySelector("[data-results-status]");

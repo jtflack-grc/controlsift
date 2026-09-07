@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>gdm_lab_2_4_implement_a_bpe_tokenizer.ipynb</title>
+  <link rel="stylesheet" href="../../../../../assets/css/site.css" />
+  <style>
+    .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+    .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
+    pre.source {
+      margin: 0.5rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>gdm_lab_2_4_implement_a_bpe_tokenizer.ipynb</h2>
+        <p>
+          <a href="gdm_lab_2_4_implement_a_bpe_tokenizer.ipynb">Download .ipynb</a> ·
+          <a href="../../../index.html">Deliverables hub</a>
+        </p>
+        <p>Open in Jupyter from repo: <code>jupyter notebook mmc/notebooks/gdm_lab_2_4_implement_a_bpe_tokenizer.ipynb</code></p>
+      </div>
+      <article class="nb-cell nb-markdown"><h3>Cell 1 · markdown</h3><pre class="source"><code>&gt; &lt;p&gt;&lt;small&gt;&lt;small&gt;This Notebook is made available subject to the licence and terms set out in the &lt;a href = &quot;http://www.github.com/google-deepmind/ai-foundations&quot;&gt;AI Research Foundations Github README file&lt;/a&gt;.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 2 · markdown</h3><pre class="source"><code>![](https://storage.googleapis.com/dm-educational/assets/ai_foundations/GDM-Labs-banner-image-C2-white-bg.png)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 3 · markdown</h3><pre class="source"><code># Lab: Implement a BPE Tokenizer
+
+
+&lt;a href=&#x27;https://colab.research.google.com/github/google-deepmind/ai-foundations/blob/master/course_2/gdm_lab_2_4_implement_a_bpe_tokenizer.ipynb&#x27; target=&#x27;_parent&#x27;&gt;&lt;img src=&#x27;https://colab.research.google.com/assets/colab-badge.svg&#x27; alt=&#x27;Open In Colab&#x27;/&gt;&lt;/a&gt;
+
+Implement a subword tokenizer using the byte pair encoding (BPE) algorithm.
+
+25 minutes</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 4 · markdown</h3><pre class="source"><code>## Overview
+
+In this lab, you will implement the **byte pair encoding (BPE) algorithm** that was presented in the previous activity. This will provide you with a  more sophisticated tokenizer than the space tokenizer that you have been using in previous labs. This in return will allow you to train a better model using the Africa Galore dataset.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 5 · markdown</h3><pre class="source"><code>### What you will learn
+
+By the end of this lab, you will understand:
+
+* The input and output of the byte pair tokenization (BPE) algorithm.
+* The iterative steps involved in learning a tokenizer.
+* How to implement and run the full BPE algorithm over multiple merge steps.
+
+
+### Tasks
+
+In this lab, you will:
+
+* Write code to convert each word into a list of characters with `&lt;/w&gt;` appended.
+* Complete the function `get_pair_frequencies` to count adjacent symbol pairs.
+* Fill in logic in `merge_pair_in_word` to replace the most frequent pair.
+* Apply merges iteratively to update the corpus and vocabulary.
+* Implement the loop in `learn_bpe` to perform a fixed number of merge steps and inspect results.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 6 · markdown</h3><pre class="source"><code>## How to use Google Colaboratory (Colab)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 7 · markdown</h3><pre class="source"><code>Google Colaboratory (also known as Google Colab) is a platform that allows you to run Python code in your browser. The code is written in **cells** that are executed on a remote server.
+
+To run a cell, hover over the cell and click on the `run` button to its left. The run button is the circle with the triangle (▶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or ⌘+Return if you are using a Mac).
+
+To try this out, run the following cell. This should print today&#x27;s day of the week below it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 8 · code</h3><pre class="source"><code>from datetime import datetime
+
+print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 9 · markdown</h3><pre class="source"><code>Note that the *order in which you run the cells matters*. When you are working through a lab, make sure to always run *all* cells in order, otherwise the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime → Run before__  from the menu above (or use the keyboard combination Ctrl/⌘ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>## Imports</code></pre></article><article class="nb-cell nb-code"><h3>Cell 11 · code</h3><pre class="source"><code>from collections import Counter, defaultdict # For counting token pairs.
+import pandas as pd # For loading the dataset.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 12 · markdown</h3><pre class="source"><code>## Byte pair encoding (BPE)
+
+Recall from the previous article that the BPE algorithm consists of the following steps:
+
+1. **Initialization**: The entire dataset (a text corpus) is split into individual characters and the vocabulary is initialized with the set of unique characters. Spaces are replaced with a special end-of-word symbol (e.g., `&lt;/w&gt;`).
+2. **Counting**: For each adjacent pair of tokens, count how often each pair appears in your corpus.
+3. **Merging**: Choose the adjacent pair of tokens `(p, q)` that appears most frequently in the corpus and add a new merged token `pq` to the vocabulary.
+4. **Replacing**: Replace all adjacent pairs of tokens `(p, q)` with the new token `pq` in the corpus.
+5. **Repeating**: Repeat steps 2-4 until you reach the target vocabulary size.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 13 · markdown</h3><pre class="source"><code>### Coding Activity 1: Initialization
+
+You will use the Africa Galore dataset to perform one step of the BPE algorithm before running the algorithm for multiple iterations on a smaller corpus.
+
+Run the following cell to load the dataset.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 14 · code</h3><pre class="source"><code>africa_galore = pd.read_json(
+    &quot;https://storage.googleapis.com/dm-educational/assets/ai_foundations/africa_galore.json&quot;
+)
+dataset = africa_galore[&quot;description&quot;].values
+print(f&quot;Dataset contains {dataset.shape[0]:,} paragraphs.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 15 · markdown</h3><pre class="source"><code>The initialization step consists of three parts:
+1. Converting every space-separated word into a list of characters.
+2. Appending the special end-of-word symbol `&quot;&lt;/w&gt;&quot;` at the end of each word&#x27;s list of characters.
+3. Adding the set of unique characters to your vocabulary.
+
+&lt;br /&gt;
+
+-----
+&gt; **💻 Your task:**
+&gt;
+&gt; Complete the `bpe_initialize` function below such that `corpus` contains a list with each word in the dataset represented as a list of characters and the end-of-word symbol.
+&gt;
+&gt; Hint: You can turn a string `s` into a list of characters with the `list` function: `list(s)`.
+
+-----</code></pre></article><article class="nb-cell nb-code"><h3>Cell 16 · code</h3><pre class="source"><code>EOW_SYMBOL = &quot;&lt;/w&gt;&quot;
+
+def bpe_initialize(dataset: list[str]) -&gt; tuple[list[list[str]], set[str]]:
+    &quot;&quot;&quot;Implements the initialization step of the byte pair encoding algorithm.
+
+    Args:
+      dataset: The corpus consisting of a list of raw paragraphs.
+
+    Returns:
+      corpus: A list containing every word in the corpus represented as a list
+        of characters and the special end-of-word-symbol &quot;&lt;/w&gt;&quot;.
+      vocabulary: The set of unique tokens in the dataset that serves as the
+        vocabulary before the first merge.
+    &quot;&quot;&quot;
+
+    corpus = []
+    vocabulary = {EOW_SYMBOL}
+    for paragraph in dataset:
+        for word in paragraph.split(&quot; &quot;):
+            # Convert word into chars and add end-of-word symbol (&#x27;&lt;/w&gt;&#x27;).
+            chars =  # Add your code here.
+            corpus.append(chars)
+
+            # Append characters to the vocabulary. Since vocabulary is a set,
+            # it will ignore characters that have already been added.
+            vocabulary.update(chars)
+
+    return corpus, vocabulary
+
+corpus, vocabulary = bpe_initialize(dataset)
+
+# Print the first 10 &quot;words&quot; in the corpus.
+print(&quot;First 10 words: &quot;)
+for word in corpus[:10]:
+    print(f&quot;  {word}&quot;)
+
+print(&quot;\n\nVocabulary:&quot;)
+print(f&quot;  {vocabulary}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 17 · markdown</h3><pre class="source"><code>
+### Coding Activity 2: Counting adjacent token pairs
+
+The second step of the BPE algorithm is to count adjacent token pairs. For every word in the corpus, you have to extract every pair of tokens that appear next to each other and increase their count. For example, when encountering the word represented as `[&quot;r&quot;, &quot;i&quot;, &quot;c&quot;, &quot;e&quot;, &quot;&lt;/w&quot;&gt;]`, the counts of the following four pairs should be incremented by 1: `(r,i)`, `(i,c)`, `(c,e)`, `(e, &lt;/w&gt;)`.
+
+&lt;br /&gt;
+
+-------
+&gt; **💻 Your task:**
+&gt;
+&gt; Complete the `get_pair_frequencies` function below.
+&gt;
+&gt; This function should return a [Counter](https://docs.python.org/3/library/collections.html#collections.Counter) object whose keys are pairs of tokens and the value is the frequency of the pair in the corpus.
+&gt;
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 18 · code</h3><pre class="source"><code>def get_pair_frequencies(
+    corpus: list[list[str]]
+) -&gt; Counter[tuple[str, str], int]:
+    &quot;&quot;&quot;
+    Calculates the frequency of adjacent character pairs in a corpus.
+
+    Args:
+      corpus: A list of tokenized words, where each word is represented as a
+        list of subword tokens. Before the first merge these are all individual
+        characters.
+
+    Returns:
+      A Counter object mapping each adjacent character pair (a tuple) to its
+        frequency in the corpus.
+    &quot;&quot;&quot;
+    pairs = Counter()
+    for word in corpus:
+        # Loop through the position of every token but the last one.
+        for i in range(len(word) - 1):
+            # Create a tuple representing the adjacent pair consisting of the
+            # i-th and (i+1)-th token in `word`.
+            pair =  # Add your code here.
+            pairs[pair] += 1
+    return pairs
+
+
+pair_freqs = get_pair_frequencies(corpus)
+print(&quot;The 10 most common pair frequencies are:&quot;)
+for freq in pair_freqs.most_common(10):
+    print(f&quot; {freq}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 19 · markdown</h3><pre class="source"><code>The output shows the most frequent adjacent character pairs and their counts in the corpus. The pairs with `&lt;/w&gt;` indicate characters that frequently appear at the end of words. For example, `(&quot;e&quot;, &quot;&lt;/w&gt;&quot;)` is the most frequent pair, meaning that many words in the corpus end with the letter &quot;e&quot;. Other common pairs like `(&quot;i&quot;, &quot;n&quot;)`, `(&quot;a&quot;, &quot;n&quot;)`, and `(&quot;t&quot;, &quot;h&quot;)` represent frequent character combinations within words. This information is used in the next step of the BPE algorithm to merge the most frequent pairs into new subword tokens.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 20 · markdown</h3><pre class="source"><code>### Coding Activity 3: Merge the most frequent pair
+
+The third step of the BPE algorithm is to identify the most frequent pair of adjacent tokens and to merge them into a new subword token.
+
+Run the following cell to identify the most frequent token pair and add it to the vocabulary.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 21 · code</h3><pre class="source"><code>most_freq_pair, freq = pair_freqs.most_common(1)[0]
+print(
+    f&quot;The most frequent pair is {most_freq_pair} with a frequency of {freq:,}.&quot;
+)
+
+new_token = most_freq_pair[0] + most_freq_pair[1]
+vocabulary.add(new_token)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 22 · markdown</h3><pre class="source"><code>------
+&gt; **💻 Your task:**
+&gt;
+&gt; Complete the `merge_pair_in_word` function below.
+&gt;
+&gt; This function should replace all instances of `pair_to_merge`
+&gt; in `word` with a new subword token that consists of the two
+&gt; tokens in `pair_to_merge`.
+------</code></pre></article><article class="nb-cell nb-code"><h3>Cell 23 · code</h3><pre class="source"><code>def merge_pair_in_word(
+    word: list[str], pair_to_merge: tuple[str, str]
+) -&gt; list[str]:
+    &quot;&quot;&quot;Merges adjacent occurrences of a specified pair of characters in a word.
+
+    Given a word represented as a list of subword tokens and a pair of tokens to
+    merge (represented as a tuple), this function returns a new list where every
+    instance of the specified pair appearing adjacently in the original word is
+    replaced by a single string representing the merged pair.
+
+    Args:
+      tokens: A list of subword tokens representing one space separated word.
+      pair_to_merge: A pair of two subword tokens that should be merged into one
+        subword token.
+
+    Returns:
+      New list of subword tokens representing the word after applying the merge.
+    &quot;&quot;&quot;
+    merged_symbol = pair_to_merge[0] + pair_to_merge[1]
+    i = 0
+    new_word = []
+    while i &lt; len(word):
+        # If this position and the next match the pair, merge them.
+        if i &lt; len(word) - 1 and # Add your code here.
+            new_word.append(merged_symbol)
+            i += 2
+        else:
+            new_word.append(word[i])
+            i += 1
+    return new_word
+
+print(f&quot;Before merging: {&#x27; &#x27;.join(corpus[0])}&quot;)
+new_word = merge_pair_in_word(corpus[0], most_freq_pair)
+print(f&quot;After merging:  {&#x27; &#x27;.join(new_word)}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 24 · markdown</h3><pre class="source"><code>### Replace tokens in corpus
+
+Once the new token has been added to the vocabulary, you can use the `merge_pair_in_word` function that you implemented above to replace every occurrence of the most frequent pair with the new merged subword token. This is the fourth step of the BPE algorithm.
+
+Run the following cell to perform the merges in the corpus.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 25 · code</h3><pre class="source"><code>new_corpus = []
+for word in corpus:
+    new_word = merge_pair_in_word(word, most_freq_pair)
+    new_corpus.append(new_word)
+
+# Each iteration of BPE results in a new corpus with merged pairs.
+print(
+    &quot;The first 10 \&quot;words\&quot; in the corpus, with \&quot;e&lt;/w&gt;\&quot; being a single token&quot;
+    &quot; now:&quot;
+)
+for word in new_corpus[:10]:
+    print(f&quot;  {word}&quot;)
+
+print(&quot;\n\nVocabulary:&quot;)
+print(f&quot;  {vocabulary}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 26 · markdown</h3><pre class="source"><code>Note how both instances of the word &quot;the&quot; are now split into three subword tokens because the final &quot;e&quot; has been merged with the end-of-word token.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 27 · markdown</h3><pre class="source"><code>### Repeat
+
+The steps 2, 3, and 4 can now be repeated for either a fixed number of steps or until you reach a target vocabulary size.
+
+On each iteration, exactly one pair of tokens is merged resulting in one more subword token in the vocabulary.
+
+The function below implements the complete BPE algorithm that runs for a fixed number of `num_merges`.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 28 · code</h3><pre class="source"><code>def learn_bpe(
+    dataset: list[str], num_merges: int
+) -&gt; tuple[list[tuple[str, str]], list[list[str]]]:
+    &quot;&quot;&quot;
+    Learns byte pair encoding (BPE) merge operations from a dataset.
+
+    This function implements the basic BPE algorithm, iteratively merging the
+    most frequent adjacent character pairs in a corpus to create subword units.
+    It continues merging until the specified number of merges is reached or all
+    words are represented by a single token.
+
+    Args:
+      dataset: A list of paragraphs, where each sentence is a string.
+      num_merges: The desired number of BPE merge operations to perform.
+
+    Returns:
+      merges: A list of tuples, where each tuple represents a merged pair of
+        tokens. (e.g., [(&#x27;a&#x27;, &#x27;b&#x27;), (&#x27;ab&#x27;, &#x27;c&#x27;)]).  The order of tuples reflects
+        the order in which merges were performed.
+      vocabulary: The final vocabulary of all subword tokens.
+      corpus: The final corpus after BPE is applied.  Each sentence is
+        represented as a list of words, and each word is represented as a list
+        of subword tokens.
+    &quot;&quot;&quot;
+    # Step 1: Initialize corpus as list of lists of characters + &lt;/w&gt;.
+    corpus, vocabulary = bpe_initialize(dataset)
+
+    merges = []
+    for _ in range(num_merges):
+        # Step 2: Count all adjacent-pair frequencies.
+        pair_freqs = get_pair_frequencies(corpus)
+        if not pair_freqs:
+            break
+
+        # Step 3: Pick the most frequent pair.
+        most_freq_pair, freq = pair_freqs.most_common(1)[0]
+        if freq &lt; 1:
+            break  # No more pairs to merge.
+        merges.append(most_freq_pair)
+        new_token = most_freq_pair[0] + most_freq_pair[1]
+        vocabulary.add(new_token)
+
+        # Step 4: Merge that pair in every word of the corpus.
+        new_corpus = []
+        for word in corpus:
+            new_word = merge_pair_in_word(word, most_freq_pair)
+            new_corpus.append(new_word)
+        corpus = new_corpus
+
+    # Return the list of merges, the vocabulary, and the final tokenized corpus.
+    return merges, vocabulary, corpus</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 29 · markdown</h3><pre class="source"><code>### Run BPE on a small corpus</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 30 · markdown</h3><pre class="source"><code>Run the following cell to apply your BPE algorithm to a small collection of words.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 31 · code</h3><pre class="source"><code>sample_text = [
+        &quot;desert&quot;,
+        &quot;deserted&quot;,
+        &quot;deserts&quot;,
+        &quot;desert&quot;,
+        &quot;tested&quot;,
+        &quot;test&quot;,
+        &quot;deserted&quot;,
+        &quot;desert&quot;,
+        &quot;desertion&quot;,
+        &quot;desertion&quot;,
+        &quot;function&quot;,
+]
+# Learn BPE tokenizer with 10 merge operations.
+merges, vocabulary, tokenized_corpus = learn_bpe(sample_text, num_merges=10)
+
+print(&quot;Learned merges (in order):&quot;)
+for i, pair in enumerate(merges, start=1):
+    print(f&quot; {i}. Merge {pair[0]!r} + {pair[1]!r}  →  {pair[0]+pair[1]!r}&quot;)
+
+print(&quot;\nFinal tokenized corpus:&quot;)
+for orig, tokenized in zip(sample_text, tokenized_corpus):
+    print(f&quot;  {orig:8s} → {&#x27; &#x27;.join(tokenized)}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 32 · markdown</h3><pre class="source"><code>You have now successfully trained your own BPE tokenizer on a small corpus. In later labs, you will incorporate this algorithm into a class which can tokenize any given text.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 33 · markdown</h3><pre class="source"><code>## Summary
+
+In this lab, you implemented the **byte pair encoding (BPE) algorithm**, a cornerstone of modern text tokenization. Through this implementation, you have observed how BPE iteratively **merges** frequent character pairs to create **subword tokens**. This process is crucial for handling the vast and dynamic nature of human language. It is especially important in the context of **large vocabulary sizes** and the need to represent **out-of-vocabulary tokens**. Understanding BPE and other subword tokenization techniques is critical for anyone working with language models. It directly impacts model performance, efficiency, and the ability to handle diverse text data.
+
+In the next module of this course, you will explore how language models encode meaning in a high-dimensional vector space.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 34 · markdown</h3><pre class="source"><code>## Solutions
+
+The following cells provide reference solutions to the coding activities in this notebook. If you really get stuck after trying to solve the activities yourself, you may want to consult these solutions.
+
+It is recommended that you *only* look at the solutions after you have tried to solve the activities *multiple times*. The best way to learn challenging concepts in computer science and artificial intelligence is to debug your code piece-by-piece until it works, rather than copying existing solutions.
+
+If you feel stuck, you may want to first try to debug your code. For example, by adding additional print statements to see what your code is doing at every step. This will provide you with a much deeper understanding of the code and the materials. It will also provide you with practice on how to solve challenging coding problems beyond this course.
+
+To view the solutions for an activity, click on the arrow to the left of the activity name. If you consult the solutions, do not copy and paste them into the cells above. Instead, look at them, and type them manually into the cell. This will help you understand where you went wrong.
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 35 · markdown</h3><pre class="source"><code>### Coding Activity 1</code></pre></article><article class="nb-cell nb-code"><h3>Cell 36 · code</h3><pre class="source"><code># Complete implementation of the bpe_initialize function.
+def bpe_initialize(dataset: list[str]) -&gt; tuple[list[list[str]], set[str]]:
+    &quot;&quot;&quot;Implements the initialization step of the byte pair encoding algorithm.
+
+    Args:
+      dataset: The corpus consisting of a list of raw paragraphs.
+
+    Returns:
+      corpus: A list containing every word in the corpus represented as a list
+        of characters and the special end-of-word-symbol &quot;&lt;/w&gt;&quot;.
+      vocabulary: The set of unique tokens in the dataset that serves as the
+        vocabulary before the first merge.
+    &quot;&quot;&quot;
+
+    corpus = []
+    vocabulary = {EOW_SYMBOL}
+    for paragraph in dataset:
+        for word in paragraph.split(&quot; &quot;):
+            # Convert word into chars and add end-of-word symbol (&#x27;&lt;/w&gt;&#x27;).
+            chars = list(word) + [EOW_SYMBOL]
+            corpus.append(chars)
+            # Add all characters to the vocabulary. Since vocabulary is a set,
+            # it will ignore characters that have already been added.
+            vocabulary.update(chars)
+
+    return corpus, vocabulary</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 37 · markdown</h3><pre class="source"><code>### Coding Activity 2</code></pre></article><article class="nb-cell nb-code"><h3>Cell 38 · code</h3><pre class="source"><code># Complete implementation of the get_pair_frequencies function.
+def get_pair_frequencies(
+    corpus: list[list[str]]
+) -&gt; Counter[tuple[str, str], int]:
+    &quot;&quot;&quot;Calculates the frequency of adjacent character pairs in a corpus.
+
+    Args:
+      corpus: A list of tokenized words, where each word is represented as a
+        list of subword tokens. Before the first merge these are all individual
+        characters.
+
+    Returns:
+      A Counter object mapping each adjacent character pair (a tuple) to its
+        frequency in the corpus.
+    &quot;&quot;&quot;
+    pairs = Counter()
+    for word in corpus:
+        # Loop through the position of every token but the last one.
+        for i in range(len(word) - 1):
+            # Create a tuple representing the adjacent pair consisting of the
+            # i-th and (i+1)-th token in `word`.
+            pair = (word[i], word[i+1])
+            pairs[pair] += 1
+    return pairs
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 39 · markdown</h3><pre class="source"><code>### Coding Activity 3</code></pre></article><article class="nb-cell nb-code"><h3>Cell 40 · code</h3><pre class="source"><code># Complete implementation of the merge_pair_in_word function.
+def merge_pair_in_word(word: list[str], pair_to_merge: tuple[str, str]) -&gt; list[str]:
+    &quot;&quot;&quot;Merges adjacent occurrences of a specified pair of characters in a word.
+
+    Given a word represented as a list of subword tokens and a pair of tokens to
+    merge (represented as a tuple), this function returns a new list where every
+    instance of the specified pair appearing adjacently in the original word is
+    replaced by a single string representing the merged pair.
+
+    Args:
+      tokens: A list of subword tokens representing one space separated word.
+      pair_to_merge: A pair of two subword tokens that should be merged into one
+        subword token.
+
+    Returns:
+      New list of subword tokens representing the word after applying the merge.
+
+    &quot;&quot;&quot;
+    merged_symbol = pair_to_merge[0] + pair_to_merge[1]
+    i = 0
+    new_word = []
+    while i &lt; len(word):
+        # If this position and the next match the pair, merge them.
+        if i &lt; len(word) - 1 and (word[i], word[i + 1]) == pair_to_merge:
+            new_word.append(merged_symbol)
+            i += 2
+        else:
+            new_word.append(word[i])
+            i += 1
+    return new_word</code></pre></article>
+    </section>
+  </main>
+</body>
+</html>

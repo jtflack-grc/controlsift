@@ -16,6 +16,7 @@ venv/
 
 # Jupyter
 .ipynb_checkpoints/
+mmc/notebooks/*.executed.ipynb
 
 # IDE / OS
 .idea/

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>week09_accelerate.ipynb</title>
+  <link rel="stylesheet" href="../../../../assets/css/site.css" />
+  <style>
+    .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+    .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
+    pre.source {
+      margin: 0.5rem 0 0;
+      padding: 1rem;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section" style="border-top:0;padding-top:1rem;">
+      <div class="page-intro">
+        <h2>week09_accelerate.ipynb</h2>
+        <p>
+          <a href="week09_accelerate.ipynb">Download .ipynb</a> ·
+          <a href="../../index.html">Deliverables hub</a>
+        </p>
+        <p>Open in Jupyter from repo: <code>jupyter notebook mmc/notebooks/week09_accelerate.ipynb</code></p>
+      </div>
+      <article class="nb-cell nb-markdown"><h3>Cell 1 · markdown</h3><pre class="source"><code># Week 9 — Accelerate / GPU memory notes
+
+**MMC / DeepMind track** — show-work notebook.
+
+### How to run
+
+- **Local (Anaconda):** from repo root  
+  `conda activate controlsift-mmc` then `powershell -File scripts/start_mmc_jupyter.ps1`  
+  or open this file in JupyterLab and use kernel **Python (controlsift-mmc)**.
+- **GitHub Pages cannot execute notebooks** (static hosting only). After the repo is on GitHub, use **Open in Colab** / Binder links on the deliverables hub, or clone and run locally.
+
+## Official DeepMind labs (checkbox)
+
+- `vendor/ai-foundations/course_7/gdm_lab_7_4_estimate_gpu_memory.ipynb`
+- `vendor/ai-foundations/course_7/gdm_lab_7_5_fine_tune_a_model_with_bfloat16.ipynb`
+- `vendor/ai-foundations/course_7/gdm_lab_7_6_apply_gradient_accumulation.ipynb`
+
+Full map: `mmc/GDM_LAB_MAP.md`. Upstream clone: `vendor/ai-foundations/`.
+
+## ControlSift exceed path
+
+Run the cells below to regenerate **this repo&#x27;s** graded artifacts under `mmc/deliverables/outputs/`.
+Do not invent Gemma metrics; leave GPU rows null until a real HF/Kaggle run.
+</code></pre></article><article class="nb-cell nb-code"><h3>Cell 2 · code</h3><pre class="source"><code>from pathlib import Path
+import os
+import sys
+
+# Resolve repo root whether Jupyter cwd is repo root or mmc/notebooks/
+here = Path.cwd().resolve()
+root = None
+for candidate in [here, *here.parents]:
+    if (candidate / &quot;mmc&quot; / &quot;labs&quot;).is_dir() and (candidate / &quot;mmc&quot; / &quot;notebooks&quot;).is_dir():
+        root = candidate
+        break
+if root is None:
+    raise RuntimeError(&quot;Could not find ControlSift repo root (expected mmc/labs/). Open Jupyter from the repo.&quot;)
+os.chdir(root)
+if str(root) not in sys.path:
+    sys.path.insert(0, str(root))
+print(&quot;cwd:&quot;, Path.cwd())
+print(&quot;python:&quot;, sys.executable)
+</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 3 · markdown</h3><pre class="source"><code>Course 7 labs are the official accelerate checkbox. ControlSift packaging: `notebooks/KAGGLE_SAFE_RUN.md` + `notebooks/kaggle_runner.ipynb`. Open the GDM notebooks under `vendor/ai-foundations/course_7/` in Jupyter/Colab, then fill memory numbers into `mmc/deliverables/week09_accelerate.md` after a real GPU run.
+</code></pre></article>
+    </section>
+  </main>
+</body>
+</html>
