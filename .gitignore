@@ -68,3 +68,9 @@ results/gemma_qlora/adapter/
 **/adapter_model*.safetensors
 **/adapter_model*.bin
 **/adapter/
+
+# Capstone / form uploads — never commit large recordings
+*.mp4
+*.webm
+*.mov
+

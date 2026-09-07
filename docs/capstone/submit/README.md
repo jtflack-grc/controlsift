@@ -18,12 +18,23 @@ Use these exact artifacts when filling the form:
 | ≤5-min video | `ControlSift_Capstone_Video.mp4` | **Missing — record next** |
 | Video script (read-aloud) | [../video-script.html](../video-script.html) | Metrics filled; ≤5:00 |
 
-### Video recording (remaining)
+### Video recording (remaining) — one-click open
 
-1. Open [slides.html](../slides.html) full-screen (or the slides PDF above).
-2. Read [video-script.html](../video-script.html) aloud — speak the published TEST macro F1 values already in the script.
-3. Export `ControlSift_Capstone_Video.mp4` (≤5:00). Keep it **out of git**; upload to the form only.
-4. Confirm spoken numbers match on-screen slides and `docs/data/results.json`.
+**NOT FOUND on disk yet** (searched Downloads / Desktop / Videos / Documents / sifter for `ControlSift*Video*.mp4` and `*capstone*video*.mp4`). Record next:
+
+1. **One-click open** (from this folder):
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File .\open-record-pack.ps1
+   ```
+   That opens:
+   - Slides (record mode): https://jtflack-grc.github.io/controlsift/capstone/slides.html?record=1
+   - Script: https://jtflack-grc.github.io/controlsift/capstone/video-script.html
+2. Press **Win+G** → Capture → Start recording (Xbox Game Bar). Put slides **F11** full-screen.
+3. Read the script aloud — speak the published TEST macro F1 values already in the script.
+4. Export / save as `%USERPROFILE%\Videos\ControlSift_Capstone_Video.mp4` (≤5:00). Keep it **out of git**; upload to the form only.
+5. Confirm spoken numbers match on-screen slides and `docs/data/results.json`.
+
+Offline fallbacks: [slides.html](../slides.html)?record=1 and [video-script.html](../video-script.html) (or the slides PDF above).
 
 ## PDF exports in this folder
 

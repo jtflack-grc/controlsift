@@ -28,8 +28,36 @@
     .slide ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
     .slide li { margin: 0.35rem 0; }
     .slide .big { font-size: 1.1rem; color: var(--fg); margin: 0; max-width: 40rem; }
+    /* Speech / Game Bar: first viewport is Slide 01 only (no chrome). */
+    body.record-mode .site-header,
+    body.record-mode .site-footer,
+    body.record-mode .capstone-nav,
+    body.record-mode .page-intro,
+    body.record-mode .cta-row,
+    body.record-mode .record-banner { display: none !important; }
+    body.record-mode main > .section { padding: 0 !important; border: 0 !important; }
+    body.record-mode .deck { gap: 0; margin: 0; }
+    body.record-mode .slide {
+      min-height: 100vh;
+      box-sizing: border-box;
+      border: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8vh 8vw;
+    }
+    body.record-mode .slide h3 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+    body.record-mode .slide .big { font-size: clamp(1.15rem, 2.4vw, 1.55rem); max-width: 48rem; }
+    body.record-mode .slide ul { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--fg); }
+    .record-banner {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;
+      margin: 0.75rem 0 0; padding: 0.75rem 1rem;
+      border: 1px solid var(--line); background: var(--panel);
+      font-size: var(--text-sm); color: var(--muted);
+    }
+    .record-banner a { color: var(--accent); }
     @media print {
-      .site-header, .site-footer, .capstone-nav, .page-intro p, .cta-row { display: none !important; }
+      .site-header, .site-footer, .capstone-nav, .page-intro p, .cta-row, .record-banner { display: none !important; }
       .slide { break-after: page; min-height: 90vh; border: 0; }
     }
   </style>
@@ -48,9 +76,17 @@
         <p>Exactly eight slides for GCLP submission (print to PDF if needed). Pair with the ≤5-minute video script.</p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
+      <div class="record-banner" role="note">
+        <strong style="color:var(--fg);">Record mode:</strong>
+        <a href="?record=1">Hide chrome — Slide 01 fills the first viewport</a>
+        · then <kbd>F11</kbd> + <kbd>Win+G</kbd> · script:
+        <a href="video-script.html">video-script.html</a>
+        · one-click:
+        <a href="submit/open-record-pack.ps1">submit/open-record-pack.ps1</a>
+      </div>
 
       <div class="deck">
-        <article class="slide">
+        <article class="slide" id="slide-01">
           <p class="slide-num">Slide 01 / 08</p>
           <h3>ControlSift</h3>
           <p class="big">Can a small language model help under-resourced teams tell proof from paperwork?</p>
@@ -150,5 +186,16 @@
   <script src="../assets/js/site.js"></script>
   <script src="../assets/js/nav.js"></script>
   <script src="../assets/js/capstone-nav.js"></script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('record') === '1') {
+        document.body.classList.add('record-mode');
+        document.title = 'ControlSift — Slide 01 (record)';
+        var first = document.getElementById('slide-01');
+        if (first) first.scrollIntoView({ block: 'start' });
+      }
+    })();
+  </script>
 </body>
 </html>
