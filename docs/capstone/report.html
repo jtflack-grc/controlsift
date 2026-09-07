@@ -84,8 +84,7 @@
           few-shot <span data-metric="macro_f1" data-experiment="gemma_few_shot">pending</span>,
           QLoRA <span data-metric="macro_f1" data-experiment="gemma_qlora">pending</span>.
           <span data-pending-until-gemma class="pending">
-            Gemma TEST metrics stay null until <code>after_kaggle</code> refreshes
-            <code>docs/data/results.json</code> — never invented.
+            Gemma TEST metrics publish from <code>docs/data/results.json</code> only — never invented.
           </span>
         </p>
       </section>
@@ -106,10 +105,9 @@
       <section class="h-block" id="r4">
         <h2>4. Implementation plan</h2>
         <p>
-          Phase 0 (complete): benchmark, seal, classical baselines, MMC hub. Phase 1–2: HF license + Kaggle smoke and
-          prompted Gemma baselines. Phase 3: QLoRA train/eval. Phase 4: error analysis. Phase 5: finalize PDF, 8-slide
-          deck, ≤5-minute video, form submission. Risks (access delay, OOM, overclaim, format miss) and mitigations are
-          listed on the implementation-plan page.
+          Phase 0–3 (complete): benchmark, seal, classical baselines, MMC hub, Gemma prompted baselines and QLoRA
+          evaluation. Phase 4–5: error analysis published; finalize PDF, 8-slide deck, ≤5-minute video, form submission.
+          Risks and mitigations are listed on the implementation-plan page.
         </p>
       </section>
 
@@ -127,8 +125,8 @@
       <section class="h-block" id="r6">
         <h2>6. Recommendations</h2>
         <p>
-          Proceed with free-GPU execution; publish only from result files; keep human-in-the-loop boundaries; treat
-          per-class weakness (especially SUFFICIENT) as first-class findings. Do not deploy as an audit autopilot.
+          Publish only from result files; keep human-in-the-loop boundaries; treat per-class weakness
+          (especially SUFFICIENT) as first-class findings. Do not deploy as an audit autopilot.
         </p>
       </section>
 

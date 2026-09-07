@@ -35,12 +35,8 @@
         <li><strong>≤5-minute video</strong> — <a href="video-script.html">script ready</a> (recording still required)</li>
         <li><strong>Official SDG</strong> — <a href="un-sdg.html">Goal 10</a></li>
         <li><strong>Implementation plan</strong> — <a href="implementation-plan.html">phases + risks</a></li>
-        <li><strong>Critical path</strong> — <a href="next-steps.html">ordered remaining work</a></li>
+        <li><strong>Status</strong> — <a href="next-steps.html">published · remaining: video</a></li>
       </ul>
-      <p style="color:var(--muted);font-size:var(--text-sm);">
-        Regenerate PDFs: <code>powershell -File scripts/export_submit_pdfs.ps1</code> (docs server must be on :5500).
-        Re-export after Gemma metrics land so the report numbers match Results.
-      </p>
     </section>
 
     <section class="section">
@@ -64,7 +60,7 @@
         <tbody>
           <tr><td>Dataset manifest &amp; seal hashes</td><td><code>data/manifests/</code> · <code>governance/PROTOCOL_SEAL.json</code></td><td>complete</td></tr>
           <tr><td>Classical metrics</td><td><code>results/majority/</code> · <code>results/tfidf/</code> · <code>docs/data/results.json</code></td><td>complete</td></tr>
-          <tr><td>Gemma / QLoRA metrics</td><td><code>results/gemma_*</code></td><td>pending GPU</td></tr>
+          <tr><td>Gemma / QLoRA metrics</td><td><code>results/gemma_*</code> · <a href="../results.html">Results</a></td><td>published</td></tr>
           <tr><td>Failure Lab</td><td><code>docs/data/failure_lab.json</code></td><td>complete (classical)</td></tr>
           <tr><td>Figures</td><td><code>reports/figures/</code></td><td>complete</td></tr>
           <tr><td>Label audit</td><td><code>data/review_log.csv</code> · audit reports</td><td>complete</td></tr>

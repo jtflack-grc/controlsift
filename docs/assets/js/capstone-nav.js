@@ -2,8 +2,7 @@
 (function () {
   const links = [
     { href: "index.html", label: "Hub" },
-    { href: "next-steps.html", label: "Critical Path" },
-    { href: "kaggle-checklist.html", label: "Kaggle Checklist" },
+    { href: "next-steps.html", label: "Status" },
     { href: "deliverables/index.html", label: "Weekly Labs" },
     { href: "paper.html", label: "Research Paper" },
     { href: "gclp-checklist.html", label: "GCLP Checklist" },
@@ -14,6 +13,7 @@
     { href: "implementation-plan.html", label: "Implementation" },
     { href: "report.html", label: "Report" },
     { href: "slides.html", label: "Slides" },
+    { href: "video-script.html", label: "Video Script" },
     { href: "responsible-innovation.html", label: "Responsible AI" },
     { href: "reflection.html", label: "Reflection" },
     { href: "submission.html", label: "Submission" },
