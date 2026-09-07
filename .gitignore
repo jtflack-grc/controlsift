@@ -56,6 +56,10 @@ coverage.xml
 tmp/
 temp/
 *.tmp
+Untitled.ipynb
+scripts/_patch_*.py
+scripts/_tmp_*.py
+scripts/_torchao_*.py
 
 # Packaging / GPU exports
 dist/
@@ -63,3 +67,4 @@ controlsift_gpu_outputs.zip
 results/gemma_qlora/adapter/
 **/adapter_model*.safetensors
 **/adapter_model*.bin
+**/adapter/

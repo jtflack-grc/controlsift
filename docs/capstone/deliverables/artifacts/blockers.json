@@ -1,83 +1,30 @@
 {
-  "updated": "2026-09-06T21:32:00-04:00",
-  "goal": "Close ControlSift MMC remaining gaps",
-  "hard_block": "Pages LIVE (HTTP 200). Remaining manual: record ≤5-min video (submit_pack).",
-  "status": "PAGES_LIVE",
+  "updated": "2026-09-06T21:35:00-04:00",
+  "status": "metrics_published",
   "site": "https://jtflack-grc.github.io/controlsift/",
-  "publish": {
-    "metrics_commit": "06c8b9dd2ebaae8b642e12dedcd41265c5f550ae",
-    "metrics_commit_short": "06c8b9d",
-    "tip_commit": "34f1d80efcc7bc409027e0c7532697099b04add8",
-    "tip_commit_short": "34f1d80",
-    "origin_main": "34f1d80efcc7bc409027e0c7532697099b04add8",
-    "pushed": true,
-    "pages_enabled": true,
-    "pages_build_type": "workflow",
-    "pages_url": "https://jtflack-grc.github.io/controlsift/",
-    "pages_http": 200,
-    "pages_title": "ControlSift - proof from paperwork",
-    "pages_workflow_run": "https://github.com/jtflack-grc/controlsift/actions/runs/34073090255",
-    "pages_workflow_conclusion": "success"
+  "primary_metric": "macro_f1",
+  "test_macro_f1": {
+    "majority": 0.06666666666666667,
+    "tfidf": 0.5327056707870661,
+    "gemma_zero_shot": 0.07955974842767295,
+    "gemma_few_shot": 0.13651119643810122,
+    "gemma_qlora": 0.0826655554183644
   },
-  "full_metrics": {
-    "source": "results/gemma_*/metrics_test.json",
-    "n_test": 200,
-    "macro_f1_test": {
-      "majority": 0.06666666666666667,
-      "tfidf": 0.5327056707870661,
-      "gemma_zero_shot": 0.07955974842767295,
-      "gemma_few_shot": 0.13651119643810122,
-      "gemma_qlora": 0.0826655554183644
-    },
-    "honest_summary": "TF-IDF leads (~0.533). Best Gemma ladder = few-shot (~0.137). QLoRA ~0.083 with fragile parse_success 0.435."
-  },
-  "todos": [
+  "honest_summary": "TF-IDF leads on the sealed test set (~0.533). Best Gemma 3 1B ladder score is few-shot (~0.137). QLoRA (~0.083) has fragile label-parse success (~0.435). Numbers from results/*/metrics_test.json only.",
+  "public_mirror": "docs/data/results.json",
+  "remaining": [
     {
-      "id": "smoke_full",
-      "status": "complete",
-      "note": "Smoke zip superseded; full-run zip ingested."
-    },
-    {
-      "id": "after_kaggle",
-      "status": "complete",
-      "note": "Full zip ingested; docs/results.json + figures + week pages rebuilt."
-    },
-    {
-      "id": "gemma_metrics",
-      "status": "complete",
-      "note": "Non-null validation + TEST + challenge macro_f1 for zero/few/qlora in 06c8b9d."
-    },
-    {
-      "id": "video_script_metrics",
-      "status": "complete",
-      "note": "video-script.html filled with real TEST numbers."
-    },
-    {
-      "id": "submit_pdfs",
-      "status": "complete",
-      "note": "Report + Slides PDFs in docs/capstone/submit/."
-    },
-    {
-      "id": "pages_publish",
-      "status": "complete",
-      "note": "origin/main has metrics commit 06c8b9d; Pages enabled (workflow); deploy 34073090255 success; site HTTP 200."
-    },
-    {
-      "id": "submit_pack",
+      "id": "video",
       "status": "pending",
-      "needs": "Record ≤5-min video using docs/capstone/video-script.html; upload via GCLP form with PDFs (do not commit the video)."
+      "note": "Record ≤5-minute presentation using docs/capstone/video-script.html; upload via GCLP form only (do not commit the video)."
     }
   ],
-  "blocked": [
-    {
-      "id": "pages_publish",
-      "status": "complete",
-      "evidence": "Enabled Pages build_type=workflow via API; workflow_dispatch 34073090255 success; https://jtflack-grc.github.io/controlsift/ HTTP 200."
-    },
-    {
-      "id": "submit_pack",
-      "status": "pending",
-      "needs": "≤5-min video still manual; PDFs + video-script ready on Pages"
-    }
+  "complete": [
+    "Classical baselines (majority, TF-IDF)",
+    "Gemma zero-shot / few-shot / QLoRA TEST metrics",
+    "Week 3 skill badge proof",
+    "Capstone report + slides PDFs",
+    "Video script with real TEST numbers",
+    "GitHub Pages publish"
   ]
 }

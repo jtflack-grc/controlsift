@@ -25,8 +25,8 @@
         </p>
         <h2>Critical path</h2>
         <p>
-          Everything below is what’s left. Packaging, classical baselines, weekly lab trail, and MMC docs are already in place.
-          Do these in order — later steps depend on earlier ones.
+          Research metrics and MMC packaging are published. Remaining submit step: record the ≤5-minute video
+          from the filled script, then upload via the GCLP form.
         </p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
@@ -38,38 +38,38 @@
         <span>Classical <strong>done</strong></span>
         <span>Weekly labs <strong>packaged</strong></span>
         <span>Week 3 badge <strong>attached</strong></span>
-        <span>Gemma metrics <strong>null</strong></span>
-        <span>Video <strong>script only</strong></span>
+        <span>Gemma TEST metrics <strong>published</strong></span>
+        <span>Video <strong>script ready · record next</strong></span>
       </div>
     </section>
 
     <section class="section">
-      <h2>Track A · Research (blocks honest claims)</h2>
+      <h2>Track A · Research</h2>
       <ol class="ladder">
         <li>
           <span class="step">A1</span>
           <span class="title">HF + Kaggle accounts</span>
-          <span class="state wait">you</span>
+          <span class="state done">done</span>
         </li>
         <li>
           <span class="step">A2</span>
-          <span class="title">Package zip · upload dataset · HF_TOKEN secret</span>
-          <span class="state wait">you</span>
+          <span class="title">Package zip · HF_TOKEN secret</span>
+          <span class="state done">done</span>
         </li>
         <li>
           <span class="step">A3</span>
           <span class="title">Smoke run (SMOKE=True)</span>
-          <span class="state wait">gpu</span>
+          <span class="state done">done</span>
         </li>
         <li>
           <span class="step">A4</span>
-          <span class="title">Zero-shot + few-shot → results/gemma_*</span>
-          <span class="state wait">gpu</span>
+          <span class="title">Zero-shot + few-shot TEST metrics</span>
+          <span class="state done">published</span>
         </li>
         <li>
           <span class="step">A5</span>
           <span class="title">QLoRA train/eval → publish Results</span>
-          <span class="state wait">gpu</span>
+          <span class="state done">published</span>
         </li>
       </ol>
       <div class="callout" style="margin-top:1.25rem;">
@@ -121,22 +121,22 @@ python scripts/after_kaggle.py --zip "$env:USERPROFILE\Downloads\controlsift_gpu
     </section>
 
     <section class="section">
-      <h2>Track C · Submit pack (after A4 at minimum)</h2>
+      <h2>Track C · Submit pack</h2>
       <ol class="ladder">
         <li>
           <span class="step">C1</span>
           <span class="title">Refresh report / slides / paper from real metrics</span>
-          <span class="state wait">after GPU</span>
+          <span class="state done">done</span>
         </li>
         <li>
           <span class="step">C2</span>
           <span class="title">PDF export (report + slides)</span>
-          <span class="state done">draft PDFs ready</span>
+          <span class="state done">done</span>
         </li>
         <li>
           <span class="step">C3</span>
           <span class="title">Record ≤5 min video from script</span>
-          <span class="state wait">form</span>
+          <span class="state wait">you</span>
         </li>
         <li>
           <span class="step">C4</span>
@@ -158,37 +158,22 @@ python scripts/after_kaggle.py --zip "$env:USERPROFILE\Downloads\controlsift_gpu
     </section>
 
     <section class="section">
-      <h2>Blocked on you (cannot automate)</h2>
+      <h2>Remaining (cannot automate)</h2>
       <table class="curriculum-table">
         <thead>
           <tr><th>Gap</th><th>Evidence needed</th><th>Fast path</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td>Week 3 badge proof</td>
-            <td>Screenshot of <em>Train a Small Language Model</em></td>
-            <td><span class="status-pill">complete</span> · <a href="deliverables/artifacts/week03_skill_badge.png">badge.png</a></td>
-          </tr>
-          <tr>
-            <td>HF + Kaggle auth</td>
-            <td>Gemma license accepted · <code>HF_TOKEN</code> in Kaggle Secrets</td>
-            <td><a href="https://huggingface.co/google/gemma-3-1b-it" rel="noopener">HF model page</a> · Kaggle GPU notebook</td>
-          </tr>
-          <tr>
-            <td>Gemma metrics</td>
-            <td>Non-null <code>results/gemma_*/metrics_*.json</code></td>
-            <td>Upload <code>dist/controlsift_kaggle_bundle.zip</code> · smoke then full · <code>python scripts/after_kaggle.py --zip …</code></td>
-          </tr>
-          <tr>
             <td>≤5 min video</td>
-            <td>Recorded file for form upload</td>
-            <td><a href="video-script.html">video-script.html</a> + slides PDF</td>
+            <td>Recorded file for GCLP form upload</td>
+            <td><a href="video-script.html">video-script.html</a> + <a href="submit/ControlSift_Capstone_Slides.pdf">slides PDF</a></td>
           </tr>
         </tbody>
       </table>
-      <p style="margin-top:1rem;">
-        Session launcher:
-        <code>powershell -File scripts/open_critical_path.ps1</code>
+      <p style="margin-top:1rem;color:var(--muted);font-size:var(--text-sm);">
+        Badge proof, Gemma TEST metrics, report/slides PDFs, and Pages publish are complete.
+        Do not invent numbers — speak the TEST macro F1 values already filled in the video script.
       </p>
     </section>
 
@@ -205,15 +190,16 @@ python scripts/after_kaggle.py --zip "$env:USERPROFILE\Downloads\controlsift_gpu
     <section class="section">
       <h2>Do-next session</h2>
       <p>
-        Badge proof is done. Next is Track&nbsp;A only —
-        follow the <a href="kaggle-checklist.html">Kaggle session checklist</a>.
+        Record the ≤5-minute presentation from
+        <a href="video-script.html">video-script.html</a>
+        (TEST numbers already filled), then upload via the GCLP form.
+        Keep the video out of git.
       </p>
       <ul class="findings-list">
-        <li><strong>1.</strong> Accept Gemma 3 1B IT license on Hugging Face; create read token (secrets only).</li>
-        <li><strong>2.</strong> Upload <code>dist/controlsift_kaggle_bundle.zip</code> as a private Kaggle dataset.</li>
-        <li><strong>3.</strong> Notebook + GPU + <code>HF_TOKEN</code> secret · keep <code>SMOKE = True</code> first.</li>
-        <li><strong>4.</strong> Download outputs → <code>python scripts/after_kaggle.py --zip …</code>.</li>
-        <li><strong>5.</strong> Optional credential URL in Week&nbsp;3 record if you have a public Skills profile link.</li>
+        <li><strong>1.</strong> Open slides full-screen (HTML or PDF).</li>
+        <li><strong>2.</strong> Record with Game Bar / OBS / Zoom — hard cap 5:00.</li>
+        <li><strong>3.</strong> Speak the honest takeaway: TF-IDF leads (~0.53); few-shot best of Gemma (~0.137).</li>
+        <li><strong>4.</strong> Upload <code>ControlSift_Capstone_Video.mp4</code> on the form only.</li>
       </ul>
     </section>
   </main>
