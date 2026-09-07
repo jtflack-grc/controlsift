@@ -6,9 +6,6 @@
     { href: "capstone/index.html", label: "Capstone" },
   ];
 
-  const FONT_HREF =
-    "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap";
-
   function pathNormalized() {
     return window.location.pathname.replace(/\\/g, "/");
   }
@@ -27,24 +24,6 @@
 
   function pathIncludes(seg) {
     return pathNormalized().includes(seg);
-  }
-
-  function ensureFonts() {
-    if (document.getElementById("cs-fonts")) return;
-    const pre1 = document.createElement("link");
-    pre1.rel = "preconnect";
-    pre1.href = "https://fonts.googleapis.com";
-    const pre2 = document.createElement("link");
-    pre2.rel = "preconnect";
-    pre2.href = "https://fonts.gstatic.com";
-    pre2.crossOrigin = "anonymous";
-    const link = document.createElement("link");
-    link.id = "cs-fonts";
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(pre1);
-    document.head.appendChild(pre2);
-    document.head.appendChild(link);
   }
 
   function enhanceBrand() {
@@ -101,7 +80,6 @@
   }
 
   function boot() {
-    ensureFonts();
     enhanceBrand();
     renderNav();
     enhanceFooter();

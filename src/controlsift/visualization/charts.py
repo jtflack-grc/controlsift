@@ -128,7 +128,8 @@ def build_all_figures(figures_dir: Optional[Path] = None) -> list[str]:
     if curve and curve.get("points"):
         xs = [p["n_train"] for p in curve["points"]]
         ys = [p["macro_f1"] for p in curve["points"]]
-        fig, ax = plt.subplots(figsize=(8, 4))
+        fig, ax = plt.subplots(figsize=(8, 4), facecolor="white")
+        ax.set_facecolor("white")
         ax.plot(xs, ys, marker="o", color="#2f5d50", linewidth=2)
         ax.set_xlabel("Training set size")
         ax.set_ylabel("Test macro F1")
@@ -139,17 +140,18 @@ def build_all_figures(figures_dir: Optional[Path] = None) -> list[str]:
             ax.text(x, y + 0.03, f"{y:.3f}", ha="center", fontsize=8)
         fig.tight_layout()
         path = figures_dir / "05_learning_curve.png"
-        fig.savefig(path, dpi=150)
+        fig.savefig(path, dpi=150, facecolor="white", edgecolor="none")
         plt.close(fig)
         written.append(str(path))
     else:
-        fig, ax = plt.subplots(figsize=(6, 3))
+        fig, ax = plt.subplots(figsize=(6, 3), facecolor="white")
+        ax.set_facecolor("white")
         ax.axis("off")
         ax.text(0.5, 0.5, "Learning curve (pending scaling runs)", ha="center", va="center", fontsize=11)
         ax.set_title("Pending real experiment artifacts — not fabricated metrics")
         fig.tight_layout()
         path = figures_dir / "05_learning_curve.png"
-        fig.savefig(path, dpi=120)
+        fig.savefig(path, dpi=120, facecolor="white", edgecolor="none")
         plt.close(fig)
         written.append(str(path))
 
