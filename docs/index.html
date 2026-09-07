@@ -12,7 +12,7 @@
   <link rel="preload" href="assets/fonts/fraunces-600.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin />
   <style>
-    /* Undeniable self-hosted faces (paths relative to this HTML page). */
+    /* Critical fonts + hero — must work even if site.css is cached/stale. */
     @font-face {
       font-family: "IBM Plex Sans";
       font-style: normal;
@@ -69,16 +69,63 @@
       font-display: swap;
       src: url("assets/fonts/ibm-plex-mono-400.woff2") format("woff2");
     }
-    html, body, button, input, nav, .nav, .btn, .lede, p, li, a {
+    html, body {
+      margin: 0;
+      background: #07100c !important;
+      color: #e8f4ec !important;
+      font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
+    }
+    button, input, nav, .nav, .btn, .lede, p, li, a {
       font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
     }
     h1, h2, h3, .display, .hero-brand, .brand {
       font-family: "Fraunces", "IBM Plex Sans", Georgia, serif !important;
     }
+    /* Kill opacity-0 fill-mode from cached rise animations on the welcome door. */
+    #welcome,
+    #welcome * {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    #welcome {
+      display: block !important;
+      min-height: 70vh;
+      padding: 2.5rem 1.25rem 3rem;
+      box-sizing: border-box;
+      border-bottom: 3px solid #7fffb2;
+      background:
+        linear-gradient(180deg, rgba(127, 255, 178, 0.12), transparent 55%),
+        #07100c !important;
+    }
+    #welcome .hero-brand {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2.6rem, 8vw, 4rem);
+      font-weight: 600;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: #7fffb2 !important;
+    }
+    #welcome h1 {
+      margin: 0 0 1rem;
+      max-width: 34ch;
+      font-size: clamp(1.55rem, 3.8vw, 2.25rem);
+      font-weight: 500;
+      line-height: 1.25;
+      color: #ffffff !important;
+    }
+    #welcome .lede {
+      margin: 0 0 1.25rem;
+      max-width: 46ch;
+      font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+      line-height: 1.55;
+      color: #c8e6d2 !important;
+    }
   </style>
-  <link rel="stylesheet" href="assets/css/site.css" />
+  <link rel="stylesheet" href="assets/css/site.css?v=202609070232" />
 </head>
-<body>
+<body style="font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif !important; background:#07100c; color:#e8f4ec;">
   <header class="site-header">
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="index.html">ControlSift</a>
@@ -87,17 +134,17 @@
   </header>
 
   <main>
-    <section class="hero welcome-door" aria-label="Welcome">
-      <p class="hero-brand">ControlSift</p>
-      <h1>ControlSift helps researchers study whether a small AI can tell real security proof from paperwork.</h1>
-      <p class="lede">
+    <section id="welcome" class="hero welcome-door" aria-label="Welcome" style="opacity:1 !important; visibility:visible !important; display:block !important;">
+      <p class="hero-brand" style="color:#7fffb2 !important; opacity:1 !important;">ControlSift</p>
+      <h1 style="color:#ffffff !important; opacity:1 !important; font-family:'Fraunces','IBM Plex Sans',Georgia,serif !important;">ControlSift helps researchers study whether a small AI can tell real security proof from paperwork.</h1>
+      <p class="lede" style="color:#c8e6d2 !important; opacity:1 !important;">
         Open research on a sealed synthetic benchmark and a Gemma model ladder — not a live auditor, and not production software.
       </p>
-      <div class="cta-row hero-cta">
+      <div class="cta-row hero-cta" style="opacity:1 !important;">
         <a class="btn btn-primary" href="capstone/index.html">Enter Capstone</a>
         <a class="btn btn-secondary" href="results.html">See Results</a>
       </div>
-      <p class="hero-note">UN SDG 10 · Reduced Inequalities · metrics published · video remaining</p>
+      <p class="hero-note" style="opacity:1 !important; color:#38e881 !important;">UN SDG 10 · Reduced Inequalities · metrics published · video remaining</p>
     </section>
 
     <section class="section">
