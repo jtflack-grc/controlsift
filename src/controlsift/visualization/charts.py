@@ -123,9 +123,38 @@ def build_all_figures(figures_dir: Optional[Path] = None) -> list[str]:
         plt.close(fig)
         written.append(str(path))
 
-    # Placeholder stubs for figures that need full LLM runs / learning curves
+    # 05. TF-IDF learning curve from committed results
+    curve = _load(REPO_ROOT / "results" / "tfidf" / "learning_curve.json")
+    if curve and curve.get("points"):
+        xs = [p["n_train"] for p in curve["points"]]
+        ys = [p["macro_f1"] for p in curve["points"]]
+        fig, ax = plt.subplots(figsize=(8, 4))
+        ax.plot(xs, ys, marker="o", color="#2f5d50", linewidth=2)
+        ax.set_xlabel("Training set size")
+        ax.set_ylabel("Test macro F1")
+        ax.set_ylim(0, 1)
+        ax.set_title("TF-IDF learning curve (seed 42)")
+        ax.grid(True, alpha=0.25)
+        for x, y in zip(xs, ys):
+            ax.text(x, y + 0.03, f"{y:.3f}", ha="center", fontsize=8)
+        fig.tight_layout()
+        path = figures_dir / "05_learning_curve.png"
+        fig.savefig(path, dpi=150)
+        plt.close(fig)
+        written.append(str(path))
+    else:
+        fig, ax = plt.subplots(figsize=(6, 3))
+        ax.axis("off")
+        ax.text(0.5, 0.5, "Learning curve (pending scaling runs)", ha="center", va="center", fontsize=11)
+        ax.set_title("Pending real experiment artifacts — not fabricated metrics")
+        fig.tight_layout()
+        path = figures_dir / "05_learning_curve.png"
+        fig.savefig(path, dpi=120)
+        plt.close(fig)
+        written.append(str(path))
+
+    # Placeholder stubs for figures that still need extra slice / PEFT receipts
     stubs = [
-        ("05_learning_curve.png", "Learning curve (pending scaling runs)"),
         ("06_failure_type_performance.png", "Performance by failure type (pending)"),
         ("07_domain_performance.png", "Performance by domain (see slice JSON)"),
         ("08_train_val_loss.png", "Training / validation loss (pending QLoRA)"),

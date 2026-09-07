@@ -2,7 +2,6 @@
   "github_slug": "jtflack-grc/controlsift",
   "default_branch": "main",
   "pages_base": "https://jtflack-grc.github.io/controlsift/",
-  "portfolio_url": "https://jtflack-grc.github.io/portfolio/",
   "github_org": "https://github.com/jtflack-grc",
-  "notes": "ControlSift is a research artifact under the i on GRC portfolio mothership. Remote origin is set (README seeded on main). Local branch is still master until first push — use scripts/push_pages.ps1 after Gemma metrics land and you approve a commit. GitHub Pages cannot execute notebooks."
+  "notes": "ControlSift public research site is served from docs/ on GitHub Pages. Do not invent metrics; null means not run."
 }

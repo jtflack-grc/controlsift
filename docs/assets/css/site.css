@@ -1,6 +1,75 @@
-/* ControlSift research site — aligned to i on GRC portfolio mothership.
-   OLED-adjacent ink canvas + IBM Plex; green evidence accent (portfolio --green). */
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap");
+/* ControlSift research site — OLED-adjacent ink + IBM Plex / Fraunces. */
+/* Latin font faces (nav.js also injects Google Fonts stylesheet as backup). */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/fraunces/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/fraunces/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/fraunces/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYY.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYY.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYY.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYY.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwlBFgg.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3vAOwlBFgg.woff2") format("woff2");
+}
 
 :root {
   color-scheme: dark;
@@ -17,14 +86,15 @@
   --danger: #ff7a7a;
   --max: 1080px;
   --font-display: "Fraunces", "IBM Plex Sans", Georgia, serif;
-  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-body: var(--font-sans);
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --text-xs: 0.75rem;   /* 12 */
   --text-sm: 0.875rem;  /* 14 */
   --text-md: 1.0625rem; /* 17 */
   --text-lg: 1.75rem;   /* 28 */
   --text-xl: 2.75rem;   /* 44 */
-  --text-hero: clamp(3.25rem, 9vw, 4.5rem); /* ~52–72 */
+  --text-hero: clamp(2.6rem, 7vw, 3.75rem);
   --radius: 2px;
 }
 
@@ -44,7 +114,7 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-md);
   line-height: 1.55;
-  /* Portfolio mothership: segmented fixed green horizon lines */
+  /* Segmented fixed green horizon lines */
   background:
     linear-gradient(
         90deg,
@@ -114,7 +184,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Portfolio disables the CRT scanline once the horizon lines are present. */
 body::before {
   display: none;
 }
@@ -148,44 +217,16 @@ a:hover { color: #b8ffd4; }
 }
 
 .brand {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.02rem;
+  font-size: 1.15rem;
   color: var(--accent);
   text-decoration: none;
-  letter-spacing: 0.035em;
+  letter-spacing: -0.02em;
   line-height: 1.15;
 }
 
-.brand .brand-mark {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0.28rem;
-}
-
-.brand .brand-mark::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: var(--warn);
-}
-
-.brand .brand-parent {
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
 .brand:hover { color: #b8ffd4; }
-.brand:hover .brand-parent { color: var(--fg); }
 
 .nav-links {
   display: flex;
@@ -207,18 +248,6 @@ a:hover { color: #b8ffd4; }
 .nav-links a:hover,
 .nav-links a[aria-current="page"] { color: var(--fg); }
 
-.nav-links a.nav-external {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.nav-links a.nav-external .ext {
-  margin-left: 0.2em;
-  opacity: 0.75;
-}
-
 main {
   max-width: var(--max);
   margin: 0 auto;
@@ -228,9 +257,9 @@ main {
 .hero {
   min-height: calc(100vh - 4.25rem);
   display: grid;
-  align-content: center;
-  gap: 1.1rem;
-  padding: 2.5rem 0 3rem;
+  align-content: start;
+  gap: 0.95rem;
+  padding: 2.25rem 0 2.5rem;
   position: relative;
 }
 
@@ -605,22 +634,6 @@ pre code {
   gap: 0.85rem 1.1rem;
 }
 
-.portfolio-lineage {
-  margin: 0 0 0.85rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.portfolio-lineage a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.portfolio-lineage a:hover { color: #b8ffd4; }
-
 /* —— Research lab extensions —— */
 
 .meta-strip {
@@ -920,8 +933,7 @@ pre code {
   font-weight: 600;
 }
 
-.assurance-nav,
-.capstone-nav {
+.assurance-nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem 0.9rem;
@@ -934,17 +946,112 @@ pre code {
   text-transform: uppercase;
 }
 
-.assurance-nav a,
-.capstone-nav a {
+.assurance-nav a {
   color: var(--muted);
   text-decoration: none;
 }
 
 .assurance-nav a:hover,
-.assurance-nav a[aria-current="page"],
-.capstone-nav a:hover,
-.capstone-nav a[aria-current="page"] {
+.assurance-nav a[aria-current="page"] {
   color: var(--accent);
+}
+
+.capstone-nav {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0 0 1.5rem;
+  padding: 0.85rem 0 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.capstone-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.capstone-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--muted);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.capstone-pill:hover,
+.capstone-pill[aria-current="page"] {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.capstone-menu {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+}
+
+.capstone-menu summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  list-style: none;
+}
+
+.capstone-menu summary::-webkit-details-marker { display: none; }
+
+.capstone-menu summary::after {
+  content: " ▾";
+  color: var(--accent);
+}
+
+.capstone-menu[open] summary::after { content: " ▴"; }
+
+.capstone-menu-panel {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.85rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+@media (min-width: 800px) {
+  .capstone-menu-panel { grid-template-columns: repeat(3, 1fr); }
+}
+
+.capstone-menu-title {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.capstone-menu-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.capstone-menu-group a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.capstone-menu-group a:hover,
+.capstone-menu-group a[aria-current="page"] {
+  color: var(--fg);
 }
 
 .capstone-banner {

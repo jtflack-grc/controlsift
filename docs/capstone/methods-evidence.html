@@ -42,9 +42,9 @@
       <ol class="ladder">
         <li><span class="step">B0</span><span class="title">Majority class</span><span class="state done">macro F1 0.067</span></li>
         <li><span class="step">B1</span><span class="title">TF-IDF + logistic regression</span><span class="state done">~0.53 test / ~0.52 challenge</span></li>
-        <li><span class="step">B2</span><span class="title">Gemma 3 1B zero-shot</span><span class="state wait">pending GPU</span></li>
-        <li><span class="step">B3</span><span class="title">Gemma 3 1B few-shot</span><span class="state wait">pending GPU</span></li>
-        <li><span class="step">M4</span><span class="title">Gemma 3 1B + QLoRA</span><span class="state wait">pending GPU</span></li>
+        <li><span class="step">B2</span><span class="title">Gemma 3 1B zero-shot</span><span class="state done">macro F1 0.080</span></li>
+        <li><span class="step">B3</span><span class="title">Gemma 3 1B few-shot</span><span class="state done">macro F1 0.137</span></li>
+        <li><span class="step">M4</span><span class="title">Gemma 3 1B + QLoRA</span><span class="state done">macro F1 0.083</span></li>
       </ol>
       <p style="margin-top:1rem;color:var(--muted);font-size:var(--text-sm);">
         An early generator draft allowed TF-IDF to saturate; dataset v1.1 was hardened so the lexical baseline no longer defines the ceiling.
@@ -57,7 +57,7 @@
         <li><strong>Sealed splits</strong> — hashes in <code>governance/PROTOCOL_SEAL.json</code>; tag <code>protocol-v1-locked</code></li>
         <li><strong>Frozen prompt</strong> — canonical template held fixed for final LLM evaluation</li>
         <li><strong>Metrics</strong> — macro F1 primary; accuracy, per-class scores, confusion matrices, challenge set</li>
-        <li><strong>Failure Lab</strong> — documented hard cases from classical errors; LLM predictions to follow</li>
+        <li><strong>Failure Lab</strong> — hard cases from classical errors with published Gemma predictions</li>
       </ul>
       <div class="cta-row" style="margin-top:1.5rem;">
         <a class="btn btn-primary" href="../results.html">Results</a>

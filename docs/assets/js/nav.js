@@ -2,13 +2,12 @@
 (function () {
   const links = [
     { href: "index.html", label: "Home" },
-    { href: "failure-lab.html", label: "Failure Lab" },
     { href: "results.html", label: "Results" },
-    { href: "methods.html", label: "Methods" },
-    { href: "assurance.html", label: "Assurance" },
-    { href: "reproduce.html", label: "Reproduce" },
-    { href: "capstone/index.html", label: "MMC Capstone" },
+    { href: "capstone/index.html", label: "Capstone" },
   ];
+
+  const FONT_HREF =
+    "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap";
 
   function pathNormalized() {
     return window.location.pathname.replace(/\\/g, "/");
@@ -30,6 +29,24 @@
     return pathNormalized().includes(seg);
   }
 
+  function ensureFonts() {
+    if (document.getElementById("cs-fonts")) return;
+    const pre1 = document.createElement("link");
+    pre1.rel = "preconnect";
+    pre1.href = "https://fonts.googleapis.com";
+    const pre2 = document.createElement("link");
+    pre2.rel = "preconnect";
+    pre2.href = "https://fonts.gstatic.com";
+    pre2.crossOrigin = "anonymous";
+    const link = document.createElement("link");
+    link.id = "cs-fonts";
+    link.rel = "stylesheet";
+    link.href = FONT_HREF;
+    document.head.appendChild(pre1);
+    document.head.appendChild(pre2);
+    document.head.appendChild(link);
+  }
+
   function enhanceBrand() {
     const brand = document.querySelector(".nav > .brand, .site-header .brand");
     if (!brand || brand.dataset.chrome === "1") return;
@@ -37,9 +54,7 @@
     const home = prefix() + "index.html";
     brand.setAttribute("href", home);
     brand.setAttribute("aria-label", "ControlSift home");
-    brand.innerHTML =
-      '<span class="brand-mark">ControlSift</span>' +
-      '<span class="brand-parent">evidence triage research</span>';
+    brand.textContent = "ControlSift";
   }
 
   function renderNav() {
@@ -52,8 +67,9 @@
 
     const items = links.map((link) => {
       const href = p + link.href;
-      let active = file === link.href || (link.href === "index.html" && file === "" && !inCapstone && !inAssurance);
-      if (link.href === "assurance.html" && inAssurance) active = true;
+      let active =
+        file === link.href ||
+        (link.href === "index.html" && file === "" && !inCapstone && !inAssurance);
       if (link.href === "capstone/index.html" && inCapstone) active = true;
       if (link.href === "index.html" && (inCapstone || inAssurance)) active = false;
       return `<li><a href="${href}"${active ? ' aria-current="page"' : ""}>${link.label}</a></li>`;
@@ -66,13 +82,26 @@
     const wrap = document.querySelector(".site-footer .wrap");
     if (!wrap || wrap.dataset.chrome === "1") return;
     wrap.dataset.chrome = "1";
-    // Keep footer minimal: strip injected / redundant nav links (Capstone lives in header).
     const linksHost = wrap.querySelector(".footer-links");
     if (linksHost) linksHost.remove();
     Array.from(wrap.querySelectorAll(":scope > a")).forEach((a) => a.remove());
+    // Strip any leftover portfolio / mothership anchors that older pages may still hardcode.
+    Array.from(wrap.querySelectorAll("a")).forEach((a) => {
+      const href = (a.getAttribute("href") || "").toLowerCase();
+      const text = (a.textContent || "").toLowerCase();
+      if (
+        href.includes("/portfolio") ||
+        text.includes("mothership") ||
+        text.includes("portfolio") ||
+        text.includes("i on grc")
+      ) {
+        a.remove();
+      }
+    });
   }
 
   function boot() {
+    ensureFonts();
     enhanceBrand();
     renderNav();
     enhanceFooter();

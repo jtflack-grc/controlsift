@@ -1,6 +1,6 @@
 {
   "version": "1.1.0",
-  "notes": "Rebuilt from TF-IDF test confusions after v1.1 compositional hardening. LLM predictions remain null until Kaggle/HF runs.",
+  "notes": "Rebuilt from TF-IDF test confusions after v1.1 compositional hardening. Gemma zero-shot / few-shot / QLoRA predictions come from results/*/predictions_*.jsonl.",
   "cases": [
     {
       "id": "CS-ACL-TERM-108-9474DEF0",
@@ -21,13 +21,18 @@
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "UNPARSEABLE",
+          "note": "Gemma 3 1B zero-shot · parse_status=unparseable"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "PARTIAL",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B QLoRA · parse_status=json_embedded"
         }
       ]
     },
@@ -50,13 +55,18 @@
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B zero-shot · parse_status=label_regex"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B QLoRA · parse_status=label_regex"
         }
       ]
     },
@@ -80,13 +90,18 @@
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "UNPARSEABLE",
+          "note": "Gemma 3 1B zero-shot · parse_status=unparseable"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "PARTIAL",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "UNPARSEABLE",
+          "note": "Gemma 3 1B QLoRA · parse_status=unparseable"
         }
       ]
     },
@@ -110,13 +125,18 @@
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "UNPARSEABLE",
+          "note": "Gemma 3 1B zero-shot · parse_status=unparseable"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "PARTIAL",
+          "note": "Gemma 3 1B QLoRA · parse_status=json_embedded"
         }
       ]
     },
@@ -140,13 +160,18 @@
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B zero-shot · parse_status=label_regex"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "PARTIAL",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "UNPARSEABLE",
+          "note": "Gemma 3 1B QLoRA · parse_status=unparseable"
         }
       ]
     },
@@ -170,13 +195,18 @@
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B zero-shot · parse_status=json_embedded"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "IRRELEVANT",
+          "note": "Gemma 3 1B QLoRA · parse_status=label_regex"
         }
       ]
     },
@@ -197,13 +227,18 @@
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B zero-shot · parse_status=label_regex"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "PARTIAL",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "UNPARSEABLE",
+          "note": "Gemma 3 1B QLoRA · parse_status=unparseable"
         }
       ]
     },
@@ -224,13 +259,18 @@
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B zero-shot · parse_status=json_embedded"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "PARTIAL",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B QLoRA · parse_status=label_regex"
         }
       ]
     },
@@ -249,18 +289,23 @@
       "predictions": [
         {
           "model": "tfidf",
-          "pred_label": null,
-          "note": "Not scored / challenge fill"
+          "pred_label": "CONTRADICTORY",
+          "note": "Classical baseline"
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B zero-shot · parse_status=label_regex"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "PARTIAL",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B QLoRA · parse_status=json_embedded"
         }
       ]
     },
@@ -279,18 +324,23 @@
       "predictions": [
         {
           "model": "tfidf",
-          "pred_label": null,
-          "note": "Not scored / challenge fill"
+          "pred_label": "PARTIAL",
+          "note": "Classical baseline"
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B zero-shot · parse_status=label_regex"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "PARTIAL",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "PARTIAL",
+          "note": "Gemma 3 1B QLoRA · parse_status=label_regex"
         }
       ]
     },
@@ -309,18 +359,23 @@
       "predictions": [
         {
           "model": "tfidf",
-          "pred_label": null,
-          "note": "Not scored / challenge fill"
+          "pred_label": "IRRELEVANT",
+          "note": "Classical baseline"
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B zero-shot · parse_status=json_embedded"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "PARTIAL",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B QLoRA · parse_status=label_regex"
         }
       ]
     },
@@ -339,18 +394,23 @@
       "predictions": [
         {
           "model": "tfidf",
-          "pred_label": null,
-          "note": "Not scored / challenge fill"
+          "pred_label": "PARTIAL",
+          "note": "Classical baseline"
         },
         {
           "model": "gemma_zero_shot",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B zero-shot · parse_status=label_regex"
+        },
+        {
+          "model": "gemma_few_shot",
+          "pred_label": "SUFFICIENT",
+          "note": "Gemma 3 1B few-shot · parse_status=json_embedded"
         },
         {
           "model": "gemma_qlora",
-          "pred_label": null,
-          "note": "Pending GPU run"
+          "pred_label": "UNPARSEABLE",
+          "note": "Gemma 3 1B QLoRA · parse_status=unparseable"
         }
       ]
     }

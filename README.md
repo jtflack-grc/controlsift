@@ -69,7 +69,7 @@ Gate 1: early generator drafts let TF-IDF saturate at 1.0; v1.1 compositional pa
 
 ## What still fails (classical)
 
-TF-IDF is weakest on **SUFFICIENT / IRRELEVANT / PARTIAL** compositional cues; **CONTRADICTORY** remains easier (~0.93 F1). Failure Lab: [`docs/failure-lab.html`](docs/failure-lab.html). LLM failure modes pending GPU runs.
+TF-IDF is weakest on **SUFFICIENT / IRRELEVANT / PARTIAL** compositional cues; **CONTRADICTORY** remains easier (~0.93 F1). Failure Lab: [`docs/failure-lab.html`](docs/failure-lab.html) includes published Gemma predictions alongside TF-IDF.
 
 ## Explore
 
