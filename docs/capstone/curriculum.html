@@ -41,9 +41,8 @@
       <p>
         Under each course: public Skills link → module headings → curriculum subtopics →
         <span class="meet">meets</span> /
-        <span class="meet partial">partial</span> /
-        <span class="meet planned">planned</span>
-        with why. Partial means the learning goal is satisfied by an applied analogue (e.g. using Gemma rather than re-deriving attention equations). Planned means packaged and sealed, awaiting GPU result files.
+        <span class="meet partial">partial</span>
+        with why. Partial means the learning goal is satisfied by an applied analogue (e.g. using Gemma rather than re-deriving attention equations). GPU ladder metrics are published; only the form video remains for GCLP submit.
       </p>
       <nav class="curriculum-jump" aria-label="Jump to course">
         <a href="#c01">01</a>
@@ -67,11 +66,11 @@
           <tr><td><a href="#c01">01 · Build Your Own Small Language Model</a></td><td>Problem, pipeline, classical vs LM ladder</td><td><span class="status-pill">complete</span></td></tr>
           <tr><td><a href="#c02">02 · Represent Your Language Data</a></td><td>Schema, prompts, Data Card, privacy boundary</td><td><span class="status-pill">complete</span></td></tr>
           <tr><td><a href="#c03">03 · Design and Train Neural Networks</a></td><td>Splits, ceiling harden, curves, anticipation</td><td><span class="status-pill">complete</span></td></tr>
-          <tr><td><a href="#c04">04 · Discover the Transformer Architecture</a></td><td>Gemma 3 base, LoRA targets, stakeholders</td><td><span class="status-pill pending-gpu">ready</span></td></tr>
-          <tr><td><a href="#c05">05 · Fine-Tune Your Model</a></td><td>QLoRA on Gemma 3 1B; format; governance</td><td><span class="status-pill pending-gpu">pending GPU</span></td></tr>
+          <tr><td><a href="#c04">04 · Discover the Transformer Architecture</a></td><td>Gemma 3 base, LoRA targets, stakeholders</td><td><span class="status-pill">complete</span></td></tr>
+          <tr><td><a href="#c05">05 · Fine-Tune Your Model</a></td><td>QLoRA on Gemma 3 1B; format; governance</td><td><span class="status-pill">complete</span></td></tr>
           <tr><td><a href="#c06">06 · Align Your Model</a></td><td>Use-alignment, parsing, risks, intended use</td><td><span class="status-pill">complete</span></td></tr>
-          <tr><td><a href="#c07">07 · Accelerate Your Model</a></td><td>4-bit, grad accum, free-tier sustainability</td><td><span class="status-pill pending-gpu">packaged</span></td></tr>
-          <tr><td><a href="#c08">08 · Capstone: Real-World Impact</a></td><td>Aims, data, LoRA workflow, eval, public site</td><td><span class="status-pill">in progress</span></td></tr>
+          <tr><td><a href="#c07">07 · Accelerate Your Model</a></td><td>4-bit, grad accum, free-tier sustainability</td><td><span class="status-pill">complete</span></td></tr>
+          <tr><td><a href="#c08">08 · Capstone: Real-World Impact</a></td><td>Aims, data, LoRA workflow, eval, public site</td><td><span class="status-pill pending-gpu">video remaining</span></td></tr>
         </tbody>
       </table>
     </section>
@@ -111,7 +110,7 @@
 
         <h3>Transformer models</h3>
         <h4>Compare n-gram models and transformer language models</h4>
-        <p class="why"><span class="meet planned">planned</span> Ladder is majority → TF-IDF → Gemma zero-shot → few-shot → QLoRA. Classical comparison is complete; transformer legs publish when GPU result files exist.</p>
+        <p class="why"><span class="meet">meets</span> Ladder is majority → TF-IDF → Gemma zero-shot → few-shot → QLoRA. Full TEST ladder published (TF-IDF leads; few-shot best of Gemma; QLoRA did not beat few-shot).</p>
         <h4>Anatomy of a language model</h4>
         <p class="why"><span class="meet">meets</span> Model Card and configs name Gemma&nbsp;3 1B IT, quantization, LoRA rank/alpha, sequence length, and inference settings—enough anatomy for an applied PEFT study without reimplementing a toy SLM.</p>
         <h4>What it means to train a model</h4>
@@ -245,7 +244,7 @@
           <p class="course-kicker">Course 04 · <a href="https://www.skills.google/course_templates/1451" rel="noopener">Google Skills</a></p>
           <h2>Discover the Transformer Architecture</h2>
         </div>
-        <span class="status-pill pending-gpu">ready</span>
+        <span class="status-pill">complete</span>
       </header>
       <p class="course-public">
         Public intent: attention and transformer blocks, positional information, generation trade-offs, community engagement, and stakeholder mapping.
@@ -255,7 +254,7 @@
         <h4>Architecture of modern LLMs / what drives predictions</h4>
         <p class="why"><span class="meet">meets</span> Base model is Gemma&nbsp;3 1B Instruct—a modern decoder transformer. Frozen prompt design makes control statement + evidence the conditioning context for the label token(s).</p>
         <h4>Attention weights (conceptual use of Gemma attention)</h4>
-        <p class="why"><span class="meet partial">partial</span> We do not ship an attention-visualization notebook in v1; we do design packets so the model must integrate claim + distractor sections—the applied reason attention matters for this task. Future error analysis can inspect attention if needed after GPU runs.</p>
+        <p class="why"><span class="meet partial">partial</span> We do not ship an attention-visualization notebook in v1; we do design packets so the model must integrate claim + distractor sections—the applied reason attention matters for this task. Failure Lab and per-class tables support applied error analysis.</p>
         <h4>Community values shaping AI meaning</h4>
         <p class="why"><span class="meet">meets</span> Values here = institutional accountability and review integrity (SDG&nbsp;16), not replacing auditors. Explicit non-users protected in stakeholder map.</p>
 
@@ -295,7 +294,7 @@
           <p class="course-kicker">Course 05 · <a href="https://www.skills.google/course_templates/1556" rel="noopener">Google Skills</a></p>
           <h2>Fine-Tune Your Model</h2>
         </div>
-        <span class="status-pill pending-gpu">pending GPU</span>
+        <span class="status-pill">complete</span>
       </header>
       <p class="course-public">
         Public intent: why fine-tune; task formatting; full-parameter vs LoRA/PEFT on Gemma-scale models; SFT limits vs RL overview; foresight and governance.
@@ -305,7 +304,7 @@
         <h4>Importance of specialization / how will your model respond?</h4>
         <p class="why"><span class="meet">meets</span> Pretrained Gemma is not a control-evidence classifier out of the box. Zero-shot/few-shot legs exist specifically to measure the gap that fine-tuning must justify.</p>
         <h4>Lab: Prompt your SLM with questions</h4>
-        <p class="why"><span class="meet planned">planned</span> <code>scripts/run_gemma_baseline.py</code> and notebooks implement prompted classification; metrics publish after GPU execution.</p>
+        <p class="why"><span class="meet">meets</span> <code>scripts/run_gemma_baseline.py</code> and notebooks implement prompted classification; TEST metrics published (zero-shot 0.0796 · few-shot 0.1365).</p>
         <h4>Gemma: fine-tuning for specific tasks</h4>
         <p class="why"><span class="meet">meets</span> Task is fixed: five-class evidence quality on sealed data. Model ID <code>google/gemma-3-1b-it</code> in config.</p>
 
@@ -325,7 +324,7 @@
         <h4>Foundation models</h4>
         <p class="why"><span class="meet">meets</span> Gemma&nbsp;3 1B IT is the foundation model; domain adaptation is the research question.</p>
         <h4>Low-rank adaptation (LoRA) / implement LoRA / fine-tune Gemma3-1B with LoRA</h4>
-        <p class="why"><span class="meet planned">planned</span> Exact course target: LoRA/QLoRA on Gemma&nbsp;3 1B. Config, training/eval scripts, and Kaggle runner are ready; metrics pending GPU.</p>
+        <p class="why"><span class="meet">meets</span> Exact course target: LoRA/QLoRA on Gemma&nbsp;3 1B. TEST macro F1 0.0827 with parse success ~0.435 — did not beat few-shot; negative finding preserved.</p>
 
         <h3>Opportunities and limitations of SFT</h3>
         <h4>Limits of supervised fine-tuning</h4>
@@ -392,7 +391,7 @@
           <p class="course-kicker">Course 07 · <a href="https://www.skills.google/course_templates/1555" rel="noopener">Google Skills</a></p>
           <h2>Accelerate Your Model</h2>
         </div>
-        <span class="status-pill pending-gpu">packaged</span>
+        <span class="status-pill">complete</span>
       </header>
       <p class="course-public">
         Public intent: single-GPU training, efficiency vs performance, FLOPs/memory estimation, bfloat16, gradient accumulation, environmental justice and a sustainability plan.
@@ -404,7 +403,7 @@
         <h4>Lab: Compare models of different sizes</h4>
         <p class="why"><span class="meet partial">partial</span> Ladder compares method classes (majority / TF-IDF / prompted 1B / QLoRA 1B) rather than a multi-size Gemma sweep—size is fixed; method varies. Honest scope for v1 compute.</p>
         <h4>GPU architecture (applied)</h4>
-        <p class="why"><span class="meet planned">planned</span> Execution path targets a single Kaggle/Colab-class GPU via packaged runner.</p>
+        <p class="why"><span class="meet">meets</span> Executed on a single free-tier GPU via packaged runner; metrics live on Results.</p>
         <h4>Environmental impacts / stakeholder map of impacts</h4>
         <p class="why"><span class="meet">meets</span> Sustainability choices: smallest adequate model, free-tier, smoke before full, no multi-GPU cluster requirement. Stakeholders for compute impact = learner/researcher budget and shared free-tier queues.</p>
 
@@ -442,7 +441,7 @@
           <p class="course-kicker">Course 08 · <a href="https://www.skills.google/course_templates/1557" rel="noopener">Google Skills</a></p>
           <h2>Develop Your Model for Real-World Impact</h2>
         </div>
-        <span class="status-pill">in progress</span>
+        <span class="status-pill pending-gpu">video remaining</span>
       </header>
       <p class="course-public">
         Public intent: plan aims and impact; collect/prepare data; implement Gemma&nbsp;3 + LoRA fine-tuning; evaluate; emphasize adaptation and experimentation.
@@ -461,9 +460,9 @@
 
         <h3>Train and evaluate (classification track)</h3>
         <h4>Worked example / train and evaluate your model</h4>
-        <p class="why"><span class="meet partial">partial</span> Classical train/eval complete and published. Gemma&nbsp;3 + LoRA workflow implemented and packaged; scores pending GPU. Capstone status is therefore in progress, not falsely “done.”</p>
+        <p class="why"><span class="meet">meets</span> Classical and Gemma&nbsp;3 + LoRA train/eval complete and published. Capstone residual for form submit is the ≤5-minute video only.</p>
         <h4>Full fine-tuning workflow using Gemma&nbsp;3 with LoRA</h4>
-        <p class="why"><span class="meet planned">planned</span> Matches the Skills capstone requirement line-for-line in design; execution is the remaining gate.</p>
+        <p class="why"><span class="meet">meets</span> Matches the Skills capstone requirement; Gemma&nbsp;3 + LoRA executed and published. Remaining gate: video recording for form upload.</p>
 
         <h3>Evaluate and communicate</h3>
         <h4>Performance evaluation</h4>
@@ -483,8 +482,8 @@
       <ul class="findings-list">
         <li><strong>Aims</strong> — Problem statement, SDG framing, Intended Use.</li>
         <li><strong>Data</strong> — Sealed v1.1, Data Card, audits.</li>
-        <li><strong>Model workflow</strong> — Gemma&nbsp;3 + QLoRA packaged; run pending.</li>
-        <li><strong>Evaluation</strong> — Classical live; LLM null until files exist.</li>
+        <li><strong>Model workflow</strong> — Gemma&nbsp;3 + QLoRA executed; TEST metrics published.</li>
+        <li><strong>Evaluation</strong> — Full ladder live on Results; video remaining for form.</li>
         <li><strong>Subtopic coverage</strong> — This page: every substantive public module topic mapped with why.</li>
       </ul>
       <div class="cta-row" style="margin-top:1.5rem;">
@@ -496,8 +495,7 @@
   </main>
   <footer class="site-footer">
     <div class="wrap">
-      <span>Capstone · Curriculum</span>
-      <a href="index.html">Capstone home</a>
+      <span>ControlSift · curriculum</span>
     </div>
   </footer>
   <script src="../assets/js/nav.js"></script>

@@ -1,8 +1,5 @@
-/** Shared primary nav + mothership chrome for ControlSift static pages. */
+/** Shared primary nav for ControlSift static pages (header only). */
 (function () {
-  const PORTFOLIO_URL = "https://jtflack-grc.github.io/portfolio/";
-  const GITHUB_ORG = "https://github.com/jtflack-grc";
-
   const links = [
     { href: "index.html", label: "Home" },
     { href: "failure-lab.html", label: "Failure Lab" },
@@ -42,7 +39,7 @@
     brand.setAttribute("aria-label", "ControlSift home");
     brand.innerHTML =
       '<span class="brand-mark">ControlSift</span>' +
-      '<span class="brand-parent">i on GRC · research</span>';
+      '<span class="brand-parent">evidence triage research</span>';
   }
 
   function renderNav() {
@@ -62,10 +59,6 @@
       return `<li><a href="${href}"${active ? ' aria-current="page"' : ""}>${link.label}</a></li>`;
     });
 
-    items.push(
-      `<li><a class="nav-external" href="${PORTFOLIO_URL}" rel="noopener">Portfolio<span class="ext" aria-hidden="true">↗</span></a></li>`
-    );
-
     host.innerHTML = items.join("");
   }
 
@@ -73,33 +66,10 @@
     const wrap = document.querySelector(".site-footer .wrap");
     if (!wrap || wrap.dataset.chrome === "1") return;
     wrap.dataset.chrome = "1";
-
-    let linksHost = wrap.querySelector(".footer-links");
-    if (!linksHost) {
-      linksHost = document.createElement("div");
-      linksHost.className = "footer-links";
-      // Move existing trailing anchors into the links cluster when present.
-      Array.from(wrap.querySelectorAll(":scope > a")).forEach((a) => linksHost.appendChild(a));
-      wrap.appendChild(linksHost);
-    }
-
-    if (!linksHost.querySelector("[data-portfolio-link]")) {
-      const a = document.createElement("a");
-      a.href = PORTFOLIO_URL;
-      a.rel = "noopener";
-      a.dataset.portfolioLink = "1";
-      a.textContent = "i on GRC portfolio ↗";
-      linksHost.appendChild(a);
-    }
-
-    if (!linksHost.querySelector("[data-github-link]")) {
-      const g = document.createElement("a");
-      g.href = GITHUB_ORG;
-      g.rel = "noopener";
-      g.dataset.githubLink = "1";
-      g.textContent = "GitHub ↗";
-      linksHost.appendChild(g);
-    }
+    // Keep footer minimal: strip injected / redundant nav links (Capstone lives in header).
+    const linksHost = wrap.querySelector(".footer-links");
+    if (linksHost) linksHost.remove();
+    Array.from(wrap.querySelectorAll(":scope > a")).forEach((a) => a.remove());
   }
 
   function boot() {

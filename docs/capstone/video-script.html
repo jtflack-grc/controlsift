@@ -20,10 +20,12 @@
     <section class="section" style="border-top:0;padding-top:1rem;">
       <div class="page-intro">
         <h2>Video presentation script</h2>
-        <p>Target: ≤5:00 read-aloud for GCLP form upload. Speak with
-          <a href="slides.html">slides.html</a> (or
+        <p>
+          Target: <strong>4:30–5:00</strong> word-for-word read-aloud for GCLP form upload.
+          Speak with <a href="slides.html">slides.html</a> (or
           <a href="submit/ControlSift_Capstone_Slides.pdf">Slides PDF</a>) full-screen.
-          Numbers below match <code>docs/data/results.json</code> / published Pages — do not invent scores.</p>
+          Numbers match <code>docs/data/results.json</code> — do not invent scores.
+        </p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
     </section>
@@ -34,20 +36,17 @@
         <li>Open <a href="slides.html">slides.html</a> full-screen (fallback:
           <a href="submit/ControlSift_Capstone_Slides.pdf">submit/ControlSift_Capstone_Slides.pdf</a>).</li>
         <li>Record with Xbox Game Bar (<kbd>Win+G</kbd>), OBS, or Zoom local — 1080p; mic only is fine.</li>
-        <li>Hard cap <strong>5:00</strong>. Aim ~4:20–4:40 so encoding does not overrun.</li>
-        <li>Speak the TEST macro F1 values already filled in the script (table below). Match on-screen slides.</li>
+        <li>Hard cap <strong>5:00</strong>. Aim ~4:40–4:55. If you race, you will finish early — use the optional bridge lines.</li>
+        <li>Advance slides at the beat markers below. Speak the TEST macro F1 values aloud.</li>
         <li>Export as <code>ControlSift_Capstone_Video.mp4</code> — keep out of git; upload to the form only.</li>
-        <li>Form pack also needs Pages URL, report PDF, slides PDF, and Week-3 badge URL (see
-          <a href="submit/README.md">submit/README.md</a>).</li>
+        <li>Form pack also needs Pages URL, report PDF, slides PDF, and Week-3 badge URL.</li>
       </ul>
     </section>
 
     <section class="section">
       <h2>Published TEST numbers (speak these)</h2>
       <p style="margin:0 0 0.75rem;color:var(--muted);font-size:var(--text-sm);">
-        Source: <code>results/*/metrics_test.json</code> → <code>docs/data/results.json</code>
-        (n=200 TEST each). Live:
-        <a href="https://jtflack-grc.github.io/controlsift/data/results.json" rel="noopener noreferrer" target="_blank">Pages results.json</a>.
+        Source: <code>results/*/metrics_test.json</code> → <code>docs/data/results.json</code> (n=200 TEST each).
       </p>
       <div class="def-list">
         <div>
@@ -56,7 +55,7 @@
         </div>
         <div>
           <dt>TF-IDF</dt>
-          <dd>macro F1 <strong>0.5327</strong> · accuracy 0.545 — still leads</dd>
+          <dd>macro F1 <strong>0.5327</strong> · accuracy 0.545 — still leads · challenge 0.5237</dd>
         </div>
         <div>
           <dt>Gemma 3 1B zero-shot</dt>
@@ -68,79 +67,109 @@
         </div>
         <div>
           <dt>Gemma 3 1B QLoRA</dt>
-          <dd>macro F1 <strong>0.0827</strong> · accuracy 0.075 · parse success 0.435 — fragile</dd>
+          <dd>macro F1 <strong>0.0827</strong> · accuracy 0.075 · parse success <strong>0.435</strong> — fragile; did not beat few-shot</dd>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2>Tight script (~4:30)</h2>
+      <h2>Full speaking script (~4:45)</h2>
       <p style="margin:0 0 1rem;color:var(--muted);font-size:var(--text-sm);">
-        Read aloud as written. Pause only at beat breaks. ~620 words ≈ 4:20 at a calm pace.
+        Read aloud exactly as written. ~700 words at a calm ~145 wpm ≈ 4:45. Slide cues in brackets are not spoken.
       </p>
+
       <div class="def-list">
         <div>
-          <dt>0:00–0:35 · Hook</dt>
+          <dt>0:00–0:40 · Hook · [Slide 01]</dt>
           <dd>
-            “I’m John Flack presenting ControlSift, my Mentor Me Collective DeepMind AI Research Foundations
-            capstone. Official SDG: Goal 10, Reduced Inequalities. The question: can a small language model help
-            teams with less GRC budget tell proof from paperwork?”
+            “Hello — I’m John Flack. This is ControlSift, my Mentor Me Collective DeepMind AI Research Foundations
+            capstone. The official Sustainable Development Goal is Goal 10, Reduced Inequalities. The research question
+            is simple: can a small language model help teams with less GRC budget tell proof from paperwork?
+            ControlSift is a sealed synthetic research protocol. It is not a production auditor, and it does not score
+            customer binders.”
           </dd>
         </div>
         <div>
-          <dt>0:35–1:15 · Problem</dt>
+          <dt>0:40–1:25 · Problem · [Slide 02]</dt>
           <dd>
-            “High-quality assurance review is expensive. Smaller organizations often inherit binders that look
-            compliant when controls don’t operate. That inequality is what I’m targeting—not by replacing auditors,
-            but by researching an open triage aid.”
+            “High-quality assurance review is expensive and unequally distributed. Smaller clinics, schools, and
+            nonprofits often inherit binders that look compliant when controls do not actually operate. A written MFA
+            policy is not proof that privileged accounts are enrolled. An export that shows a privileged user without MFA
+            can contradict the control outright. That inequality — unequal access to honest evidence triage — is what
+            I’m targeting. Not by replacing auditors, but by publishing an open methods study that under-resourced
+            reviewers can inspect.”
           </dd>
         </div>
         <div>
-          <dt>1:15–2:10 · Methods</dt>
+          <dt>1:25–2:20 · Aim &amp; methods · [Slides 03–04]</dt>
           <dd>
-            “Methods: a sealed synthetic benchmark of 1,500 five-class evidence packets, family-isolated splits, and
-            a frozen evaluation protocol. The ladder is majority class, TF-IDF logistic regression, then Gemma 3 1B
-            zero-shot, few-shot, and QLoRA on a free-tier GPU path. Primary metric is macro F1 on the sealed TEST set.”
+            “The aim is five-class evidence-quality classification on a sealed synthetic benchmark: Sufficient, Partial,
+            Insufficient, Irrelevant, and Contradictory. Primary metric is macro F1. Seed forty-two. Protocol tag
+            protocol-v-one-locked — hypotheses frozen before large-model claims.
+            <br /><br />
+            Methods: one thousand five hundred compositional evidence packets, family-isolated splits so near-duplicates
+            cannot leak across train, validation, test, and challenge. The modeling ladder is majority class, then TF-IDF
+            logistic regression, then Gemma 3 one-B instruction-tuned zero-shot, few-shot, and QLoRA on a free-tier GPU
+            path. Malformed model outputs count as errors — we do not remap them to a preferred label. Dataset version
+            one-point-one hardened the packets after an early draft let bag-of-words cheat.”
           </dd>
         </div>
         <div>
-          <dt>2:10–3:25 · Results (real TEST numbers)</dt>
+          <dt>2:20–3:40 · Results · [Slide 05]</dt>
           <dd>
-            “On sealed TEST, majority macro F1 is about <strong>0.067</strong>. TF-IDF still leads at about
-            <strong>0.533</strong> after we hardened the dataset so bag-of-words could not cheat. The Gemma 3 1B
-            ladder is weaker in absolute terms: zero-shot about <strong>0.080</strong>; few-shot best of the LLM
-            runs at about <strong>0.137</strong>; QLoRA about <strong>0.083</strong>—but QLoRA label-parse success
-            is only about <strong>44%</strong>, so that score is fragile. Honest takeaway: lexical TF-IDF wins this
-            benchmark; the small LLM ladder is a research baseline, not a replacement. Every number is from the
-            published result files—no invented scores.”
+            “Here are the sealed test results — two hundred cases each — spoken from the published result files.
+            <br /><br />
+            Majority-class macro F1 is zero point zero six six seven.
+            TF-IDF still leads at zero point five three two seven — about fifty-three percent — with challenge macro F1
+            zero point five two three seven.
+            Gemma 3 one-B zero-shot is zero point zero seven nine six, with parse success about seventy-six percent.
+            Few-shot is the best of the Gemma ladder at zero point one three six five, with parse success ninety-eight
+            point five percent.
+            QLoRA lands at zero point zero eight two seven — and label parse success is only about forty-three point five
+            percent, so that score is fragile.
+            <br /><br />
+            Honest takeaway: lexical TF-IDF wins this benchmark. Few-shot is the best small-LLM rung. QLoRA did not beat
+            few-shot on test macro F1. Negative findings stay in the record. Every number comes from machine-readable
+            metrics — no invented scores.”
           </dd>
         </div>
         <div>
-          <dt>3:25–4:05 · Responsible AI</dt>
+          <dt>3:40–4:20 · Responsible AI · [Slides 06–07]</dt>
           <dd>
-            “Responsible innovation: synthetic data only, Data Card, Risk Register, Failure Lab, and a clear Intended
-            Use—research and education, not a production auditor. The curriculum map shows the DeepMind path end to end.”
+            “Responsible innovation: synthetic data only, a Data Card, a Risk Register, a Failure Lab for hard cases,
+            and a clear Intended Use — research and education, not automated certification. Human judgment remains
+            authoritative. The curriculum map shows the DeepMind path end to end, including prompting, LoRA, and
+            free-tier acceleration. Impact under Goal 10 is access: open, free-tier-reproducible triage methods so
+            smaller organizations are not locked out of rigorous assurance craft.”
           </dd>
         </div>
         <div>
-          <dt>4:05–4:30 · Close</dt>
+          <dt>4:20–4:55 · Close · [Slide 08]</dt>
           <dd>
-            “Results and figures are live on the public GitHub Pages site. Capstone report, slides, and this walkthrough
-            close the MMC submission pack. Thanks for reviewing.”
+            “Status today: research metrics, report and slides PDFs, Week-three badge evidence, and the public GitHub
+            Pages site are done. The only remaining submit step is this recording — the ≤5-minute video — then form
+            upload with the report and slides. Thank you for reviewing ControlSift.”
           </dd>
         </div>
       </div>
+    </section>
+
+    <section class="section">
+      <h2>Optional bridge lines (if under 4:20)</h2>
+      <ul class="findings-list">
+        <li>“Family isolation means an entire scenario family stays in one split — train never sees the test family’s mutations.”</li>
+        <li>“On classical errors, Contradictory is easier; Sufficient is hardest — coverage and substance-pointer cues drive residual mistakes.”</li>
+        <li>“If schema gaming dominated, we would open a prose-hardened dataset under a new protocol tag — we would not rewrite the classical record.”</li>
+      </ul>
       <p style="margin-top:1.25rem;color:var(--muted);font-size:var(--text-sm);">
-        If over time: cut the Problem beat to two sentences and skip “curriculum map” in Responsible AI.
-        If under 4:00: add one sentence on family-isolated splits under Methods.
+        If over time: shorten Problem to two sentences; drop the curriculum-map clause in Responsible AI.
+        Never invent better F1 numbers to fill time.
       </p>
     </section>
   </main>
   <footer class="site-footer">
     <div class="wrap">
-      <span>Capstone · Video script</span>
-      <a href="slides.html">Open slides</a>
-      <a href="index.html">Capstone home</a>
+      <span>ControlSift · video script</span>
     </div>
   </footer>
   <script src="../assets/js/nav.js"></script>

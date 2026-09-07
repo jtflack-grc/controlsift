@@ -43,7 +43,7 @@
       <p class="paper-meta">
         Mentor Me Collective · Google Cloud Launchpad · DeepMind AI Research Foundations Capstone<br />
         Official UN SDG: <strong>Goal 10 — Reduced Inequalities</strong> · Dataset v1.1.0 · Protocol <code>protocol-v1-locked</code><br />
-        Solo project · Primary metric: macro F1 · Seed 42
+        Solo project · Primary metric: macro F1 · Seed 42 · Full TEST ladder published
       </p>
 
       <section class="h-block" id="r1">
@@ -67,25 +67,25 @@
       <section class="h-block" id="r2">
         <h2>2. Research and analysis</h2>
         <p>
-          Problem identification used public cybersecurity and assurance sources (industry breach reporting, CISA/NIST
-          guidance, public discourse on paper compliance). Modeling data is synthetic by design: 1,500 compositional
-          evidence packets, family-isolated splits (1000/200/200/100), rule-derived labels with structural audit and
-          scripted spot-check. An early draft allowed TF-IDF to saturate; dataset v1.1 was hardened so lexical shortcuts
-          no longer define the ceiling.
+          Problem identification used public cybersecurity and assurance sources. Modeling data is synthetic by design:
+          1,500 compositional evidence packets, family-isolated splits (1000/200/200/100), rule-derived labels with
+          structural audit and scripted spot-check. An early draft allowed TF-IDF to saturate; dataset v1.1 was hardened
+          so lexical shortcuts no longer define a trivial ceiling.
         </p>
         <p>
-          Classical results (sealed test): majority macro F1
-          <span data-metric="macro_f1" data-experiment="majority">pending</span>;
-          TF-IDF + logistic regression
-          <span data-metric="macro_f1" data-experiment="tfidf">pending</span>
-          (challenge <span data-metric="challenge_macro_f1" data-experiment="tfidf">pending</span>).
+          Sealed TEST macro F1 (from <code>docs/data/results.json</code>):
+          majority
+          <span data-metric="macro_f1" data-experiment="majority">0.067</span>;
+          TF-IDF
+          <span data-metric="macro_f1" data-experiment="tfidf">0.533</span>
+          (challenge <span data-metric="challenge_macro_f1" data-experiment="tfidf">0.524</span>);
           Gemma zero-shot
-          <span data-metric="macro_f1" data-experiment="gemma_zero_shot">pending</span>,
-          few-shot <span data-metric="macro_f1" data-experiment="gemma_few_shot">pending</span>,
-          QLoRA <span data-metric="macro_f1" data-experiment="gemma_qlora">pending</span>.
-          <span data-pending-until-gemma class="pending">
-            Gemma TEST metrics publish from <code>docs/data/results.json</code> only — never invented.
-          </span>
+          <span data-metric="macro_f1" data-experiment="gemma_zero_shot">0.080</span>;
+          few-shot
+          <span data-metric="macro_f1" data-experiment="gemma_few_shot">0.137</span>;
+          QLoRA
+          <span data-metric="macro_f1" data-experiment="gemma_qlora">0.083</span>
+          (parse success ≈0.435). Exact floats: 0.0667 / 0.5327 / 0.0796 / 0.1365 / 0.0827.
         </p>
       </section>
 
@@ -97,28 +97,28 @@
           Model Card, Risk Register, Intended Use), and curriculum map against DeepMind AI Research Foundations.
         </p>
         <p>
-          Practicality: free-tier GPU packaging, smoke-then-full runs, open documentation. Sustainability: methods are
-          inspectable and reproducible without enterprise spend—aligned with SDG&nbsp;10 access goals.
+          <strong>Finding:</strong> TF-IDF leads. Few-shot is the best Gemma rung. QLoRA did not beat few-shot on TEST;
+          low parse success makes that rung fragile. This is a sealed synthetic protocol — not a production auditor.
         </p>
       </section>
 
       <section class="h-block" id="r4">
         <h2>4. Implementation plan</h2>
         <p>
-          Phase 0–3 (complete): benchmark, seal, classical baselines, MMC hub, Gemma prompted baselines and QLoRA
-          evaluation. Phase 4–5: error analysis published; finalize PDF, 8-slide deck, ≤5-minute video, form submission.
-          Risks and mitigations are listed on the implementation-plan page.
+          Phases 0–4 complete: benchmark, seal, classical baselines, Gemma prompted baselines, QLoRA evaluation,
+          error analysis, report/slides packaging, Pages live. Phase 5 remaining: record ≤5-minute video and upload
+          via the GCLP form with report and slides PDFs.
         </p>
       </section>
 
       <section class="h-block" id="r5">
-        <h2>5. Outcomes to date</h2>
+        <h2>5. Outcomes</h2>
         <ul class="findings-list">
-          <li>Sealed protocol and public classical receipts.</li>
-          <li>Meaningful lexical ceiling after dataset harden (~0.53 macro F1).</li>
-          <li>Failure Lab + Assurance pack for honest communication.</li>
-          <li data-pending-until-gemma>Open items: Gemma ladder TEST metrics; final video recording for form upload.</li>
-          <li data-ready-when-gemma hidden>Gemma ladder TEST metrics loaded from published result files; video recording still manual for form upload.</li>
+          <li>Sealed protocol and public receipts for all five ladder experiments.</li>
+          <li>Meaningful lexical ceiling after dataset harden (TF-IDF ~0.53 macro F1).</li>
+          <li>Honest negative findings: QLoRA &lt; few-shot; parse success ~0.435 for QLoRA.</li>
+          <li>Failure Lab + Assurance pack for responsible communication.</li>
+          <li>Remaining manual step: video recording for form upload.</li>
         </ul>
       </section>
 
@@ -126,7 +126,8 @@
         <h2>6. Recommendations</h2>
         <p>
           Publish only from result files; keep human-in-the-loop boundaries; treat per-class weakness
-          (especially SUFFICIENT) as first-class findings. Do not deploy as an audit autopilot.
+          (especially SUFFICIENT) and parse failures as first-class findings. Do not deploy as an audit autopilot.
+          Prefer reporting the full ladder — including when classical methods win — over claiming LLM victory.
         </p>
       </section>
 
@@ -142,16 +143,15 @@
 
     <section class="section no-print">
       <div class="cta-row">
-        <a class="btn btn-primary" href="slides.html">8-slide deck</a>
-        <a class="btn btn-secondary" href="video-script.html">5-minute video script</a>
+        <a class="btn btn-primary" href="video-script.html">5-minute video script</a>
+        <a class="btn btn-secondary" href="slides.html">8-slide deck</a>
         <a class="btn btn-secondary" href="gclp-checklist.html">GCLP checklist</a>
       </div>
     </section>
   </main>
   <footer class="site-footer">
     <div class="wrap">
-      <span>Capstone · Report</span>
-      <a href="index.html">Capstone home</a>
+      <span>ControlSift · report</span>
     </div>
   </footer>
   <script src="../assets/js/site.js"></script>

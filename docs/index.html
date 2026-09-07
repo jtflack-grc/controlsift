@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#050a08" />
   <title>ControlSift — proof from paperwork</title>
-  <meta name="description" content="Can a small AI model tell proof from paperwork? ControlSift studies Gemma 3 QLoRA for cybersecurity evidence quality. Part of John Flack's i on GRC portfolio." />
+  <meta name="description" content="ControlSift is open research on whether a small AI model can help tell proof from paperwork in cybersecurity GRC evidence triage. SDG 10. Metrics published; video remaining." />
   <link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body>
@@ -19,22 +19,28 @@
 
   <main>
     <section class="hero">
-      <p class="portfolio-lineage">
-        <a href="https://jtflack-grc.github.io/portfolio/" rel="noopener">i on GRC</a>
-        · technology risk · AI governance research
-      </p>
       <p class="hero-brand">ControlSift</p>
       <h1>Can a small AI model tell proof from paperwork?</h1>
       <p class="lede">
-        A sealed compositional evidence-packet benchmark for cybersecurity control quality —
-        classical baselines shipped, Gemma prompting and QLoRA waiting on GPU, Failure Lab for residual errors.
-        Not a claim about scoring raw customer binders.
+        Open research on GRC evidence triage — helping reviewers separate operational proof from administrative binders.
       </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="failure-lab.html">Enter Failure Lab</a>
-        <a class="btn btn-secondary" href="results.html">See the Numbers</a>
-        <a class="btn btn-secondary" href="https://jtflack-grc.github.io/portfolio/" rel="noopener">Portfolio mothership ↗</a>
-      </div>
+      <aside class="welcome-card" aria-label="Welcome">
+        <p class="sdg-note">UN SDG 10 · Reduced Inequalities</p>
+        <h2>Welcome</h2>
+        <p>
+          ControlSift studies whether a small language model can help under-resourced teams triage cybersecurity
+          control evidence: is this packet real proof, partial coverage, policy-only paperwork, off-topic, or
+          contradictory? It is a sealed synthetic benchmark and methods ladder — not a production auditor.
+        </p>
+        <p>
+          Research metrics, PDFs, badge evidence, and GitHub Pages are published. The only remaining submit step
+          is recording the ≤5-minute capstone video.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="capstone/index.html">Enter Capstone</a>
+          <a class="btn btn-secondary" href="results.html">See the numbers</a>
+        </div>
+      </aside>
     </section>
 
     <section class="section">
@@ -63,52 +69,53 @@
 
     <section class="section">
       <h2>Where the work stands</h2>
-      <p>Public numbers come only from machine-readable result files. Null means not run yet. No invented scores.</p>
+      <p>Public numbers come only from machine-readable result files. All five ladder experiments have TEST scores. No invented metrics.</p>
       <div class="meta-strip">
         <span>Primary metric <strong>macro F1</strong></span>
         <span>Seed <strong>42</strong></span>
         <span>Dataset <strong>~1,500</strong></span>
-        <span>Status <strong data-results-status>pending</strong></span>
+        <span>Status <strong data-results-status>complete</strong></span>
       </div>
       <div class="metrics-grid">
         <div class="metric">
           <span class="label">TF-IDF test macro F1</span>
-          <span class="value" data-metric="macro_f1" data-experiment="tfidf">pending</span>
+          <span class="value" data-metric="macro_f1" data-experiment="tfidf">0.533</span>
         </div>
         <div class="metric">
-          <span class="label">Gemma QLoRA test macro F1</span>
-          <span class="value" data-metric="macro_f1" data-experiment="gemma_qlora">pending</span>
+          <span class="label">Gemma few-shot test macro F1</span>
+          <span class="value" data-metric="macro_f1" data-experiment="gemma_few_shot">0.137</span>
         </div>
         <div class="metric">
           <span class="label">Challenge TF-IDF macro F1</span>
-          <span class="value" data-metric="challenge_macro_f1" data-experiment="tfidf">pending</span>
+          <span class="value" data-metric="challenge_macro_f1" data-experiment="tfidf">0.524</span>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2>Base versus adapted</h2>
+      <h2>Honest headline</h2>
       <p>
-        The research question is not whether a model can score well on synthetic text.
-        It is whether QLoRA improves Gemma 3 over fixed prompting, and whether that gain survives a harder challenge set.
+        On the sealed TEST set, classical TF-IDF still leads (~0.53 macro F1). Among Gemma&nbsp;3 1B runs, few-shot
+        is strongest (~0.14); QLoRA (~0.08) did not beat few-shot, and label parse success for QLoRA is only ~0.44.
+        Synthetic sealed protocol — not a production auditor.
       </p>
       <div class="compare-grid">
         <article>
-          <h3>Base Gemma (zero-shot)</h3>
-          <p class="score pending" data-metric="macro_f1" data-experiment="gemma_zero_shot">pending</p>
-          <p>Fixed canonical prompt. No task weights. Held-out test macro F1 once GPU run lands.</p>
+          <h3>Best classical</h3>
+          <p class="score" data-metric="macro_f1" data-experiment="tfidf">0.533</p>
+          <p>TF-IDF + logistic regression on the compositional packets. Leads the ladder.</p>
         </article>
         <article>
-          <h3>Gemma + QLoRA</h3>
-          <p class="score pending" data-metric="macro_f1" data-experiment="gemma_qlora">pending</p>
-          <p>4-bit NF4 adapter on the same prompt contract. Compared on sealed test and challenge splits.</p>
+          <h3>Best Gemma rung</h3>
+          <p class="score" data-metric="macro_f1" data-experiment="gemma_few_shot">0.137</p>
+          <p>Few-shot prompting beat zero-shot and QLoRA on TEST macro F1.</p>
         </article>
       </div>
     </section>
 
     <section class="section">
       <h2>What we tested</h2>
-      <p>Same benchmark, five rungs, one frozen protocol.</p>
+      <p>Same benchmark, five rungs, one frozen protocol — all published.</p>
       <ol class="ladder">
         <li>
           <span class="step">01</span>
@@ -123,57 +130,57 @@
         <li>
           <span class="step">03</span>
           <span class="title">Gemma 3 1B zero-shot / few-shot</span>
-          <span class="state wait">gpu pending</span>
+          <span class="state done">done</span>
         </li>
         <li>
           <span class="step">04</span>
           <span class="title">QLoRA domain adaptation</span>
-          <span class="state wait">gpu pending</span>
+          <span class="state done">done</span>
         </li>
         <li>
           <span class="step">05</span>
           <span class="title">Held-out + challenge evaluation</span>
-          <span class="state wait">partial</span>
+          <span class="state done">done</span>
         </li>
       </ol>
     </section>
 
     <section class="section">
-      <h2>What already improved the research</h2>
+      <h2>What the research found</h2>
       <ul class="findings-list">
         <li>
           <strong>Gate 1 caught a shortcut</strong>
           An early generator let TF-IDF saturate at 1.0. Dataset v1.1 compositional packing brought test macro F1 to ~0.53 before protocol seal.
         </li>
         <li>
-          <strong>Classical residual errors are informative</strong>
-          TF-IDF is weakest on SUFFICIENT / IRRELEVANT / PARTIAL compositional cues; CONTRADICTORY remains easier (~0.93 F1).
+          <strong>TF-IDF leads; few-shot best of Gemma</strong>
+          Majority ~0.067 · TF-IDF ~0.533 · zero-shot ~0.080 · few-shot ~0.137 · QLoRA ~0.083 on sealed TEST.
         </li>
         <li>
-          <strong>Research surface is disclosed</strong>
-          v1.1 measures packet reading (substance pointer, SCOPE, ROW_DETAIL) — not naturalistic binder OCR. See Assurance.
+          <strong>QLoRA did not beat few-shot</strong>
+          Parse success ~0.435 on TEST makes the QLoRA score fragile — a negative finding we keep.
         </li>
       </ul>
     </section>
 
     <section class="section">
-      <h2>What still fails / is unfinished</h2>
+      <h2>What remains</h2>
       <ul class="findings-list">
         <li>
-          <strong>Gemma and QLoRA numbers are not public yet</strong>
-          Code and sealed protocol are ready; gated HF/Kaggle execution is the remaining critical path.
-        </li>
-        <li>
-          <strong>Schema-gaming risk</strong>
-          A model that only learns packet fields can look strong without understanding audits — treat that as a limited win if it appears.
+          <strong>Only the video</strong>
+          Record the ≤5-minute presentation from the capstone script, then upload via the GCLP form with report and slides PDFs.
         </li>
         <li>
           <strong>Hard boundaries remain</strong>
-          Failure Lab cases spotlight coverage gaps, policy-only submissions, and contradictory configurations. Explore them directly.
+          Failure Lab cases spotlight coverage gaps, policy-only submissions, and contradictory configurations.
+        </li>
+        <li>
+          <strong>Not a production auditor</strong>
+          Synthetic sealed packets measure research triage methods — not customer binder certification.
         </li>
       </ul>
       <div class="cta-row" style="margin-top:1.25rem;">
-        <a class="btn btn-primary" href="failure-lab.html">Open Failure Lab</a>
+        <a class="btn btn-primary" href="capstone/video-script.html">Video script</a>
         <a class="btn btn-secondary" href="results.html">Full results table</a>
         <a class="btn btn-secondary" href="assurance.html">Limits and non-claims</a>
       </div>
@@ -201,11 +208,11 @@
         </li>
         <li>
           <span class="id">REPORT</span>
-          <a href="reports/RESEARCH_REPORT.md">Research report (living)</a>
+          <a href="capstone/report.html">Capstone report</a>
         </li>
         <li>
-          <span class="id">RUNWAY</span>
-          <a href="reports/TWELVE_WEEK_RUNWAY.md">12-week execution runway</a>
+          <span class="id">CAPSTONE</span>
+          <a href="capstone/index.html">MMC / GCLP package</a>
         </li>
       </ul>
     </section>
@@ -213,11 +220,7 @@
 
   <footer class="site-footer">
     <div class="wrap">
-      <span>ControlSift · applied AI research under i on GRC · synthetic evidence only</span>
-      <div class="footer-links">
-        <a href="capstone/index.html">MMC Capstone</a>
-        <a href="methods.html">Methods</a>
-      </div>
+      <span>© ControlSift · synthetic evidence research</span>
     </div>
   </footer>
   <script src="assets/js/site.js"></script>
