@@ -1,8 +1,8 @@
 {
-  "updated": "2026-09-06T21:20:00-04:00",
+  "updated": "2026-09-06T21:22:00-04:00",
   "goal": "Close ControlSift MMC remaining gaps",
-  "hard_block": "Full-run metrics INGESTED + Pages prep READY. Still waiting user yes for commit + push_pages. Goal NOT complete until Pages publish.",
-  "status": "INGESTED_awaiting_pages",
+  "hard_block": "User approved publish. Commit+push in flight; Pages must verify live (or clearly block on Settings→Pages→GitHub Actions). Remaining manual: ≤5-min video.",
+  "status": "PUBLISHING_pages",
   "ingest": {
     "status": "INGESTED",
     "zip": "C:\\Users\\admin\\Downloads\\controlsift_gpu_outputs(1).zip",
@@ -68,13 +68,13 @@
     },
     {
       "id": "pages_publish",
-      "status": "next",
-      "needs": "User approval: commit metrics/docs + powershell -File scripts/push_pages.ps1. Do not auto-commit. Reply yes to commit and push Pages."
+      "status": "in_progress",
+      "needs": "User approved. Finish secret-safe commit + push master→main; verify https://jtflack-grc.github.io/controlsift/ or Settings→Pages→GitHub Actions."
     },
     {
       "id": "submit_pack",
       "status": "pending",
-      "needs": "≤5-min video recording after Pages metrics freeze (script beat ready)."
+      "needs": "≤5-min video recording after Pages metrics freeze (script beat ready). PDFs + video-script already frozen."
     }
   ],
   "kaggle_bundle_min_sha": "00113445056399afaab315a2ca1a88ea47ba194c",
@@ -145,8 +145,8 @@
     },
     {
       "id": "pages_publish",
-      "status": "next",
-      "evidence": "Pages 404; prep ready locally (metrics + video-script + PDFs). Awaiting user yes for commit + push_pages.ps1. No auto-commit."
+      "status": "in_progress",
+      "evidence": "User approved publish. Committing Gemma metrics + docs; push via master→main. Verify live Pages or Actions enable."
     },
     {
       "id": "submit_pack",
@@ -173,16 +173,16 @@
     "note": "Historical smoke-only; superseded by full_metrics"
   },
   "pages_publish_prep": {
-    "commit_when": "NOW — non-null results/gemma_*/metrics_test.json from full zip ingested; PDFs + video-script filled",
+    "commit_when": "USER APPROVED — committing now",
     "branch": "master",
-    "push": "powershell -File scripts/push_pages.ps1 (after clean commit; pushes master→main)",
+    "push": "powershell -File scripts/push_pages.ps1 or git push origin master:main",
     "workflow": ".github/workflows/pages.yml on push to main/master paths docs/** results/**",
     "pages_settings": "GitHub → Settings → Pages → Source = GitHub Actions (once)"
   },
   "pages_plan": {
     "ready": true,
-    "draft_only": true,
-    "do_not_execute_until": "User explicitly replies yes to commit and push Pages",
+    "draft_only": false,
+    "do_not_execute_until": "EXECUTED — user approved publish",
     "verified_2026_09_06": {
       "docs_data_results_json": "non-null Gemma TEST macro_f1 for zero/few/qlora (matches results/*/metrics_test.json)",
       "docs_results_html": "loads via site.js from data/results.json — will show numbers once Pages serves docs/",
