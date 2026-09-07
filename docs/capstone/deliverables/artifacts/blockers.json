@@ -1,6 +1,6 @@
 {
-  "updated": "2026-09-06T21:35:00-04:00",
-  "status": "metrics_published",
+  "updated": "2026-09-06T21:40:00-04:00",
+  "status": "pages_live",
   "site": "https://jtflack-grc.github.io/controlsift/",
   "primary_metric": "macro_f1",
   "test_macro_f1": {
@@ -12,11 +12,15 @@
   },
   "honest_summary": "TF-IDF leads on the sealed test set (~0.533). Best Gemma 3 1B ladder score is few-shot (~0.137). QLoRA (~0.083) has fragile label-parse success (~0.435). Numbers from results/*/metrics_test.json only.",
   "public_mirror": "docs/data/results.json",
+  "todos": {
+    "pages": "complete",
+    "submit_pack": "video_remaining"
+  },
   "remaining": [
     {
       "id": "video",
       "status": "pending",
-      "note": "Record ≤5-minute presentation using docs/capstone/video-script.html; upload via GCLP form only (do not commit the video)."
+      "note": "Record <=5-minute presentation using docs/capstone/video-script.html; upload via GCLP form only (do not commit the video)."
     }
   ],
   "complete": [
@@ -25,6 +29,7 @@
     "Week 3 skill badge proof",
     "Capstone report + slides PDFs",
     "Video script with real TEST numbers",
-    "GitHub Pages publish"
-  ]
+    "GitHub Pages live with TEST metrics"
+  ],
+  "mmc_goal": "incomplete"
 }
