@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>gdm_lab_2_3_tokenize_texts_into_subword_tokens.ipynb</title>
-  <link rel="stylesheet" href="../../../../../assets/css/site.css?v=202609070640" />
+  <link rel="stylesheet" href="../../../../../assets/css/site.css?v=202609070720" />
   <style>
     .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
     .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
@@ -58,11 +58,11 @@ In this lab, you will:
 * Implement a function to tokenize the made-up word &quot;Clusterophonexia&quot;.
 * Inspect how Gemma handles emojis and the purpose of its special tokens.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 6 · markdown</h3><pre class="source"><code>## How to use Google Colaboratory (Colab)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 7 · markdown</h3><pre class="source"><code>Google Colaboratory (also known as Google Colab) is a platform that allows you to run Python code in your browser. The code is written in **cells** that are executed on a remote server.
 
-To run a cell, hover over the cell and click on the `run` button to its left. The run button is the circle with the triangle (▶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or ⌘+Return if you are using a Mac).
+To run a cell, hover over the cell and click on the `run` button to its left. The run button is the circle with the triangle (â–¶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or âŒ˜+Return if you are using a Mac).
 
 To try this out, run the following cell. This should print today&#x27;s day of the week below it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 8 · code</h3><pre class="source"><code>from datetime import datetime
 
-print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 9 · markdown</h3><pre class="source"><code>Note that the *order in which you run the cells matters*. When you are working through a lab, make sure to always run *all* cells in order, otherwise the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime → Run before__  from the menu above (or use the keyboard combination Ctrl/⌘ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>## Imports
+print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 9 · markdown</h3><pre class="source"><code>Note that the *order in which you run the cells matters*. When you are working through a lab, make sure to always run *all* cells in order, otherwise the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime â†’ Run before__  from the menu above (or use the keyboard combination Ctrl/âŒ˜ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>## Imports
 
 In this lab, you will primarily work with the tokenizer from the `gemma` package.
 
@@ -101,7 +101,7 @@ To gain a better intuition of how the Gemma tokenizer works, run the following c
 gemma_tokenizer = gm.text.Gemma3Tokenizer()
 
 # Inspect the vocabaulary size.
-print(f&quot;Gemma&#x27;s vocabulary consists of {gemma_tokenizer.vocab_size:,} tokens.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 15 · markdown</h3><pre class="source"><code>As you can see, Gemma has a very large vocabulary size of more than 260,000 tokens. This is because the list of unique tokens has been determined using a much larger dataset than Africa Galore. Furthermore, the tokenizer has been designed with the goal of allowing the model to capture a wide spectrum of input, from common words and frequent subword patterns, to emojis like `&#x27;☺️&#x27;`, to the character sets of different languages. With such an expansive vocabulary, Gemma can often tokenize text more precisely. This reduces instances of the meaningless `&lt;UNK&gt;` token and better preserves the semantic richness of the original input.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 16 · markdown</h3><pre class="source"><code>#### Encoding and decoding
+print(f&quot;Gemma&#x27;s vocabulary consists of {gemma_tokenizer.vocab_size:,} tokens.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 15 · markdown</h3><pre class="source"><code>As you can see, Gemma has a very large vocabulary size of more than 260,000 tokens. This is because the list of unique tokens has been determined using a much larger dataset than Africa Galore. Furthermore, the tokenizer has been designed with the goal of allowing the model to capture a wide spectrum of input, from common words and frequent subword patterns, to emojis like `&#x27;â˜ºï¸&#x27;`, to the character sets of different languages. With such an expansive vocabulary, Gemma can often tokenize text more precisely. This reduces instances of the meaningless `&lt;UNK&gt;` token and better preserves the semantic richness of the original input.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 16 · markdown</h3><pre class="source"><code>#### Encoding and decoding
 
 To translate an arbitrary input text to the token IDs that Gemma can process, you can use the `encode` function of the tokenizer. This is demonstrated in the following cell.
 </code></pre></article><article class="nb-cell nb-code"><h3>Cell 17 · code</h3><pre class="source"><code># Encode a text into token IDs.
@@ -114,7 +114,7 @@ decoded_text = gemma_tokenizer.decode(gemma_tokens)
 print(f&quot;Decoded sentence from tokens: {decoded_text}\n&quot;)
 
 # Check whether this results in the same text as the original one.
-is_equal = &quot;✅&quot; if text == decoded_text else &quot;❌&quot;
+is_equal = &quot;âœ…&quot; if text == decoded_text else &quot;âŒ&quot;
 print(
     f&quot;Decoding the tokens results in the same text as the original one:&quot;
     f&quot; {is_equal}\n&quot;
@@ -130,7 +130,7 @@ As mentioned, this approach has the advantage that it can represent almost any w
 &lt;br /&gt;
 
 ------
-&gt; **💻 Your task:**
+&gt; **ðŸ’» Your task:**
 &gt;
 &gt; Use the `encode` and `decode` methods of the Gemma tokenizer to investigate how Gemma tokenizes the made-up word &quot;Clusterophonexia&quot;.
 &gt;
@@ -145,11 +145,11 @@ feedback.test_gemma_subword_tokenization(clusterophonexia_tokens,
                                          gemma_tokenizer
 )</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 23 · markdown</h3><pre class="source"><code>As you have observed, the Gemma tokenizer can even tokenize made-up words, such as &quot;Clusterophonexia&quot;. In this case the model has access to tokens it has been trained on. For example, if the meaning of &quot;Clusterophonexia&quot; is related to the word &quot;cluster&quot;, then the Gemma tokenization would provide some information about what this word is supposed to mean. In this case, the blanket `&lt;UNK&gt;` token would not provide any information about the word&#x27;s meaning.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 24 · markdown</h3><pre class="source"><code>### Tokenizing Unicode characters
 
-Gemma&#x27;s large vocabulary also includes many Unicode characters, such as emojis. Run the next cell to see how the sentence &quot;I am smiling ☺️!&quot; is tokenized:</code></pre></article><article class="nb-cell nb-code"><h3>Cell 25 · code</h3><pre class="source"><code>gemma_tokens = gemma_tokenizer.encode(&quot;I am smiling ☺️!&quot;)
+Gemma&#x27;s large vocabulary also includes many Unicode characters, such as emojis. Run the next cell to see how the sentence &quot;I am smiling â˜ºï¸!&quot; is tokenized:</code></pre></article><article class="nb-cell nb-code"><h3>Cell 25 · code</h3><pre class="source"><code>gemma_tokens = gemma_tokenizer.encode(&quot;I am smiling â˜ºï¸!&quot;)
 
 for i, token in enumerate(gemma_tokens):
     decoded_token = gemma_tokenizer.decode(token)
-    print(f&quot;Token {token}:\t{decoded_token}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 26 · markdown</h3><pre class="source"><code>As you can see observe, the tokenizer is also able to map emojis to token IDs. In this case, the emoji ☺️ is mapped to ID 145233.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 27 · markdown</h3><pre class="source"><code>## Special tokens
+    print(f&quot;Token {token}:\t{decoded_token}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 26 · markdown</h3><pre class="source"><code>As you can see observe, the tokenizer is also able to map emojis to token IDs. In this case, the emoji â˜ºï¸ is mapped to ID 145233.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 27 · markdown</h3><pre class="source"><code>## Special tokens
 
 Beyond the regular tokens that represent words or subwords, a tokenizer&#x27;s vocabulary includes special tokens. These tokens don&#x27;t represent content. Instead, they provide structural information to the model, such as marking boundaries or handling sequences of different lengths.
 

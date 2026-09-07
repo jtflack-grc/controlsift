@@ -93,17 +93,17 @@
     modal.hidden = true;
     modal.innerHTML = `
       <div class="welcome-modal__backdrop" data-welcome-dismiss tabindex="-1" aria-hidden="true"></div>
-      <div class="welcome-modal__card" role="document" style="font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif !important;background:#0a1510;border:2px solid #7fffb2;padding:1.5rem 1.45rem;color:#e8f4ec;">
-        <p class="welcome-modal__brand" style="font-family:'Fraunces','IBM Plex Sans',Georgia,serif !important;color:#7fffb2;margin:0 0 0.55rem;font-size:clamp(1.85rem,5vw,2.35rem);font-weight:600;">ControlSift</p>
-        <h2 id="welcome-modal-title" style="font-family:'Fraunces','IBM Plex Sans',Georgia,serif !important;color:#fff;margin:0 0 0.75rem;font-size:clamp(1.2rem,3vw,1.45rem);font-weight:500;">Proof from paperwork — research, not a live auditor.</h2>
-        <p style="font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif !important;color:#c8e6d2;line-height:1.55;margin:0 0 0.85rem;">
+      <div class="welcome-modal__card" role="document" style="font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif !important;background:#0a1510;border:2px solid #7fffb2;padding:1.5rem 1.45rem;color:#e8f4ec;">
+        <p class="welcome-modal__brand" style="font-family:'IBM Plex Mono',monospace !important;color:#7fffb2;margin:0 0 0.55rem;font-size:clamp(1.85rem,5vw,2.35rem);font-weight:600;">ControlSift</p>
+        <h2 id="welcome-modal-title" style="font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif !important;color:#fff;margin:0 0 0.75rem;font-size:clamp(1.2rem,3vw,1.45rem);font-weight:500;">Proof from paperwork — research, not a live auditor.</h2>
+        <p style="font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif !important;color:#c8e6d2;line-height:1.55;margin:0 0 0.85rem;">
           ControlSift studies whether a small AI can tell real security proof from paperwork
           on a sealed synthetic benchmark. Open research with published metrics — not production GRC software.
         </p>
-        <p class="welcome-modal__note" style="font-family:'IBM Plex Mono',ui-monospace,monospace !important;color:#38e881;font-size:0.72rem;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 1rem;">UN SDG 10 · Reduced Inequalities · metrics published</p>
+        <p class="welcome-modal__note" style="font-family:'IBM Plex Mono',monospace !important;color:#38e881;font-size:0.72rem;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 1rem;">UN SDG 10 · Reduced Inequalities · metrics published</p>
         <div class="cta-row" style="display:flex;flex-wrap:wrap;gap:0.65rem;">
-          <button type="button" class="btn btn-primary" id="welcome-modal-continue" data-welcome-dismiss style="font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif !important;background:#7fffb2;color:#021008;border:1px solid #7fffb2;padding:0.75rem 1.15rem;font-weight:600;cursor:pointer;">Continue to site</button>
-          <a class="btn btn-secondary" href="${p}capstone/index.html" data-welcome-capstone style="font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif !important;border:1px solid #2a2e2a;color:#e8f4ec;padding:0.75rem 1.15rem;font-weight:600;text-decoration:none;">Enter Capstone</a>
+          <button type="button" class="btn btn-primary" id="welcome-modal-continue" data-welcome-dismiss style="font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif !important;background:#7fffb2;color:#021008;border:1px solid #7fffb2;padding:0.75rem 1.15rem;font-weight:600;cursor:pointer;">Continue to site</button>
+          <a class="btn btn-secondary" href="${p}capstone/index.html" data-welcome-capstone style="font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif !important;border:1px solid #2a2e2a;color:#e8f4ec;padding:0.75rem 1.15rem;font-weight:600;text-decoration:none;">Enter Capstone</a>
         </div>
       </div>
     `;

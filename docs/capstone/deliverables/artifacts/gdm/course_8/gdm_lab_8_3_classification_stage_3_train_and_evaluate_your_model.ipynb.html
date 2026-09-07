@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>gdm_lab_8_3_classification_stage_3_train_and_evaluate_your_model.ipynb</title>
-  <link rel="stylesheet" href="../../../../../assets/css/site.css?v=202609070640" />
+  <link rel="stylesheet" href="../../../../../assets/css/site.css?v=202609070720" />
   <style>
     .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
     .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
@@ -79,10 +79,10 @@ This lab builds on materials from several previous courses. If you would like to
 
 **This lab needs to be run on GPU. Choose a T4 GPU.** See the section &quot;How to use Google Colaboratory (Colab)&quot; below for instructions on how to do this.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 5 · markdown</h3><pre class="source"><code>## How to use Google Colaboratory (Colab)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 6 · markdown</h3><pre class="source"><code>Google Colaboratory (also known as Google Colab) is a platform that allows you to run Python code in your browser. The code is written in cells that are executed on a remote server.
 
-To run a cell, hover over a cell, and click on the `run` button to its left. The run button is the circle with the triangle (▶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or ⌘+Return if you are using a Mac).
+To run a cell, hover over a cell, and click on the `run` button to its left. The run button is the circle with the triangle (â–¶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or âŒ˜+Return if you are using a Mac).
 
 To try this out, run the following cell. This should print today&#x27;s day of the week below it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 7 · code</h3><pre class="source"><code>from datetime import datetime
-print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 8 · markdown</h3><pre class="source"><code>Note that the order in which you run the cells matters. When you are working through a lab, make sure to always run all cells in order. Otherwise, the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime → Run before__  from the menu above (or use the keyboard combination Ctrl/⌘ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 9 · markdown</h3><pre class="source"><code>### Using Colab with a GPU
+print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 8 · markdown</h3><pre class="source"><code>Note that the order in which you run the cells matters. When you are working through a lab, make sure to always run all cells in order. Otherwise, the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime â†’ Run before__  from the menu above (or use the keyboard combination Ctrl/âŒ˜ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 9 · markdown</h3><pre class="source"><code>### Using Colab with a GPU
 
 Follow these steps to run the activities in this lab on a GPU:
 
@@ -197,7 +197,7 @@ To run this notebook, you will have to sign up for [Kaggle](https://www.kaggle.c
 
 **Step 4: Set your API Key in Colab**
 
-* Click the &quot;key&quot; icon 🔑 in the left-hand sidebar.
+* Click the &quot;key&quot; icon ðŸ”‘ in the left-hand sidebar.
 
 * You will see the &quot;Secrets&quot; panel.
 
@@ -224,7 +224,7 @@ os.environ[&quot;KAGGLE_KEY&quot;] = userdata.get(&#x27;KAGGLE_KEY&#x27;)</code>
 However, each model has its own formatting requirements. The Gemma models support only two conversational roles, **user** and **model**, but not a **system** role. In other words, prompts and responses are structured as direct exchanges between the user and the model, without a separate system message to provide global instructions or context (such as defining tone, style, or constraints). Higher-capacity LLMs, like Gemini, also use a system role for this purpose, allowing developers to set overall behavior at the start of a conversation. Because Gemma does not support the system role, each training example must explicitly include any necessary context or instruction within the user prompt itself. For more information, see the [Gemma formatting and system instructions document](https://ai.google.dev/gemma/docs/core/prompt-structure/).
   
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 25 · markdown</h3><pre class="source"><code>------
-&gt; 💻 **Your task:**
+&gt; ðŸ’» **Your task:**
 &gt;
 &gt; 1. **Implement conversation formatting**:
 &gt;    - **Special tokens**: The Gemma model uses `&lt;start_of_turn&gt;` and `&lt;end_of_turn&gt;`.
@@ -350,7 +350,7 @@ data = {&quot;prompts&quot;: inputs, &quot;responses&quot;: targets}
 </code></pre></article><article class="nb-cell nb-code"><h3>Cell 30 · code</h3><pre class="source"><code># Add your code to add special delimiter tokens here.
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 31 · markdown</h3><pre class="source"><code>### Load Gemma using Keras
 Once your data is ready, you now need to fine-tune your Gemma model using LoRA,  as you familiarized yourself with in Course 05 Fine-tune Your Model. You will train only a small number of additional parameters whilst keeping the base model frozen. You may find additional information in [Google&#x27;s *Fine-tune Gemma in Keras using LoRA* documentation](https://ai.google.dev/gemma/docs/core/lora_tuning).</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 32 · markdown</h3><pre class="source"><code>------
-&gt; 💡 **Tip: Curious about model size and performance tradeoffs?**
+&gt; ðŸ’¡ **Tip: Curious about model size and performance tradeoffs?**
 &gt;
 &gt; You can experiment with the larger **Gemma3-4B** model to compare accuracy and output quality against the 1B version.  
 &gt; Keep in mind that Colab&#x27;s default **T4 GPU** may not have enough memory to fine-tune the 4B model in full precision.  
@@ -393,7 +393,7 @@ for example in manual_spot_checking_examples:
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 45 · markdown</h3><pre class="source"><code>#### Your Implementation
 </code></pre></article><article class="nb-cell nb-code"><h3>Cell 46 · code</h3><pre class="source"><code># Add your code for generating responses with the base model here.
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 47 · markdown</h3><pre class="source"><code>------
-&gt; ⚠️ **Understanding base model limitations**
+&gt; âš ï¸ **Understanding base model limitations**
 &gt;
 &gt; You will likely notice that the base Gemma3-1B model produces inconsistent or inaccurate responses when asked to classify these items. This behavior is expected, and why is explained below:
 &gt;
@@ -418,7 +418,7 @@ for example in manual_spot_checking_examples:
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 48 · markdown</h3><pre class="source"><code>### Activity 3: Activate and run LoRA
 
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 49 · markdown</h3><pre class="source"><code>------
-&gt; 💻 **Your task:**
+&gt; ðŸ’» **Your task:**
 &gt;
 &gt; Set up your hyperparameters and fine-tune your Gemma model using LoRA:
 &gt;
@@ -466,7 +466,7 @@ model.backbone.enable_lora(rank=lora_rank)
 print(model.optimizer.learning_rate)
 ```</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 52 · markdown</h3><pre class="source"><code>#### Your implementation</code></pre></article><article class="nb-cell nb-code"><h3>Cell 53 · code</h3><pre class="source"><code># Add your code to set the hyperparameters and enable LoRA training.
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 54 · markdown</h3><pre class="source"><code>-----
-&gt; **ℹ️ Info: Understanding LoRA hyperparameters**
+&gt; **â„¹ï¸ Info: Understanding LoRA hyperparameters**
 &gt;
 &gt; The following parameters control how LoRA fine-tuning adapts the model to your classification task:
 &gt;
@@ -505,7 +505,7 @@ for i in jnp.arange(num_epochs):
 ```</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 58 · markdown</h3><pre class="source"><code>#### Your implementation</code></pre></article><article class="nb-cell nb-code"><h3>Cell 59 · code</h3><pre class="source"><code># Add your code to fine-tune the model.
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 60 · markdown</h3><pre class="source"><code>Ideally, you now have a fine-tuned Gemma model trained with LoRA for your classification task. The next step is to evaluate how well the classifier performs by testing it on real examples and conducting systematic evaluation.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 61 · markdown</h3><pre class="source"><code>## Activity 4: Model evaluation
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 62 · markdown</h3><pre class="source"><code>------
-&gt; 💻 **Your task:**
+&gt; ðŸ’» **Your task:**
 &gt;
 &gt; Evaluate your fine-tuned classifier through a combination of manual spot checks and quantitative metrics. You will assess performance on both **seen data** (training examples) and **unseen data** (test examples) to understand how well your model generalizes. Now is the time to use your test set. If you use a third-party dataset with existing splits, it is good practice to keep those original splits to maintain comparability with other work.
 &gt;
@@ -707,24 +707,24 @@ From the `model_output` column, identify the text between `&lt;start_of_turn&gt;
 Look at the `output` column for the same row. This contains the correct classification.
 
 **3. Determine accuracy**
-- ✅ **Correct prediction**: If the model&#x27;s prediction matches the `output` value exactly.
-- ❌ **Incorrect prediction**: If they don&#x27;t match.
+- âœ… **Correct prediction**: If the model&#x27;s prediction matches the `output` value exactly.
+- âŒ **Incorrect prediction**: If they don&#x27;t match.
 
 #### Example
 
 | name | output | model_output | Evaluation |
 |------|----------|--------------|------------|
-| Jollof Rice | Food | ...Food&amp;lt;/end_of_turn&amp;gt; | ✅ CORRECT |
-| Afrobeat | Music | ...Food&amp;lt;/end_of_turn&amp;gt; | ❌ INCORRECT |
+| Jollof Rice | Food | ...Food&amp;lt;/end_of_turn&amp;gt; | âœ… CORRECT |
+| Afrobeat | Music | ...Food&amp;lt;/end_of_turn&amp;gt; | âŒ INCORRECT |
 
 #### What to look for during spot-checking
 
-**✅ Good signs:**
+**âœ… Good signs:**
 - Model predictions match the `output` column consistently.
 - Predictions are single, clear category labels (not long explanations).
 - Model handles diverse examples within each category.
 
-**⚠️ Warning signs:**
+**âš ï¸ Warning signs:**
 - Frequent mismatches between prediction and true category.
 - Model outputs contain unexpected text or formatting.
 - Systematic bias toward certain categories.
@@ -906,7 +906,7 @@ If you identified any systematic issues or are otherwise not yet satisfied with 
 
 To do these iterations most systematically, it is best if you do not change too many things at once, so that you learn which components affect your classifier the most. Furthermore, make sure to keep a log of your experiments somewhere in which you detail the settings of each training run, so that you know at the end what worked best. That way, you can progressively optimize your machine learning model until you are satisfied with its performance.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 90 · markdown</h3><pre class="source"><code>## Activity 6: Reflection
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 91 · markdown</h3><pre class="source"><code>------
-&gt; 💻 **Your task:**
+&gt; ðŸ’» **Your task:**
 &gt;
 &gt; **Technical and project reflection:**
 &gt;

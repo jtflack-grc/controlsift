@@ -8,7 +8,7 @@
   <title>Curriculum Map — Capstone</title>
   <meta name="robots" content="noindex" />
   <meta name="description" content="Dense subtopic map of ControlSift against the public Google DeepMind AI Research Foundations curriculum." />
-  <link rel="stylesheet" href="../assets/css/site.css?v=202609070640" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=202609070720" />
 </head>
 <body>
   <header class="site-header">
@@ -39,7 +39,7 @@
     <section class="section">
       <h2>How to read this page</h2>
       <p>
-        Under each course: public Skills link → module headings → curriculum subtopics →
+        Under each course: public Skills link â†’ module headings â†’ curriculum subtopics â†’
         <span class="meet">meets</span> /
         <span class="meet partial">partial</span>
         with why. Partial means the learning goal is satisfied by an applied analogue (e.g. using Gemma rather than re-deriving attention equations). GPU ladder metrics are published; only the form video remains for GCLP submit.
@@ -100,7 +100,7 @@
         <h4>N-grams and language patterns</h4>
         <p class="why"><span class="meet">meets</span> TF-IDF + logistic regression is the explicit bag-of-words / n-gram-family baseline on the same sealed splits—ControlSift’s stand-in for “what lexical patterns alone can do.”</p>
         <h4>Lab: Experiment with n-grams</h4>
-        <p class="why"><span class="meet">meets</span> <code>scripts/run_tfidf_baseline.py</code> trains and scores TF-IDF on train→test/challenge; results live under <code>results/tfidf/</code> and the public Results page.</p>
+        <p class="why"><span class="meet">meets</span> <code>scripts/run_tfidf_baseline.py</code> trains and scores TF-IDF on trainâ†’test/challenge; results live under <code>results/tfidf/</code> and the public Results page.</p>
         <h4>Limitations of n-grams</h4>
         <p class="why"><span class="meet">meets</span> Early draft data let TF-IDF saturate (label-unique phrases). That was treated as a dataset failure, not success. v1.1 dual-section packing + adversarial surface harden restored a meaningful ceiling (~0.53 macro F1), proving lexical shortcuts are insufficient for the intended judgment task.</p>
         <h4>How research engineers approach real problems</h4>
@@ -110,7 +110,7 @@
 
         <h3>Transformer models</h3>
         <h4>Compare n-gram models and transformer language models</h4>
-        <p class="why"><span class="meet">meets</span> Ladder is majority → TF-IDF → Gemma zero-shot → few-shot → QLoRA. Full TEST ladder published (TF-IDF leads; few-shot best of Gemma; QLoRA did not beat few-shot).</p>
+        <p class="why"><span class="meet">meets</span> Ladder is majority â†’ TF-IDF â†’ Gemma zero-shot â†’ few-shot â†’ QLoRA. Full TEST ladder published (TF-IDF leads; few-shot best of Gemma; QLoRA did not beat few-shot).</p>
         <h4>Anatomy of a language model</h4>
         <p class="why"><span class="meet">meets</span> Model Card and configs name Gemma&nbsp;3 1B IT, quantization, LoRA rank/alpha, sequence length, and inference settings—enough anatomy for an applied PEFT study without reimplementing a toy SLM.</p>
         <h4>What it means to train a model</h4>
@@ -120,7 +120,7 @@
 
         <h3>Training a model</h3>
         <h4>Machine learning development pipeline</h4>
-        <p class="why"><span class="meet">meets</span> End-to-end pipeline: generate → validate → seal → classical baselines → Gemma baselines → QLoRA → aggregate evaluation → Failure Lab → public Results. Documented in Methods and Reproduce.</p>
+        <p class="why"><span class="meet">meets</span> End-to-end pipeline: generate â†’ validate â†’ seal â†’ classical baselines â†’ Gemma baselines â†’ QLoRA â†’ aggregate evaluation â†’ Failure Lab â†’ public Results. Documented in Methods and Reproduce.</p>
         <h4>Prepare the dataset for training</h4>
         <p class="why"><span class="meet">meets</span> Deterministic generator, JSONL splits, validators, manifest hashes, protocol seal tag <code>protocol-v1-locked</code>.</p>
         <h4>Train a small language model / evaluate performance</h4>
@@ -214,7 +214,7 @@
 
         <h3>The multilayer perceptron</h3>
         <h4>Single-layer vs multilayer classification</h4>
-        <p class="why"><span class="meet partial">partial</span> Logistic regression on TF-IDF is the linear classifier baseline; Gemma provides the deep nonlinear model. We do not reimplement an MLP-from-scratch lab in-repo because the applied ladder already spans linear → transformer PEFT.</p>
+        <p class="why"><span class="meet partial">partial</span> Logistic regression on TF-IDF is the linear classifier baseline; Gemma provides the deep nonlinear model. We do not reimplement an MLP-from-scratch lab in-repo because the applied ladder already spans linear â†’ transformer PEFT.</p>
         <h4>Non-linearly separable structure</h4>
         <p class="why"><span class="meet">meets</span> Dual-section packets with decoys intentionally create cases where a single lexical cue is insufficient—requiring compositional reading.</p>
 
@@ -460,7 +460,7 @@
 
         <h3>Train and evaluate (classification track)</h3>
         <h4>Worked example / train and evaluate your model</h4>
-        <p class="why"><span class="meet">meets</span> Classical and Gemma&nbsp;3 + LoRA train/eval complete and published. Capstone residual for form submit is the ≤5-minute video only.</p>
+        <p class="why"><span class="meet">meets</span> Classical and Gemma&nbsp;3 + LoRA train/eval complete and published. Capstone residual for form submit is the â‰¤5-minute video only.</p>
         <h4>Full fine-tuning workflow using Gemma&nbsp;3 with LoRA</h4>
         <p class="why"><span class="meet">meets</span> Matches the Skills capstone requirement; Gemma&nbsp;3 + LoRA executed and published. Remaining gate: video recording for form upload.</p>
 
@@ -498,7 +498,7 @@
       <span>ControlSift · curriculum</span>
     </div>
   </footer>
-  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/nav.js?v=202609070720"></script>
   <script src="../assets/js/capstone-nav.js"></script>
 </body>
 </html>

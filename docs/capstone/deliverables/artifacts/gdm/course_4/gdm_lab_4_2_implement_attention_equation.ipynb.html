@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>gdm_lab_4_2_implement_attention_equation.ipynb</title>
-  <link rel="stylesheet" href="../../../../../assets/css/site.css?v=202609070640" />
+  <link rel="stylesheet" href="../../../../../assets/css/site.css?v=202609070720" />
   <style>
     .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
     .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
@@ -62,11 +62,11 @@ If you are able to, we recommend running the code in this lab on **a Colab insta
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 6 · markdown</h3><pre class="source"><code>## How to use Google Colaboratory (Colab)
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 7 · markdown</h3><pre class="source"><code>Google Colaboratory (also known as Google Colab) is a platform that allows you to run Python code in your browser. The code is written in **cells** that are executed on a remote server.
 
-To run a cell, hover over the cell and click on the `run` button to its left. The run button is the circle with the triangle (▶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or ⌘+Return if you are using a Mac).
+To run a cell, hover over the cell and click on the `run` button to its left. The run button is the circle with the triangle (â–¶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or âŒ˜+Return if you are using a Mac).
 
 To try this out, run the following cell. This should print today&#x27;s day of the week below it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 8 · code</h3><pre class="source"><code>from datetime import datetime
 
-print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 9 · markdown</h3><pre class="source"><code>Note that the *order in which you run the cells matters*. When you are working through a lab, make sure to always run *all* cells in order, otherwise the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime → Run before__  from the menu above (or use the keyboard combination Ctrl/⌘ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>### Using Colab with a GPU
+print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 9 · markdown</h3><pre class="source"><code>Note that the *order in which you run the cells matters*. When you are working through a lab, make sure to always run *all* cells in order, otherwise the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime â†’ Run before__  from the menu above (or use the keyboard combination Ctrl/âŒ˜ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>### Using Colab with a GPU
 
 A **GPU** is a special type of hardware that can significantly speed up some types of computations of machine learning models. Several of the activities in this lab will also run a lot faster if you run them on a GPU.
 
@@ -145,7 +145,7 @@ visualizations.visualize_attention(
 )</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 17 · markdown</h3><pre class="source"><code>## Coding Activity 1: Attention equation
 
 ------
-&gt; **💻 Your task:**
+&gt; **ðŸ’» Your task:**
 &gt;
 &gt;Implement the attention mechanism for a specific layer in the following cell. To simplify things, the cell already makes a call to `get_qkv_matrices` which contains the query, key, and value projections for every token in the sentence.
 &gt;
@@ -281,10 +281,10 @@ def compute_attention(
   # Compute the logits = QK.T/sqrt(d_k)
   logits = (query_proj @ key_proj.T) / jnp.sqrt(dim_key)
 
-  # Compute the attention weights 𝛼.
+  # Compute the attention weights ð›¼.
   alpha = jax.nn.softmax(logits)
 
-  # Compute the output Y = 𝛼V.
+  # Compute the output Y = ð›¼V.
   Y = alpha @ value_proj
 
   return Y, alpha, logits

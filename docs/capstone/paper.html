@@ -8,7 +8,7 @@
   <title>Capstone Research Paper — ControlSift</title>
   <meta name="robots" content="noindex" />
   <meta name="description" content="Research paper for the ControlSift applied AI capstone: evidence-quality classification, sealed evaluation, and Gemma 3 ladder results." />
-  <link rel="stylesheet" href="../assets/css/site.css?v=202609070640" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=202609070720" />
 </head>
 <body>
   <header class="site-header">
@@ -111,7 +111,7 @@
             <li><strong>CONTRADICTORY</strong> — otherwise complete framing that contains a control-failure fact.</li>
           </ul>
           <p>
-            The modeling path: majority class → TF-IDF logistic regression → Gemma&nbsp;3 1B zero-shot → few-shot → QLoRA.
+            The modeling path: majority class â†’ TF-IDF logistic regression â†’ Gemma&nbsp;3 1B zero-shot â†’ few-shot â†’ QLoRA.
             Each rung produces machine-readable metrics so improvements can be inspected rather than asserted.
           </p>
         </section>
@@ -188,7 +188,7 @@
           <h3>6.2 Language-model ladder</h3>
           <p>
             Primary model: <code>google/gemma-3-1b-it</code>. Zero-shot uses a frozen canonical JSON label prompt.
-            Few-shot adds one fixed train/validation exemplar per class. QLoRA uses 4-bit NF4, LoRA rank 16, α&nbsp;16.
+            Few-shot adds one fixed train/validation exemplar per class. QLoRA uses 4-bit NF4, LoRA rank 16, Î±&nbsp;16.
             Malformed generations parse to <code>UNPARSEABLE</code> and count against performance.
           </p>
           <h3>6.3 Training and compute</h3>
@@ -279,7 +279,7 @@
             <strong>TF-IDF leads.</strong> After the v1.1 harden (earlier drafts saturated at 1.0), lexical models still
             set the ceiling on this compositional packet task. <strong>Few-shot is the best Gemma rung</strong> among
             prompted and adapted 1B runs. <strong>QLoRA did not beat few-shot</strong> on TEST macro F1; with parse
-            success ≈0.435, a large share of generations never land a valid label — the score is fragile and should not
+            success â‰ˆ0.435, a large share of generations never land a valid label — the score is fragile and should not
             be read as a clean adaptation win. The sealed synthetic protocol therefore answers the research question
             negatively for “QLoRA beats strong prompting on this benchmark,” while still delivering a complete,
             inspectable methods ladder for residency review.
@@ -317,7 +317,7 @@
             <a href="https://www.skills.google/paths/3135" rel="noopener">Google DeepMind AI Research Foundations</a>
             path end-to-end. The <a href="curriculum.html">curriculum map</a> lists every substantive public module
             subtopic with a ControlSift meet/partial rationale. GPU legs (prompting, QLoRA, acceleration) are complete;
-            only the ≤5-minute presentation video remains for form submission.
+            only the â‰¤5-minute presentation video remains for form submission.
           </p>
         </section>
 
@@ -349,7 +349,7 @@ pytest</code></pre>
         <section class="h-block" id="future">
           <h2>14. Future work</h2>
           <p>
-            Immediate remaining deliverable: record and upload the ≤5-minute video. Research follow-ons (optional):
+            Immediate remaining deliverable: record and upload the â‰¤5-minute video. Research follow-ons (optional):
             improve constrained decoding / parse reliability for adapted models; prose-harden packets if schema gaming
             dominates; extend Failure Lab with more Gemma disagreements. Do not invent better F1s.
           </p>
@@ -388,7 +388,7 @@ pytest</code></pre>
       <span>ControlSift · research paper</span>
     </div>
   </footer>
-  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/nav.js?v=202609070720"></script>
   <script src="../assets/js/capstone-nav.js"></script>
 </body>
 </html>

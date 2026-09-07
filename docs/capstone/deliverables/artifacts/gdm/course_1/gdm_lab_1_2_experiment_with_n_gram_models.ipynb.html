@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>gdm_lab_1_2_experiment_with_n_gram_models.ipynb</title>
-  <link rel="stylesheet" href="../../../../../assets/css/site.css?v=202609070640" />
+  <link rel="stylesheet" href="../../../../../assets/css/site.css?v=202609070720" />
   <style>
     .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
     .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
@@ -68,10 +68,10 @@ The full n-gram counts, $\mbox{ Count}(\mbox{A B})$, and the context n-gram coun
 
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 7 · markdown</h3><pre class="source"><code>## How to use Google Colaboratory (Colab)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 8 · markdown</h3><pre class="source"><code>Google Colaboratory (also known as Google Colab) is a platform that allows you to run Python code in your browser. The code is written in *cells* that are executed on a remote server.
 
-To run a cell, hover over a cell and click on the `run` button to its left. The run button is the circle with the triangle (▶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or ⌘+Return if you are using a Mac).
+To run a cell, hover over a cell and click on the `run` button to its left. The run button is the circle with the triangle (â–¶). Alternatively, you can also click on a cell and use the keyboard combination Ctrl+Return (or âŒ˜+Return if you are using a Mac).
 
 To try this out, run the following cell. This should print today&#x27;s day of the week below it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 9 · code</h3><pre class="source"><code>from datetime import datetime
-print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>Note that the *order in which you run the cells matters*. When you are working through a lab, make sure to always run *all* cells in order, otherwise the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose **Runtime** → **Run before**  from the menu above (or use the keyboard combination Ctrl/⌘ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 11 · markdown</h3><pre class="source"><code>## Imports
+print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>Note that the *order in which you run the cells matters*. When you are working through a lab, make sure to always run *all* cells in order, otherwise the code might not work. If you take a break while working on a lab, Colab may disconnect you and in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose **Runtime** â†’ **Run before**  from the menu above (or use the keyboard combination Ctrl/âŒ˜ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 11 · markdown</h3><pre class="source"><code>## Imports
 
 The code in this lab uses the [`random`](https://docs.python.org/3/library/random.html) package for sampling from probability distributions, the [`Counter`](https://docs.python.org/3/library/collections.html#collections.Counter) and [`defaultdict`](https://docs.python.org/3/library/collections.html#collections.defaultdict) data types for counting n-grams, and the [`pandas`](https://pandas.pydata.org/) (`pd`) package for constructing data tables.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 12 · code</h3><pre class="source"><code>%%capture
 !pip install &quot;git+https://github.com/google-deepmind/ai-foundations.git@main&quot;
@@ -127,7 +127,7 @@ You will learn about more sophisticated methods for tokenizing texts in later co
 The `space_tokenize` function returns a list of individual tokens. However, to compute the conditional probability of a token $\mbox{B}$ following a context $\mbox{A}$, $P(\mbox{B} \mid \mbox{A})$, you need to determine how often all n-grams and (n-1)-grams appear in your dataset.
 
 For example, if you want to compute the probability of the token &quot;is&quot; following a bigram (2-gram) &quot;Table Mountain&quot;, then you need to know the counts of the trigram (3-gram) &quot;Table Mountain is&quot; and the bigram &quot;Table Mountain&quot;. More generally, to build an n-gram language model, you need to determine the counts of all n-grams and (n-1)-grams. As a first step towards obtaining these counts, you will write a function that turns a list of tokens into a list of n-grams.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 23 · markdown</h3><pre class="source"><code>------
-&gt; 💻 **Your task**:
+&gt; ðŸ’» **Your task**:
 &gt;
 &gt; Complete the function `generate_ngrams(text: str, n: int)` below.
 &gt;
@@ -202,7 +202,7 @@ for trigram, count in trigram_counts.most_common(10):
     print(f&quot;  ({trigram}, {count})&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 28 · markdown</h3><pre class="source"><code>## Coding Activity 2: Counting n-grams
 
 In preparation for computing the probabilities, you require a function that returns the counts of n-grams.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 29 · markdown</h3><pre class="source"><code>------
-&gt; 💻 **Your task**:
+&gt; ðŸ’» **Your task**:
 &gt;
 &gt; Complete the function `get_ngram_counts(dataset, n)` below.
 &gt;
@@ -353,7 +353,7 @@ print(&#x27;Bigram count of &quot;a staple&quot; computed directly: &#x27;,
       bigram_counts[&quot;a&quot;][&quot;staple&quot;])</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 43 · markdown</h3><pre class="source"><code>As the output of the cell above shows, both using the `sum()` function and computing the bigram counts indirectly results in the same number.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 44 · markdown</h3><pre class="source"><code>### Coding Activity 3: Computing the n-gram probabilities
 
 ------
-&gt; 💻 **Your task**:
+&gt; ðŸ’» **Your task**:
 &gt;
 &gt; Complete the function `build_ngram_model(dataset, n)` below.
 &gt;
@@ -413,7 +413,7 @@ test_trigram_model</code></pre></article><article class="nb-cell nb-code"><h3>Ce
 ngrams.test_build_ngram_model(build_ngram_model, get_ngram_counts)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 47 · markdown</h3><pre class="source"><code>After you have successfully implemented the method above, run the following cell to construct a trigram model that estimates the probabilities from the Africa Galore dataset.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 48 · code</h3><pre class="source"><code>trigram_model = build_ngram_model(dataset, n=3)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 49 · markdown</h3><pre class="source"><code>To gain an understanding of the patterns that the model learned, inspect a few probability distributions.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 50 · code</h3><pre class="source"><code>print(f&quot;P(B | \&quot;as it\&quot;) = {trigram_model[&#x27;as it&#x27;]}&quot;)
 
 print(f&quot;P(B | \&quot;as they\&quot;) = {trigram_model[&#x27;as they&#x27;]}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 51 · markdown</h3><pre class="source"><code>------
-&gt; 💭 **Reflection:**
+&gt; ðŸ’­ **Reflection:**
 &gt;
 &gt; Do the probabilities that you estimated from the dataset make sense? Do they capture any patterns or rules of English that you know of?
 ------</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 52 · markdown</h3><pre class="source"><code>As a final step in this part of the lab, look at the probability distribution for more contexts. Start with the context &quot;The name.&quot;</code></pre></article><article class="nb-cell nb-code"><h3>Cell 53 · code</h3><pre class="source"><code>context = &quot;The name&quot;
@@ -440,7 +440,7 @@ chosen_fruit = random.choices(
     k=1)[0]
 
 print(&quot;Chosen fruit:&quot;, chosen_fruit)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 61 · markdown</h3><pre class="source"><code>------
-&gt; 💻 **Your task:**
+&gt; ðŸ’» **Your task:**
 &gt;
 &gt; Complete the following cell and use the probabilities in `trigram_model` to
 &gt; 1. Generate a list of candidate tokens for the context &quot;looking for.&quot;
@@ -523,7 +523,7 @@ The following `generate_next_n_tokens` function implements this iterative genera
             generated_words.append(next_word)
         else:
             print(
-                &quot;⚠️ No valid continuation found. Change the prompt or&quot;
+                &quot;âš ï¸ No valid continuation found. Change the prompt or&quot;
                 &quot; try sampling another continuation.\n&quot;
             )
             break
@@ -558,7 +558,7 @@ generate_next_n_tokens(
 )</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 70 · markdown</h3><pre class="source"><code>The different results when running the cell multiple times are because the n-gram model is a stochastic model that samples the next token from a probability distribution. More probable next words have a high probability of getting picked but are not guaranteed to be picked.
 
 ------
-&gt; 💭 **Reflection: Comparing the generations of bigram and trigram models**
+&gt; ðŸ’­ **Reflection: Comparing the generations of bigram and trigram models**
 &gt;
 &gt; As you generate multiple continuations using both a bigram model and a trigram model, take note which continuations make more sense and tend to be grammatically correct. On average, does the bigram model or the trigram model produce more sensible continuations? Which model fails to produce a valid continuation more often?
 ------

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>week07_lora_scaffold.py</title>
-  <link rel="stylesheet" href="../../../../assets/css/site.css?v=202609070640" />
+  <link rel="stylesheet" href="../../../../assets/css/site.css?v=202609070720" />
   <style>
     pre.source {
       margin: 1rem 0 0;
@@ -41,7 +41,7 @@ from mmc.labs.paths import ensure_out
 def run() -&gt; dict:
     out = ensure_out()
     rng = np.random.default_rng(42)
-    # Educational LoRA factors for a toy weight matrix (simulates ΔW = A @ B)
+    # Educational LoRA factors for a toy weight matrix (simulates Î”W = A @ B)
     d, r = 64, 8
     a = rng.normal(0, 0.02, (d, r))
     b = rng.normal(0, 0.02, (r, d))

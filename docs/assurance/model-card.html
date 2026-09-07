@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
   <title>Model Card — ControlSift</title>
-  <link rel="stylesheet" href="../assets/css/site.css?v=202609070640" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=202609070720" />
 </head>
 <body>
   <header class="site-header">
@@ -25,7 +25,7 @@
 
       <div class="def-list">
         <div><dt>Base model</dt><dd><code>google/gemma-3-1b-it</code></dd></div>
-        <div><dt>Adaptation</dt><dd>QLoRA · 4-bit NF4 · double quant · r=16 · α=16 · dropout 0.05</dd></div>
+        <div><dt>Adaptation</dt><dd>QLoRA · 4-bit NF4 · double quant · r=16 · Î±=16 · dropout 0.05</dd></div>
         <div><dt>Task</dt><dd>5-class control-evidence quality</dd></div>
         <div><dt>Stack</dt><dd>PyTorch, Transformers, PEFT, TRL, bitsandbytes</dd></div>
         <div><dt>Train entry</dt><dd><code>python -m controlsift.training.train</code></dd></div>
@@ -71,7 +71,7 @@
       <a href="../capstone/index.html">MMC Capstone view</a>
     </div>
   </footer>
-  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/nav.js?v=202609070720"></script>
   <script src="../assets/js/assurance-nav.js"></script>
 </body>
 </html>

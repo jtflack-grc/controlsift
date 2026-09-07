@@ -1,4 +1,4 @@
-﻿# Week 3 deliverable — DeepMind Skill Badge evidence
+# Week 3 deliverable — DeepMind Skill Badge evidence
 
 **Handbook milestone:** Official Google DeepMind Skill Badge earned (*Train A Small Language Model* challenge lab).
 

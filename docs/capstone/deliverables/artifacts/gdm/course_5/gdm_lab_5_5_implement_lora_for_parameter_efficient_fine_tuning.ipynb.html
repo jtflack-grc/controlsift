@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>gdm_lab_5_5_implement_lora_for_parameter_efficient_fine_tuning.ipynb</title>
-  <link rel="stylesheet" href="../../../../../assets/css/site.css?v=202609070640" />
+  <link rel="stylesheet" href="../../../../../assets/css/site.css?v=202609070720" />
   <style>
     .nb-cell { margin: 1.25rem 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
     .nb-cell h3 { font-size: var(--text-sm); opacity: 0.8; }
@@ -64,10 +64,10 @@ Note that you will focus on the implementation of a single layer, which can be d
 
 </code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 7 · markdown</h3><pre class="source"><code>## How to use Google Colaboratory (Colab)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 8 · markdown</h3><pre class="source"><code>Google Colaboratory (also known as Google Colab) is a platform that allows you to run Python code in your browser. The code is written in cells that are executed on a remote server.
 
-To run a cell, hover over a cell, and click the `run` button to its left. The run button is the circle with the triangle (▶). Alternatively, you can also click a cell and use the keyboard combination Ctrl+Return (or ⌘+Return if you are using a Mac).
+To run a cell, hover over a cell, and click the `run` button to its left. The run button is the circle with the triangle (â–¶). Alternatively, you can also click a cell and use the keyboard combination Ctrl+Return (or âŒ˜+Return if you are using a Mac).
 
 To try this out, run the following cell. This should print today&#x27;s day of the week below it.</code></pre></article><article class="nb-cell nb-code"><h3>Cell 9 · code</h3><pre class="source"><code>from datetime import datetime
-print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>Note that the order in which you run the cells matters. When you are working through a lab, make sure to always run all cells in order. Otherwise, the code might not work. If you take a break while working on a lab, Colab may disconnect you; in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime → Run before__  from the menu above (or use the keyboard combination Ctrl/⌘ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 11 · markdown</h3><pre class="source"><code>### Using Colab with a GPU
+print(f&quot;Today is {datetime.today():%A}.&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 10 · markdown</h3><pre class="source"><code>Note that the order in which you run the cells matters. When you are working through a lab, make sure to always run all cells in order. Otherwise, the code might not work. If you take a break while working on a lab, Colab may disconnect you; in that case, you have to execute all cells again before  continuing your work. To make this easier, you can select the cell you are currently working on and then choose __Runtime â†’ Run before__  from the menu above (or use the keyboard combination Ctrl/âŒ˜ + F8). This will re-execute all cells before the current one.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 11 · markdown</h3><pre class="source"><code>### Using Colab with a GPU
 
 Follow these steps to run the activities in this lab on a GPU:
 
@@ -133,7 +133,7 @@ Run the following code and carefully inspect the output of the matrix $\Delta W$
 B = jnp.array([[0, 0,-1, 1, 1,-1, 1, 1]])
 B = jnp.transpose(B) # One column.
 
-# Compute Δ𝑊 by performing the matrix multiplication B x A.
+# Compute Î”ð‘Š by performing the matrix multiplication B x A.
 delta_W = jnp.matmul(B,A)
 print(delta_W)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 18 · markdown</h3><pre class="source"><code>As this matrix shows, the resulting matrix product leads to several regularities. This is no coincidence. The zeros in B lead to the rows of zeros in $\Delta W$ and the elements that are negative in B lead to the negative rows in $\Delta W$. The fives in A lead to a five times higher weight in columns 4 and 7.
 
@@ -229,7 +229,7 @@ This layer therefore needs to:
     *  Compute the new weight matrix $W = W_0 + \Delta W$.
 
 ------
-&gt; **💻 Your task:**
+&gt; **ðŸ’» Your task:**
 &gt;
 &gt; Your task is to implement the forward function (the `call` method).
 &gt;
@@ -314,10 +314,10 @@ This layer therefore needs to:
         The output of the layer.
     &quot;&quot;&quot;
 
-    # Compute ΔW = BA.
+    # Compute Î”W = BA.
     delta_W = # Add your code here.
 
-    # Compute W = W0 + ΔW.
+    # Compute W = W0 + Î”W.
     W = # Add your code here.
 
     # Compute layer output y = xW + b.
@@ -360,7 +360,7 @@ print(f&quot;Shape of original model output: {output_original.shape}&quot;)
 print(f&quot;Shape of LoRA model output: {output_lora.shape}&quot;)</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 29 · markdown</h3><pre class="source"><code>## Coding Activity 2: Compare number of trainable parameters
 
 As a final step, investigate how much the LoRA layer reduces the number of trainable parameters in a model.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 30 · markdown</h3><pre class="source"><code>------
-&gt; 💻 **Your task:**
+&gt; ðŸ’» **Your task:**
 &gt;
 &gt; Call the [`summary()`](https://keras.io/api/models/model/#summary-method) method for the pre-trained model (`pretrained_model`) and the LoRA model (`lora_model`) above.
 &gt;
@@ -378,7 +378,7 @@ consider how much LoRA reduces the number of trainable parameters.
 
 
 ------
-&gt; 💻 **Your task:**
+&gt; ðŸ’» **Your task:**
 &gt;
 &gt; Compute the proportion of trainable parameters in a dense layer with LoRA compared to a regular dense layer.
 &gt;
@@ -419,10 +419,10 @@ def call(self, x: jax.Array) -&gt; jax.Array:
         The output of the layer.
     &quot;&quot;&quot;
 
-    # Compute ΔW = BA.
+    # Compute Î”W = BA.
     delta_W = jnp.matmul(self.B, self.A)
 
-    # Compute W = W0 + ΔW.
+    # Compute W = W0 + Î”W.
     W = self.W0 + delta_W
 
     # Compute layer output y = xW + b.
@@ -438,13 +438,13 @@ lora_model.summary()</code></pre></article><article class="nb-cell nb-markdown">
 Matrix $A$ has 8 x 512 = 4,096 parameters. Matrix $B$ also has 4,096 parameters. These are trained with LoRA.
 
 Thus, the proportion is (4,096 + 4,096) / 262,144 = 0.03125, or roughly 3.1%.
-If you consider bias weights, the calculation is (4,096 + 4,096 + 512) / (262,144 + 512) ≈ 0.03314.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 46 · markdown</h3><pre class="source"><code>## References
+If you consider bias weights, the calculation is (4,096 + 4,096 + 512) / (262,144 + 512) â‰ˆ 0.03314.</code></pre></article><article class="nb-cell nb-markdown"><h3>Cell 46 · markdown</h3><pre class="source"><code>## References
 
 [1] Edward Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, and Weizhu Chen. 2022. LoRA: Low-rank adaptation of large language models. In International Conference on Learning Representations (ICLR 2022). https://openreview.net/pdf?id=nZeVKeeFYf9
 
 [2] Google AI. 2025. Gemma 3 model overview. https://ai.google.dev/gemma/docs/core
 
-[3] François Chollet. 2023. Making new layers and models via subclassing. Keras. https://keras.io/guides/making_new_layers_and_models_via_subclassing/
+[3] FranÃ§ois Chollet. 2023. Making new layers and models via subclassing. Keras. https://keras.io/guides/making_new_layers_and_models_via_subclassing/
 </code></pre></article>
     </section>
   </main>

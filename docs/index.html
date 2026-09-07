@@ -7,12 +7,13 @@
   <meta name="theme-color" content="#050a08" />
   <title>ControlSift — proof from paperwork</title>
   <meta name="description" content="ControlSift helps researchers study whether a small AI can tell real security proof from paperwork. Open synthetic-benchmark research; metrics published." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="preload" href="/controlsift/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/controlsift/assets/fonts/ibm-plex-sans-600.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/controlsift/assets/fonts/fraunces-600.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/controlsift/assets/fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/controlsift/assets/fonts/ibm-plex-mono-600.woff2" as="font" type="font/woff2" crossorigin />
   <style>
-    /* Critical fonts — absolute GH Pages project paths (bulletproof on /controlsift/). */
+    /* Critical fonts — portfolio stack (IBM Plex Sans body + Mono display). Absolute GH Pages fallbacks. */
     @font-face {
       font-family: "IBM Plex Sans";
       font-style: normal;
@@ -41,42 +42,6 @@
         url("assets/fonts/ibm-plex-sans-600.woff2") format("woff2");
     }
     @font-face {
-      font-family: "IBM Plex Sans";
-      font-style: normal;
-      font-weight: 700;
-      font-display: swap;
-      src:
-        url("/controlsift/assets/fonts/ibm-plex-sans-700.woff2") format("woff2"),
-        url("assets/fonts/ibm-plex-sans-700.woff2") format("woff2");
-    }
-    @font-face {
-      font-family: "Fraunces";
-      font-style: normal;
-      font-weight: 500;
-      font-display: swap;
-      src:
-        url("/controlsift/assets/fonts/fraunces-500.woff2") format("woff2"),
-        url("assets/fonts/fraunces-500.woff2") format("woff2");
-    }
-    @font-face {
-      font-family: "Fraunces";
-      font-style: normal;
-      font-weight: 600;
-      font-display: swap;
-      src:
-        url("/controlsift/assets/fonts/fraunces-600.woff2") format("woff2"),
-        url("assets/fonts/fraunces-600.woff2") format("woff2");
-    }
-    @font-face {
-      font-family: "Fraunces";
-      font-style: normal;
-      font-weight: 700;
-      font-display: swap;
-      src:
-        url("/controlsift/assets/fonts/fraunces-700.woff2") format("woff2"),
-        url("assets/fonts/fraunces-700.woff2") format("woff2");
-    }
-    @font-face {
       font-family: "IBM Plex Mono";
       font-style: normal;
       font-weight: 400;
@@ -85,17 +50,29 @@
         url("/controlsift/assets/fonts/ibm-plex-mono-400.woff2") format("woff2"),
         url("assets/fonts/ibm-plex-mono-400.woff2") format("woff2");
     }
+    @font-face {
+      font-family: "IBM Plex Mono";
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src:
+        url("/controlsift/assets/fonts/ibm-plex-mono-600.woff2") format("woff2"),
+        url("assets/fonts/ibm-plex-mono-600.woff2") format("woff2");
+    }
     html, body {
       margin: 0;
       background: #07100c !important;
       color: #e8f4ec !important;
-      font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
     }
-    body, button, input, select, textarea, .nav, a, p, li, h1, h2, h3, h4, h5, h6 {
-      font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
+    body, button, input, select, textarea, .nav, a, p, li {
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
     }
-    h1, h2, h3, .display, .hero-brand, .brand {
-      font-family: "Fraunces", "IBM Plex Sans", Georgia, serif !important;
+    .display, .hero-brand, .brand {
+      font-family: "IBM Plex Mono", monospace !important;
+    }
+    h1, h2, h3 {
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
     }
     /* Kill opacity-0 fill-mode from cached rise animations on the welcome door. */
     #welcome,
@@ -117,6 +94,7 @@
     }
     #welcome .hero-brand {
       margin: 0 0 0.75rem;
+      font-family: "IBM Plex Mono", monospace !important;
       font-size: clamp(2.6rem, 8vw, 4rem);
       font-weight: 600;
       line-height: 0.95;
@@ -126,8 +104,9 @@
     #welcome h1 {
       margin: 0 0 1rem;
       max-width: 34ch;
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
       font-size: clamp(1.55rem, 3.8vw, 2.25rem);
-      font-weight: 500;
+      font-weight: 300;
       line-height: 1.25;
       color: #ffffff !important;
     }
@@ -148,7 +127,7 @@
       justify-content: center;
       padding: 1.25rem;
       box-sizing: border-box;
-      font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
     }
     #welcome-modal[hidden] { display: none !important; }
     #welcome-modal .welcome-modal__backdrop {
@@ -168,30 +147,30 @@
         #0a1510;
       color: #e8f4ec;
       box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
-      font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
     }
     #welcome-modal .welcome-modal__brand {
       margin: 0 0 0.55rem;
-      font-family: "Fraunces", "IBM Plex Sans", Georgia, serif !important;
+      font-family: "IBM Plex Mono", monospace !important;
       font-size: clamp(1.85rem, 5vw, 2.35rem);
       font-weight: 600;
       color: #7fffb2 !important;
     }
     #welcome-modal h2 {
       margin: 0 0 0.75rem;
-      font-family: "Fraunces", "IBM Plex Sans", Georgia, serif !important;
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
       font-size: clamp(1.2rem, 3vw, 1.45rem);
       font-weight: 500;
       color: #ffffff !important;
     }
     #welcome-modal p {
       margin: 0 0 0.85rem;
-      font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
       color: #c8e6d2 !important;
       line-height: 1.55;
     }
     #welcome-modal .welcome-modal__note {
-      font-family: "IBM Plex Mono", ui-monospace, monospace !important;
+      font-family: "IBM Plex Mono", monospace !important;
       font-size: 0.72rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -201,17 +180,17 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.65rem;
-      margin-top: 0.35rem;
+      margin-top: 0.25rem;
     }
     #welcome-modal .btn {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 0.75rem 1.15rem;
-      border-radius: 2px;
-      border: 1px solid transparent;
-      font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif !important;
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
       font-weight: 600;
-      font-size: 0.875rem;
       text-decoration: none;
+      border: 1px solid transparent;
       cursor: pointer;
     }
     #welcome-modal .btn-primary {
@@ -225,9 +204,9 @@
       color: #e8f4ec;
     }
   </style>
-  <link rel="stylesheet" href="assets/css/site.css?v=202609070640" />
+  <link rel="stylesheet" href="assets/css/site.css?v=202609070720" />
 </head>
-<body style="font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif !important; background:#07100c; color:#e8f4ec;">
+<body style="font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif !important; background:#07100c; color:#e8f4ec;">
   <div
     id="welcome-modal"
     role="dialog"
@@ -265,7 +244,7 @@
   <main>
     <section id="welcome" class="hero welcome-door" aria-label="Welcome" style="opacity:1 !important; visibility:visible !important; display:block !important;">
       <p class="hero-brand" style="color:#7fffb2 !important; opacity:1 !important;">ControlSift</p>
-      <h1 style="color:#ffffff !important; opacity:1 !important; font-family:'Fraunces','IBM Plex Sans',Georgia,serif !important;">ControlSift helps researchers study whether a small AI can tell real security proof from paperwork.</h1>
+      <h1 style="color:#ffffff !important; opacity:1 !important; font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif !important;">ControlSift helps researchers study whether a small AI can tell real security proof from paperwork.</h1>
       <p class="lede" style="color:#c8e6d2 !important; opacity:1 !important;">
         Open research on a sealed synthetic benchmark and a Gemma model ladder — not a live auditor, and not production software.
       </p>
@@ -401,7 +380,7 @@
       <ul class="findings-list">
         <li>
           <strong>Only the video</strong>
-          Record the ≤5-minute presentation from the capstone script, then upload via the GCLP form with report and slides PDFs.
+          Record the â‰¤5-minute presentation from the capstone script, then upload via the GCLP form with report and slides PDFs.
         </li>
         <li>
           <strong>Hard boundaries remain</strong>
@@ -457,6 +436,6 @@
     </div>
   </footer>
   <script src="assets/js/site.js"></script>
-  <script src="assets/js/nav.js"></script>
+  <script src="assets/js/nav.js?v=202609070720"></script>
 </body>
 </html>
