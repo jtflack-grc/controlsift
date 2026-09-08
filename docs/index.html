@@ -6,58 +6,47 @@
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#050a08" />
   <title>ControlSift — proof from paperwork</title>
-  <meta name="description" content="ControlSift helps researchers study whether a small AI can tell real security proof from paperwork. Open synthetic-benchmark research; metrics published." />
+  <meta name="description" content="ControlSift tests whether a small AI can distinguish real cybersecurity control evidence from paperwork on a sealed synthetic benchmark." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="preload" href="/controlsift/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/controlsift/assets/fonts/ibm-plex-mono-600.woff2" as="font" type="font/woff2" crossorigin />
   <style>
-    /* Critical fonts — portfolio stack (IBM Plex Sans body + Mono display). Absolute GH Pages fallbacks. */
     @font-face {
       font-family: "IBM Plex Sans";
       font-style: normal;
       font-weight: 400;
       font-display: swap;
-      src:
-        url("/controlsift/assets/fonts/ibm-plex-sans-400.woff2") format("woff2"),
-        url("assets/fonts/ibm-plex-sans-400.woff2") format("woff2");
+      src: url("/controlsift/assets/fonts/ibm-plex-sans-400.woff2") format("woff2"), url("assets/fonts/ibm-plex-sans-400.woff2") format("woff2");
     }
     @font-face {
       font-family: "IBM Plex Sans";
       font-style: normal;
       font-weight: 500;
       font-display: swap;
-      src:
-        url("/controlsift/assets/fonts/ibm-plex-sans-500.woff2") format("woff2"),
-        url("assets/fonts/ibm-plex-sans-500.woff2") format("woff2");
+      src: url("/controlsift/assets/fonts/ibm-plex-sans-500.woff2") format("woff2"), url("assets/fonts/ibm-plex-sans-500.woff2") format("woff2");
     }
     @font-face {
       font-family: "IBM Plex Sans";
       font-style: normal;
       font-weight: 600;
       font-display: swap;
-      src:
-        url("/controlsift/assets/fonts/ibm-plex-sans-600.woff2") format("woff2"),
-        url("assets/fonts/ibm-plex-sans-600.woff2") format("woff2");
+      src: url("/controlsift/assets/fonts/ibm-plex-sans-600.woff2") format("woff2"), url("assets/fonts/ibm-plex-sans-600.woff2") format("woff2");
     }
     @font-face {
       font-family: "IBM Plex Mono";
       font-style: normal;
       font-weight: 400;
       font-display: swap;
-      src:
-        url("/controlsift/assets/fonts/ibm-plex-mono-400.woff2") format("woff2"),
-        url("assets/fonts/ibm-plex-mono-400.woff2") format("woff2");
+      src: url("/controlsift/assets/fonts/ibm-plex-mono-400.woff2") format("woff2"), url("assets/fonts/ibm-plex-mono-400.woff2") format("woff2");
     }
     @font-face {
       font-family: "IBM Plex Mono";
       font-style: normal;
       font-weight: 600;
       font-display: swap;
-      src:
-        url("/controlsift/assets/fonts/ibm-plex-mono-600.woff2") format("woff2"),
-        url("assets/fonts/ibm-plex-mono-600.woff2") format("woff2");
+      src: url("/controlsift/assets/fonts/ibm-plex-mono-600.woff2") format("woff2"), url("assets/fonts/ibm-plex-mono-600.woff2") format("woff2");
     }
     html, body {
       margin: 0;
@@ -68,15 +57,9 @@
     body, button, input, select, textarea, .nav, a, p, li {
       font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
     }
-    .display, .hero-brand, .brand {
-      font-family: "IBM Plex Mono", monospace !important;
-    }
-    h1, h2, h3 {
-      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
-    }
-    /* Kill opacity-0 fill-mode from cached rise animations on the welcome door. */
-    #welcome,
-    #welcome * {
+    .display, .hero-brand, .brand { font-family: "IBM Plex Mono", monospace !important; }
+    h1, h2, h3 { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important; }
+    #welcome, #welcome * {
       opacity: 1 !important;
       visibility: visible !important;
       transform: none !important;
@@ -88,9 +71,7 @@
       padding: 2.5rem 1.25rem 3rem;
       box-sizing: border-box;
       border-bottom: 3px solid #7fffb2;
-      background:
-        linear-gradient(180deg, rgba(127, 255, 178, 0.12), transparent 55%),
-        #07100c !important;
+      background: linear-gradient(180deg, rgba(127, 255, 178, 0.12), transparent 55%), #07100c !important;
     }
     #welcome .hero-brand {
       margin: 0 0 0.75rem;
@@ -104,7 +85,6 @@
     #welcome h1 {
       margin: 0 0 1rem;
       max-width: 34ch;
-      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
       font-size: clamp(1.55rem, 3.8vw, 2.25rem);
       font-weight: 300;
       line-height: 1.25;
@@ -112,12 +92,11 @@
     }
     #welcome .lede {
       margin: 0 0 1.25rem;
-      max-width: 46ch;
+      max-width: 48ch;
       font-size: clamp(1.05rem, 2.2vw, 1.2rem);
       line-height: 1.55;
       color: #c8e6d2 !important;
     }
-    /* First-visit modal — visible even if site.css is stale. */
     #welcome-modal {
       position: fixed;
       inset: 0;
@@ -127,27 +106,25 @@
       justify-content: center;
       padding: 1.25rem;
       box-sizing: border-box;
-      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
     }
     #welcome-modal[hidden] { display: none !important; }
     #welcome-modal .welcome-modal__backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(2, 8, 5, 0.82);
+      background: rgba(2, 8, 5, 0.84);
       cursor: pointer;
     }
     #welcome-modal .welcome-modal__card {
       position: relative;
       z-index: 1;
-      width: min(100%, 28rem);
-      padding: 1.5rem 1.45rem 1.4rem;
+      width: min(100%, 35rem);
+      max-height: 90vh;
+      overflow: auto;
+      padding: 1.55rem 1.5rem 1.45rem;
       border: 2px solid #7fffb2;
-      background:
-        linear-gradient(165deg, rgba(127, 255, 178, 0.14), transparent 50%),
-        #0a1510;
+      background: linear-gradient(165deg, rgba(127, 255, 178, 0.14), transparent 50%), #0a1510;
       color: #e8f4ec;
       box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
-      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
     }
     #welcome-modal .welcome-modal__brand {
       margin: 0 0 0.55rem;
@@ -158,17 +135,11 @@
     }
     #welcome-modal h2 {
       margin: 0 0 0.75rem;
-      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
       font-size: clamp(1.2rem, 3vw, 1.45rem);
       font-weight: 500;
       color: #ffffff !important;
     }
-    #welcome-modal p {
-      margin: 0 0 0.85rem;
-      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
-      color: #c8e6d2 !important;
-      line-height: 1.55;
-    }
+    #welcome-modal p { margin: 0 0 0.85rem; color: #c8e6d2 !important; line-height: 1.55; }
     #welcome-modal .welcome-modal__note {
       font-family: "IBM Plex Mono", monospace !important;
       font-size: 0.72rem;
@@ -176,60 +147,54 @@
       text-transform: uppercase;
       color: #38e881 !important;
     }
-    #welcome-modal .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-      margin-top: 0.25rem;
-    }
+    #welcome-modal .cta-row { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 0.25rem; }
     #welcome-modal .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       padding: 0.75rem 1.15rem;
-      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
       font-weight: 600;
       text-decoration: none;
       border: 1px solid transparent;
       cursor: pointer;
     }
-    #welcome-modal .btn-primary {
-      background: #7fffb2;
-      color: #021008;
-      border-color: #7fffb2;
+    #welcome-modal .btn-primary { background: #7fffb2; color: #021008; border-color: #7fffb2; }
+    #welcome-modal .btn-secondary { background: transparent; border-color: #2a2e2a; color: #e8f4ec; }
+    .orientation-note {
+      border-left: 2px solid #38e881;
+      padding-left: 0.9rem;
+      margin: 0 0 1rem;
+      color: #c8e6d2;
+      line-height: 1.5;
+      font-size: 0.94rem;
     }
-    #welcome-modal .btn-secondary {
-      background: transparent;
-      border-color: #2a2e2a;
-      color: #e8f4ec;
-    }
+    .orientation-note p { margin: 0 0 0.45rem !important; }
+    .orientation-note p:last-child { margin-bottom: 0 !important; }
   </style>
-  <link rel="stylesheet" href="assets/css/site.css?v=202609070720" />
+  <link rel="stylesheet" href="assets/css/site.css?v=2026090801" />
 </head>
-<body style="font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif !important; background:#07100c; color:#e8f4ec;">
-  <div
-    id="welcome-modal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="welcome-modal-title"
-    hidden
-  >
+<body style="font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif !important;background:#07100c;color:#e8f4ec;">
+  <div id="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="welcome-modal-title" hidden>
     <div class="welcome-modal__backdrop" data-welcome-dismiss tabindex="-1" aria-hidden="true"></div>
     <div class="welcome-modal__card" role="document">
       <p class="welcome-modal__brand">ControlSift</p>
-      <h2 id="welcome-modal-title">Proof from paperwork — research, not a live auditor.</h2>
+      <h2 id="welcome-modal-title">Start here — no AI background required.</h2>
       <p>
-        ControlSift studies whether a small AI can tell real security proof from paperwork
-        on a sealed synthetic benchmark. Open research with published metrics — not production GRC software.
+        ControlSift asks a simple security question: when someone hands a reviewer a document, does it actually prove the control worked — or is it only paperwork that sounds relevant?
       </p>
-      <p class="welcome-modal__note">UN SDG 10 · Reduced Inequalities · metrics published</p>
+      <div class="orientation-note">
+        <p><strong style="color:#fff;">Benchmark</strong> = a fixed exam for the models.</p>
+        <p><strong style="color:#fff;">Gemma</strong> = the small language model being tested.</p>
+        <p><strong style="color:#fff;">Macro F1</strong> = a 0–1 score that gives all five evidence labels equal weight; higher is better.</p>
+      </div>
+      <p style="color:#e8f4ec !important;">
+        <strong>Headline:</strong> the classic word-based baseline beat the small language-model approaches. ControlSift keeps that negative result instead of manufacturing an AI win.
+      </p>
+      <p class="welcome-modal__note">Synthetic research benchmark · human judgment stays authoritative</p>
       <div class="cta-row">
-        <button type="button" class="btn btn-primary" id="welcome-modal-continue" data-welcome-dismiss>
-          Continue to site
-        </button>
-        <a class="btn btn-secondary" href="capstone/index.html" data-welcome-capstone>
-          Enter Capstone
-        </a>
+        <a class="btn btn-primary" href="index.html#plain-english" data-welcome-route>Plain-English tour</a>
+        <a class="btn btn-secondary" href="capstone/index.html" data-welcome-route>Capstone hub</a>
+        <button type="button" class="btn btn-secondary" id="welcome-modal-continue" data-welcome-dismiss>Skip intro</button>
       </div>
     </div>
   </div>
@@ -242,38 +207,112 @@
   </header>
 
   <main>
-    <section id="welcome" class="hero welcome-door" aria-label="Welcome" style="opacity:1 !important; visibility:visible !important; display:block !important;">
-      <p class="hero-brand" style="color:#7fffb2 !important; opacity:1 !important;">ControlSift</p>
-      <h1 style="color:#ffffff !important; opacity:1 !important; font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif !important;">ControlSift helps researchers study whether a small AI can tell real security proof from paperwork.</h1>
-      <p class="lede" style="color:#c8e6d2 !important; opacity:1 !important;">
-        Open research on a sealed synthetic benchmark and a Gemma model ladder — not a live auditor, and not production software.
+    <section id="welcome" class="hero welcome-door" aria-label="Welcome" style="opacity:1 !important;visibility:visible !important;display:block !important;">
+      <p class="hero-brand" style="color:#7fffb2 !important;opacity:1 !important;">ControlSift</p>
+      <h1 style="color:#ffffff !important;opacity:1 !important;">Can a small AI tell real security proof from paperwork?</h1>
+      <p class="lede" style="color:#c8e6d2 !important;opacity:1 !important;">
+        ControlSift is a public research experiment about cybersecurity evidence quality. It compares a classic text classifier with a small language model on the same sealed synthetic test — and publishes the failures as carefully as the wins.
       </p>
       <div class="cta-row hero-cta" style="opacity:1 !important;">
-        <a class="btn btn-primary" href="capstone/index.html">Enter Capstone</a>
-        <a class="btn btn-secondary" href="results.html">See Results</a>
+        <a class="btn btn-primary" href="#plain-english">Start in plain English</a>
+        <a class="btn btn-secondary" href="results.html">See the results</a>
+        <a class="btn btn-secondary" href="capstone/index.html">Open the capstone</a>
       </div>
-      <p class="hero-note" style="opacity:1 !important; color:#38e881 !important;">UN SDG 10 · Reduced Inequalities · metrics published · video remaining</p>
+      <p class="hero-note" style="opacity:1 !important;color:#38e881 !important;">Research benchmark · synthetic data · sealed evaluation · negative results kept</p>
+    </section>
+
+    <section class="section" id="plain-english">
+      <h2>ControlSift in 60 seconds</h2>
+      <p class="page-intro">You do not need to know what an LLM, QLoRA, or macro F1 is to understand the experiment.</p>
+      <div class="integrity-grid">
+        <article>
+          <div class="mark">01</div>
+          <h3>The security problem</h3>
+          <p>A document can be relevant to a control without proving the control actually operated. Policies, screenshots, exports, and logs are not equally strong evidence.</p>
+        </article>
+        <article>
+          <div class="mark">02</div>
+          <h3>The experiment</h3>
+          <p>Five approaches took the same five-way evidence-quality exam: a majority baseline, a classic word-based classifier, two prompted Gemma runs, and a fine-tuned Gemma run.</p>
+        </article>
+        <article>
+          <div class="mark">03</div>
+          <h3>The result</h3>
+          <p>The inexpensive classic TF-IDF classifier won. Few-shot prompting was the best Gemma approach. Fine-tuning did not rescue the small language model.</p>
+        </article>
+      </div>
     </section>
 
     <section class="section">
-      <h2>The problem</h2>
-      <p class="page-intro">
-        GRC teams confuse artifacts with proof. A policy that requires MFA is not evidence MFA is enabled.
-        An export showing a privileged user without MFA can contradict the control outright.
-      </p>
+      <h2>Jargon decoder</h2>
+      <div class="def-list">
+        <div><dt>Benchmark</dt><dd>A fixed set of cases used like an exam so every approach is compared on the same task.</dd></div>
+        <div><dt>TF-IDF + logistic regression</dt><dd>A classic machine-learning approach that uses word patterns. It is cheap, fast, and is not a language model.</dd></div>
+        <div><dt>Gemma 3 1B</dt><dd>A relatively small Google DeepMind language model with roughly one billion parameters.</dd></div>
+        <div><dt>Zero-shot / few-shot</dt><dd>Ask the model with no worked examples / give it a few examples before asking.</dd></div>
+        <div><dt>QLoRA</dt><dd>A memory-efficient way to fine-tune a language model without retraining all of its weights.</dd></div>
+        <div><dt>Macro F1</dt><dd>A 0–1 performance score that gives each of the five evidence labels equal weight. Higher is better; it is not the same thing as accuracy.</dd></div>
+      </div>
+    </section>
+
+    <section class="section" id="explore">
+      <h2>Explore the whole artifact</h2>
+      <p class="page-intro">Nothing important is hidden behind one path. Pick the question you care about and go straight there.</p>
+      <div class="integrity-grid">
+        <article>
+          <div class="mark">R</div>
+          <h3><a href="results.html">Results</a></h3>
+          <p>Full model ladder, class-level performance, challenge scores, and the honest negative finding.</p>
+        </article>
+        <article>
+          <div class="mark">M</div>
+          <h3><a href="methods.html">Methods</a></h3>
+          <p>How the synthetic benchmark, model ladder, evaluation protocol, and metrics were built.</p>
+        </article>
+        <article>
+          <div class="mark">F</div>
+          <h3><a href="failure-lab.html">Failure Lab</a></h3>
+          <p>Concrete cases where the approaches disagree or fail. Start here if you care more about mistakes than averages.</p>
+        </article>
+        <article>
+          <div class="mark">A</div>
+          <h3><a href="assurance.html">Assurance</a></h3>
+          <p>Protocol, Data Card, Model Card, risk register, intended use, limitations, and human-review boundaries.</p>
+        </article>
+        <article>
+          <div class="mark">X</div>
+          <h3><a href="reproduce.html">Reproduce</a></h3>
+          <p>Environment and commands for validating the dataset and rerunning the classical research path.</p>
+        </article>
+        <article>
+          <div class="mark">C</div>
+          <h3><a href="capstone/index.html">Capstone hub</a></h3>
+          <p>Every MMC / Google DeepMind AI Research Foundations deliverable, research source, rubric artifact, and submission component.</p>
+        </article>
+        <article>
+          <div class="mark">G</div>
+          <h3><a href="https://github.com/jtflack-grc/controlsift" rel="noopener">GitHub repository</a></h3>
+          <p>Source code, notebooks, machine-readable results, governance files, scripts, tests, and project history.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>The problem, with one example</h2>
+      <p class="page-intro">Suppose the control says every privileged account must use multi-factor authentication.</p>
       <div class="control-block">
         <span class="label">Control</span>
         Privileged accounts must use multi-factor authentication.
       </div>
       <div class="evidence">
         <figure>
-          <h3>Evidence A · operational export</h3>
-          <p>Audit-period IAM export listing all privileged accounts with MFA enrollment for each account in production, including timestamps and population scope.</p>
+          <h3>Operational export</h3>
+          <p>Audit-period IAM export listing all privileged accounts with MFA enrollment for each account, timestamps, and population scope.</p>
           <span class="tag tag-good">SUFFICIENT</span>
         </figure>
         <figure>
-          <h3>Evidence B · policy document</h3>
-          <p>Written standard that restates the MFA requirement for privileged accounts, without enrollment rows, timestamps, or population coverage attached.</p>
+          <h3>Policy document</h3>
+          <p>A written standard that says privileged accounts must use MFA, but contains no enrollment rows or operational population evidence.</p>
           <span class="tag tag-bad">INSUFFICIENT</span>
         </figure>
       </div>
@@ -281,7 +320,7 @@
 
     <section class="section">
       <h2>Where the work stands</h2>
-      <p>Public numbers come only from machine-readable result files. All five ladder experiments have TEST scores. No invented metrics.</p>
+      <p>All five ladder experiments have published TEST scores. Public numbers are copied from machine-readable result files rather than typed in as marketing claims.</p>
       <div class="meta-strip">
         <span>Primary metric <strong>macro F1</strong></span>
         <span>Seed <strong>42</strong></span>
@@ -294,148 +333,72 @@
           <span class="value" data-metric="macro_f1" data-experiment="tfidf">0.533</span>
         </div>
         <div class="metric">
-          <span class="label">Gemma few-shot test macro F1</span>
+          <span class="label">Best Gemma test macro F1</span>
           <span class="value" data-metric="macro_f1" data-experiment="gemma_few_shot">0.137</span>
         </div>
         <div class="metric">
-          <span class="label">Challenge TF-IDF macro F1</span>
+          <span class="label">TF-IDF challenge macro F1</span>
           <span class="value" data-metric="challenge_macro_f1" data-experiment="tfidf">0.524</span>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2>Honest headline</h2>
+      <h2>The honest headline</h2>
       <p>
-        On the sealed TEST set, classical TF-IDF still leads (~0.53 macro F1). Among Gemma&nbsp;3 1B runs, few-shot
-        is strongest (~0.14); QLoRA (~0.08) did not beat few-shot, and label parse success for QLoRA is only ~0.44.
-        Synthetic sealed protocol — not a production auditor.
+        On the sealed TEST set, classical TF-IDF still leads at about 0.53 macro F1. Among Gemma 3 1B runs, few-shot prompting is strongest at about 0.14. QLoRA is about 0.08 and its label parse success is only about 0.44. The fine-tuned model did not beat the better prompt, and none of the Gemma runs approached the classic baseline.
       </p>
       <div class="compare-grid">
         <article>
           <h3>Best classical</h3>
           <p class="score" data-metric="macro_f1" data-experiment="tfidf">0.533</p>
-          <p>TF-IDF + logistic regression on the compositional packets. Leads the ladder.</p>
+          <p>TF-IDF + logistic regression. Cheap, inspectable, and the strongest rung in this experiment.</p>
         </article>
         <article>
           <h3>Best Gemma rung</h3>
           <p class="score" data-metric="macro_f1" data-experiment="gemma_few_shot">0.137</p>
-          <p>Few-shot prompting beat zero-shot and QLoRA on TEST macro F1.</p>
+          <p>Few-shot prompting. Better than zero-shot and QLoRA, but far behind the classical baseline.</p>
         </article>
+      </div>
+      <div class="cta-row" style="margin-top:1.25rem;">
+        <a class="btn btn-primary" href="results.html">Inspect every result</a>
+        <a class="btn btn-secondary" href="failure-lab.html">Inspect the failures</a>
       </div>
     </section>
 
     <section class="section">
-      <h2>What we tested</h2>
-      <p>Same benchmark, five rungs, one frozen protocol — all published.</p>
-      <ol class="ladder">
-        <li>
-          <span class="step">01</span>
-          <span class="title">Synthetic evidence benchmark</span>
-          <span class="state done">done</span>
-        </li>
-        <li>
-          <span class="step">02</span>
-          <span class="title">Majority + TF-IDF lexical baselines</span>
-          <span class="state done">done</span>
-        </li>
-        <li>
-          <span class="step">03</span>
-          <span class="title">Gemma 3 1B zero-shot / few-shot</span>
-          <span class="state done">done</span>
-        </li>
-        <li>
-          <span class="step">04</span>
-          <span class="title">QLoRA domain adaptation</span>
-          <span class="state done">done</span>
-        </li>
-        <li>
-          <span class="step">05</span>
-          <span class="title">Held-out + challenge evaluation</span>
-          <span class="state done">done</span>
-        </li>
-      </ol>
-    </section>
-
-    <section class="section">
-      <h2>What the research found</h2>
+      <h2>Research boundaries</h2>
       <ul class="findings-list">
-        <li>
-          <strong>Gate 1 caught a shortcut</strong>
-          An early generator let TF-IDF saturate at 1.0. Dataset v1.1 compositional packing brought test macro F1 to ~0.53 before protocol seal.
-        </li>
-        <li>
-          <strong>TF-IDF leads; few-shot best of Gemma</strong>
-          Majority ~0.067 · TF-IDF ~0.533 · zero-shot ~0.080 · few-shot ~0.137 · QLoRA ~0.083 on sealed TEST.
-        </li>
-        <li>
-          <strong>QLoRA did not beat few-shot</strong>
-          Parse success ~0.435 on TEST makes the QLoRA score fragile — a negative finding we keep.
-        </li>
-      </ul>
-    </section>
-
-    <section class="section">
-      <h2>What remains</h2>
-      <ul class="findings-list">
-        <li>
-          <strong>Only the video</strong>
-          Record the â‰¤5-minute presentation from the capstone script, then upload via the GCLP form with report and slides PDFs.
-        </li>
-        <li>
-          <strong>Hard boundaries remain</strong>
-          Failure Lab cases spotlight coverage gaps, policy-only submissions, and contradictory configurations.
-        </li>
-        <li>
-          <strong>Not a production auditor</strong>
-          Synthetic sealed packets measure research triage methods — not customer binder certification.
-        </li>
+        <li><strong>Synthetic, not customer evidence.</strong> The benchmark is controlled research data, not a production audit binder.</li>
+        <li><strong>Labels are rule-derived.</strong> They are structurally audited but are not a large human-labeled gold standard.</li>
+        <li><strong>Human judgment remains authoritative.</strong> ControlSift is not an automated auditor or certification engine.</li>
+        <li><strong>A negative result is still a result.</strong> The project does not tune the story until the language model wins.</li>
       </ul>
       <div class="cta-row" style="margin-top:1.25rem;">
-        <a class="btn btn-primary" href="capstone/video-script.html">Video script</a>
-        <a class="btn btn-secondary" href="results.html">Full results table</a>
-        <a class="btn btn-secondary" href="assurance.html">Limits and non-claims</a>
+        <a class="btn btn-secondary" href="assurance.html">Read the assurance case</a>
+        <a class="btn btn-secondary" href="capstone/research-sources.html">External research grounding</a>
       </div>
     </section>
 
     <section class="section">
       <h2>Receipts</h2>
-      <p>Every claim should point at an artifact. That is the product.</p>
+      <p>Every important claim should point at an artifact.</p>
       <ul class="receipts">
-        <li>
-          <span class="id">PROTOCOL</span>
-          <a href="assurance/protocol.html">Frozen hypotheses, metric, prompt contract</a>
-        </li>
-        <li>
-          <span class="id">SEAL</span>
-          <a href="assurance/PROTOCOL_SEAL.json">Test-set SHA-256 seal</a>
-        </li>
-        <li>
-          <span class="id">DATA</span>
-          <a href="assurance/data-card.html">Data Card (synthetic, rule-derived labels)</a>
-        </li>
-        <li>
-          <span class="id">RISK</span>
-          <a href="assurance/risk-register.html">AI risk register</a>
-        </li>
-        <li>
-          <span class="id">REPORT</span>
-          <a href="capstone/report.html">Capstone report</a>
-        </li>
-        <li>
-          <span class="id">CAPSTONE</span>
-          <a href="capstone/index.html">MMC / GCLP package</a>
-        </li>
+        <li><span class="id">PROTOCOL</span><a href="assurance/protocol.html">Frozen hypotheses, metric, and prompt contract</a></li>
+        <li><span class="id">SEAL</span><a href="assurance/PROTOCOL_SEAL.json">Test-set SHA-256 seal</a></li>
+        <li><span class="id">DATA</span><a href="assurance/data-card.html">Data Card</a></li>
+        <li><span class="id">RISK</span><a href="assurance/risk-register.html">AI risk register</a></li>
+        <li><span class="id">REPORT</span><a href="capstone/report.html">Capstone report</a></li>
+        <li><span class="id">SOURCES</span><a href="capstone/research-sources.html">Annotated external research sources</a></li>
+        <li><span class="id">CAPSTONE</span><a href="capstone/index.html">Complete capstone hub</a></li>
       </ul>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="wrap">
-      <span>© ControlSift · synthetic evidence research</span>
-    </div>
+    <div class="wrap"><span>© ControlSift · synthetic evidence research</span></div>
   </footer>
   <script src="assets/js/site.js"></script>
-  <script src="assets/js/nav.js?v=202609070720"></script>
+  <script src="assets/js/nav.js?v=2026090801"></script>
 </body>
 </html>
