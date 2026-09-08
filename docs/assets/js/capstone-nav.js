@@ -1,12 +1,12 @@
-/** Secondary nav for MMC / DeepMind capstone cluster — compact dropdown, not a link farm. */
+/** Secondary nav for the MMC / DeepMind capstone cluster. */
 (function () {
   const groups = [
     {
       title: "Submit",
       links: [
-        { href: "index.html", label: "Hub" },
-        { href: "next-steps.html", label: "Status" },
-        { href: "submission.html", label: "Submission" },
+        { href: "index.html", label: "Capstone hub" },
+        { href: "next-steps.html", label: "Status & next steps" },
+        { href: "submission.html", label: "Submission package" },
         { href: "video-script.html", label: "Video script" },
         { href: "gclp-checklist.html", label: "GCLP checklist" },
       ],
@@ -14,21 +14,22 @@
     {
       title: "Artifacts",
       links: [
-        { href: "report.html", label: "Report" },
-        { href: "slides.html", label: "Slides" },
+        { href: "report.html", label: "≤8-page report" },
+        { href: "slides.html", label: "8-slide deck" },
         { href: "paper.html", label: "Research paper" },
+        { href: "research-sources.html", label: "Research sources" },
         { href: "deliverables/index.html", label: "Weekly labs" },
       ],
     },
     {
-      title: "Context",
+      title: "Research & program context",
       links: [
-        { href: "un-sdg.html", label: "UN SDG" },
-        { href: "curriculum.html", label: "Curriculum" },
         { href: "problem-impact.html", label: "Problem & impact" },
-        { href: "methods-evidence.html", label: "Methods" },
+        { href: "methods-evidence.html", label: "Methods & evidence" },
         { href: "implementation-plan.html", label: "Implementation" },
         { href: "responsible-innovation.html", label: "Responsible AI" },
+        { href: "un-sdg.html", label: "UN SDG alignment" },
+        { href: "curriculum.html", label: "Curriculum map" },
         { href: "reflection.html", label: "Reflection" },
       ],
     },
@@ -38,7 +39,7 @@
     { href: "index.html", label: "Hub" },
     { href: "report.html", label: "Report" },
     { href: "slides.html", label: "Slides" },
-    { href: "video-script.html", label: "Video" },
+    { href: "research-sources.html", label: "Sources" },
     { href: "submission.html", label: "Submit" },
   ];
 
