@@ -5,64 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#050a08" />
-  <title>Applied AI Research Capstone — ControlSift</title>
+  <title>Applied AI Research Capstone - ControlSift</title>
   <meta name="robots" content="noindex" />
   <meta name="description" content="Complete ControlSift capstone hub: report, slides, research, methods, sources, program alignment, implementation, and submission evidence." />
-  <link rel="stylesheet" href="../assets/css/site.css?v=2026090802" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026090803" />
   <style>
     .capstone-hero{border:1px solid var(--line);background:linear-gradient(145deg,rgba(127,255,178,.08),transparent 58%),var(--panel);padding:clamp(1.35rem,4vw,2.35rem);margin:.75rem 0 1.5rem}.capstone-hero .kicker,.hub-kicker{margin:0 0 .45rem;font-family:var(--font-mono)!important;color:var(--accent-2);font-size:var(--text-xs);letter-spacing:.06em;text-transform:uppercase}.capstone-hero h1{margin:0 0 .8rem;font-size:clamp(1.8rem,4vw,2.65rem);line-height:1.08;letter-spacing:-.03em}.capstone-hero p{max-width:64ch}.hub-section-head{margin-bottom:1.15rem}.hub-section-head h2{margin-bottom:.35rem}.hub-section-head p{margin:0;color:var(--muted);max-width:68ch}.hub-card-note{display:inline-block;margin-top:.55rem;font-family:var(--font-mono)!important;color:var(--muted);font-size:var(--text-xs);letter-spacing:.02em}.status-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:1px;border:1px solid var(--line);background:var(--line);margin-top:1.1rem}.status-strip>div{background:var(--panel-2);padding:.9rem 1rem}.status-strip span{display:block;color:var(--muted);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.04em}.status-strip strong{display:block;margin-top:.25rem;font-size:var(--text-sm)}
   </style>
 </head>
 <body>
   <header class="site-header"><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">ControlSift</a><ul class="nav-links" data-site-nav></ul></nav></header>
-
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
       <div class="capstone-hero">
-        <p class="kicker">MMC · Google DeepMind AI Research Foundations</p>
+        <p class="kicker">MMC / Google DeepMind AI Research Foundations</p>
         <h1>ControlSift capstone hub</h1>
-        <p class="page-intro">One place to navigate the complete project: the problem, outside research, methods, experiment results, implementation, responsible-AI work, program alignment, report, slides, reflection, weekly work, and submission package.</p>
-        <p><strong>Plain-English project:</strong> ControlSift studies whether a small language model can distinguish strong cybersecurity control evidence from paperwork that is incomplete, irrelevant, or contradictory. The work includes an intentionally hardened synthetic benchmark, classical baselines, prompted Gemma runs, QLoRA, failure analysis, and research-governance artifacts.</p>
-        <div class="callout" style="margin-top:1rem;"><strong>Research-integrity note</strong>The committed classical metrics are tagged benchmark v1.1.0, while the completed Gemma metrics are tagged v1.0.0 and their prediction payloads reflect the earlier packets. The experiments are real and published, but the classical-vs-Gemma scores should not be presented as a strict same-benchmark leaderboard until a matching-version rerun exists.</div>
+        <p class="page-intro">The complete project in one place: problem, external research, methods, experiment results, implementation, responsible-AI work, program alignment, report, slides, reflection, weekly work, and submission package.</p>
+        <p><strong>Plain-English project:</strong> ControlSift studies whether a small language model can distinguish strong cybersecurity control evidence from paperwork that is incomplete, irrelevant, or contradictory. The work includes a hardened synthetic benchmark, classical baselines, prompted Gemma runs, QLoRA, failure analysis, and research-governance artifacts.</p>
+        <div class="callout" style="margin-top:1rem;"><strong>Research-integrity note</strong>Classical metrics use dataset v1.1.0; completed Gemma metrics use v1.0.0. The experiments are real and published, but cross-version scores are descriptive rather than a strict same-benchmark leaderboard.</div>
         <div class="status-strip">
-          <div><span>Research artifact</span><strong>Substantially complete</strong></div>
+          <div><span>Research artifact</span><strong>Complete</strong></div>
           <div><span>Published runs</span><strong>5 experiment rungs</strong></div>
-          <div><span>Current benchmark</span><strong>v1.1.0 · ~1,500 cases</strong></div>
+          <div><span>Classical benchmark</span><strong>v1.1.0</strong></div>
           <div><span>Gemma receipts</span><strong>v1.0.0</strong></div>
-          <div><span>Program alignment</span><strong>MMC option 4 · UN SDG 10</strong></div>
-          <div><span>Form package</span><strong>Video remains</strong></div>
+          <div><span>Program alignment</span><strong>MMC option 4 / UN SDG 10</strong></div>
+          <div><span>Only open item</span><strong>Video</strong></div>
         </div>
-        <div class="cta-row" style="margin-top:1.25rem;"><a class="btn btn-primary" href="report.html">Start with the report</a><a class="btn btn-secondary" href="research-sources.html">Check the sources</a><a class="btn btn-secondary" href="../results.html">See experiment ledger</a><a class="btn btn-secondary" href="submission.html">Submission package</a></div>
+        <div class="cta-row" style="margin-top:1.25rem;"><a class="btn btn-primary" href="report.html">Start with the report</a><a class="btn btn-secondary" href="research-sources.html">Check the sources</a><a class="btn btn-secondary" href="../results.html">See results</a><a class="btn btn-secondary" href="submission.html">Submission package</a></div>
       </div>
     </section>
 
     <section class="section">
-      <div class="hub-section-head"><p class="hub-kicker">01 · Submission essentials</p><h2>What the capstone grader needs</h2><p>Every formal deliverable and administrative checkpoint is visible here; nothing is buried in the dropdown.</p></div>
+      <div class="hub-section-head"><p class="hub-kicker">01 / Submission essentials</p><h2>What the grader needs</h2><p>Every formal deliverable and administrative checkpoint is visible here.</p></div>
       <div class="integrity-grid">
-        <article><div class="mark">RPT</div><h3><a href="report.html">≤8-page report</a></h3><p>Printable rubric-facing report: problem, external research, experiment analysis, solution, implementation, outcomes, recommendations, and claim boundaries.</p><span class="hub-card-note">Primary written submission</span></article>
-        <article><div class="mark">SLD</div><h3><a href="slides.html">8-slide presentation</a></h3><p>Visual presentation organized around the project question, methods, findings, impact, and recommendations.</p><span class="hub-card-note">Presentation artifact</span></article>
-        <article><div class="mark">VID</div><h3><a href="video-script.html">Video script</a></h3><p>≤5-minute narration path. Final script should preserve the benchmark-version disclosure.</p><span class="hub-card-note">Recording guide</span></article>
-        <article><div class="mark">SUB</div><h3><a href="submission.html">Submission package</a></h3><p>Final bundle map for report, slides, video, links, and supporting evidence.</p><span class="hub-card-note">Form-ready checklist</span></article>
-        <article><div class="mark">CHK</div><h3><a href="gclp-checklist.html">GCLP checklist</a></h3><p>Requirements crosswalk and GitHub structure used to keep the capstone aligned to the program.</p><span class="hub-card-note">Rubric control</span></article>
-        <article><div class="mark">NOW</div><h3><a href="next-steps.html">Status &amp; next steps</a></h3><p>Current completion state, final manual work, and handoff path.</p><span class="hub-card-note">Operational status</span></article>
+        <article><div class="mark">RPT</div><h3><a href="report.html">8-page-or-less report</a></h3><p>Rubric-facing report: problem, external research, analysis, solution, implementation, outcomes, recommendations, and claim boundaries.</p><span class="hub-card-note">Primary written submission</span></article>
+        <article><div class="mark">SLD</div><h3><a href="slides.html">8-slide presentation</a></h3><p>Exactly eight slides aligned to the final research story and version disclosure.</p><span class="hub-card-note">Presentation artifact</span></article>
+        <article><div class="mark">VID</div><h3><a href="video-script.html">Video script</a></h3><p>Under-five-minute narration path with the dataset-version boundary already built in.</p><span class="hub-card-note">Only remaining deliverable</span></article>
+        <article><div class="mark">SUB</div><h3><a href="submission.html">Submission package</a></h3><p>Final bundle map for report, slides, video, links, and supporting evidence.</p></article>
+        <article><div class="mark">CHK</div><h3><a href="gclp-checklist.html">GCLP checklist</a></h3><p>Requirements crosswalk and GitHub structure.</p></article>
+        <article><div class="mark">NOW</div><h3><a href="next-steps.html">Status and next steps</a></h3><p>Current completion state and final handoff path.</p></article>
       </div>
     </section>
 
     <section class="section">
-      <div class="hub-section-head"><p class="hub-kicker">02 · Research story</p><h2>Why the experiment exists and what it found</h2><p>Start with the real-world problem, then inspect the evidence base, experimental method, complete paper, and failure cases.</p></div>
+      <div class="hub-section-head"><p class="hub-kicker">02 / Research story</p><h2>Why the experiment exists and what it found</h2><p>Start with the problem, then inspect sources, methods, full paper, results, and failure cases.</p></div>
       <div class="integrity-grid">
-        <article><div class="mark">WHY</div><h3><a href="problem-impact.html">Problem &amp; impact</a></h3><p>Why “relevant document” and “proof the control worked” are not the same thing, and why resource constraints matter.</p></article>
-        <article><div class="mark">SRC</div><h3><a href="research-sources.html">Research sources</a></h3><p>Annotated NIST, Google DeepMind, academic, and UN sources with explicit notes about which project claims each source actually supports.</p></article>
-        <article><div class="mark">MTH</div><h3><a href="methods-evidence.html">Methods &amp; evidence</a></h3><p>Benchmark design, experiment ladder, evidence handling, evaluation logic, and research-integrity controls.</p></article>
-        <article><div class="mark">PPR</div><h3><a href="paper.html">Research paper</a></h3><p>Full technical narrative. Note: the paper still needs the same v1.0/v1.1 wording cleanup before final submission.</p></article>
-        <article><div class="mark">RES</div><h3><a href="../results.html">Experiment ledger</a></h3><p>Machine-readable metrics surfaced with the dataset-version boundary explicitly disclosed.</p></article>
-        <article><div class="mark">FAIL</div><h3><a href="../failure-lab.html">Failure Lab</a></h3><p>Concrete examples of hard boundaries and disagreement patterns hidden by aggregate scores.</p></article>
+        <article><div class="mark">WHY</div><h3><a href="problem-impact.html">Problem and impact</a></h3><p>Why relevant paperwork and proof of operation are not the same thing.</p></article>
+        <article><div class="mark">SRC</div><h3><a href="research-sources.html">Research sources</a></h3><p>Annotated NIST, Google DeepMind, academic, and UN sources with claim boundaries.</p></article>
+        <article><div class="mark">MTH</div><h3><a href="methods-evidence.html">Methods and evidence</a></h3><p>Benchmark design, experiment paths, evidence handling, and integrity controls.</p></article>
+        <article><div class="mark">PPR</div><h3><a href="paper.html">Research paper</a></h3><p>Full technical narrative with final v1.0/v1.1 disclosure and references.</p></article>
+        <article><div class="mark">RES</div><h3><a href="../results.html">Experiment ledger</a></h3><p>Machine-readable metrics surfaced with the version boundary clearly labeled.</p></article>
+        <article><div class="mark">FAIL</div><h3><a href="../failure-lab.html">Failure Lab</a></h3><p>Hard boundaries and disagreement patterns hidden by aggregate scores.</p></article>
       </div>
     </section>
 
     <section class="section">
-      <div class="hub-section-head"><p class="hub-kicker">03 · Implementation & responsible research</p><h2>How the work was executed and bounded</h2><p>This is where the capstone moves beyond “I trained a model” into research operations, governance, and reproducibility.</p></div>
+      <div class="hub-section-head"><p class="hub-kicker">03 / Implementation and responsible research</p><h2>How the work was executed and bounded</h2></div>
       <div class="integrity-grid">
         <article><div class="mark">IMP</div><h3><a href="implementation-plan.html">Implementation plan</a></h3><p>Phases, compute, accounts, resources, risks, mitigations, and completed execution.</p></article>
         <article><div class="mark">RAI</div><h3><a href="responsible-innovation.html">Responsible innovation</a></h3><p>Privacy, human authority, synthetic-data boundaries, misuse risks, limitations, and non-claims.</p></article>
@@ -72,31 +71,29 @@
     </section>
 
     <section class="section">
-      <div class="hub-section-head"><p class="hub-kicker">04 · Program alignment & learning record</p><h2>How ControlSift maps back to the residency</h2><p>These pages are mostly for the program rather than the public research story, but they are first-class parts of the capstone package.</p></div>
+      <div class="hub-section-head"><p class="hub-kicker">04 / Program alignment and learning record</p><h2>How ControlSift maps to the residency</h2></div>
       <div class="integrity-grid">
-        <article><div class="mark">SDG</div><h3><a href="un-sdg.html">UN SDG alignment</a></h3><p>Clarifies the rubric’s “Goal 4: Reduced Inequalities” wording against the official UN designation, SDG 10, and documents the project’s access rationale.</p></article>
-        <article><div class="mark">MAP</div><h3><a href="curriculum.html">Curriculum map</a></h3><p>Maps the substantive AI Research Foundations content to concrete ControlSift work and evidence.</p></article>
-        <article><div class="mark">REF</div><h3><a href="reflection.html">Reflection</a></h3><p>What changed during the project, what the model results taught, and where the work should go next.</p></article>
-        <article><div class="mark">LAB</div><h3><a href="deliverables/index.html">Weekly labs</a></h3><p>Residency-facing weekly outputs and the work trail leading into the finished capstone.</p></article>
+        <article><div class="mark">SDG</div><h3><a href="un-sdg.html">UN SDG alignment</a></h3><p>MMC option 4 wording reconciled to official UN SDG 10.</p></article>
+        <article><div class="mark">MAP</div><h3><a href="curriculum.html">Curriculum map</a></h3><p>Maps AI Research Foundations content to concrete ControlSift work.</p></article>
+        <article><div class="mark">REF</div><h3><a href="reflection.html">Reflection</a></h3><p>What changed, what the model results taught, and future work.</p></article>
+        <article><div class="mark">LAB</div><h3><a href="deliverables/index.html">Weekly labs</a></h3><p>Residency-facing weekly outputs and work trail.</p></article>
       </div>
     </section>
 
     <section class="section">
       <h2>Published experiment snapshot</h2>
-      <p>The values below are real committed metrics, but they span benchmark versions. Use <a href="../results.html">Results</a> for the full version disclosure.</p>
       <div class="metrics-grid">
-        <div class="metric"><span class="label">Majority · v1.1</span><span class="value">0.067</span></div>
-        <div class="metric"><span class="label">TF-IDF · v1.1</span><span class="value">0.533</span></div>
-        <div class="metric"><span class="label">Gemma zero-shot · v1.0</span><span class="value">0.080</span></div>
-        <div class="metric"><span class="label">Gemma few-shot · v1.0</span><span class="value">0.137</span></div>
-        <div class="metric"><span class="label">Gemma QLoRA · v1.0</span><span class="value">0.083</span></div>
+        <div class="metric"><span class="label">Majority / v1.1</span><span class="value">0.067</span></div>
+        <div class="metric"><span class="label">TF-IDF / v1.1</span><span class="value">0.533</span></div>
+        <div class="metric"><span class="label">Gemma zero-shot / v1.0</span><span class="value">0.080</span></div>
+        <div class="metric"><span class="label">Gemma few-shot / v1.0</span><span class="value">0.137</span></div>
+        <div class="metric"><span class="label">Gemma QLoRA / v1.0</span><span class="value">0.083</span></div>
       </div>
-      <div class="callout" style="margin-top:1.25rem;"><strong>Defensible interpretation</strong>Within the Gemma v1.0 runs, few-shot is strongest and QLoRA does not beat it. The current hardened v1.1 classical baseline is about 0.53. A definitive classical-vs-Gemma ranking waits for a matching-version experiment.</div>
+      <div class="callout" style="margin-top:1.25rem;"><strong>Defensible interpretation</strong>Within Gemma v1.0, few-shot is strongest and QLoRA does not beat it. The hardened v1.1 classical baseline is about 0.53. A definitive classical-vs-Gemma ranking would require a matching-version experiment and is outside this capstone's remaining scope.</div>
     </section>
   </main>
-
-  <footer class="site-footer"><div class="wrap"><span>ControlSift · complete capstone hub</span></div></footer>
-  <script src="../assets/js/nav.js?v=2026090802"></script>
-  <script src="../assets/js/capstone-nav.js?v=2026090801"></script>
+  <footer class="site-footer"><div class="wrap"><span>ControlSift &middot; complete capstone hub</span></div></footer>
+  <script src="../assets/js/nav.js?v=2026090803"></script>
+  <script src="../assets/js/capstone-nav.js?v=2026090802"></script>
 </body>
 </html>
