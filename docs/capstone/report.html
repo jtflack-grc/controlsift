@@ -5,19 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#07100c" />
-  <title>Capstone Report (&le;8 pages) — ControlSift</title>
+  <title>Capstone Report (&le;8 pages) - ControlSift</title>
   <meta name="robots" content="noindex" />
-  <link rel="stylesheet" href="../assets/css/site.css?v=2026090801" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026090802" />
   <style>
     @media print {
       .site-header, .site-footer, .capstone-nav, .cta-row, .no-print { display: none !important; }
-      body { background: #fff; color: #111; }
+      body { background: #fff; color: #111; font-size: 10.5pt; line-height: 1.35; }
+      main { max-width: none; padding: 0; }
+      article.paper { padding: 0; }
       a { color: #111; text-decoration: none; }
-      .section { border-color: #ccc; page-break-inside: avoid; }
-      .paper-title { font-size: 22pt; }
+      .section { border: 0; padding: 0; }
+      .h-block { margin: 0 0 0.35in; page-break-inside: avoid; }
+      .paper-title { font-size: 20pt; margin-bottom: 0.1in; }
+      h2 { font-size: 13pt; margin: 0 0 0.08in; }
+      p, li { margin-top: 0.04in; margin-bottom: 0.04in; }
+      .source-inline { font-size: 8.5pt; }
     }
     .report-page-hint { color: var(--muted); font-size: var(--text-sm); margin: 0.5rem 0 0; }
     .source-inline { font-size: var(--text-sm); color: var(--muted); }
+    .boundary-note { border: 1px solid var(--line); padding: 0.9rem 1rem; background: var(--panel); }
   </style>
 </head>
 <body>
@@ -28,100 +35,92 @@
     </nav>
   </header>
   <main>
-    <section class="section" style="border-top:0;padding-top:1rem;">
+    <section class="section no-print" style="border-top:0;padding-top:1rem;">
       <div class="page-intro">
         <h2>Capstone project report</h2>
-        <p class="report-page-hint no-print">
-          GCLP limit: &le;8 pages. Print / Save as PDF from this page for form upload.
-          Authorship: human-directed applied research project.
-        </p>
+        <p class="report-page-hint">GCLP limit: &le;8 pages. Print / Save as PDF from this page for form upload.</p>
       </div>
-      <nav class="capstone-nav no-print" data-capstone-nav aria-label="Capstone"></nav>
+      <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
     </section>
 
     <article class="paper">
       <h1 class="paper-title">ControlSift: Reducing Inequality in Evidence Assurance with Small-Model Triage Research</h1>
       <p class="paper-meta">
         Mentor Me Collective &middot; Google Cloud Launchpad &middot; DeepMind AI Research Foundations Capstone<br />
-        MMC rubric option: <strong>Goal 4 — Reduced Inequalities</strong> &middot; Official UN designation: <strong>SDG 10</strong><br />
-        Dataset v1.1.0 &middot; Protocol <code>protocol-v1-locked</code> &middot; Solo project &middot; Primary metric: macro F1 &middot; Seed 42
+        MMC rubric option: <strong>Goal 4 - Reduced Inequalities</strong> &middot; Official UN designation: <strong>SDG 10</strong><br />
+        Solo project &middot; Primary metric: macro F1 &middot; Seed 42
       </p>
 
       <section class="h-block" id="r1">
         <h2>1. Problem statement and objectives</h2>
         <p>
-          Cybersecurity assurance depends on evidence that controls operate as intended. A policy that requires MFA is relevant to an access control but does not, by itself, prove that privileged accounts were enrolled during the audit period. NIST SP 800-53A Rev. 5 similarly frames control assessment around verifying implementation, control objectives, and desired outcomes rather than document presence alone.
+          Cybersecurity assurance depends on evidence that controls operate as intended. A policy that requires MFA is relevant to an access control but does not, by itself, prove that privileged accounts were enrolled during the assessment period. NIST SP 800-53A Rev. 5 similarly frames control assessment around verifying implementation, objectives, and desired outcomes rather than document presence alone.
         </p>
         <p>
-          Organizations with limited cybersecurity budgets also face uneven access to specialist capacity. NIST's Small Business Cybersecurity Corner explicitly notes limited resources and budgets and the difficulty some organizations have affording dedicated cybersecurity staff. ControlSift studies a narrow response to that access problem: whether an openly reproducible small-model method can assist human evidence triage without lowering the assurance standard.
+          Organizations with limited cybersecurity budgets also face uneven access to specialist capacity. NIST's Small Business Cybersecurity resources explicitly describe limited resources and budgets and the difficulty some organizations have affording dedicated cybersecurity staff. ControlSift studies a narrow response to that access problem: whether an openly reproducible small-model method can assist human evidence triage without lowering the assurance standard.
         </p>
-        <p>
-          <strong>Objective:</strong> Determine whether QLoRA adaptation of Gemma&nbsp;3 1B Instruct improves five-class evidence-quality classification (SUFFICIENT, PARTIAL, INSUFFICIENT, IRRELEVANT, CONTRADICTORY) on a sealed synthetic benchmark.
-          <strong>Scope:</strong> research and education only; no production auditor, no private customer evidence, and human judgment remains authoritative.
-        </p>
+        <p><strong>Objective:</strong> evaluate five-class evidence-quality classification - SUFFICIENT, PARTIAL, INSUFFICIENT, IRRELEVANT, CONTRADICTORY - using classical and small-language-model approaches on controlled synthetic data. <strong>Scope:</strong> research and education only; no production auditor, no private customer evidence, and human judgment remains authoritative.</p>
       </section>
 
       <section class="h-block" id="r2">
         <h2>2. Research and analysis</h2>
         <p>
-          External grounding combines standards, public-sector guidance, and primary technical literature. NIST SP 800-53A Rev. 5 grounds the control-assessment problem; NIST small-business guidance documents real cybersecurity resource constraints; Dettmers et al.'s QLoRA paper grounds the memory-efficient fine-tuning method; Google DeepMind's Gemma 3 model documentation grounds the lightweight 1B model choice; and the NIST AI RMF grounds explicit scope, oversight, and human-accountability boundaries. These sources motivate the problem and method; they do <em>not</em> establish ControlSift's performance. See <a href="research-sources.html">annotated research sources</a>.
+          External grounding combines standards, public-sector guidance, and primary technical literature. NIST SP 800-53A Rev. 5 grounds the control-assessment problem; NIST small-business guidance documents cybersecurity resource constraints; Dettmers et al.'s QLoRA paper grounds the memory-efficient fine-tuning method; Google DeepMind's Gemma 3 documentation grounds model context; and the NIST AI RMF grounds explicit scope, oversight, and human-accountability boundaries. These sources motivate the problem and method; they do not establish ControlSift's performance. See <a href="research-sources.html">annotated research sources</a>.
         </p>
         <p class="source-inline">
-          Key sources: <a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">NIST SP 800-53A Rev. 5</a> &middot;
+          Sources: <a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">NIST SP 800-53A Rev. 5</a> &middot;
           <a href="https://www.nist.gov/itl/smallbusinesscyber/about" rel="noopener">NIST Small Business Cybersecurity</a> &middot;
           <a href="https://arxiv.org/abs/2305.14314" rel="noopener">QLoRA</a> &middot;
           <a href="https://ai.google.dev/gemma/docs/core/model_card_3" rel="noopener">Gemma 3 Model Card</a> &middot;
           <a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" rel="noopener">NIST AI RMF Core</a>.
         </p>
         <p>
-          Modeling data is synthetic by design: 1,500 compositional evidence packets, family-isolated splits (1000/200/200/100), rule-derived labels with structural audit and a scripted spot-check. An early draft allowed TF-IDF to saturate; dataset v1.1 was hardened so lexical shortcuts no longer defined a trivial ceiling. The evaluation protocol was sealed before final large-model claims.
+          Modeling data is synthetic by design. The hardened classical benchmark uses dataset <strong>v1.1.0</strong>: approximately 1,500 compositional evidence packets with family-isolated train, validation, test, and challenge splits. An early generator allowed TF-IDF to saturate; v1.1 was hardened before the classical protocol seal.
         </p>
         <p>
-          Sealed TEST macro F1: majority <strong>0.0667</strong>; TF-IDF <strong>0.5327</strong> (challenge 0.5237); Gemma zero-shot <strong>0.0796</strong>; few-shot <strong>0.1365</strong>; QLoRA <strong>0.0827</strong> with label parse success about 0.435. TF-IDF leads; few-shot is the best Gemma rung; QLoRA does not beat few-shot.
+          The Gemma zero-shot, few-shot, and QLoRA runs were completed earlier on dataset <strong>v1.0.0</strong>. Free-tier compute constraints make a full rerun impractical for this capstone, so cross-version scores are published transparently but are descriptive rather than a controlled head-to-head comparison.
         </p>
+        <div class="boundary-note">
+          <strong>Published result boundary:</strong> on v1.1, majority macro F1 is 0.0667 and TF-IDF is 0.5327 (challenge 0.5237). On v1.0, Gemma zero-shot is 0.0796, few-shot is 0.1365, and QLoRA is 0.0827. Within the Gemma v1.0 ladder, few-shot is strongest and QLoRA does not beat few-shot. QLoRA test parse success is about 0.435.
+        </div>
       </section>
 
       <section class="h-block" id="r3">
         <h2>3. Solution development</h2>
         <p>
-          Solution ladder: majority &rarr; TF-IDF &rarr; Gemma zero-shot &rarr; few-shot &rarr; Gemma&nbsp;3 1B + QLoRA (4-bit NF4). The public research artifact includes machine-readable results, Failure Lab, Data Card, Model Card, AI risk register, intended-use boundaries, curriculum map, and reproducibility instructions.
+          The research compares a cheap classical baseline with prompted and adapted small-model methods while treating evidence quality as a compositional assurance problem rather than generic document relevance. The public artifact includes machine-readable results, a Failure Lab, Data Card, Model Card, AI risk register, intended-use boundaries, curriculum map, and reproducibility instructions.
         </p>
         <p>
-          <strong>Innovation:</strong> the project treats evidence quality as a compositional assurance problem, not generic document relevance. <strong>Practicality and sustainability:</strong> the benchmark is synthetic, the classical baseline runs cheaply, and the language-model experiment uses a lightweight model and free/commodity GPU infrastructure. The open method can scale as a research and training artifact; production use would require real-world validation, stronger constrained output handling, security review, and accountable human oversight.
-        </p>
-        <p>
-          <strong>Finding:</strong> the proposed AI adaptation is not the winner. The inexpensive classical method performs substantially better on the sealed benchmark. Keeping that result is part of the project's responsible-AI contribution.
+          <strong>Practicality and sustainability:</strong> synthetic data avoids customer-data risk, the classical baseline is inexpensive, and Gemma experiments can run on free or commodity GPU infrastructure. The open method can scale as a research and training artifact. Production use would require real-world validation, stronger constrained output handling, security review, governance, and accountable human oversight.
         </p>
       </section>
 
       <section class="h-block" id="r4">
         <h2>4. Implementation plan and risk management</h2>
         <p>
-          Phases 0&ndash;4 are complete: problem framing and SDG mapping; benchmark generation and hardening; protocol seal; classical baselines; Gemma prompted baselines; QLoRA training/evaluation; error analysis; public site; report and slides packaging. Final administrative phase: record the &le;5-minute video and upload the required files.
+          Completed work includes problem framing and SDG mapping; benchmark generation and hardening; classical baselines; Gemma zero-shot and few-shot runs; QLoRA training and evaluation; error analysis; public site; research sources; report; slides; and submission packaging. Final administrative step: record the &le;5-minute presentation video and upload the required files.
         </p>
         <p>
-          Resources included Python, scikit-learn, Gemma 3 1B, Hugging Face access, Kaggle/Colab free GPU paths, GitHub Pages, and the public repository. Risks addressed include dataset leakage, lexical shortcuts, prompt tuning on the test set, fabricated metrics, secret exposure, synthetic-to-real overgeneralization, weak model output parsing, and users mistaking research triage for automated audit. Mitigations include family-isolated splits, a protocol seal, CI checks, null-until-run metrics, platform secrets, explicit limitations, Failure Lab publication, and mandatory human-review boundaries.
+          Resources included Python, scikit-learn, Gemma 3 1B, Hugging Face access, Kaggle/Colab free GPU paths, GitHub Pages, and the public repository. Risks addressed include dataset leakage, lexical shortcuts, test-set tuning, fabricated metrics, secret exposure, synthetic-to-real overgeneralization, output parsing failure, cross-version overclaiming, and users mistaking research triage for automated audit. Mitigations include family isolation, protocol seals, CI checks, machine-readable metrics, platform secrets, explicit limitations, Failure Lab publication, version-boundary disclosure, and mandatory human review.
         </p>
       </section>
 
       <section class="h-block" id="r5">
         <h2>5. Outcomes and recommendations</h2>
         <ul class="findings-list">
-          <li>Published a sealed benchmark and receipts for all five model-ladder experiments.</li>
-          <li>Hardened an initially trivial dataset until the lexical baseline fell from saturation to about 0.53 macro F1.</li>
-          <li>Produced an honest negative result: QLoRA &lt; few-shot, and all Gemma rungs &lt; TF-IDF.</li>
+          <li>Published reproducible classical and Gemma experiment records with explicit dataset-version boundaries.</li>
+          <li>Hardened an initially trivial benchmark until the v1.1 lexical baseline fell from saturation to about 0.53 macro F1.</li>
+          <li>Preserved a negative Gemma finding: on v1.0, QLoRA did not beat few-shot and showed weak output-format reliability.</li>
           <li>Published failure analysis and assurance artifacts rather than reporting only aggregate scores.</li>
-          <li>Demonstrated a low-cost, reproducible research path while retaining explicit limits on real-world use.</li>
+          <li>Demonstrated a low-cost research path while retaining explicit limits on real-world use.</li>
         </ul>
-        <p>
-          <strong>Recommendation:</strong> do not deploy ControlSift as an audit autopilot. Preserve human authority; improve constrained label generation before further language-model claims; validate on carefully governed real-world evidence before discussing operational use; and continue reporting the full ladder, including when classical methods win.
-        </p>
+        <p><strong>Recommendation:</strong> do not deploy ControlSift as an audit autopilot. Preserve human authority; improve constrained label generation before further model claims; validate on governed real-world evidence before discussing operational use; and never treat the v1.1 classical and v1.0 Gemma scores as a controlled same-dataset comparison.</p>
       </section>
 
       <section class="h-block" id="r6">
         <h2>6. Claim boundaries and authorship</h2>
         <p>
-          External literature supports context and technical choices; ControlSift-specific result claims come only from sealed experiment files. Labels are rule-derived on synthetic data, not a large human gold standard. Assistive tools were used for drafting and engineering support; problem selection, experimental design, protocol decisions, benchmark decisions, execution, interpretation, and final submission responsibility remain with the author.
+          External literature supports context and technical choices; ControlSift-specific result claims come only from committed experiment files. Labels are rule-derived on synthetic data, not a large human gold standard. Assistive tools were used for drafting and engineering support; problem selection, experimental design, benchmark decisions, execution, interpretation, and final submission responsibility remain with the author.
         </p>
       </section>
     </article>
@@ -135,11 +134,9 @@
       </div>
     </section>
   </main>
-  <footer class="site-footer">
-    <div class="wrap"><span>ControlSift &middot; capstone report</span></div>
-  </footer>
+  <footer class="site-footer"><div class="wrap"><span>ControlSift &middot; capstone report</span></div></footer>
   <script src="../assets/js/site.js"></script>
-  <script src="../assets/js/nav.js?v=2026090801"></script>
-  <script src="../assets/js/capstone-nav.js?v=2026090801"></script>
+  <script src="../assets/js/nav.js?v=2026090802"></script>
+  <script src="../assets/js/capstone-nav.js?v=2026090802"></script>
 </body>
 </html>
