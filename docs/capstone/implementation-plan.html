@@ -4,99 +4,59 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#000000" />
-  <title>Implementation Plan — Capstone</title>
+  <meta name="theme-color" content="#07100c" />
+  <title>Implementation Plan - ControlSift</title>
   <meta name="robots" content="noindex" />
-  <link rel="stylesheet" href="../assets/css/site.css?v=202609070720" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026090803" />
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="../index.html">ControlSift</a>
-      <ul class="nav-links" data-site-nav></ul>
-    </nav>
-  </header>
+  <header class="site-header"><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">ControlSift</a><ul class="nav-links" data-site-nav></ul></nav></header>
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
-      <div class="page-intro">
-        <h2>Implementation plan</h2>
-        <p>
-          Phases, resources, and risk mitigations for the ControlSift GCLP / DeepMind capstone.
-          Research and GPU evaluation are complete; remaining work is video recording and form upload.
-        </p>
-      </div>
+      <div class="page-intro"><h2>Implementation plan</h2><p>Phases, resources, risks, and mitigations for the ControlSift capstone. Research work is complete; the video is the only open deliverable.</p></div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
     </section>
 
     <section class="section">
       <h2>Phases</h2>
       <div class="def-list">
-        <div><dt>Phase 0 · Done</dt><dd>Problem framing, SDG&nbsp;10, synthetic benchmark v1.1, protocol seal, classical baselines, Assurance, MMC hub.</dd></div>
-        <div><dt>Phase 1 · Done</dt><dd>Hugging Face Gemma license + free GPU path; smoke then full packaging.</dd></div>
-        <div><dt>Phase 2 · Done</dt><dd>Gemma zero-shot and few-shot on sealed test/challenge; metrics published to Pages.</dd></div>
-        <div><dt>Phase 3 · Done</dt><dd>QLoRA train/eval; comparison to prompted baselines (few-shot still best of Gemma ladder).</dd></div>
-        <div><dt>Phase 4 · Done</dt><dd>Error analysis, Failure Lab, research digest / report / slides with honest findings.</dd></div>
-        <div><dt>Phase 5 · Remaining</dt><dd>Record â‰¤5-minute video; upload report PDF, slides PDF, and video via GCLP form.</dd></div>
+        <div><dt>Phase 0 / Done</dt><dd>Problem framing, MMC option 4 / UN SDG 10 mapping, synthetic benchmark, assurance artifacts, and capstone hub.</dd></div>
+        <div><dt>Phase 1 / Done</dt><dd>Classical benchmark hardening and v1.1 majority / TF-IDF baselines.</dd></div>
+        <div><dt>Phase 2 / Done</dt><dd>Hugging Face access, free GPU path, Gemma v1.0 zero-shot and few-shot evaluation.</dd></div>
+        <div><dt>Phase 3 / Done</dt><dd>Gemma v1.0 QLoRA train/eval; few-shot remains the strongest Gemma rung.</dd></div>
+        <div><dt>Phase 4 / Done</dt><dd>Error analysis, Failure Lab, external research sources, report, paper, slides, and final version-boundary disclosure.</dd></div>
+        <div><dt>Phase 5 / Remaining</dt><dd>Record the 5-minute-or-less video and upload the final package.</dd></div>
       </div>
     </section>
 
     <section class="section">
       <h2>Resources used</h2>
       <ul class="findings-list">
-        <li><strong>Compute</strong> — Free-tier GPU (Kaggle / Colab); 4-bit NF4 QLoRA; smoke before full.</li>
-        <li><strong>Accounts</strong> — Hugging Face (Gemma license); secrets only in platform stores, never in git.</li>
-        <li><strong>Code</strong> — this repository; sealed protocol; machine-readable <code>results/</code>.</li>
-        <li><strong>People</strong> — solo project.</li>
+        <li><strong>Compute:</strong> local CPU for classical work; Kaggle / Colab free GPU path for Gemma experiments.</li>
+        <li><strong>Models:</strong> TF-IDF + logistic regression; Gemma 3 1B; QLoRA with 4-bit NF4.</li>
+        <li><strong>Platforms:</strong> GitHub, GitHub Pages, Hugging Face, Kaggle / Colab.</li>
+        <li><strong>Data:</strong> synthetic evidence packets only; no employer, patient, or customer evidence.</li>
+        <li><strong>People:</strong> solo project with assistive tooling for drafting and engineering support.</li>
       </ul>
     </section>
 
     <section class="section">
       <h2>Risk management</h2>
       <table class="curriculum-table">
-        <thead>
-          <tr><th>Risk</th><th>Impact</th><th>Mitigation / outcome</th></tr>
-        </thead>
+        <thead><tr><th>Risk</th><th>Impact</th><th>Mitigation / outcome</th></tr></thead>
         <tbody>
-          <tr>
-            <td>Overclaiming LLM wins</td>
-            <td>False success narrative</td>
-            <td>Published negative findings: TF-IDF leads; QLoRA did not beat few-shot; parse fragility disclosed.</td>
-          </tr>
-          <tr>
-            <td>Schema gaming</td>
-            <td>Synthetic-only win</td>
-            <td>RESEARCH_SURFACE disclosure; Failure Lab; per-class metrics; human judgment remains authoritative.</td>
-          </tr>
-          <tr>
-            <td>GCLP “AI-generated project” flag</td>
-            <td>Submission incomplete</td>
-            <td>Human-directed research; authorship attestation; core design/seal/evals are project-owned.</td>
-          </tr>
-          <tr>
-            <td>Wrong official SDG</td>
-            <td>Rubric miss</td>
-            <td>Official goal locked to SDG&nbsp;10; supporting context labeled non-official.</td>
-          </tr>
-          <tr>
-            <td>Missed deliverable format</td>
-            <td>Form rejection</td>
-            <td>8-page report, 8-slide deck, 5-min script under <code>docs/capstone/</code>; video is the open item.</td>
-          </tr>
+          <tr><td>Lexical shortcut</td><td>Artificially easy benchmark</td><td>Hardened the generator before sealing v1.1 classical results.</td></tr>
+          <tr><td>Overclaiming AI performance</td><td>False success narrative</td><td>Preserved the QLoRA negative result and low parse-success rate.</td></tr>
+          <tr><td>Cross-version comparison</td><td>Misleading leaderboard</td><td>Classical v1.1 and Gemma v1.0 are disclosed separately; cross-version scores are descriptive only.</td></tr>
+          <tr><td>Synthetic-to-real overgeneralization</td><td>Unsafe production interpretation</td><td>Explicit non-production scope, Limitations, Intended Use, and human-review requirements.</td></tr>
+          <tr><td>Secret exposure</td><td>Credential compromise</td><td>Tokens remain in platform secret stores and are excluded from git.</td></tr>
+          <tr><td>Format miss</td><td>Capstone rejection</td><td>Rubric-facing report, exactly eight slides, and under-five-minute script are prepared.</td></tr>
         </tbody>
       </table>
-      <div class="cta-row" style="margin-top:1.5rem;">
-        <a class="btn btn-primary" href="video-script.html">Video script</a>
-        <a class="btn btn-secondary" href="report.html">8-page report</a>
-        <a class="btn btn-secondary" href="gclp-checklist.html">GCLP checklist</a>
-      </div>
     </section>
   </main>
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>ControlSift · implementation</span>
-    </div>
-  </footer>
-  <script src="../assets/js/nav.js?v=202609070720"></script>
-  <script src="../assets/js/capstone-nav.js"></script>
+  <footer class="site-footer"><div class="wrap"><span>ControlSift &middot; implementation</span></div></footer>
+  <script src="../assets/js/nav.js?v=2026090803"></script>
+  <script src="../assets/js/capstone-nav.js?v=2026090802"></script>
 </body>
 </html>
