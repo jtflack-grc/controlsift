@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#000000" />
   <title>UN SDG Alignment — Capstone</title>
   <meta name="robots" content="noindex" />
-  <link rel="stylesheet" href="../assets/css/site.css?v=202609070720" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026090801" />
 </head>
 <body>
   <header class="site-header">
@@ -19,86 +19,105 @@
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
       <div class="page-intro">
-        <h2>UN Sustainable Development Goals</h2>
+        <h2>Reduced Inequalities: rubric label vs. UN designation</h2>
         <p>
-          GCLP Capstone Project Outline requires selecting <strong>one</strong> official goal from
-          Goals&nbsp;1, 2, 3, 10, or 13. ControlSift’s official submission goal is
-          <strong>SDG&nbsp;10 (Reduced Inequalities)</strong>. Supporting context below does not replace that selection.
+          The MMC capstone rubric labels <strong>Reduced Inequalities</strong> as its program <strong>Goal 4</strong> option. In the official United Nations Sustainable Development Goals, <strong>Reduced Inequalities is SDG 10</strong>. To avoid ambiguity, ControlSift uses both labels together: <strong>MMC rubric option 4 — Reduced Inequalities / official UN SDG 10</strong>.
         </p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
     </section>
 
     <section class="section">
-      <h2>Official GCLP goal</h2>
+      <h2>Capstone alignment</h2>
       <div class="sdg-grid">
         <article>
-          <div class="sdg-id">SDG 10 · Reduced inequalities</div>
-          <h3>Unequal access to trustworthy assurance expertise</h3>
+          <div class="sdg-id">MMC option 4 · UN SDG 10</div>
+          <h3>Unequal access to cybersecurity capacity</h3>
           <p>
-            High-quality governance, risk, and compliance (GRC) review is expensive. Well-resourced organizations buy
-            deep human assurance; smaller teams, nonprofits, clinics, schools, and community providers often inherit
-            template binders and rubber-stamp evidence. That inequality shows up as false assurance: paperwork that
-            looks compliant while controls do not operate.
+            NIST explicitly notes that smaller businesses often operate with limited cybersecurity resources and budgets and may be unable to afford dedicated cybersecurity staff. ControlSift does not claim that this proves a specific shortage of control-evidence reviewers; it uses the broader resource constraint as the motivation to study an open, low-cost assurance-support method.
           </p>
           <p>
-            ControlSift studies whether a small, free-tier-trainable language model can help human reviewers triage
-            evidence quality—sufficient, partial, insufficient, irrelevant, contradictory—so under-resourced teams
-            gain access to a research-grade triage aid they could not otherwise afford. The model never replaces the
-            human reviewer; it aims to reduce the expertise gap that currently tracks wealth and consulting access.
-          </p>
-          <p style="color:var(--muted);font-size:var(--text-sm);margin-top:0.75rem;">
-            GCLP cybersecurity example for Goal&nbsp;10 emphasizes empowering communities with unequal digital protection.
-            ControlSift applies that lens to unequal access to honest evidence review.
+            The project asks whether a lightweight model can contribute to evidence-quality triage while keeping a human reviewer authoritative. The artifact, benchmark, methods, failure analysis, and results are public so the research can be inspected without buying a proprietary platform.
           </p>
         </article>
         <article>
           <div class="sdg-id">Contribution</div>
-          <h3>Lower the barrier without automating away judgment</h3>
+          <h3>Lower the research barrier, not the assurance standard</h3>
           <p>
-            The deliverable is an open research artifact: sealed synthetic benchmark, classical baselines, planned
-            Gemma&nbsp;3 + QLoRA adaptation on free GPU tiers, Failure Lab, and Assurance docs. Success means a
-            reproducible method that smaller organizations and learners can inspect—not a paid black-box auditor.
+            ControlSift runs on free-tier or commodity research infrastructure, uses synthetic data rather than customer evidence, and publishes a classical baseline alongside the language-model experiments. Its strongest result is not an AI victory: TF-IDF leads the full model ladder.
+          </p>
+          <p>
+            The long-term idea is scalable <em>knowledge access</em>: publish methods, limitations, and failure cases that smaller teams and learners can inspect. Production deployment remains out of scope without real-world validation and accountable human review.
           </p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <h2>Problem identification sources (public evidence)</h2>
-      <p>
-        Per GCLP guidance to ground the problem in real-world evidence (while the modeling corpus itself remains
-        synthetic for privacy and leakage control), problem framing draws on public sources such as:
-      </p>
+      <h2>Public evidence behind the framing</h2>
       <ul class="findings-list">
-        <li><strong>Verizon DBIR / industry breach reports</strong> — recurring control failures where documentation did not equal operation.</li>
-        <li><strong>CISA / NIST cybersecurity guidance</strong> — evidence and control assessment expectations for organizations of uneven maturity.</li>
-        <li><strong>Public audit and certification discourse</strong> — known tension between “paper compliance” and operational proof.</li>
-        <li><strong>Kaggle / open security datasets</strong> — used as landscape context for the domain; not as private customer evidence.</li>
+        <li>
+          <strong>NIST Small Business Cybersecurity Corner</strong>
+          NIST states that smaller businesses have limited resources and budgets and need practical, actionable, cost-effective cybersecurity guidance and solutions.
+          <a href="https://www.nist.gov/itl/smallbusinesscyber/about" rel="noopener">Source</a>
+        </li>
+        <li>
+          <strong>NIST: Building Your Small Business' Cybersecurity Team</strong>
+          NIST discusses limited resources, inability to afford dedicated staff, and the use of outsourcing, upskilling, and community support.
+          <a href="https://www.nist.gov/itl/smallbusinesscyber/guidance-topic/building-your-team" rel="noopener">Source</a>
+        </li>
+        <li>
+          <strong>NIST SP 800-53A Rev. 5</strong>
+          NIST's control-assessment methodology centers on determining whether controls are implemented and achieve intended outcomes, grounding ControlSift's distinction between paperwork and operational proof.
+          <a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">Source</a>
+        </li>
+        <li>
+          <strong>United Nations Goal 10</strong>
+          The UN's official Goal 10 is Reduced Inequalities. The connection between that broad goal and lower-cost cybersecurity assurance research is ControlSift's capstone interpretation, not a claim that the UN specifically addresses evidence review.
+          <a href="https://sdgs.un.org/goals/goal10" rel="noopener">Source</a>
+        </li>
       </ul>
-      <p style="margin-top:1rem;color:var(--muted);font-size:var(--text-sm);">
-        Modeling uses a sealed synthetic packet benchmark so no employer, patient, or customer evidence enters the repo.
-        That is a deliberate privacy and integrity choice, disclosed in the Data Card.
-      </p>
+      <div class="cta-row" style="margin-top:1.25rem;">
+        <a class="btn btn-primary" href="research-sources.html">Annotated research sources</a>
+        <a class="btn btn-secondary" href="problem-impact.html">Problem &amp; impact</a>
+      </div>
     </section>
 
     <section class="section">
-      <h2>Supporting context (not the official selection)</h2>
+      <h2>What the experiment contributes</h2>
+      <div class="sdg-grid">
+        <article>
+          <div class="sdg-id">Open method</div>
+          <h3>Reproducible on modest infrastructure</h3>
+          <p>
+            The benchmark generator, model ladder, validation scripts, results, Failure Lab, Data Card, Model Card, and risk register are public. The QLoRA leg used a lightweight Gemma 3 1B model and free GPU infrastructure.
+          </p>
+        </article>
+        <article>
+          <div class="sdg-id">Honest result</div>
+          <h3>Do not make access cheaper by making assurance weaker</h3>
+          <p>
+            The sealed result does not justify automated evidence approval. TF-IDF leads at about 0.53 test macro F1; the best Gemma rung is few-shot at about 0.14. ControlSift therefore publishes the failure rather than presenting a weak model as a low-cost substitute for professional judgment.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Supporting context, not the official selection</h2>
       <div class="sdg-grid">
         <article>
           <div class="sdg-id">SDG 16 · Strong institutions</div>
-          <h3>Mechanism of impact</h3>
+          <h3>Accountability as a secondary connection</h3>
           <p>
-            Honest evidence triage strengthens institutional accountability. This explains <em>how</em> reducing
-            inequality in assurance access works; it is not the GCLP official goal selection.
+            Better evidence discipline can support institutional accountability. This is useful context for the project, but it is not the capstone's selected rubric option.
           </p>
         </article>
         <article>
           <div class="sdg-id">SDG 9 &amp; 4</div>
-          <h3>Access &amp; learning</h3>
+          <h3>Accessible methods and learning</h3>
           <p>
-            Free-tier PEFT methods (SDG&nbsp;9 adjacent) and a curriculum-visible public site (SDG&nbsp;4 adjacent)
-            support accessibility of the research craft.
+            Efficient fine-tuning and a public, curriculum-visible research artifact are adjacent to innovation and education. Again, these are supporting connections rather than the formal capstone selection.
           </p>
         </article>
       </div>
@@ -107,23 +126,19 @@
     <section class="section">
       <h2>Impact statement</h2>
       <p>
-        If small models can help flag weak evidence under a locked protocol, organizations with less GRC budget gain a
-        triage aid that makes institutional claims more honest. ControlSift measures that possibility and publishes
-        where the approach still fails—so the benefit is shared as knowledge, not sold as certainty.
+        ControlSift's contribution is deliberately modest: test whether a low-cost small-model approach adds value to cybersecurity evidence triage, publish the full result even when the model underperforms, and make the method inspectable. The project aligns that open-access research goal with MMC's Reduced Inequalities option while retaining the official UN designation, SDG 10.
       </p>
       <div class="cta-row" style="margin-top:1.5rem;">
-        <a class="btn btn-secondary" href="problem-impact.html">Problem &amp; impact</a>
         <a class="btn btn-secondary" href="implementation-plan.html">Implementation plan</a>
         <a class="btn btn-secondary" href="../assurance/intended-use.html">Intended use</a>
+        <a class="btn btn-secondary" href="report.html">Capstone report</a>
       </div>
     </section>
   </main>
   <footer class="site-footer">
-    <div class="wrap">
-      <span>Capstone · UN SDG</span>
-</div>
+    <div class="wrap"><span>ControlSift · MMC option 4 / UN SDG 10</span></div>
   </footer>
-  <script src="../assets/js/nav.js?v=202609070720"></script>
-  <script src="../assets/js/capstone-nav.js"></script>
+  <script src="../assets/js/nav.js?v=2026090801"></script>
+  <script src="../assets/js/capstone-nav.js?v=2026090801"></script>
 </body>
 </html>
