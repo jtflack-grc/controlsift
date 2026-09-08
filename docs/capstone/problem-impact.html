@@ -4,83 +4,60 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#000000" />
-  <title>Problem &amp; Impact — Capstone</title>
+  <meta name="theme-color" content="#07100c" />
+  <title>Problem and Impact - ControlSift</title>
   <meta name="robots" content="noindex" />
-  <link rel="stylesheet" href="../assets/css/site.css?v=202609070720" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026090803" />
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="../index.html">ControlSift</a>
-      <ul class="nav-links" data-site-nav></ul>
-    </nav>
-  </header>
+  <header class="site-header"><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">ControlSift</a><ul class="nav-links" data-site-nav></ul></nav></header>
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
-      <div class="page-intro">
-        <h2>Problem &amp; impact</h2>
-        <p>Research problem, aim, stakeholders, and intended outcomes.</p>
-      </div>
+      <div class="page-intro"><h2>Problem and impact</h2><p>Research problem, aim, stakeholders, evidence base, and intended outcomes.</p></div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
     </section>
 
     <section class="section">
       <h2>Problem statement</h2>
-      <p>
-        Cybersecurity and GRC teams must distinguish artifacts that demonstrate control operation from evidence that is
-        incomplete, irrelevant, stale, or contradictory. Treating a policy document as proof produces false assurance
-        and weakens institutional accountability.
-      </p>
+      <p>Cybersecurity and GRC teams must distinguish artifacts that demonstrate control operation from material that is incomplete, irrelevant, stale, or contradictory. Treating a policy document as proof can create false assurance because relevance is not the same thing as evidence of operation.</p>
+      <p>NIST SP 800-53A Rev. 5 grounds the assessment problem in verifying implementation and outcomes. NIST Small Business Cybersecurity guidance also recognizes real cybersecurity resource and budget constraints among smaller organizations. ControlSift studies whether low-cost evidence-triage methods can help without replacing human judgment.</p>
+      <div class="cta-row" style="margin-top:1rem;"><a class="btn btn-secondary" href="research-sources.html">Research sources and claim boundaries</a></div>
     </section>
 
     <section class="section">
       <h2>Research aim</h2>
-      <p>
-        Determine whether domain adaptation with QLoRA improves Gemma 3 1B IT on a five-class evidence-quality task,
-        using sealed evaluation, classical baselines, and explicit failure analysis.
-      </p>
+      <p>Evaluate a five-class evidence-quality task using a low-cost classical baseline and small-language-model methods, while publishing failures and research boundaries rather than forcing an AI-success narrative.</p>
       <div class="def-list">
-        <div><dt>Primary metric</dt><dd>Macro F1 on sealed test and challenge splits</dd></div>
-        <div><dt>Hypotheses</dt><dd>H1–H5 in the <a href="../assurance/protocol.html">research protocol</a></dd></div>
-        <div><dt>Benchmark</dt><dd>Synthetic compositional evidence packets (dataset v1.1.0)</dd></div>
+        <div><dt>Primary metric</dt><dd>Macro F1 on test and challenge splits</dd></div>
+        <div><dt>Classical experiments</dt><dd>Dataset v1.1.0: majority and TF-IDF + logistic regression</dd></div>
+        <div><dt>Gemma experiments</dt><dd>Dataset v1.0.0: zero-shot, few-shot, and QLoRA</dd></div>
+        <div><dt>Comparison boundary</dt><dd>Within-version comparisons are controlled; cross-version scores are descriptive only</dd></div>
       </div>
     </section>
 
     <section class="section">
       <h2>Stakeholders</h2>
       <ul class="findings-list">
-        <li><strong>Intended beneficiaries</strong> — human evidence reviewers who need triage support, not autopilots.</li>
-        <li><strong>Readers of this work</strong> — ML and responsible-AI reviewers, hiring managers, and residency evaluators.</li>
-        <li><strong>Protected parties</strong> — organizations that must not treat model scores as audit conclusions.</li>
+        <li><strong>Intended beneficiaries:</strong> human evidence reviewers and learners who need low-cost triage research, not autopilots.</li>
+        <li><strong>Readers:</strong> ML and responsible-AI reviewers, hiring managers, and residency evaluators.</li>
+        <li><strong>Protected parties:</strong> organizations that must not treat synthetic model scores as audit conclusions.</li>
       </ul>
     </section>
 
     <section class="section">
       <h2>Intended outcomes</h2>
-      <p>
-        A measured answer to whether small-model adaptation can assist evidence triage, plus a public record of remaining
-        failure modes — official GCLP goal <a href="un-sdg.html">SDG 10</a> (unequal access to trustworthy assurance),
-        with institutional honesty as the mechanism of impact.
-      </p>
+      <p>The project delivers an open research artifact, a transparent experiment record, failure analysis, assurance documentation, and a measured answer to what the small-model experiments did and did not show. For the MMC rubric the project uses option 4, Reduced Inequalities; the official United Nations designation is SDG 10.</p>
       <h3 style="margin-top:1.5rem;">Out of scope</h3>
       <ul class="findings-list">
         <li>Automated pass/fail decisions on customer controls without human review</li>
         <li>Claims that synthetic-benchmark scores certify production control effectiveness</li>
-        <li>Prompt changes tuned against the sealed test set after protocol lock</li>
+        <li>Claims that v1.1 classical results definitively beat v1.0 Gemma results on the same benchmark</li>
+        <li>Additional GPU reruns solely to manufacture a cleaner capstone leaderboard</li>
       </ul>
-      <div class="cta-row" style="margin-top:1.5rem;">
-        <a class="btn btn-secondary" href="../assurance/intended-use.html">Intended use</a>
-        <a class="btn btn-secondary" href="un-sdg.html">UN SDG alignment</a>
-      </div>
     </section>
   </main>
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>Capstone · Problem &amp; impact</span>
-</div>
-  </footer>
-  <script src="../assets/js/nav.js?v=202609070720"></script>
-  <script src="../assets/js/capstone-nav.js"></script>
+  <footer class="site-footer"><div class="wrap"><span>ControlSift &middot; problem and impact</span></div></footer>
+  <script src="../assets/js/nav.js?v=2026090803"></script>
+  <script src="../assets/js/capstone-nav.js?v=2026090802"></script>
 </body>
 </html>
