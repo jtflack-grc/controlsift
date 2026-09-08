@@ -5,56 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#07100c" />
-  <title>Capstone Slides (8) — ControlSift</title>
+  <title>Capstone Slides (8) - ControlSift</title>
   <meta name="robots" content="noindex" />
-  <link rel="stylesheet" href="../assets/css/site.css?v=202609070720" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026090802" />
   <style>
     .deck { display: grid; gap: 1.25rem; margin-top: 1rem; }
-    .slide {
-      border: 1px solid var(--line);
-      background: var(--panel);
-      padding: 1.5rem 1.6rem;
-      min-height: 14rem;
-    }
-    .slide-num {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--accent);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin: 0 0 0.6rem;
-    }
+    .slide { border: 1px solid var(--line); background: var(--panel); padding: 1.5rem 1.6rem; min-height: 14rem; }
+    .slide-num { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 0.6rem; }
     .slide h3 { margin: 0 0 0.75rem; font-size: 1.35rem; }
     .slide ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
     .slide li { margin: 0.35rem 0; }
     .slide .big { font-size: 1.1rem; color: var(--fg); margin: 0; max-width: 40rem; }
-    body.record-mode .site-header,
-    body.record-mode .site-footer,
-    body.record-mode .capstone-nav,
-    body.record-mode .page-intro,
-    body.record-mode .cta-row,
-    body.record-mode .record-banner { display: none !important; }
+    body.record-mode .site-header, body.record-mode .site-footer, body.record-mode .capstone-nav, body.record-mode .page-intro, body.record-mode .cta-row, body.record-mode .record-banner { display: none !important; }
     body.record-mode main > .section { padding: 0 !important; border: 0 !important; }
     body.record-mode .deck { gap: 0; margin: 0; }
-    body.record-mode .slide {
-      min-height: 100vh;
-      box-sizing: border-box;
-      border: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 8vh 8vw;
-    }
+    body.record-mode .slide { min-height: 100vh; box-sizing: border-box; border: 0; display: flex; flex-direction: column; justify-content: center; padding: 8vh 8vw; }
     body.record-mode .slide h3 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
     body.record-mode .slide .big { font-size: clamp(1.15rem, 2.4vw, 1.55rem); max-width: 48rem; }
     body.record-mode .slide ul { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--fg); }
-    .record-banner {
-      display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;
-      margin: 0.75rem 0 0; padding: 0.75rem 1rem;
-      border: 1px solid var(--line); background: var(--panel);
-      font-size: var(--text-sm); color: var(--muted);
-    }
-    .record-banner a { color: var(--accent); }
+    .record-banner { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin: 0.75rem 0 0; padding: 0.75rem 1rem; border: 1px solid var(--line); background: var(--panel); font-size: var(--text-sm); color: var(--muted); }
     @media print {
       .site-header, .site-footer, .capstone-nav, .page-intro p, .cta-row, .record-banner { display: none !important; }
       .slide { break-after: page; min-height: 90vh; border: 0; }
@@ -62,144 +31,74 @@
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="../index.html">ControlSift</a>
-      <ul class="nav-links" data-site-nav></ul>
-    </nav>
-  </header>
+  <header class="site-header"><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">ControlSift</a><ul class="nav-links" data-site-nav></ul></nav></header>
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
       <div class="page-intro">
         <h2>Capstone presentation deck</h2>
-        <p>
-          Exactly eight slides for GCLP submission (print to PDF if needed). Dense enough for Gamma/ChatGPT slide
-          creation or a speaking deck. Pair with the â‰¤5-minute video script. Numbers from sealed TEST runs.
-        </p>
+        <p>Exactly eight slides for GCLP submission. Pair with the &le;5-minute video script. Dataset-version boundaries are stated explicitly.</p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
-      <div class="record-banner" role="note">
-        <strong style="color:var(--fg);">Record mode:</strong>
-        <a href="?record=1">Hide chrome — Slide 01 fills the first viewport</a>
-        · then <kbd>F11</kbd> + <kbd>Win+G</kbd> · script:
-        <a href="video-script.html">video-script.html</a>
-      </div>
+      <div class="record-banner" role="note"><strong style="color:var(--fg);">Record mode:</strong><a href="?record=1">Hide chrome and fill the viewport</a> &middot; script: <a href="video-script.html">video-script.html</a></div>
 
       <div class="deck">
         <article class="slide" id="slide-01">
-          <p class="slide-num">Slide 01 / 08 · Title</p>
+          <p class="slide-num">Slide 01 / 08 - Title</p>
           <h3>ControlSift</h3>
           <p class="big">Can a small language model help under-resourced teams tell proof from paperwork?</p>
-          <ul>
-            <li>MMC · DeepMind AI Research Foundations capstone</li>
-            <li>Official SDG: <strong>Goal 10 — Reduced Inequalities</strong></li>
-            <li>Sealed synthetic protocol · not a production auditor</li>
-          </ul>
+          <ul><li>MMC / Google DeepMind AI Research Foundations capstone</li><li>MMC rubric option 4: Reduced Inequalities / official UN SDG 10</li><li>Synthetic research artifact - not a production auditor</li></ul>
         </article>
 
         <article class="slide">
-          <p class="slide-num">Slide 02 / 08 · Problem</p>
-          <h3>Unequal access to honest assurance</h3>
-          <ul>
-            <li>GRC expertise is unequally distributed</li>
-            <li>Policy PDFs get treated as operational proof</li>
-            <li>False assurance hits smaller organizations hardest</li>
-            <li>Need: open triage research, not autopilot certification</li>
-          </ul>
+          <p class="slide-num">Slide 02 / 08 - Problem</p>
+          <h3>Unequal access to assurance capacity</h3>
+          <ul><li>Control assessment requires evidence that implementation and outcomes can be verified</li><li>Small organizations often face limited cybersecurity budgets and specialist capacity</li><li>Policy documents can be relevant without proving control operation</li><li>Goal: open evidence-triage research, not automated certification</li></ul>
         </article>
 
         <article class="slide">
-          <p class="slide-num">Slide 03 / 08 · Aim</p>
+          <p class="slide-num">Slide 03 / 08 - Aim</p>
           <h3>Research aim</h3>
-          <ul>
-            <li>Five-class evidence quality on a sealed synthetic benchmark</li>
-            <li>Ladder: majority â†’ TF-IDF â†’ Gemma zero-shot â†’ few-shot â†’ QLoRA</li>
-            <li>Primary metric: macro F1 · seed 42 · human judgment remains final</li>
-            <li>Hypotheses frozen before LLM claims (<code>protocol-v1-locked</code>)</li>
-          </ul>
+          <ul><li>Five evidence-quality classes: sufficient, partial, insufficient, irrelevant, contradictory</li><li>Primary metric: macro F1; seed 42; family-isolated splits</li><li>Classical path: majority -> TF-IDF</li><li>Gemma path: zero-shot -> few-shot -> QLoRA</li></ul>
         </article>
 
         <article class="slide">
-          <p class="slide-num">Slide 04 / 08 · Method</p>
-          <h3>Method &amp; run setup</h3>
-          <ul>
-            <li>1,500 compositional packets · family-isolated splits (1000/200/200/100)</li>
-            <li>Dataset v1.1.0 after lexical-ceiling harden</li>
-            <li>Model: <code>google/gemma-3-1b-it</code> · QLoRA 4-bit NF4 on free-tier GPU</li>
-            <li>Malformed generations â†’ UNPARSEABLE (count against score)</li>
-          </ul>
+          <p class="slide-num">Slide 04 / 08 - Method</p>
+          <h3>Method and version boundary</h3>
+          <ul><li>Classical experiments use hardened dataset <strong>v1.1.0</strong></li><li>Gemma zero-shot, few-shot, and QLoRA use dataset <strong>v1.0.0</strong></li><li>Gemma 3 1B; QLoRA with 4-bit NF4 on free-tier GPU</li><li>Cross-version scores are descriptive, not a controlled head-to-head comparison</li></ul>
         </article>
 
         <article class="slide">
-          <p class="slide-num">Slide 05 / 08 · Results</p>
-          <h3>Sealed TEST macro F1 (n=200)</h3>
-          <ul>
-            <li>Majority: <strong>0.0667</strong></li>
-            <li>TF-IDF: <strong>0.5327</strong> — still leads (challenge 0.5237)</li>
-            <li>Gemma zero-shot: <strong>0.0796</strong> · parse 0.760</li>
-            <li>Gemma few-shot: <strong>0.1365</strong> — best Gemma rung · parse 0.985</li>
-            <li>Gemma QLoRA: <strong>0.0827</strong> · parse <strong>0.435</strong> — did not beat few-shot</li>
-          </ul>
+          <p class="slide-num">Slide 05 / 08 - Results</p>
+          <h3>Published results</h3>
+          <ul><li><strong>v1.1 classical:</strong> majority 0.0667; TF-IDF 0.5327 (challenge 0.5237)</li><li><strong>v1.0 Gemma:</strong> zero-shot 0.0796; few-shot 0.1365; QLoRA 0.0827</li><li>Within Gemma v1.0, <strong>few-shot is strongest</strong></li><li>QLoRA parse success is only <strong>0.435</strong>; output reliability is a first-class failure mode</li></ul>
         </article>
 
         <article class="slide">
-          <p class="slide-num">Slide 06 / 08 · Responsible AI</p>
-          <h3>Responsible innovation</h3>
-          <ul>
-            <li>Synthetic data only · Data Card · Risk Register · Intended Use</li>
-            <li>No production-auditor claims · no fabricated metrics</li>
-            <li>Failure Lab documents hard cases (SUFFICIENT / PARTIAL / IRRELEVANT)</li>
-            <li>Preserve negative findings: QLoRA parse fragility is a result</li>
-          </ul>
+          <p class="slide-num">Slide 06 / 08 - Responsible AI</p>
+          <h3>Research integrity and responsible use</h3>
+          <ul><li>Synthetic data only; no customer evidence</li><li>Data Card, Model Card, Risk Register, Intended Use, Failure Lab</li><li>Malformed generations count as errors; no invented metrics</li><li>No claim that v1.1 classical scores definitively beat v1.0 Gemma on the same benchmark</li></ul>
         </article>
 
         <article class="slide">
-          <p class="slide-num">Slide 07 / 08 · Impact</p>
-          <h3>Impact (SDG 10)</h3>
-          <ul>
-            <li>Open methods reduce dependence on expensive GRC consulting</li>
-            <li>Free-tier reproduction keeps access wide</li>
-            <li>Triage aid for human reviewers — not automated certification</li>
-            <li>Honest reporting models how under-resourced teams can still publish rigor</li>
-          </ul>
+          <p class="slide-num">Slide 07 / 08 - Impact</p>
+          <h3>Practicality, sustainability, and impact</h3>
+          <ul><li>Open method and synthetic data reduce privacy and cost barriers</li><li>Classical baseline is inexpensive; Gemma work uses free or commodity GPU paths</li><li>Useful as a research and training artifact for human reviewers</li><li>Production use would require governed real-world validation and stronger output controls</li></ul>
         </article>
 
         <article class="slide">
-          <p class="slide-num">Slide 08 / 08 · Close</p>
-          <h3>Status &amp; ask</h3>
-          <ul>
-            <li>Research metrics, PDFs, badge, and GitHub Pages are <strong>done</strong></li>
-            <li>Remaining: record â‰¤5-minute video · upload via GCLP form</li>
-            <li>Artifacts: research site · report · slides · Assurance · curriculum map</li>
-            <li>Thank you — questions welcome</li>
-          </ul>
+          <p class="slide-num">Slide 08 / 08 - Close</p>
+          <h3>Status</h3>
+          <ul><li>Research runs, results, sources, report, slides, assurance artifacts, and public site are done</li><li>Only remaining capstone deliverable: record the &le;5-minute video</li><li>Artifacts: research site, report, paper, Results, Failure Lab, Assurance, curriculum map</li><li>Thank you</li></ul>
         </article>
       </div>
 
-      <div class="cta-row" style="margin-top:1.5rem;">
-        <a class="btn btn-primary" href="video-script.html">Video script</a>
-        <a class="btn btn-secondary" href="report.html">8-page report</a>
-      </div>
+      <div class="cta-row" style="margin-top:1.5rem;"><a class="btn btn-primary" href="video-script.html">Video script</a><a class="btn btn-secondary" href="report.html">8-page report</a></div>
     </section>
   </main>
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>ControlSift · slides</span>
-    </div>
-  </footer>
+  <footer class="site-footer"><div class="wrap"><span>ControlSift &middot; slides</span></div></footer>
   <script src="../assets/js/site.js"></script>
-  <script src="../assets/js/nav.js?v=202609070720"></script>
-  <script src="../assets/js/capstone-nav.js"></script>
-  <script>
-    (function () {
-      var params = new URLSearchParams(window.location.search);
-      if (params.get('record') === '1') {
-        document.body.classList.add('record-mode');
-        document.title = 'ControlSift — Slide 01 (record)';
-        var first = document.getElementById('slide-01');
-        if (first) first.scrollIntoView({ block: 'start' });
-      }
-    })();
-  </script>
+  <script src="../assets/js/nav.js?v=2026090802"></script>
+  <script src="../assets/js/capstone-nav.js?v=2026090802"></script>
+  <script>(function(){var p=new URLSearchParams(window.location.search);if(p.get('record')==='1'){document.body.classList.add('record-mode');document.title='ControlSift - Slide 01 (record)';var f=document.getElementById('slide-01');if(f)f.scrollIntoView({block:'start'});}})();</script>
 </body>
 </html>
