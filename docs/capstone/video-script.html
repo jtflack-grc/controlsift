@@ -5,27 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#07100c" />
-  <title>5-Minute Video Script — Capstone</title>
+  <title>5-Minute Video Script - ControlSift</title>
   <meta name="robots" content="noindex" />
-  <link rel="stylesheet" href="../assets/css/site.css?v=202609070720" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026090802" />
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="../index.html">ControlSift</a>
-      <ul class="nav-links" data-site-nav></ul>
-    </nav>
-  </header>
+  <header class="site-header"><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">ControlSift</a><ul class="nav-links" data-site-nav></ul></nav></header>
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
       <div class="page-intro">
         <h2>Video presentation script</h2>
-        <p>
-          Target: <strong>4:30–5:00</strong> word-for-word read-aloud for GCLP form upload.
-          Speak with <a href="slides.html">slides.html</a> (or
-          <a href="submit/ControlSift_Capstone_Slides.pdf">Slides PDF</a>) full-screen.
-          Numbers match <code>docs/data/results.json</code> — do not invent scores.
-        </p>
+        <p>Target: <strong>4:30-5:00</strong>. Use with <a href="slides.html">slides.html</a>. Numbers match committed experiment files; dataset-version boundaries are stated explicitly.</p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
     </section>
@@ -33,146 +23,69 @@
     <section class="section">
       <h2>Recording checklist</h2>
       <ul class="findings-list">
-        <li>Open <a href="slides.html">slides.html</a> full-screen (fallback:
-          <a href="submit/ControlSift_Capstone_Slides.pdf">submit/ControlSift_Capstone_Slides.pdf</a>).</li>
-        <li>Record with Xbox Game Bar (<kbd>Win+G</kbd>), OBS, or Zoom local — 1080p; mic only is fine.</li>
-        <li>Hard cap <strong>5:00</strong>. Aim ~4:40–4:55. If you race, you will finish early — use the optional bridge lines.</li>
-        <li>Advance slides at the beat markers below. Speak the TEST macro F1 values aloud.</li>
-        <li>Export as <code>ControlSift_Capstone_Video.mp4</code> — keep out of git; upload to the form only.</li>
-        <li>Form pack also needs Pages URL, report PDF, slides PDF, and Week-3 badge URL.</li>
+        <li>Open <a href="slides.html?record=1">slides.html in record mode</a> or the final slides PDF.</li>
+        <li>Hard cap <strong>5:00</strong>; aim for about 4:40-4:55.</li>
+        <li>State clearly that classical results are v1.1 and Gemma results are v1.0.</li>
+        <li>Do not claim a controlled TF-IDF-vs-Gemma winner across dataset versions.</li>
+        <li>Keep the video out of git; upload it through the program form.</li>
       </ul>
     </section>
 
     <section class="section">
-      <h2>Published TEST numbers (speak these)</h2>
-      <p style="margin:0 0 0.75rem;color:var(--muted);font-size:var(--text-sm);">
-        Source: <code>results/*/metrics_test.json</code> â†’ <code>docs/data/results.json</code> (n=200 TEST each).
-      </p>
+      <h2>Published numbers</h2>
       <div class="def-list">
-        <div>
-          <dt>Majority</dt>
-          <dd>macro F1 <strong>0.0667</strong> · accuracy 0.200</dd>
-        </div>
-        <div>
-          <dt>TF-IDF</dt>
-          <dd>macro F1 <strong>0.5327</strong> · accuracy 0.545 — still leads · challenge 0.5237</dd>
-        </div>
-        <div>
-          <dt>Gemma 3 1B zero-shot</dt>
-          <dd>macro F1 <strong>0.0796</strong> · accuracy 0.140 · parse success 0.760</dd>
-        </div>
-        <div>
-          <dt>Gemma 3 1B few-shot</dt>
-          <dd>macro F1 <strong>0.1365</strong> · accuracy 0.200 · parse success 0.985 — best LLM</dd>
-        </div>
-        <div>
-          <dt>Gemma 3 1B QLoRA</dt>
-          <dd>macro F1 <strong>0.0827</strong> · accuracy 0.075 · parse success <strong>0.435</strong> — fragile; did not beat few-shot</dd>
-        </div>
+        <div><dt>Classical v1.1 - Majority</dt><dd>macro F1 <strong>0.0667</strong>; challenge 0.0667</dd></div>
+        <div><dt>Classical v1.1 - TF-IDF</dt><dd>macro F1 <strong>0.5327</strong>; challenge 0.5237</dd></div>
+        <div><dt>Gemma v1.0 - zero-shot</dt><dd>macro F1 <strong>0.0796</strong>; parse success 0.760</dd></div>
+        <div><dt>Gemma v1.0 - few-shot</dt><dd>macro F1 <strong>0.1365</strong>; parse success 0.985; best Gemma rung</dd></div>
+        <div><dt>Gemma v1.0 - QLoRA</dt><dd>macro F1 <strong>0.0827</strong>; parse success <strong>0.435</strong>; did not beat few-shot</dd></div>
       </div>
     </section>
 
     <section class="section">
-      <h2>Full speaking script (~4:45)</h2>
-      <p style="margin:0 0 1rem;color:var(--muted);font-size:var(--text-sm);">
-        Read aloud exactly as written. ~700 words at a calm ~145 wpm â‰ˆ 4:45. Slide cues in brackets are not spoken.
-      </p>
-
+      <h2>Full speaking script</h2>
       <div class="def-list">
         <div>
-          <dt>0:00–0:40 · Hook · [Slide 01]</dt>
+          <dt>0:00-0:35 - Slide 01</dt>
           <dd>
-            “Hello — I’m John Flack. This is ControlSift, my Mentor Me Collective DeepMind AI Research Foundations
-            capstone. The official Sustainable Development Goal is Goal 10, Reduced Inequalities. The research question
-            is simple: can a small language model help teams with less GRC budget tell proof from paperwork?
-            ControlSift is a sealed synthetic research protocol. It is not a production auditor, and it does not score
-            customer binders.”
+            Hello, I'm John Flack. This is ControlSift, my Mentor Me Collective and Google DeepMind AI Research Foundations capstone. The project asks a simple question: can a small language model help under-resourced teams tell real security proof from paperwork? For the MMC rubric, the project uses option 4, Reduced Inequalities; the official United Nations designation is Sustainable Development Goal 10. ControlSift is a synthetic research artifact, not a production auditor.
           </dd>
         </div>
         <div>
-          <dt>0:40–1:25 · Problem · [Slide 02]</dt>
+          <dt>0:35-1:15 - Slide 02</dt>
           <dd>
-            “High-quality assurance review is expensive and unequally distributed. Smaller clinics, schools, and
-            nonprofits often inherit binders that look compliant when controls do not actually operate. A written MFA
-            policy is not proof that privileged accounts are enrolled. An export that shows a privileged user without MFA
-            can contradict the control outright. That inequality — unequal access to honest evidence triage — is what
-            I’m targeting. Not by replacing auditors, but by publishing an open methods study that under-resourced
-            reviewers can inspect.”
+            The problem is evidence quality. A policy that requires multi-factor authentication may be relevant, but it does not prove that privileged accounts were actually enrolled during the assessment period. NIST control-assessment guidance focuses on verifying implementation and outcomes, while NIST small-business guidance also recognizes that smaller organizations often operate with limited cybersecurity resources and budgets. ControlSift studies whether low-cost evidence triage methods can help without lowering the assurance standard or replacing human judgment.
           </dd>
         </div>
         <div>
-          <dt>1:25–2:20 · Aim &amp; methods · [Slides 03–04]</dt>
+          <dt>1:15-2:05 - Slides 03-04</dt>
           <dd>
-            “The aim is five-class evidence-quality classification on a sealed synthetic benchmark: Sufficient, Partial,
-            Insufficient, Irrelevant, and Contradictory. Primary metric is macro F1. Seed forty-two. Protocol tag
-            protocol-v-one-locked — hypotheses frozen before large-model claims.
-            <br /><br />
-            Methods: one thousand five hundred compositional evidence packets, family-isolated splits so near-duplicates
-            cannot leak across train, validation, test, and challenge. The modeling ladder is majority class, then TF-IDF
-            logistic regression, then Gemma 3 one-B instruction-tuned zero-shot, few-shot, and QLoRA on a free-tier GPU
-            path. Malformed model outputs count as errors — we do not remap them to a preferred label. Dataset version
-            one-point-one hardened the packets after an early draft let bag-of-words cheat.”
+            The task has five labels: Sufficient, Partial, Insufficient, Irrelevant, and Contradictory. Macro F1 is the primary metric, seed forty-two, with scenario families isolated across train, validation, test, and challenge splits. The classical experiments use the hardened dataset version one-point-one. The Gemma zero-shot, few-shot, and QLoRA experiments were completed earlier on dataset version one-point-zero using a free-tier GPU path. Because those versions differ, the cross-version scores are descriptive rather than a controlled head-to-head comparison.
           </dd>
         </div>
         <div>
-          <dt>2:20–3:40 · Results · [Slide 05]</dt>
+          <dt>2:05-3:25 - Slide 05</dt>
           <dd>
-            “Here are the sealed test results — two hundred cases each — spoken from the published result files.
-            <br /><br />
-            Majority-class macro F1 is zero point zero six six seven.
-            TF-IDF still leads at zero point five three two seven — about fifty-three percent — with challenge macro F1
-            zero point five two three seven.
-            Gemma 3 one-B zero-shot is zero point zero seven nine six, with parse success about seventy-six percent.
-            Few-shot is the best of the Gemma ladder at zero point one three six five, with parse success ninety-eight
-            point five percent.
-            QLoRA lands at zero point zero eight two seven — and label parse success is only about forty-three point five
-            percent, so that score is fragile.
-            <br /><br />
-            Honest takeaway: lexical TF-IDF wins this benchmark. Few-shot is the best small-LLM rung. QLoRA did not beat
-            few-shot on test macro F1. Negative findings stay in the record. Every number comes from machine-readable
-            metrics — no invented scores.”
+            Here are the published results. On dataset version one-point-one, the majority baseline reaches macro F1 zero point zero six six seven, and TF-IDF logistic regression reaches zero point five three two seven, with challenge macro F1 zero point five two three seven. On dataset version one-point-zero, Gemma zero-shot reaches zero point zero seven nine six. Gemma few-shot reaches zero point one three six five and is the strongest Gemma run. QLoRA reaches zero point zero eight two seven and does not beat few-shot. Its label parse-success rate is only about forty-three point five percent, which is itself an important failure mode. I do not claim that the v1.1 classical result definitively beats the v1.0 Gemma results on the same benchmark, because they were not run on the same dataset version.
           </dd>
         </div>
         <div>
-          <dt>3:40–4:20 · Responsible AI · [Slides 06–07]</dt>
+          <dt>3:25-4:10 - Slides 06-07</dt>
           <dd>
-            “Responsible innovation: synthetic data only, a Data Card, a Risk Register, a Failure Lab for hard cases,
-            and a clear Intended Use — research and education, not automated certification. Human judgment remains
-            authoritative. The curriculum map shows the DeepMind path end to end, including prompting, LoRA, and
-            free-tier acceleration. Impact under Goal 10 is access: open, free-tier-reproducible triage methods so
-            smaller organizations are not locked out of rigorous assurance craft.”
+            Responsible use is part of the project, not an appendix. The data is synthetic. The site includes a Data Card, Model Card, Risk Register, Intended Use, Failure Lab, and explicit claim boundaries. Malformed model outputs count as errors, and the negative QLoRA result stays in the record. The work is also designed to be reproducible at low cost: the classical baseline is inexpensive, and the small-model experiments use free or commodity GPU infrastructure. Production use would require governed real-world validation, security review, stronger output controls, and accountable human oversight.
           </dd>
         </div>
         <div>
-          <dt>4:20–4:55 · Close · [Slide 08]</dt>
+          <dt>4:10-4:45 - Slide 08</dt>
           <dd>
-            “Status today: research metrics, report and slides PDFs, Week-three badge evidence, and the public GitHub
-            Pages site are done. The only remaining submit step is this recording — the â‰¤5-minute video — then form
-            upload with the report and slides. Thank you for reviewing ControlSift.”
+            At this point the research runs, results, report, slides, sources, assurance artifacts, curriculum map, and public GitHub Pages site are complete. The only remaining capstone deliverable is this video and the final form upload. Thank you for reviewing ControlSift.
           </dd>
         </div>
       </div>
-    </section>
-
-    <section class="section">
-      <h2>Optional bridge lines (if under 4:20)</h2>
-      <ul class="findings-list">
-        <li>“Family isolation means an entire scenario family stays in one split — train never sees the test family’s mutations.”</li>
-        <li>“On classical errors, Contradictory is easier; Sufficient is hardest — coverage and substance-pointer cues drive residual mistakes.”</li>
-        <li>“If schema gaming dominated, we would open a prose-hardened dataset under a new protocol tag — we would not rewrite the classical record.”</li>
-      </ul>
-      <p style="margin-top:1.25rem;color:var(--muted);font-size:var(--text-sm);">
-        If over time: shorten Problem to two sentences; drop the curriculum-map clause in Responsible AI.
-        Never invent better F1 numbers to fill time.
-      </p>
     </section>
   </main>
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>ControlSift · video script</span>
-    </div>
-  </footer>
-  <script src="../assets/js/nav.js?v=202609070720"></script>
-  <script src="../assets/js/capstone-nav.js"></script>
+  <footer class="site-footer"><div class="wrap"><span>ControlSift &middot; video script</span></div></footer>
+  <script src="../assets/js/nav.js?v=2026090802"></script>
+  <script src="../assets/js/capstone-nav.js?v=2026090802"></script>
 </body>
 </html>
