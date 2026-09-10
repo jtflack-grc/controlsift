@@ -1,0 +1,31 @@
+CONTROLSIFT — FINAL 5-MINUTE TELEPROMPTER
+Target pace: ~145 words/minute
+Target runtime: ~4:50
+Deck: 8 slides
+
+Do not read bracketed slide cues aloud.
+Advance to the next slide at each cue.
+
+[SLIDE 1 — 0:00 to 0:32]
+Hello, I’m John Flack. This is ControlSift, my Mentor Me Collective and Google DeepMind AI Research Foundations capstone. The question is simple: can a small language model help a human reviewer tell real cybersecurity proof from paperwork that only looks convincing? For the MMC rubric, the project maps to option 4, Reduced Inequalities; in the United Nations framework, that is Sustainable Development Goal 10. ControlSift is synthetic research, not a production auditor or a replacement for professional judgment.
+
+[SLIDE 2 — 0:32 to 1:05]
+The problem is evidence quality, not document relevance. A policy saying privileged accounts must use multi-factor authentication may be relevant, but it does not prove those accounts were enrolled during the assessment period. NIST SP 800-53A frames control assessment around whether controls are implemented and achieving intended outcomes. NIST also recognizes that smaller organizations often operate with limited cybersecurity resources and budgets. ControlSift therefore tests a low-cost triage approach that could focus human attention without lowering the assurance standard.
+
+[SLIDE 3 — 1:05 to 1:36]
+The objective is a five-class evidence-quality task: Sufficient, Partial, Insufficient, Irrelevant, and Contradictory. The benchmark contains about fifteen hundred synthetic evidence packets, with scenario families isolated across train, validation, test, and challenge splits. Macro F1 is the primary metric so every label counts equally. An early generator let TF-IDF score perfectly by exploiting lexical shortcuts. I treated that as a dataset defect, hardened the benchmark, and sealed the evaluation protocol before final model claims.
+
+[SLIDE 4 — 1:36 to 2:09]
+The solution is a model ladder, not a one-model demo. The classical path compares a majority baseline with TF-IDF logistic regression. The language-model path compares Gemma 3 one-billion-parameter zero-shot, few-shot, and QLoRA adaptation using 4-bit NF4 on free-tier GPU infrastructure. QLoRA was chosen as a memory-efficient fine-tuning method. One boundary matters: the hardened classical runs are dataset version 1.1, while the completed Gemma runs are version 1.0. Those scores are valid experiment receipts, but not a controlled cross-version head-to-head ranking.
+
+[SLIDE 5 — 2:09 to 2:55]
+The results are straightforward. On version 1.1, majority macro F1 is zero point zero six six seven; TF-IDF reaches zero point five three two seven, with challenge macro F1 zero point five two three seven. On version 1.0, Gemma zero-shot reaches zero point zero seven nine six. Few-shot reaches zero point one three six five and is the strongest Gemma run. QLoRA reaches zero point zero eight two seven and does not beat few-shot. Its label parse-success rate is only forty-three point five percent, making output reliability a first-class failure mode. The defensible finding is that few-shot beats QLoRA within the Gemma experiments, and fine-tuning did not automatically improve this task.
+
+[SLIDE 6 — 2:55 to 3:29]
+Responsible AI is built into the design. The corpus is synthetic, so no employer, customer, or patient evidence enters the project. Malformed outputs count as errors instead of being quietly repaired. The public artifact includes a Data Card, Model Card, AI risk register, Intended Use statement, limitations, and a Failure Lab that exposes difficult cases. These choices align with NIST AI Risk Management Framework principles around scope, measurement, human roles, and oversight. Human judgment stays authoritative, and ControlSift makes no production-certification claim.
+
+[SLIDE 7 — 3:29 to 4:13]
+The implementation plan mapped the work across the program’s twelve-week runway, although the technical work finished early. It moved from problem framing and external research, to benchmark generation and hardening, protocol seal, classical baselines, Gemma prompting, QLoRA training, error analysis, and public documentation. Resources were Python, scikit-learn, Gemma 3, Hugging Face, Kaggle or Colab GPU access, and GitHub Pages. Risks included leakage, lexical shortcuts, test-set tuning, fabricated metrics, secret exposure, synthetic-to-real overgeneralization, and automation bias. Mitigations include family-isolated splits, machine-readable results, platform secrets, explicit limitations, and human review. As research and training, the approach is practical, inexpensive, reproducible, and scalable; production use would require governed real-world validation.
+
+[SLIDE 8 — 4:13 to 4:50]
+My recommendation is conservative: do not deploy ControlSift as an audit autopilot. Preserve human authority, improve constrained output handling before stronger model claims, and validate any future operational use on governed real-world evidence. The larger finding is methodological: an AI project does not need an AI victory to be useful. ControlSift preserved a negative fine-tuning result, documented its limits, and left the evidence open for inspection. The finished artifact includes the report, sources, results, Failure Lab, assurance package, reproducibility path, and public site. Thank you for reviewing the work.
