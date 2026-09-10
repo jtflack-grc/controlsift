@@ -6,30 +6,23 @@
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
   <title>Protocol — ControlSift</title>
-  <link rel="stylesheet" href="../assets/css/site.css?v=202609070720" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026091001" />
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="../index.html">ControlSift</a>
-      <ul class="nav-links" data-site-nav></ul>
-    </nav>
-  </header>
+  <header class="site-header"><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">ControlSift</a><ul class="nav-links" data-site-nav></ul></nav></header>
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
-      <div class="page-intro">
-        <h2>Research protocol</h2>
-        <p>Frozen research contract before final LLM claims. Repo mirror: <code>governance/PROTOCOL.md</code>.</p>
-      </div>
+      <div class="page-intro"><h2>Research protocol</h2><p>Frozen research contract and final execution boundary. Repo mirror: <code>governance/PROTOCOL.md</code>.</p></div>
       <nav class="assurance-nav" data-assurance-nav aria-label="Assurance"></nav>
-
       <div class="def-list">
         <div><dt>Tag target</dt><dd><code>protocol-v1-locked</code></dd></div>
-        <div><dt>Dataset</dt><dd>v1.1.0 · seed 42</dd></div>
+        <div><dt>Classical benchmark</dt><dd>v1.1.0 · seed 42</dd></div>
+        <div><dt>Gemma execution</dt><dd>v1.0.0 · zero-shot, few-shot, QLoRA</dd></div>
         <div><dt>Primary metric</dt><dd>macro F1</dd></div>
         <div><dt>Base model</dt><dd><code>google/gemma-3-1b-it</code></dd></div>
-        <div><dt>Adaptation</dt><dd>QLoRA · 4-bit NF4 · LoRA r=16 / Î±=16</dd></div>
+        <div><dt>Adaptation</dt><dd>QLoRA · 4-bit NF4 · LoRA r=16 / alpha=16</dd></div>
       </div>
+      <div class="callout" style="margin-top:1rem;"><strong>Final version boundary</strong> The locked v1.1 classical benchmark and the completed v1.0 Gemma runs are retained as separate experiment families. Cross-version scores are descriptive only and are not a controlled same-benchmark leaderboard.</div>
     </section>
 
     <section class="section">
@@ -39,9 +32,9 @@
         <li><strong>H2 · Prompting versus fine-tuning</strong> QLoRA beats a fixed five-class few-shot prompt.</li>
         <li><strong>H3 · Generalization</strong> Measurable improvement remains on the challenge set.</li>
         <li><strong>H4 · Data scaling</strong> Performance rises with train size, then diminishes.</li>
-        <li><strong>H5 · Remaining weaknesses</strong> Hard boundaries persist (especially PARTIALâ†”SUFFICIENT / PARTIALâ†”INSUFFICIENT).</li>
+        <li><strong>H5 · Remaining weaknesses</strong> Hard boundaries persist, especially PARTIAL vs SUFFICIENT and PARTIAL vs INSUFFICIENT.</li>
       </ul>
-      <p style="margin-top:1rem;color:var(--muted);">Negative or mixed findings remain valid research outcomes.</p>
+      <p style="margin-top:1rem;color:var(--muted);">Within the completed Gemma v1.0 experiments, few-shot is strongest and QLoRA does not beat it. Cross-family hypotheses requiring a common dataset version are not treated as controlled tests.</p>
     </section>
 
     <section class="section">
@@ -56,21 +49,12 @@
     </section>
 
     <section class="section">
-      <h2>Sealed test hash</h2>
-      <div class="control-block">
-        <span class="label">test.jsonl sha256</span>
-        9df94d33d042f3ad9d110f2115f53f470db0457930c21d07771ab59655f92e57
-      </div>
+      <h2>Sealed v1.1 test hash</h2>
+      <div class="control-block"><span class="label">test.jsonl sha256</span>9df94d33d042f3ad9d110f2115f53f470db0457930c21d07771ab59655f92e57</div>
       <p style="margin-top:1rem;">Full seal object: <a href="PROTOCOL_SEAL.json">PROTOCOL_SEAL.json</a> (mirrored from governance).</p>
     </section>
   </main>
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>Assurance · Protocol</span>
-      <a href="../capstone/index.html">MMC Capstone view</a>
-    </div>
-  </footer>
-  <script src="../assets/js/nav.js?v=202609070720"></script>
-  <script src="../assets/js/assurance-nav.js"></script>
+  <footer class="site-footer"><div class="wrap"><span>Assurance · Protocol</span><a href="../capstone/index.html">MMC Capstone view</a></div></footer>
+  <script src="../assets/js/nav.js?v=2026091001"></script><script src="../assets/js/assurance-nav.js"></script>
 </body>
 </html>
