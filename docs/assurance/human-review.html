@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
   <title>Label Audit — ControlSift</title>
-  <link rel="stylesheet" href="../assets/css/site.css?v=202609070720" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026091001" />
 </head>
 <body>
   <header class="site-header">
@@ -17,19 +17,10 @@
   </header>
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
-      <div class="page-intro">
-        <h2>Label audit protocol</h2>
-        <p>How ground truth is audited without overstating human labeling.</p>
-      </div>
+      <div class="page-intro"><h2>Label audit protocol</h2><p>How ground truth is audited without overstating human labeling.</p></div>
       <nav class="assurance-nav" data-assurance-nav aria-label="Assurance"></nav>
-
-      <div class="callout">
-        <strong>Principle</strong>
-        Do not describe the dataset as fully human-labeled. Rule-derived labels are primary.
-        Structural audit â‰  expert gold relabeling.
-      </div>
+      <div class="callout"><strong>Principle</strong> Do not describe the dataset as fully human-labeled. Rule-derived labels are primary. Structural audit is not expert gold relabeling.</div>
     </section>
-
     <section class="section">
       <h2>What has been completed</h2>
       <div class="def-list">
@@ -39,31 +30,13 @@
         <div><dt>Receipts</dt><dd><code>reports/HUMAN_REVIEW_AUDIT.md</code>, <code>reports/SPOTCHECK_20.md</code></dd></div>
       </div>
     </section>
-
     <section class="section">
       <h2>Status values</h2>
-      <table>
-        <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
-        <tbody>
-          <tr><td><code>unreviewed</code></td><td>Not yet inspected</td></tr>
-          <tr><td><code>reviewed</code></td><td>Inspected; label retained</td></tr>
-          <tr><td><code>corrected</code></td><td>Label or text corrected after review</td></tr>
-          <tr><td><code>flagged</code></td><td>Invariant violation needing judgment</td></tr>
-        </tbody>
-      </table>
-      <p style="margin-top:1rem;color:var(--muted);">
-        Current status: structural audit complete for all logged rows; spot-check notes on 20 challenge cases.
-        Prefer avoiding sealed test edits after protocol lock — bump dataset version instead.
-      </p>
+      <table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody><tr><td><code>unreviewed</code></td><td>Not yet inspected</td></tr><tr><td><code>reviewed</code></td><td>Inspected; label retained</td></tr><tr><td><code>corrected</code></td><td>Label or text corrected after review</td></tr><tr><td><code>flagged</code></td><td>Invariant violation needing judgment</td></tr></tbody></table>
+      <p style="margin-top:1rem;color:var(--muted);">Current status: structural audit complete for all logged rows; spot-check notes on 20 challenge cases. Prefer avoiding sealed test edits after protocol lock — bump dataset version instead.</p>
     </section>
   </main>
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>Assurance · Label audit</span>
-      <a href="../capstone/index.html">MMC Capstone view</a>
-    </div>
-  </footer>
-  <script src="../assets/js/nav.js?v=202609070720"></script>
-  <script src="../assets/js/assurance-nav.js"></script>
+  <footer class="site-footer"><div class="wrap"><span>Assurance · Label audit</span><a href="../capstone/index.html">MMC Capstone view</a></div></footer>
+  <script src="../assets/js/nav.js?v=2026091001"></script><script src="../assets/js/assurance-nav.js"></script>
 </body>
 </html>
