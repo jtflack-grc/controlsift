@@ -4,29 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>week05_diagnostics.py</title>
-  <link rel="stylesheet" href="../../../../assets/css/site.css?v=202609070720" />
-  <style>
-    pre.source {
-      margin: 1rem 0 0;
-      padding: 1rem;
-      overflow: auto;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      font-family: var(--font-mono);
-      font-size: var(--text-sm);
-      line-height: 1.45;
-      white-space: pre;
-    }
-  </style>
+  <link rel="stylesheet" href="../../../../assets/css/site.css?v=2026091001" />
+  <style>pre.source{margin:1rem 0 0;padding:1rem;overflow:auto;border:1px solid var(--line);background:var(--panel);font-family:var(--font-mono);font-size:var(--text-sm);line-height:1.45;white-space:pre}</style>
 </head>
 <body>
-  <main>
-    <section class="section" style="border-top:0;padding-top:1rem;">
-      <div class="page-intro">
-        <h2>week05_diagnostics.py</h2>
-        <p><a href="week05_diagnostics.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p>
-      </div>
-      <pre class="source"><code>&quot;&quot;&quot;Week 5 deliverable: diagnostics dashboard (loss curves + metrics HTML).&quot;&quot;&quot;
+  <main><section class="section" style="border-top:0;padding-top:1rem;">
+    <div class="page-intro"><h2>week05_diagnostics.py</h2><p><a href="week05_diagnostics.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p></div>
+    <pre class="source"><code>&quot;&quot;&quot;Week 5 deliverable: diagnostics dashboard (loss curves + metrics HTML).&quot;&quot;&quot;
 
 from __future__ import annotations
 
@@ -77,7 +61,6 @@ def run() -&gt; dict:
     fig.savefig(png, dpi=120)
     plt.close(fig)
 
-    # copy into docs for the dashboard
     docs_png = docs / &quot;week05_loss_curves.png&quot;
     docs_png.write_bytes(png.read_bytes())
 
@@ -88,7 +71,7 @@ def run() -&gt; dict:
         &quot;healthy_test_acc&quot;: ok_acc,
         &quot;notes&quot;: [
             &quot;Underfit: capacity too small / too few epochs.&quot;,
-            &quot;Overfit-prone: tiny train set + high capacity â†’ train loss collapses, test weaker.&quot;,
+            &quot;Overfit-prone: tiny train set + high capacity -&gt; train loss collapses, test weaker.&quot;,
             &quot;Healthy: moderate capacity and train size.&quot;,
         ],
     }
@@ -106,9 +89,9 @@ def run() -&gt; dict:
 &lt;p&gt;Interactive-enough static dashboard for overfitting / underfitting experiments (handbook deliverable).&lt;/p&gt;&lt;/div&gt;
 &lt;img src=&quot;week05_loss_curves.png&quot; alt=&quot;Loss curves&quot; style=&quot;max-width:100%;border:1px solid var(--line);&quot;/&gt;
 &lt;pre style=&quot;margin-top:1rem;font-family:var(--font-mono);font-size:var(--text-sm);overflow:auto;&quot;&gt;{json.dumps(metrics, indent=2)}&lt;/pre&gt;
-&lt;p&gt;&lt;a href=&quot;index.html&quot;&gt;â† Deliverables hub&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;index.html&quot;&gt;&amp;larr; Deliverables hub&lt;/a&gt;&lt;/p&gt;
 &lt;/section&gt;&lt;/main&gt;
-&lt;script src=&quot;../../assets/js/nav.js?v=202609070720&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../../assets/js/nav.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;../../assets/js/capstone-nav.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;&lt;/html&gt;
 &quot;&quot;&quot;
@@ -120,7 +103,6 @@ def run() -&gt; dict:
 if __name__ == &quot;__main__&quot;:
     print(json.dumps(run(), indent=2))
 </code></pre>
-    </section>
-  </main>
+  </section></main>
 </body>
 </html>
