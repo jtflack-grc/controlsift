@@ -5,9 +5,8 @@
       title: "Submit",
       links: [
         { href: "index.html", label: "Capstone hub" },
-        { href: "next-steps.html", label: "Status & next steps" },
+        { href: "next-steps.html", label: "Status" },
         { href: "submission.html", label: "Submission package" },
-        { href: "video-script.html", label: "Video script" },
         { href: "gclp-checklist.html", label: "GCLP checklist" },
       ],
     },
