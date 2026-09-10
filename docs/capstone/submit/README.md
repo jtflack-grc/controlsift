@@ -1,59 +1,44 @@
-# Capstone submit pack (GCLP form upload)
+# ControlSift final capstone submission pack
 
-Machine-exported PDFs plus live links for the MMC / GCLP submission form.
-Print styles hide nav/footer. **Do not commit** large video files.
+Final report, actual PowerPoint deck, teleprompter, and form-ready links for the MMC / Google Cloud Launchpad capstone. **Do not commit the video file.**
 
-## Form upload checklist
-
-Use these exact artifacts when filling the form:
+## Form-ready artifacts
 
 | Field / artifact | Value / path | Status |
-|------------------|--------------|--------|
-| GitHub Pages site | https://jtflack-grc.github.io/controlsift/ | Live (HTTP 200) |
-| Live TEST metrics | https://jtflack-grc.github.io/controlsift/data/results.json | Gemma ladder non-null |
-| Capstone report PDF | `ControlSift_Capstone_Report.pdf` (this folder) | Ready |
-| Capstone slides PDF | `ControlSift_Capstone_Slides.pdf` (this folder) | Ready |
-| Week-3 skill badge URL | https://www.skills.google/public_profiles/a6a2045d-a94e-4ea5-a1f1-7752f2dab561/badges/26439446 | Ready |
-| Badge proof (Pages) | https://jtflack-grc.github.io/controlsift/capstone/deliverables/ | Linked on Weekly Labs |
-| ≤5-min video | `ControlSift_Capstone_Video.mp4` | **Missing — record next** |
-| Video script (read-aloud) | [../video-script.html](../video-script.html) | Metrics filled; ≤5:00 |
+|---|---|---|
+| GitHub Pages site | https://jtflack-grc.github.io/controlsift/ | Ready |
+| Capstone report PDF | `ControlSift_Capstone_Report.pdf` | Ready |
+| PowerPoint deck | `ControlSift_Capstone_Slides.pptx` | Ready |
+| Slides PDF | `ControlSift_Capstone_Slides.pdf` | Ready |
+| Final teleprompter | `ControlSift_Video_Teleprompter.txt` | Ready |
+| Browser teleprompter | [../video-script.html](../video-script.html) | Ready |
+| Week-3 skill badge | https://www.skills.google/public_profiles/a6a2045d-a94e-4ea5-a1f1-7752f2dab561/badges/26439446 | Ready |
+| Final video | `ControlSift_Capstone_Video.mp4` | **Record and submit** |
 
-### Video recording (remaining) — one-click open
+## Recording path
 
-**NOT FOUND on disk yet** (searched Downloads / Desktop / Videos / Documents / sifter for `ControlSift*Video*.mp4` and `*capstone*video*.mp4`). Record next:
+The PowerPoint is the canonical presentation artifact. It contains the exact final narration in the speaker notes.
 
-1. **One-click open** (from this folder):
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File .\open-record-pack.ps1
-   ```
-   That opens:
-   - Slides (record mode): https://jtflack-grc.github.io/controlsift/capstone/slides.html?record=1
-   - Script: https://jtflack-grc.github.io/controlsift/capstone/video-script.html
-2. Press **Win+G** → Capture → Start recording (Xbox Game Bar). Put slides **F11** full-screen.
-3. Read the script aloud — speak the published TEST macro F1 values already in the script.
-4. Export / save as `%USERPROFILE%\Videos\ControlSift_Capstone_Video.mp4` (≤5:00). Keep it **out of git**; upload to the form only.
-5. Confirm spoken numbers match on-screen slides and `docs/data/results.json`.
+1. Open `ControlSift_Capstone_Slides.pptx` in PowerPoint.
+2. Use **Record > From Beginning** for a native narrated deck, or present full-screen and capture it with your preferred screen recorder.
+3. Read the speaker notes word-for-word. The narration is about 700 spoken words and is timed for roughly **4:50 at 145 words per minute**.
+4. A larger browser teleprompter is available at `../video-script.html?teleprompter=1`. Controls: Space/Page Down/Arrow Down = next block; Page Up/Arrow Up = previous; `T` = timer start/pause; `R` = reset.
+5. Keep the final recording at or below the rubric's **5:00 hard cap**.
+6. Save the MP4 locally and upload it through the program form. Do not add the MP4 to git.
 
-Offline fallbacks: [slides.html](../slides.html)?record=1 and [video-script.html](../video-script.html) (or the slides PDF above).
+The narration deliberately states the research-integrity boundary: classical results are from dataset v1.1.0; completed Gemma results are from v1.0.0. It does not claim a controlled cross-version leaderboard.
 
-## PDF exports in this folder
+## PowerPoint generation
 
-| File | Source |
-|------|--------|
-| `ControlSift_Capstone_Report.pdf` | `../report.html` |
-| `ControlSift_Capstone_Slides.pdf` | `../slides.html` |
+The eight-slide deck is generated from:
 
-Prerequisites to regenerate:
+`../../../scripts/build_capstone_deck.js`
 
-1. Microsoft Edge (headless PDF)
-2. Docs server: `cd docs; python -m http.server 5500`
-3. Prefer after TEST metrics are in `docs/data/results.json` (already published)
+GitHub Actions rebuilds the PPTX and PDF when the deck source or final script changes. The generated presentation uses ordinary Office-safe fonts and embeds the narration as PowerPoint speaker notes.
 
-```powershell
-powershell -File scripts/export_submit_pdfs.ps1
-```
+## What remains
 
-## Not done yet
+- [ ] Record `ControlSift_Capstone_Video.mp4` at <=5:00.
+- [ ] Upload the report, slides, site/badge links, and video through the capstone form.
 
-- [ ] Record and upload `ControlSift_Capstone_Video.mp4` (form only; do not commit)
-- [ ] Submit the GCLP form with Pages + PDFs + badge URL + video
+Everything else in the capstone research package is complete.
