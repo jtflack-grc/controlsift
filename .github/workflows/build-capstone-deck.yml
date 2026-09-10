@@ -5,7 +5,6 @@ on:
     branches: [main]
     paths:
       - scripts/build_capstone_deck.js
-      - docs/capstone/video-script.html
       - .github/workflows/build-capstone-deck.yml
   workflow_dispatch:
 
@@ -53,8 +52,6 @@ jobs:
             exit 0
           fi
           git commit -m "Generate final capstone PowerPoint and PDF"
-          # Other capstone cleanup may land while this job renders. Rebase the
-          # generated-only commit onto the newest main before pushing.
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
