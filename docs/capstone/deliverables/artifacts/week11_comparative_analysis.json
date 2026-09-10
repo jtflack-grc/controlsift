@@ -2,34 +2,43 @@
   "deliverable": "week11_comparative_analysis",
   "primary_metric": "macro_f1",
   "seed": 42,
-  "dataset_version": "1.1.0",
+  "version_boundary": {
+    "classical": "v1.1.0",
+    "gemma": "v1.0.0",
+    "comparison_rule": "Within-version comparisons are controlled; cross-version scores are descriptive only."
+  },
   "rows": [
     {
       "experiment": "majority",
+      "dataset_version": "v1.1.0",
       "test_macro_f1": 0.06666666666666667,
       "challenge_macro_f1": 0.06666666666666667,
       "status": "complete"
     },
     {
       "experiment": "tfidf",
+      "dataset_version": "v1.1.0",
       "test_macro_f1": 0.5327056707870661,
       "challenge_macro_f1": 0.5237397469334658,
       "status": "complete"
     },
     {
       "experiment": "gemma_zero_shot",
+      "dataset_version": "v1.0.0",
       "test_macro_f1": 0.07955974842767295,
       "challenge_macro_f1": 0.10549943883277217,
       "status": "complete"
     },
     {
       "experiment": "gemma_few_shot",
+      "dataset_version": "v1.0.0",
       "test_macro_f1": 0.13651119643810122,
       "challenge_macro_f1": 0.17411531447026668,
       "status": "complete"
     },
     {
       "experiment": "gemma_qlora",
+      "dataset_version": "v1.0.0",
       "test_macro_f1": 0.0826655554183644,
       "challenge_macro_f1": 0.13089133089133087,
       "status": "complete"
@@ -42,7 +51,8 @@
   },
   "failure_lab": "docs/data/failure_lab.json",
   "notes": [
-    "Null / missing LLM metrics are intentional until GPU result files exist.",
-    "Re-run this script after each Gemma evaluation."
+    "All five published experiment rungs have result receipts.",
+    "Within Gemma v1.0.0, few-shot is strongest and QLoRA does not beat it.",
+    "Classical v1.1.0 and Gemma v1.0.0 scores are not a controlled same-benchmark leaderboard."
   ]
 }
