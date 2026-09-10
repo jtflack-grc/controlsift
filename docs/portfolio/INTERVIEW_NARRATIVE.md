@@ -2,19 +2,25 @@
 
 ## 60 seconds
 
-ControlSift asks whether a small model can tell proof from paperwork in cybersecurity evidence. I built a synthetic, family-isolated benchmark, caught a TF-IDF shortcut that scored 1.0, hardened the data to ~0.53 macro F1, locked a protocol, and shipped classical receipts with null Gemma slots until free GPU access lands. The point is measurable adaptation — not a demo loss curve.
+ControlSift asks whether a small model can tell proof from paperwork in cybersecurity evidence. I built a synthetic, family-isolated benchmark, caught a TF-IDF shortcut that scored 1.0, hardened the classical benchmark to about 0.53 macro F1, locked the evaluation protocol, and ran Gemma 3 zero-shot, few-shot, and QLoRA experiments. The useful result was not an AI victory: within the Gemma v1.0 runs, few-shot was strongest and QLoRA did not improve on it. I also found and disclosed that the completed classical work used dataset v1.1 while the Gemma runs used v1.0, so I do not present those cross-family scores as a controlled same-benchmark comparison.
 
 ## Five minutes
 
-Most fine-tuning demos stop at training loss. I treated this as AI assurance: family-isolated splits, TF-IDF as a lexical shortcut detector, compositional packet format disclosed so we don’t overclaim naturalistic binder judgment, protocol seal before final LLM testing, and public metrics that stay null until real JSON exists. Label audit is structural plus a scripted 20-case spot-check — I do not call the corpus fully human-labeled. Gemma zero-shot / few-shot / QLoRA code is ready on a secret-safe Kaggle path; results are the remaining critical path.
+Most fine-tuning demos stop at training loss. I treated this as AI assurance: family-isolated splits, TF-IDF as a lexical-shortcut detector, a compositional packet format disclosed so I do not overclaim naturalistic binder judgment, protocol sealing, machine-readable metrics, failure analysis, and explicit human-review boundaries. The first synthetic generator was too easy and let TF-IDF saturate at 1.0, so I hardened the benchmark before the final classical evaluation. The Gemma experiments then produced another inconvenient result: few-shot prompting beat QLoRA within dataset v1.0, while QLoRA also had weak label-output reliability with test parse success around 0.435. During final evidence review I found that the classical and Gemma experiment families had been run on different dataset versions. Rather than hide that or rerun solely to manufacture a cleaner leaderboard, I published the version boundary and limited the claim accordingly. That research-governance decision is one of the strongest parts of the project.
 
 ## Hard questions ready
 
 **What if QLoRA doesn’t help?**  
-That’s still a valid result. The project preserves negative findings and emphasizes challenge-set generalization and error analysis over vanity metrics.
+It did not help in the controlled Gemma v1.0 comparison. Few-shot macro F1 was about 0.137 versus about 0.083 for QLoRA. That negative result is preserved rather than reframed as a win.
+
+**Did TF-IDF beat Gemma?**  
+The published numbers are much higher for TF-IDF, but they are not a controlled cross-family comparison: the classical experiments use v1.1 and the Gemma experiments use v1.0. I report the scores descriptively and make the version boundary explicit.
 
 **Isn’t this just schema reading?**  
-Possibly — and we say so. v1.1 packs substance pointers and SCOPE integers by design to defeat bag-of-words. If the model only learns those fields, we report that as a limited win and can schedule a prose-hardened v1.2 later. We do not quietly relabel.
+Possibly in part, which is why the benchmark design and limitations are disclosed. The project is evidence-classification research, not proof that a small model understands real audit binders.
 
 **Who reviewed the labels?**  
-Primary labels are rule-derived. 100% of the challenge set passed a structural integrity auditor; 20 cases have scripted narrative spot-check notes. That is not independent GRC gold labeling.
+Primary labels are rule-derived. The challenge set has structural integrity auditing and a scripted narrative spot-check. I do not call the corpus an independently human-labeled gold standard.
+
+**Is this an automated auditor?**  
+No. ControlSift is a research and training artifact. Human judgment remains authoritative, and production audit replacement is explicitly out of scope.
