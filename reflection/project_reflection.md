@@ -4,24 +4,29 @@ Brief reflection for the GCLP Capstone GitHub structure requirement.
 
 ## What I learned
 
-- Sealing evaluation before large-model claims keeps the research honest.
-- Lexical baselines can “solve” a bad dataset; hardening the data restored a real question.
-- Responsible AI artifacts (Data Card, Risk Register, Intended Use) are part of the product, not an appendix.
-- Mapping a DeepMind curriculum path into a public artifact is itself a communication skill.
+- Sealing evaluation before model claims keeps the research honest.
+- Lexical baselines can “solve” a bad dataset; hardening the data restored a real research question.
+- Fine-tuning does not automatically improve a small model: within the completed Gemma v1.0 experiments, few-shot prompting outperformed QLoRA.
+- Output-contract reliability belongs in model evaluation. QLoRA test parse success of about 0.435 was a substantive failure mode, not a formatting nuisance.
+- Responsible AI artifacts (Data Card, Model Card, Risk Register, Intended Use) are part of the research product, not an appendix.
+- Dataset and protocol provenance matter. The final review found that the classical experiments use v1.1 while Gemma uses v1.0, so the project explicitly avoids a false same-benchmark cross-family ranking.
 
 ## Challenges faced
 
-- Free-GPU / Hugging Face access is still the blocker for Gemma zero-shot, few-shot, and QLoRA metrics.
-- Balancing GCLP’s required SDG list (official Goal 10) with the institutional-accountability story (SDG 16 as mechanism).
-- Avoiding overclaim: synthetic compositional packets are not naturalistic binders.
+- Free-tier GPU constraints limited the practical ability to repeat the entire model ladder after the dataset-version boundary was discovered.
+- Balancing MMC’s “Reduced Inequalities” option with the official UN SDG 10 designation and keeping the access-to-assurance argument appropriately bounded.
+- Avoiding overclaim: synthetic compositional packets are not naturalistic evidence binders, and structural/scripted label checks are not an independent human gold standard.
+- Preserving an inconvenient negative result instead of treating fine-tuning itself as evidence of improvement.
 
 ## Improvements with more time
 
-- Complete the Gemma ladder and refresh Failure Lab with model disagreements.
-- Optional real human GRC spot-check (beyond structural/scripted audits).
-- Deeper per-class error analysis once LLM predictions exist.
-- Record and submit the ≤5-minute presentation video.
+These are possible future research directions, not incomplete capstone requirements:
 
-## Status note
+- Run classical and language-model experiments on one common dataset version for a controlled cross-family comparison.
+- Improve constrained decoding and label-output reliability before additional model claims.
+- Add independent human expert review and, where governance permits, carefully controlled real-world evidence validation.
+- Expand slice-level and qualitative error analysis around the hardest evidence boundaries.
 
-Classical stage complete (dataset v1.1.0, protocol `protocol-v1-locked`). LLM stage pending HF/Kaggle execution. Public metrics stay null until result files exist.
+## Final status
+
+The ControlSift research artifact and MMC capstone package are complete. Classical results are published on dataset v1.1.0; Gemma zero-shot, few-shot, and QLoRA results are published on dataset v1.0.0; the version boundary is disclosed throughout the final materials; and the report, slides, final narrated presentation, assurance artifacts, and supporting documentation are finished.
