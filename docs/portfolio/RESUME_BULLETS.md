@@ -1,12 +1,10 @@
 # Resume Bullets — ControlSift
 
-Use only what is true today. Swap the GPU bullet in after metrics exist.
+Use selectively based on the role.
 
 - Designed a leakage-controlled synthetic benchmark (~1,500 cases, 5 classes) for cybersecurity evidence-quality classification, with deterministic generation, family-level splits, and automated integrity tests.
-- Detected and remediated lexical shortcut saturation (TF-IDF macro F1 1.0 → ~0.53) via compositional packet hardening before sealing the evaluation protocol.
-- Implemented classical baselines (majority, TF-IDF+LR) with machine-readable results, bootstrap-ready evaluation, and a static research site that keeps LLM metrics null until executed.
-- Documented research-surface limits, Data/Model cards, and an AI risk register; label audit uses structural checks plus a stratified scripted spot-check — not overstated as full human gold labeling.
-
-**After Gemma runs (replace/add):**
-
-- Compared Gemma 3 1B zero-/few-shot prompting against QLoRA adaptation on sealed test and challenge splits using macro F1 with uncertainty estimates and a public Failure Lab for residual errors.
+- Detected and remediated lexical-shortcut saturation (TF-IDF macro F1 1.0 → ~0.53) via compositional packet hardening before sealing the classical evaluation protocol.
+- Evaluated Gemma 3 1B zero-shot, few-shot, and QLoRA approaches; preserved the negative finding that few-shot outperformed QLoRA within the controlled v1.0 Gemma experiments.
+- Identified QLoRA output-contract reliability as a first-class failure mode, with test label-parse success of about 0.435.
+- Published machine-readable results, failure analysis, Data/Model Cards, an AI risk register, intended-use limits, and reproducibility guidance for an open AI-assurance research artifact.
+- Disclosed that classical experiments used dataset v1.1 while Gemma experiments used v1.0, explicitly preventing an unsupported same-benchmark cross-family performance claim.
