@@ -1,30 +1,31 @@
-# One-click ControlSift capstone video record pack (Windows).
-# Opens speech-friendly slides + read-aloud script, then reminds Win+G.
-# Does NOT start recording — press Win+G yourself after windows load.
+# One-click ControlSift capstone recording helper for Windows.
+# Opens the final deck page and browser teleprompter.
+# It does not start recording automatically.
 
 $ErrorActionPreference = 'Stop'
-$slides = 'https://jtflack-grc.github.io/controlsift/capstone/slides.html?record=1'
-$script = 'https://jtflack-grc.github.io/controlsift/capstone/video-script.html'
+$deck = 'https://jtflack-grc.github.io/controlsift/capstone/slides.html'
+$teleprompter = 'https://jtflack-grc.github.io/controlsift/capstone/video-script.html?teleprompter=1'
 $saveAs = Join-Path $env:USERPROFILE 'Videos\ControlSift_Capstone_Video.mp4'
 
 Write-Host ''
-Write-Host 'ControlSift video pack'
-Write-Host '----------------------'
-Write-Host "1) Slides (record mode): $slides"
-Write-Host "2) Script (read aloud):  $script"
-Write-Host "3) Press Win+G → Capture → Start recording"
-Write-Host "4) Save/export as:       $saveAs"
-Write-Host '5) Upload MP4 to GCLP form only — do NOT git add'
+Write-Host 'ControlSift final video pack'
+Write-Host '---------------------------'
+Write-Host "1) Final PowerPoint deck: $deck"
+Write-Host "2) Browser teleprompter:  $teleprompter"
+Write-Host '3) PowerPoint Record > From Beginning, or use your screen recorder'
+Write-Host '4) Hard cap: 5:00; script target is about 4:50'
+Write-Host "5) Save/export as:        $saveAs"
+Write-Host '6) Upload the MP4 to the capstone form only; do not commit it'
 Write-Host ''
 
-Start-Process $slides
+Start-Process $deck
 Start-Sleep -Milliseconds 600
-Start-Process $script
+Start-Process $teleprompter
 
 Add-Type -AssemblyName System.Windows.Forms
 [void][System.Windows.Forms.MessageBox]::Show(
-  "Slides + script opened.`n`nNext:`n• Put slides full-screen (F11)`n• Press Win+G and start capture`n• Read the script aloud (≤5:00)`n• Save as ControlSift_Capstone_Video.mp4`n• Upload to the form — do not commit the MP4",
-  'ControlSift — start recording',
+  "Final deck + teleprompter opened.`n`nThe PPTX on the deck page contains the full narration in speaker notes.`n`nTarget: about 4:50. Hard cap: 5:00.`nSave as ControlSift_Capstone_Video.mp4 and upload it to the form only.",
+  'ControlSift - final recording',
   'OK',
   'Information'
 )
