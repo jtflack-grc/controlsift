@@ -4,7 +4,7 @@
 
 ControlSift is an applied AI assurance research project on cybersecurity control-evidence quality. It combines a synthetic benchmark, classical baselines, Gemma 3 experiments, failure analysis, governance artifacts, and a public research site.
 
-> Status: **research complete; capstone video remains**. Classical experiments use dataset **v1.1.0**. Gemma zero-shot, few-shot, and QLoRA experiments were completed on dataset **v1.0.0** because of free-tier compute constraints. Cross-version scores are published for transparency but are **descriptive, not a controlled head-to-head comparison**.
+> Status: **complete**. The research, report, eight-slide presentation, and narrated capstone video are finished. Classical experiments use dataset **v1.1.0**. Gemma zero-shot, few-shot, and QLoRA experiments were completed on dataset **v1.0.0** because of free-tier compute constraints. Cross-version scores are published for transparency but are **descriptive, not a controlled head-to-head comparison**.
 
 ## Why this matters
 
@@ -97,6 +97,8 @@ Annotated source notes and claim boundaries: `docs/capstone/research-sources.htm
 ## Explore
 
 - [Public research site](docs/index.html)
+- [Final narrated presentation](https://github.com/jtflack-grc/controlsift/releases/download/v1.0-capstone/ControlSift_Capstone_Slides.mp4)
+- [Capstone release](https://github.com/jtflack-grc/controlsift/releases/tag/v1.0-capstone)
 - [Results](docs/results.html)
 - [Methods](docs/methods.html)
 - [Failure Lab](docs/failure-lab.html)
