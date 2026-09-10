@@ -4,29 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>week11_comparative.py</title>
-  <link rel="stylesheet" href="../../../../assets/css/site.css?v=202609070720" />
-  <style>
-    pre.source {
-      margin: 1rem 0 0;
-      padding: 1rem;
-      overflow: auto;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      font-family: var(--font-mono);
-      font-size: var(--text-sm);
-      line-height: 1.45;
-      white-space: pre;
-    }
-  </style>
+  <link rel="stylesheet" href="../../../../assets/css/site.css?v=2026091001" />
+  <style>pre.source{margin:1rem 0 0;padding:1rem;overflow:auto;border:1px solid var(--line);background:var(--panel);font-family:var(--font-mono);font-size:var(--text-sm);line-height:1.45;white-space:pre}</style>
 </head>
 <body>
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
-      <div class="page-intro">
-        <h2>week11_comparative.py</h2>
-        <p><a href="week11_comparative.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p>
-      </div>
-      <pre class="source"><code>&quot;&quot;&quot;Week 11 deliverable helper: comparative analysis table from results/.&quot;&quot;&quot;
+      <div class="page-intro"><h2>week11_comparative.py</h2><p><a href="week11_comparative.py">Download raw file</a> · <a href="../../index.html">Deliverables hub</a></p></div>
+      <pre class="source"><code>&quot;&quot;&quot;Week 11 deliverable helper: comparative analysis table from published results/.&quot;&quot;&quot;
 
 from __future__ import annotations
 
@@ -48,32 +33,34 @@ def run() -&gt; dict:
     out = ensure_out()
     rows = []
     experiments = [
-        (&quot;majority&quot;, &quot;results/majority/metrics_test.json&quot;, &quot;results/majority/metrics_challenge.json&quot;),
-        (&quot;tfidf&quot;, &quot;results/tfidf/metrics_test.json&quot;, &quot;results/tfidf/metrics_challenge.json&quot;),
-        (&quot;gemma_zero_shot&quot;, &quot;results/gemma_zero_shot/metrics_test.json&quot;, &quot;results/gemma_zero_shot/metrics_challenge.json&quot;),
-        (&quot;gemma_few_shot&quot;, &quot;results/gemma_few_shot/metrics_test.json&quot;, &quot;results/gemma_few_shot/metrics_challenge.json&quot;),
-        (&quot;gemma_qlora&quot;, &quot;results/gemma_qlora/metrics_test.json&quot;, &quot;results/gemma_qlora/metrics_challenge.json&quot;),
+        (&quot;majority&quot;, &quot;v1.1.0&quot;, &quot;results/majority/metrics_test.json&quot;, &quot;results/majority/metrics_challenge.json&quot;),
+        (&quot;tfidf&quot;, &quot;v1.1.0&quot;, &quot;results/tfidf/metrics_test.json&quot;, &quot;results/tfidf/metrics_challenge.json&quot;),
+        (&quot;gemma_zero_shot&quot;, &quot;v1.0.0&quot;, &quot;results/gemma_zero_shot/metrics_test.json&quot;, &quot;results/gemma_zero_shot/metrics_challenge.json&quot;),
+        (&quot;gemma_few_shot&quot;, &quot;v1.0.0&quot;, &quot;results/gemma_few_shot/metrics_test.json&quot;, &quot;results/gemma_few_shot/metrics_challenge.json&quot;),
+        (&quot;gemma_qlora&quot;, &quot;v1.0.0&quot;, &quot;results/gemma_qlora/metrics_test.json&quot;, &quot;results/gemma_qlora/metrics_challenge.json&quot;),
     ]
-    for name, test_p, chal_p in experiments:
+    for name, dataset_version, test_p, chal_p in experiments:
         test = _load_macro(ROOT / test_p)
         chal = _load_macro(ROOT / chal_p)
         rows.append(
             {
                 &quot;experiment&quot;: name,
+                &quot;dataset_version&quot;: dataset_version,
                 &quot;test_macro_f1&quot;: test,
                 &quot;challenge_macro_f1&quot;: chal,
-                &quot;status&quot;: &quot;complete&quot; if test is not None else &quot;pending_gpu&quot;,
+                &quot;status&quot;: &quot;complete&quot; if test is not None else &quot;missing_result&quot;,
             }
         )
-
-    public = ROOT / &quot;docs&quot; / &quot;data&quot; / &quot;results.json&quot;
-    public_blob = json.loads(public.read_text(encoding=&quot;utf-8&quot;)) if public.is_file() else {}
 
     payload = {
         &quot;deliverable&quot;: &quot;week11_comparative_analysis&quot;,
         &quot;primary_metric&quot;: &quot;macro_f1&quot;,
         &quot;seed&quot;: 42,
-        &quot;dataset_version&quot;: public_blob.get(&quot;dataset_version&quot;),
+        &quot;version_boundary&quot;: {
+            &quot;classical&quot;: &quot;v1.1.0&quot;,
+            &quot;gemma&quot;: &quot;v1.0.0&quot;,
+            &quot;comparison_rule&quot;: &quot;Within-version comparisons are controlled; cross-version scores are descriptive only.&quot;,
+        },
         &quot;rows&quot;: rows,
         &quot;weights&quot;: {
             &quot;toy_lora_scaffold&quot;: &quot;mmc/deliverables/outputs/week07_lora_adapter.npz&quot;,
@@ -83,8 +70,9 @@ def run() -&gt; dict:
         },
         &quot;failure_lab&quot;: &quot;docs/data/failure_lab.json&quot;,
         &quot;notes&quot;: [
-            &quot;Null / missing LLM metrics are intentional until GPU result files exist.&quot;,
-            &quot;Re-run this script after each Gemma evaluation.&quot;,
+            &quot;All five published experiment rungs have result receipts.&quot;,
+            &quot;Within Gemma v1.0.0, few-shot is strongest and QLoRA does not beat it.&quot;,
+            &quot;Classical v1.1.0 and Gemma v1.0.0 scores are not a controlled same-benchmark leaderboard.&quot;,
         ],
     }
     (out / &quot;week11_comparative_analysis.json&quot;).write_text(json.dumps(payload, indent=2), encoding=&quot;utf-8&quot;)
