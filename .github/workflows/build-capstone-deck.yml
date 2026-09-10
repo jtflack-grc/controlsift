@@ -1,0 +1,56 @@
+name: Build final capstone deck
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/build_capstone_deck.js
+      - docs/capstone/video-script.html
+      - .github/workflows/build-capstone-deck.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-deck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install deck dependencies
+        run: npm install --no-save pptxgenjs
+
+      - name: Build PowerPoint with speaker notes
+        run: node scripts/build_capstone_deck.js
+
+      - name: Install LibreOffice for PDF export
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libreoffice-impress
+
+      - name: Export PowerPoint to PDF
+        run: |
+          mkdir -p /tmp/controlsift-deck
+          libreoffice --headless --convert-to pdf --outdir /tmp/controlsift-deck docs/capstone/submit/ControlSift_Capstone_Slides.pptx
+          cp /tmp/controlsift-deck/ControlSift_Capstone_Slides.pdf docs/capstone/submit/ControlSift_Capstone_Slides.pdf
+
+      - name: Commit generated presentation artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/capstone/submit/ControlSift_Capstone_Slides.pptx docs/capstone/submit/ControlSift_Capstone_Slides.pdf
+          if git diff --cached --quiet; then
+            echo "No generated deck changes to commit."
+            exit 0
+          fi
+          git commit -m "Generate final capstone PowerPoint and PDF"
+          git push
