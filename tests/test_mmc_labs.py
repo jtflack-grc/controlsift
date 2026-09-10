@@ -42,5 +42,5 @@ def test_week11_comparative_includes_classical() -> None:
     by_name = {r["experiment"]: r for r in log["rows"]}
     assert by_name["majority"]["test_macro_f1"] is not None
     assert by_name["tfidf"]["test_macro_f1"] is not None
-    assert by_name["gemma_qlora"]["status"] == "pending_gpu"
+    assert by_name["gemma_qlora"]["status"] == "complete"
     assert (OUT / "week11_comparative_analysis.json").is_file()
