@@ -8,7 +8,7 @@
 - Finalized Failure Lab, Data/Model Cards, AI risk register, responsible-innovation material, and annotated external sources
 - Finalized rubric-facing report and exactly eight presentation slides
 - Completed and published the narrated capstone presentation as the `v1.0-capstone` GitHub Release asset
-- Removed recording/teleprompter helpers and converted capstone status surfaces to complete
+- Removed obsolete recording helpers and converted capstone status surfaces to complete
 - Finalized submission package and career-facing project framing
 
 ## 1.1.0 — 2026-08-09
