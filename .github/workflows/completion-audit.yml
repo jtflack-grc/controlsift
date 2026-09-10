@@ -3,8 +3,6 @@ name: ControlSift completion audit
 on:
   push:
     branches: [main]
-    paths:
-      - .github/workflows/completion-audit.yml
   workflow_dispatch:
 
 jobs:
@@ -12,12 +10,48 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Find stale pre-completion language
+
+      - name: Reject stale pre-completion language
         shell: bash
         run: |
+          set -euo pipefail
+          pattern='video-script\.html|ControlSift_Video_Teleprompter|teleprompter|video remains|only remaining deliverable|remaining[^[:cntrl:]]{0,100}video|record[^[:cntrl:]]{0,100}(final|capstone|5-minute|≤5-minute)[^[:cntrl:]]{0,100}video|record and submit|recording remains|video only|still on you|pending[_ -]?gpu|blocked on GPU|Gemma pending|null metrics|metrics stay `?null`?|null[^[:cntrl:]]{0,100}until[^[:cntrl:]]{0,100}GPU|not run yet|results are the remaining critical path|LLM stage pending|pending scholar|video recording still manual|partial[^[:cntrl:]]{0,100}(video|Gemma)|after Gemma runs|post-GPU'
           set +e
-          echo '=== stale completion-language matches ==='
-          git grep -nEi 'video-script\.html|ControlSift_Video_Teleprompter|open-record-pack|video remains|remaining[^[:cntrl:]]*video|record[^[:cntrl:]]*(the|final|capstone|≤5-minute|5-minute)[^[:cntrl:]]*video|record and submit|recording remains|video only|still on you|pending_gpu|blocked on GPU|Gemma pending|null metrics|null[^[:cntrl:]]*until[^[:cntrl:]]*GPU|your next action|remaining calendar|remaining submit step|complete HF/Kaggle Gemma runs|before claiming LLM outcomes' -- . ':!data/**' ':!results/**' ':!*.pptx' ':!*.pdf' || true
-          echo '=== potentially unfinished project markers ==='
-          git grep -nEi '\b(TODO|TBD|unfinished|not done|not complete)\b' -- . ':!data/**' ':!results/**' ':!*.pptx' ':!*.pdf' || true
-          echo '=== end audit ==='
+          matches=$(git grep -nEi "$pattern" -- . \
+            ':!data/**' ':!results/**' ':!vendor/**' ':!*.ipynb' ':!*.pptx' ':!*.pdf' \
+            ':!.github/workflows/completion-audit.yml')
+          rc=$?
+          set -e
+          if [ "$rc" -eq 0 ]; then
+            echo '=== stale completion-language matches ==='
+            echo "$matches"
+            echo '=== end matches ==='
+            echo '::error::Stale pre-completion language remains in the repository.'
+            exit 1
+          elif [ "$rc" -gt 1 ]; then
+            echo '::error::git grep failed unexpectedly.'
+            exit "$rc"
+          fi
+          echo 'No stale pre-completion language found.'
+
+      - name: Reject obvious mojibake in project-facing text
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          matches=$(git grep -nE 'â†|â‰|â€”|â€“|â€œ|â€|Î±|Â§|Â·|ï»¿' -- . \
+            ':!data/**' ':!results/**' ':!vendor/**' ':!*.ipynb' ':!*.pptx' ':!*.pdf' \
+            ':!.github/workflows/completion-audit.yml')
+          rc=$?
+          set -e
+          if [ "$rc" -eq 0 ]; then
+            echo '=== mojibake matches ==='
+            echo "$matches"
+            echo '=== end matches ==='
+            echo '::error::Mojibake remains in project-facing text.'
+            exit 1
+          elif [ "$rc" -gt 1 ]; then
+            echo '::error::git grep failed unexpectedly.'
+            exit "$rc"
+          fi
+          echo 'No obvious mojibake found.'
