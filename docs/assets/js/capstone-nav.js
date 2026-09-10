@@ -13,7 +13,7 @@
     {
       title: "Artifacts",
       links: [
-        { href: "report.html", label: "<=8-page report" },
+        { href: "report.html", label: "8-page-or-less report" },
         { href: "slides.html", label: "8-slide deck" },
         { href: "paper.html", label: "Research paper" },
         { href: "research-sources.html", label: "Research sources" },
