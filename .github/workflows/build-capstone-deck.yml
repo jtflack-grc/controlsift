@@ -53,4 +53,8 @@ jobs:
             exit 0
           fi
           git commit -m "Generate final capstone PowerPoint and PDF"
-          git push
+          # Other capstone cleanup may land while this job renders. Rebase the
+          # generated-only commit onto the newest main before pushing.
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
