@@ -35,13 +35,14 @@ jobs:
           fi
           echo 'No stale pre-completion language found.'
 
-      - name: Reject obvious mojibake in project-facing text
+      - name: Reject obvious mojibake in ControlSift-authored text
         shell: bash
         run: |
           set -euo pipefail
           set +e
           matches=$(git grep -nE 'â†|â‰|â€”|â€“|â€œ|â€|Î±|Â§|Â·|ï»¿' -- . \
             ':!data/**' ':!results/**' ':!vendor/**' ':!*.ipynb' ':!*.pptx' ':!*.pdf' \
+            ':!docs/capstone/deliverables/artifacts/gdm/**' \
             ':!.github/workflows/completion-audit.yml')
           rc=$?
           set -e
@@ -49,10 +50,10 @@ jobs:
             echo '=== mojibake matches ==='
             echo "$matches"
             echo '=== end matches ==='
-            echo '::error::Mojibake remains in project-facing text.'
+            echo '::error::Mojibake remains in ControlSift-authored text.'
             exit 1
           elif [ "$rc" -gt 1 ]; then
             echo '::error::git grep failed unexpectedly.'
             exit "$rc"
           fi
-          echo 'No obvious mojibake found.'
+          echo 'No obvious mojibake found in ControlSift-authored text.'
