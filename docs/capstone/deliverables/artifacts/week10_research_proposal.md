@@ -7,32 +7,26 @@
 
 **Title:** ControlSift — Can a small language model help under-resourced teams tell proof from paperwork?
 
-**Official SDG:** Goal 10 (Reduced Inequalities) — unequal access to high-quality GRC evidence review.
+**MMC rubric option:** Goal 4 — Reduced Inequalities  
+**Official UN designation:** SDG 10 — Reduced Inequalities
 
-**Question:** Does QLoRA domain adaptation of Gemma 3 1B Instruct improve five-class cybersecurity evidence-quality classification on a sealed synthetic benchmark, relative to classical and prompted baselines?
+**Question:** Can small-model approaches classify cybersecurity evidence quality across five classes, and does QLoRA improve on prompted Gemma baselines under a controlled experiment?
 
 ## 2. Objectives (measurable)
 
-1. Ship a leakage-controlled synthetic benchmark (family-isolated splits, seed 42).
-2. Establish classical floors (majority, TF-IDF) before LLM claims.
-3. Freeze evaluation protocol (`protocol-v1-locked`) before Gemma runs.
-4. Compare zero-shot, few-shot, and QLoRA on macro F1 (test + challenge).
-5. Publish Failure Lab + Assurance artifacts; no fabricated metrics.
+1. Ship a leakage-controlled synthetic benchmark with family-isolated splits and deterministic generation.
+2. Establish classical floors (majority, TF-IDF) before interpreting language-model results.
+3. Freeze evaluation protocol before final model claims.
+4. Compare Gemma zero-shot, few-shot, and QLoRA using macro F1 and output reliability.
+5. Publish Failure Lab + assurance artifacts; preserve negative results and claim boundaries.
 
 ## 3. Dataset & Data Card
 
-| Item | Value |
-|------|-------|
-| Version | 1.1.0 |
-| Size | 1,500 cases · 5 balanced classes |
-| Splits | 1000 / 200 / 200 / 100 |
-| Labels | Rule-derived + structural/scripted audit |
-| Privacy | Synthetic only |
-| Data Card | `governance/DATA_CARD.md` · `docs/assurance/data-card.html` |
+The hardened classical benchmark is dataset **v1.1.0**, approximately 1,500 cases across five balanced classes. Labels are rule-derived with structural/scripted audit support; the corpus is synthetic only. Data Card: `governance/DATA_CARD.md` and `docs/assurance/data-card.html`.
 
 Pipeline: `src/controlsift/data/generate.py` → `data/processed/` → validators → protocol seal.
 
-## 4. Baseline pipeline (reproducible)
+## 4. Baseline and final experiment record
 
 ```bash
 pip install -e ".[dev]"
@@ -42,27 +36,33 @@ python scripts/run_evaluation.py
 pytest
 ```
 
-| Baseline | Test macro F1 | Challenge macro F1 | Status |
-|----------|---------------|--------------------|--------|
-| Majority | 0.067 | 0.067 | complete |
-| TF-IDF + LR | ~0.53 | ~0.52 | complete |
-| Gemma zero-shot | null | null | pending GPU |
-| Gemma few-shot | null | null | pending GPU |
-| Gemma QLoRA | null | null | pending GPU |
+| Experiment | Dataset | Test macro F1 | Challenge macro F1 | Status |
+|------------|---------|---------------|--------------------|--------|
+| Majority | v1.1.0 | 0.067 | 0.067 | complete |
+| TF-IDF + LR | v1.1.0 | ~0.533 | ~0.524 | complete |
+| Gemma zero-shot | v1.0.0 | ~0.080 | ~0.105 | complete |
+| Gemma few-shot | v1.0.0 | ~0.137 | ~0.174 | complete |
+| Gemma QLoRA | v1.0.0 | ~0.083 | ~0.131 | complete |
 
-## 5. GPU environment plan
+**Final execution boundary:** the classical experiments use v1.1.0 while the Gemma experiments use v1.0.0. Within-version comparisons are controlled; cross-version values are descriptive only and are not presented as a same-benchmark classical-vs-Gemma ranking.
 
-- Primary: Kaggle free GPU via `notebooks/kaggle_runner.ipynb`
-- Packaging: `scripts/package_for_kaggle.py`
-- Secrets: `HF_TOKEN` in platform Secrets only
-- Guide: `notebooks/KAGGLE_SAFE_RUN.md`
+Within the controlled Gemma v1.0 experiments, few-shot prompting is strongest. QLoRA does not beat few-shot and test parse success is about 0.435.
 
-## 6. Proposal status
+## 5. Compute and execution path
 
-`complete` for formulation + classical baselines. Peer review = MMC mentor / cohort feedback on this document + public site.
+- Gemma family: Gemma 3 1B
+- Parameter-efficient adaptation: QLoRA configuration in `configs/gemma3_1b_qlora.yaml`
+- Free-tier execution support: Kaggle/Hugging Face tooling under `notebooks/` and `scripts/`
+- Secrets: `HF_TOKEN` stored through platform secret handling, not committed to the repository
+- Result receipts: `results/gemma_zero_shot/`, `results/gemma_few_shot/`, and `results/gemma_qlora/`
+
+## 6. Proposal outcome
+
+The proposed research pipeline was completed. The final artifact preserves two important findings that were not assumed in advance: benchmark hardening materially reduced the original TF-IDF shortcut, and QLoRA did not automatically improve Gemma performance. Final review also surfaced the dataset-version boundary, which is disclosed throughout the capstone rather than hidden behind a cleaner but unsupported leaderboard.
 
 ## 7. Links
 
 - Methods: `docs/capstone/methods-evidence.html`
 - Full narrative: `docs/capstone/paper.html`
 - Protocol: `governance/PROTOCOL.md`
+- Results: `docs/results.html`
