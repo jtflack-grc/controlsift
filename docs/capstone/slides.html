@@ -5,100 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#07100c" />
-  <title>Capstone Slides (8) - ControlSift</title>
+  <title>Capstone PowerPoint (8 slides) - ControlSift</title>
   <meta name="robots" content="noindex" />
-  <link rel="stylesheet" href="../assets/css/site.css?v=2026090802" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026091001" />
   <style>
-    .deck { display: grid; gap: 1.25rem; margin-top: 1rem; }
-    .slide { border: 1px solid var(--line); background: var(--panel); padding: 1.5rem 1.6rem; min-height: 14rem; }
-    .slide-num { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 0.6rem; }
-    .slide h3 { margin: 0 0 0.75rem; font-size: 1.35rem; }
-    .slide ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
-    .slide li { margin: 0.35rem 0; }
-    .slide .big { font-size: 1.1rem; color: var(--fg); margin: 0; max-width: 40rem; }
-    body.record-mode .site-header, body.record-mode .site-footer, body.record-mode .capstone-nav, body.record-mode .page-intro, body.record-mode .cta-row, body.record-mode .record-banner { display: none !important; }
-    body.record-mode main > .section { padding: 0 !important; border: 0 !important; }
-    body.record-mode .deck { gap: 0; margin: 0; }
-    body.record-mode .slide { min-height: 100vh; box-sizing: border-box; border: 0; display: flex; flex-direction: column; justify-content: center; padding: 8vh 8vw; }
-    body.record-mode .slide h3 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
-    body.record-mode .slide .big { font-size: clamp(1.15rem, 2.4vw, 1.55rem); max-width: 48rem; }
-    body.record-mode .slide ul { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--fg); }
-    .record-banner { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin: 0.75rem 0 0; padding: 0.75rem 1rem; border: 1px solid var(--line); background: var(--panel); font-size: var(--text-sm); color: var(--muted); }
-    @media print {
-      .site-header, .site-footer, .capstone-nav, .page-intro p, .cta-row, .record-banner { display: none !important; }
-      .slide { break-after: page; min-height: 90vh; border: 0; }
-    }
+    .deck-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1rem}.actual-deck{border:1px solid var(--line);background:linear-gradient(145deg,rgba(127,255,178,.06),transparent 55%),var(--panel);padding:1.35rem 1.45rem;margin:1rem 0 1.4rem}.actual-deck h3{margin:.15rem 0 .55rem}.pdf-frame{width:100%;aspect-ratio:16/10;min-height:640px;border:1px solid var(--line);background:#050a08}.deck-notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:1rem}.deck-notes>div{background:var(--panel);padding:1rem}.deck-notes strong{display:block;color:var(--accent);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.35rem}.deck-notes span{color:var(--muted);font-size:var(--text-sm)}@media(max-width:760px){.pdf-frame{min-height:460px}.deck-actions{display:grid}.deck-actions .btn{text-align:center}}
   </style>
 </head>
 <body>
   <header class="site-header"><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">ControlSift</a><ul class="nav-links" data-site-nav></ul></nav></header>
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
-      <div class="page-intro">
-        <h2>Capstone presentation deck</h2>
-        <p>Exactly eight slides for GCLP submission. Pair with the &le;5-minute video script. Dataset-version boundaries are stated explicitly.</p>
-      </div>
+      <div class="page-intro"><h2>Actual capstone PowerPoint</h2><p>The old HTML mock slides have been retired. This page now serves the <strong>actual eight-slide PowerPoint deck</strong> used for the final voiceover. The PPTX contains the exact teleprompter narration in its speaker notes.</p></div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
-      <div class="record-banner" role="note"><strong style="color:var(--fg);">Record mode:</strong><a href="?record=1">Hide chrome and fill the viewport</a> &middot; script: <a href="video-script.html">video-script.html</a></div>
-
-      <div class="deck">
-        <article class="slide" id="slide-01">
-          <p class="slide-num">Slide 01 / 08 - Title</p>
-          <h3>ControlSift</h3>
-          <p class="big">Can a small language model help under-resourced teams tell proof from paperwork?</p>
-          <ul><li>MMC / Google DeepMind AI Research Foundations capstone</li><li>MMC rubric option 4: Reduced Inequalities / official UN SDG 10</li><li>Synthetic research artifact - not a production auditor</li></ul>
-        </article>
-
-        <article class="slide">
-          <p class="slide-num">Slide 02 / 08 - Problem</p>
-          <h3>Unequal access to assurance capacity</h3>
-          <ul><li>Control assessment requires evidence that implementation and outcomes can be verified</li><li>Small organizations often face limited cybersecurity budgets and specialist capacity</li><li>Policy documents can be relevant without proving control operation</li><li>Goal: open evidence-triage research, not automated certification</li></ul>
-        </article>
-
-        <article class="slide">
-          <p class="slide-num">Slide 03 / 08 - Aim</p>
-          <h3>Research aim</h3>
-          <ul><li>Five evidence-quality classes: sufficient, partial, insufficient, irrelevant, contradictory</li><li>Primary metric: macro F1; seed 42; family-isolated splits</li><li>Classical path: majority -> TF-IDF</li><li>Gemma path: zero-shot -> few-shot -> QLoRA</li></ul>
-        </article>
-
-        <article class="slide">
-          <p class="slide-num">Slide 04 / 08 - Method</p>
-          <h3>Method and version boundary</h3>
-          <ul><li>Classical experiments use hardened dataset <strong>v1.1.0</strong></li><li>Gemma zero-shot, few-shot, and QLoRA use dataset <strong>v1.0.0</strong></li><li>Gemma 3 1B; QLoRA with 4-bit NF4 on free-tier GPU</li><li>Cross-version scores are descriptive, not a controlled head-to-head comparison</li></ul>
-        </article>
-
-        <article class="slide">
-          <p class="slide-num">Slide 05 / 08 - Results</p>
-          <h3>Published results</h3>
-          <ul><li><strong>v1.1 classical:</strong> majority 0.0667; TF-IDF 0.5327 (challenge 0.5237)</li><li><strong>v1.0 Gemma:</strong> zero-shot 0.0796; few-shot 0.1365; QLoRA 0.0827</li><li>Within Gemma v1.0, <strong>few-shot is strongest</strong></li><li>QLoRA parse success is only <strong>0.435</strong>; output reliability is a first-class failure mode</li></ul>
-        </article>
-
-        <article class="slide">
-          <p class="slide-num">Slide 06 / 08 - Responsible AI</p>
-          <h3>Research integrity and responsible use</h3>
-          <ul><li>Synthetic data only; no customer evidence</li><li>Data Card, Model Card, Risk Register, Intended Use, Failure Lab</li><li>Malformed generations count as errors; no invented metrics</li><li>No claim that v1.1 classical scores definitively beat v1.0 Gemma on the same benchmark</li></ul>
-        </article>
-
-        <article class="slide">
-          <p class="slide-num">Slide 07 / 08 - Impact</p>
-          <h3>Practicality, sustainability, and impact</h3>
-          <ul><li>Open method and synthetic data reduce privacy and cost barriers</li><li>Classical baseline is inexpensive; Gemma work uses free or commodity GPU paths</li><li>Useful as a research and training artifact for human reviewers</li><li>Production use would require governed real-world validation and stronger output controls</li></ul>
-        </article>
-
-        <article class="slide">
-          <p class="slide-num">Slide 08 / 08 - Close</p>
-          <h3>Status</h3>
-          <ul><li>Research runs, results, sources, report, slides, assurance artifacts, and public site are done</li><li>Only remaining capstone deliverable: record the &le;5-minute video</li><li>Artifacts: research site, report, paper, Results, Failure Lab, Assurance, curriculum map</li><li>Thank you</li></ul>
-        </article>
-      </div>
-
-      <div class="cta-row" style="margin-top:1.5rem;"><a class="btn btn-primary" href="video-script.html">Video script</a><a class="btn btn-secondary" href="report.html">8-page report</a></div>
+      <div class="actual-deck"><p class="eyebrow">FINAL PRESENTATION ARTIFACT</p><h3>ControlSift - Can a small language model tell proof from paperwork?</h3><p>Eight slides, 16:9, voiceover-ready, with the v1.1 classical / v1.0 Gemma boundary stated visually and in the notes. The closing slide now ends on findings and recommendations instead of reminding the presenter to record the video.</p><div class="deck-actions"><a class="btn btn-primary" href="submit/ControlSift_Capstone_Slides.pptx">Download PowerPoint (.pptx)</a><a class="btn btn-secondary" href="submit/ControlSift_Capstone_Slides.pdf">Open / download PDF</a><a class="btn btn-secondary" href="video-script.html?teleprompter=1">Open teleprompter</a></div></div>
+      <div class="deck-notes"><div><strong>Speaker notes</strong><span>All eight slides contain the final 700-word narration.</span></div><div><strong>Timing</strong><span>Target pace ~145 wpm; estimated runtime ~4:50.</span></div><div><strong>Rubric coverage</strong><span>Problem, research, solution, results, risk, sustainability, implementation, recommendation.</span></div><div><strong>Research boundary</strong><span>Classical v1.1 and Gemma v1.0 are not presented as a same-benchmark ranking.</span></div></div>
     </section>
+    <section class="section"><h2>Rendered deck</h2><p>The embedded PDF below is generated from the same PowerPoint file. On mobile or if your browser blocks embedded PDFs, use the PDF button above.</p><iframe class="pdf-frame" src="submit/ControlSift_Capstone_Slides.pdf#view=FitH" title="ControlSift eight-slide capstone PowerPoint rendered as PDF"></iframe></section>
   </main>
-  <footer class="site-footer"><div class="wrap"><span>ControlSift &middot; slides</span></div></footer>
-  <script src="../assets/js/site.js"></script>
-  <script src="../assets/js/nav.js?v=2026090802"></script>
+  <footer class="site-footer"><div class="wrap"><span>ControlSift &middot; final PowerPoint deck</span></div></footer>
+  <script src="../assets/js/nav.js?v=2026090803"></script>
   <script src="../assets/js/capstone-nav.js?v=2026090802"></script>
-  <script>(function(){var p=new URLSearchParams(window.location.search);if(p.get('record')==='1'){document.body.classList.add('record-mode');document.title='ControlSift - Slide 01 (record)';var f=document.getElementById('slide-01');if(f)f.scrollIntoView({block:'start'});}})();</script>
 </body>
 </html>
