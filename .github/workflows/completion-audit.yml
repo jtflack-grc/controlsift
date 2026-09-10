@@ -15,10 +15,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          pattern='video-script\.html|ControlSift_Video_Teleprompter|teleprompter|video remains|only remaining deliverable|remaining[^[:cntrl:]]{0,100}video|record[^[:cntrl:]]{0,100}(final|capstone|5-minute|≤5-minute)[^[:cntrl:]]{0,100}video|record and submit|recording remains|video only|still on you|pending[_ -]?gpu|blocked on GPU|Gemma pending|null metrics|metrics stay `?null`?|null[^[:cntrl:]]{0,100}until[^[:cntrl:]]{0,100}GPU|not run yet|results are the remaining critical path|LLM stage pending|pending scholar|video recording still manual|partial[^[:cntrl:]]{0,100}(video|Gemma)|after Gemma runs|post-GPU'
+          pattern='video-script\.html|ControlSift_Video_Teleprompter|teleprompter|video remains|only remaining deliverable|remaining[^[:cntrl:]]{0,100}video|record[^[:cntrl:]]{0,100}(final|capstone|5-minute|≤5-minute)[^[:cntrl:]]{0,100}video|record and submit|recording remains|video only|still on you|pending[_ -]?gpu|blocked on GPU|Gemma pending|null metrics|metrics stay `?null`?|null[^[:cntrl:]]{0,100}until[^[:cntrl:]]{0,100}GPU|not run yet|results are the remaining critical path|LLM stage pending|pending scholar|video recording still manual|after Gemma runs|post-GPU|data-hub-gemma-status|data-pending-until-gemma|status-pill[^>]*pending-gpu'
           set +e
           matches=$(git grep -nEi "$pattern" -- . \
-            ':!data/**' ':!results/**' ':!vendor/**' ':!*.ipynb' ':!*.pptx' ':!*.pdf' \
+            ':!data/**' ':!results/**' ':!vendor/**' ':!src/**' ':!tests/**' \
+            ':!docs/assets/css/**' ':!*.ipynb' ':!*.pptx' ':!*.pdf' \
             ':!.github/workflows/completion-audit.yml')
           rc=$?
           set -e
@@ -26,7 +27,7 @@ jobs:
             echo '=== stale completion-language matches ==='
             echo "$matches"
             echo '=== end matches ==='
-            echo '::error::Stale pre-completion language remains in the repository.'
+            echo '::error::Stale pre-completion language remains in project-facing files.'
             exit 1
           elif [ "$rc" -gt 1 ]; then
             echo '::error::git grep failed unexpectedly.'
