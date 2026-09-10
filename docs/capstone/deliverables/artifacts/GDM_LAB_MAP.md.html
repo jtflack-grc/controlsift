@@ -4,29 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GDM_LAB_MAP.md</title>
-  <link rel="stylesheet" href="../../../assets/css/site.css?v=202609070720" />
-  <style>
-    pre.source {
-      margin: 1rem 0 0;
-      padding: 1rem;
-      overflow: auto;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      font-family: var(--font-mono);
-      font-size: var(--text-sm);
-      line-height: 1.45;
-      white-space: pre;
-    }
-  </style>
+  <link rel="stylesheet" href="../../../assets/css/site.css?v=2026091001" />
+  <style>pre.source{margin:1rem 0 0;padding:1rem;overflow:auto;border:1px solid var(--line);background:var(--panel);font-family:var(--font-mono);font-size:var(--text-sm);line-height:1.45;white-space:pre}</style>
 </head>
 <body>
-  <main>
-    <section class="section" style="border-top:0;padding-top:1rem;">
-      <div class="page-intro">
-        <h2>GDM_LAB_MAP.md</h2>
-        <p><a href="GDM_LAB_MAP.md">Download raw file</a> · <a href="../index.html">Deliverables hub</a></p>
-      </div>
-      <pre class="source"><code># MMC handbook weeks â†’ DeepMind AI Research Foundations labs
+  <main><section class="section" style="border-top:0;padding-top:1rem;">
+    <div class="page-intro"><h2>GDM_LAB_MAP.md</h2><p><a href="GDM_LAB_MAP.md">Download raw file</a> · <a href="../index.html">Deliverables hub</a></p></div>
+    <pre class="source"><code># MMC handbook weeks -&gt; DeepMind AI Research Foundations labs
 
 Source of truth for official notebooks: [`vendor/ai-foundations/`](../vendor/ai-foundations/)  
 ([google-deepmind/ai-foundations](https://github.com/google-deepmind/ai-foundations)).
@@ -35,16 +19,16 @@ Course 6 (**Align Your Model**) is on Google Skills but **not** in the public Gi
 
 | Handbook week | Deliverable (checkbox) | Official GDM lab(s) | ControlSift / MMC package |
 |---------------|------------------------|---------------------|---------------------------|
-| 1 | N-gram generator + perplexity | `course_1/gdm_lab_1_2_experiment_with_n_gram_models.ipynb` (+ compare in `1_3`) | `mmc/notebooks/week01_ngram.ipynb` â†’ `week01_*.json/txt` |
+| 1 | N-gram generator + perplexity | `course_1/gdm_lab_1_2_experiment_with_n_gram_models.ipynb` (+ compare in `1_3`) | `mmc/notebooks/week01_ngram.ipynb` -&gt; `week01_*.json/txt` |
 | 2 | Custom BPE + vocab + Data Card | `course_2/gdm_lab_2_4_implement_a_bpe_tokenizer.ipynb` (+ `2_3`) | `week02_bpe.ipynb` + Data Card |
 | 3 | DeepMind Skill Badge | Skills path / `course_1` SLM train (`1_5`) | `week03_skill_badge.md` (attach badge) |
 | 4 | MLP from scratch | `course_3/gdm_lab_3_4_design_your_own_mlp.ipynb` | `week04_mlp.ipynb` |
 | 5 | Diagnostics dashboard | `course_3/gdm_lab_3_5_tune_hyperparameters.ipynb`, `3_6_mitigate_overfitting.ipynb` | `week05_diagnostics.ipynb` + HTML dashboard |
 | 6 | Transformer + attention viz | `course_4/gdm_lab_4_1_attention_visualization.ipynb` (+ `4_2`/`4_3`) | `week06_transformer.ipynb` |
-| 7 | Domain adapter checkpoint | `course_5/gdm_lab_5_5_implement_loraâ€¦`, `5_6_fine_tune_gemma_with_lora.ipynb` | `week07_lora.ipynb` + Gemma QLoRA path |
+| 7 | Domain adapter checkpoint | `course_5/gdm_lab_5_5_implement_lora_for_parameter_efficient_fine_tuning.ipynb`, `5_6_fine_tune_gemma_with_lora.ipynb` | `week07_lora.ipynb` + Gemma QLoRA path |
 | 8 | Alignment &amp; Safety Report | Course 6 (Skills; labs not public) | `week08_alignment_safety_report.md` + Assurance |
 | 9 | Accelerate / memory profile | `course_7/gdm_lab_7_4_estimate_gpu_memory.ipynb` (+ `7_5`, `7_6`) | `week09_accelerate.md` + notes notebook |
-| 10 | Research proposal + baselines | `course_8` classification prep (`8_1`–`8_2`) | `week10_*.md` + classical Results |
+| 10 | Research proposal + baselines | `course_8` classification prep (`8_1`-`8_2`) | `week10_*.md` + classical Results |
 | 11 | Weights / logs / comparative | `course_8` classification train/eval (`8_3`) | `week11_*.ipynb` + comparative JSON |
 | 12 | Synthesis &amp; defense | Capstone package (`course_8` track) | report / slides / video / paper |
 
@@ -54,10 +38,9 @@ Official labs teach the technique. We exceed the checkbox when we also ship:
 
 1. Frozen ControlSift research surface (synthetic evidence quality, 5-class)
 2. Machine-readable artifacts under `mmc/deliverables/outputs/`
-3. Public docs hub with direct links (no fabricated Gemma metrics)
+3. Public docs hub with committed result receipts and explicit version boundaries
 4. Assurance / Data Card / RAI wiring where the week calls for it
 </code></pre>
-    </section>
-  </main>
+  </section></main>
 </body>
 </html>
