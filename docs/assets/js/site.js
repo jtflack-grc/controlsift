@@ -26,16 +26,9 @@ function resolveResultsUrl() {
 }
 
 function fmt(value) {
-  if (value === null || value === undefined) return "pending";
+  if (value === null || value === undefined) return "unavailable";
   if (typeof value === "number") return value.toFixed(3);
   return String(value);
-}
-
-function gemmaTestReady(data) {
-  if (!data || !data.experiments) return false;
-  return ["gemma_zero_shot", "gemma_few_shot", "gemma_qlora"].every(
-    (key) => data.experiments[key] && data.experiments[key].macro_f1 != null
-  );
 }
 
 function fillMetrics(data) {
@@ -52,17 +45,6 @@ function fillMetrics(data) {
     }
     el.textContent = fmt(value);
     el.classList.toggle("pending", value === null || value === undefined);
-  });
-}
-
-function fillPendingUntilGemma(data) {
-  const ready = gemmaTestReady(data);
-  document.querySelectorAll("[data-pending-until-gemma]").forEach((el) => {
-    el.hidden = ready;
-    el.classList.toggle("pending", !ready);
-  });
-  document.querySelectorAll("[data-ready-when-gemma]").forEach((el) => {
-    el.hidden = !ready;
   });
 }
 
@@ -98,36 +80,24 @@ function fillMacroBars(data) {
     const row = data.experiments[key];
     if (!row) return;
     const value = row.macro_f1;
-    const pending = value === null || value === undefined;
-    const scale = pending ? 0 : Math.max(0, Math.min(1, value));
+    const missing = value === null || value === undefined;
+    const scale = missing ? 0 : Math.max(0, Math.min(1, value));
     const el = document.createElement("div");
     el.className = "bar-row";
     el.innerHTML = `
       <span class="name">${row.experiment}</span>
-      <div class="bar-track"><div class="bar-fill${pending ? " is-pending" : ""}" style="transform:scaleX(${pending ? 1 : scale})"></div></div>
-      <span class="val ${pending ? "pending" : ""}">${fmt(value)}</span>
+      <div class="bar-track"><div class="bar-fill${missing ? " is-pending" : ""}" style="transform:scaleX(${missing ? 1 : scale})"></div></div>
+      <span class="val ${missing ? "pending" : ""}">${fmt(value)}</span>
     `;
     root.appendChild(el);
-  });
-}
-
-function fillHubGemmaStatus(data) {
-  const ready = gemmaTestReady(data);
-  document.querySelectorAll("[data-hub-gemma-status]").forEach((el) => {
-    const pendingLabel = el.getAttribute("data-pending-label") || "pending GPU";
-    const readyLabel = el.getAttribute("data-ready-label") || "meets";
-    el.textContent = ready ? readyLabel : pendingLabel;
-    el.classList.toggle("pending-gpu", !ready);
   });
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
   const data = await loadResults();
   fillMetrics(data);
-  fillPendingUntilGemma(data);
-  fillHubGemmaStatus(data);
   fillResultsTable(data);
   fillMacroBars(data);
   const status = document.querySelector("[data-results-status]");
-  if (status) status.textContent = data ? data.status : "pending";
+  if (status) status.textContent = data ? data.status : "unavailable";
 });
