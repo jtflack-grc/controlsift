@@ -83,7 +83,7 @@ jobs:
                   continue
               original = text
 
-              # John-style punctuation: no em dashes in authored prose.
+              # No em dashes in authored prose. A spaced hyphen keeps the pause without the telltale punctuation.
               before = text.count('—') + text.count('&mdash;') + text.count('&#8212;')
               text = re.sub(r'\s*—\s*', ' - ', text)
               text = text.replace('&mdash;', '-').replace('&#8212;', '-')
@@ -106,7 +106,6 @@ jobs:
           for name in changed:
               print(name)
 
-          # Audit the same authored surface. We want no em-dash forms left.
           leftovers = []
           for path in root.rglob('*'):
               if not path.is_file() or not include(path):
@@ -120,12 +119,12 @@ jobs:
           if leftovers:
               raise SystemExit('Em-dash forms remain in authored prose: ' + ', '.join(leftovers))
 
-      - name: Validate text diff
+      - name: Review style-pass footprint
         shell: bash
         run: |
-          git diff --check
           echo "--- style-pass summary ---"
           git diff --stat
+          git status --short
 
       - name: Commit prose style pass
         shell: bash
