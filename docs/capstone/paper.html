@@ -21,7 +21,7 @@
         <p class="paper-meta">
           ControlSift Capstone Research Paper<br />
           MMC rubric option 4: Reduced Inequalities / official UN SDG 10<br />
-          Primary metric: macro F1 &middot; Seed 42 &middot; Status: research complete; video remaining
+          Primary metric: macro F1 &middot; Seed 42 &middot; Status: research and presentation complete
         </p>
 
         <div class="paper-abstract">
@@ -63,15 +63,15 @@
         <section class="h-block" id="background">
           <h2>2. Background and external grounding</h2>
           <p>
-            The control-assessment problem is grounded in <a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">NIST SP 800-53A Rev. 5</a>, which treats assessment as a process for determining whether controls are implemented correctly, operating as intended, and producing desired outcomes. That framing supports ControlSift's core distinction between relevant paperwork and evidence of operation.
+            The evidence-quality problem is grounded in three complementary assurance sources. <a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">NIST SP 800-53A Rev. 5</a> ties control assessment to implementation and intended outcomes. <a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS1105" rel="noopener">PCAOB AS 1105</a> distinguishes evidence quantity from quality and defines appropriateness through relevance and reliability. <a href="https://www.theiia.org/en/content/standards/complete-global-internal-audit-standards/" rel="noopener">The IIA Global Internal Audit Standards</a> require information supporting analysis to be relevant, reliable, and sufficient. ControlSift does not adopt any one source as its label taxonomy; together they support the broader premise that evidence quality is multidimensional and tied to an assessment objective.
           </p>
           <p>
-            The access-to-capacity problem is grounded in <a href="https://www.nist.gov/itl/smallbusinesscyber/about" rel="noopener">NIST Small Business Cybersecurity</a>, which explicitly recognizes limited cybersecurity resources, budgets, and staffing among smaller organizations. That source does not prove a specific shortage of GRC reviewers; it supports the narrower claim that cybersecurity capacity and budget constraints are real.
+            The domain-use rationale extends beyond standards. Yang et al.'s peer-reviewed <a href="https://doi.org/10.1186/s42400-025-00361-w" rel="noopener">systematic review of LLMs in cybersecurity</a> documents broad experimentation alongside unresolved evaluation and reliability challenges. Kokina et al.'s <a href="https://doi.org/10.1016/j.accinf.2025.100734" rel="noopener">field study of AI in auditing</a> reports practical use of AI/NLP for document-oriented and analytical support while identifying explainability, robustness, reliability, governance, and overreliance concerns. Those findings support studying assistive evidence triage while keeping human judgment authoritative.
           </p>
           <p>
-            The fine-tuning method is grounded in Dettmers et al., <a href="https://arxiv.org/abs/2305.14314" rel="noopener"><em>QLoRA: Efficient Finetuning of Quantized LLMs</em></a>. Model context comes from the <a href="https://ai.google.dev/gemma/docs/core/model_card_3" rel="noopener">Gemma 3 Model Card</a>. Responsible-AI boundaries and human accountability are informed by the <a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" rel="noopener">NIST AI RMF Core</a>. The societal-goal mapping uses the United Nations' official <a href="https://sdgs.un.org/goals/goal10" rel="noopener">SDG 10: Reduced Inequalities</a> page.
+            The technical method is grounded in Hu et al.'s <a href="https://arxiv.org/abs/2106.09685" rel="noopener">LoRA</a> paper and Dettmers et al.'s <a href="https://arxiv.org/abs/2305.14314" rel="noopener">QLoRA</a> paper; model context comes from the <a href="https://ai.google.dev/gemma/docs/core/model_card_3" rel="noopener">Gemma 3 Model Card</a>. Responsible-use boundaries draw on the <a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10" rel="noopener">NIST AI RMF</a> and the EU AI Act's <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng" rel="noopener">Article 14 human-oversight provisions</a>. The access-to-capacity motivation remains grounded in <a href="https://www.nist.gov/itl/smallbusinesscyber/about" rel="noopener">NIST Small Business Cybersecurity</a>, and the societal-goal mapping uses the United Nations' official <a href="https://sdgs.un.org/goals/goal10" rel="noopener">SDG 10</a> page.
           </p>
-          <p>Annotated source notes and claim boundaries are available on the <a href="research-sources.html">Research Sources</a> page.</p>
+          <p>The <a href="research-sources.html">Research Sources</a> page provides a ten-source core research set with a separate "supports / does not prove" boundary for every source.</p>
         </section>
 
         <section class="h-block" id="problem">
@@ -163,7 +163,7 @@
             ControlSift is not an automated auditor, certification engine, or replacement for control owners or human assessors. Intended use is method comparison, education, and study of assistive evidence triage under synthetic conditions. The project publishes a Data Card, Model Card, AI risk register, intended-use policy, limitations, protocol information, and failure examples. Human judgment remains authoritative.
           </p>
           <p>
-            Practicality and sustainability come from low-cost components: synthetic data, an inexpensive classical baseline, a small language model, and free or commodity GPU infrastructure. Scaling into real operations would require governed real-world validation, stronger constrained output handling, security review, ongoing monitoring, and accountable human oversight.
+            Practicality and sustainability come from low-cost components: synthetic data, an inexpensive classical baseline, a small language model, and free or commodity GPU infrastructure. Scaling into real operations would require governed real-world validation, stronger constrained output handling, security review, ongoing monitoring, and accountable human oversight. That boundary is consistent with the audit literature's warnings about reliability and overreliance, the NIST AI RMF's emphasis on defined human-AI roles, and EU Article 14's focus on understanding limitations, monitoring behavior, resisting automation bias, and retaining meaningful override authority.
           </p>
         </section>
 
@@ -200,12 +200,18 @@ pytest</code></pre>
         <section class="h-block" id="refs">
           <h2>References and accompanying artifacts</h2>
           <ul class="findings-list paper-refs">
-            <li><a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">NIST SP 800-53A Rev. 5</a></li>
-            <li><a href="https://www.nist.gov/itl/smallbusinesscyber/about" rel="noopener">NIST Small Business Cybersecurity</a></li>
-            <li><a href="https://arxiv.org/abs/2305.14314" rel="noopener">Dettmers et al. - QLoRA</a></li>
+            <li><a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">NIST SP 800-53A Rev. 5 - Assessing Security and Privacy Controls</a></li>
+            <li><a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS1105" rel="noopener">PCAOB AS 1105 - Audit Evidence</a></li>
+            <li><a href="https://www.theiia.org/en/content/standards/complete-global-internal-audit-standards/" rel="noopener">The IIA - Global Internal Audit Standards</a></li>
+            <li><a href="https://doi.org/10.1186/s42400-025-00361-w" rel="noopener">Yang et al. - When LLMs Meet Cybersecurity: A Systematic Literature Review</a></li>
+            <li><a href="https://doi.org/10.1016/j.accinf.2025.100734" rel="noopener">Kokina et al. - Challenges and Opportunities for Artificial Intelligence in Auditing: Evidence from the Field</a></li>
+            <li><a href="https://arxiv.org/abs/2106.09685" rel="noopener">Hu et al. - LoRA: Low-Rank Adaptation of Large Language Models</a></li>
+            <li><a href="https://arxiv.org/abs/2305.14314" rel="noopener">Dettmers et al. - QLoRA: Efficient Finetuning of Quantized LLMs</a></li>
             <li><a href="https://ai.google.dev/gemma/docs/core/model_card_3" rel="noopener">Google DeepMind - Gemma 3 Model Card</a></li>
-            <li><a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" rel="noopener">NIST AI RMF Core</a></li>
-            <li><a href="https://sdgs.un.org/goals/goal10" rel="noopener">United Nations SDG 10</a></li>
+            <li><a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10" rel="noopener">NIST AI RMF 1.0</a></li>
+            <li><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng" rel="noopener">Regulation (EU) 2024/1689 - Article 14 Human Oversight</a></li>
+            <li><a href="https://www.nist.gov/itl/smallbusinesscyber/about" rel="noopener">NIST Small Business Cybersecurity - access context</a></li>
+            <li><a href="https://sdgs.un.org/goals/goal10" rel="noopener">United Nations SDG 10 - program context</a></li>
             <li><a href="research-sources.html">Annotated research sources and claim boundaries</a></li>
             <li><a href="../index.html">Public research site</a> &middot; <a href="../results.html">Results</a> &middot; <a href="../failure-lab.html">Failure Lab</a> &middot; <a href="../assurance.html">Assurance</a></li>
           </ul>
