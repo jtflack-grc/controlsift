@@ -1,0 +1,143 @@
+name: ControlSift prose style pass
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/style-pass-once.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  style-pass:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply prose style pass
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          root = Path('.')
+
+          def include(path: Path) -> bool:
+              p = path.as_posix()
+              if p in {'README.md', 'ControlSift.md'}:
+                  return True
+              if p.startswith('docs/') and path.suffix.lower() in {'.html', '.md', '.txt'}:
+                  excluded = (
+                      'docs/assets/',
+                      'docs/data/',
+                      'docs/capstone/deliverables/artifacts/gdm/',
+                      'docs/capstone/deliverables/artifacts/notebooks/',
+                  )
+                  return not p.startswith(excluded)
+              if p.startswith(('governance/', 'reports/', 'reflection/', 'mmc/deliverables/')) and path.suffix.lower() in {'.md', '.html', '.txt'}:
+                  return True
+              return False
+
+          contractions = [
+              ('Does not', "Doesn't"), ('does not', "doesn't"),
+              ('Do not', "Don't"), ('do not', "don't"),
+              ('Did not', "Didn't"), ('did not', "didn't"),
+              ('Is not', "Isn't"), ('is not', "isn't"),
+              ('Are not', "Aren't"), ('are not', "aren't"),
+              ('Was not', "Wasn't"), ('was not', "wasn't"),
+              ('Were not', "Weren't"), ('were not', "weren't"),
+              ('Cannot', "Can't"), ('cannot', "can't"),
+              ('Can not', "Can't"), ('can not', "can't"),
+              ('Will not', "Won't"), ('will not', "won't"),
+              ('Would not', "Wouldn't"), ('would not', "wouldn't"),
+              ('Should not', "Shouldn't"), ('should not', "shouldn't"),
+              ('Could not', "Couldn't"), ('could not', "couldn't"),
+              ('Has not', "Hasn't"), ('has not', "hasn't"),
+              ('Have not', "Haven't"), ('have not', "haven't"),
+              ('Had not', "Hadn't"), ('had not', "hadn't"),
+              ('It is', "It's"), ('it is', "it's"),
+              ('That is', "That's"), ('that is', "that's"),
+              ('There is', "There's"), ('there is', "there's"),
+              ('We are', "We're"), ('we are', "we're"),
+              ('We have', "We've"), ('we have', "we've"),
+              ('We will', "We'll"), ('we will', "we'll"),
+              ('We would', "We'd"), ('we would', "we'd"),
+              ('They are', "They're"), ('they are', "they're"),
+              ('I am', "I'm"), ('I have', "I've"), ('I will', "I'll"), ('I would', "I'd"),
+          ]
+
+          changed = []
+          total_em = 0
+          total_contractions = 0
+
+          for path in root.rglob('*'):
+              if not path.is_file() or not include(path):
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+              original = text
+
+              # John-style punctuation: no em dashes in authored prose.
+              before = text.count('—') + text.count('&mdash;') + text.count('&#8212;')
+              text = re.sub(r'\s*—\s*', ' - ', text)
+              text = text.replace('&mdash;', '-').replace('&#8212;', '-')
+              total_em += before
+
+              # Prefer natural contractions in narrative prose. Leave uppercase emphatic forms alone.
+              for old, new in contractions:
+                  count = text.count(old)
+                  if count:
+                      total_contractions += count
+                      text = text.replace(old, new)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(path.as_posix())
+
+          print(f'Changed {len(changed)} authored files')
+          print(f'Removed/replaced {total_em} em-dash forms')
+          print(f'Applied {total_contractions} contractions')
+          for name in changed:
+              print(name)
+
+          # Audit the same authored surface. We want no em-dash forms left.
+          leftovers = []
+          for path in root.rglob('*'):
+              if not path.is_file() or not include(path):
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+              if '—' in text or '&mdash;' in text or '&#8212;' in text:
+                  leftovers.append(path.as_posix())
+          if leftovers:
+              raise SystemExit('Em-dash forms remain in authored prose: ' + ', '.join(leftovers))
+
+      - name: Validate text diff
+        shell: bash
+        run: |
+          git diff --check
+          echo "--- style-pass summary ---"
+          git diff --stat
+
+      - name: Commit prose style pass
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md ControlSift.md docs governance reports reflection mmc/deliverables
+          if git diff --cached --quiet; then
+            echo "No prose changes needed."
+            exit 0
+          fi
+          git commit -m "Polish contractions and remove em dashes"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
