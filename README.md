@@ -2,19 +2,23 @@
 
 **Can a small AI model tell proof from paperwork?**
 
-ControlSift is an applied AI assurance research project on cybersecurity control-evidence quality. It combines a synthetic benchmark, classical baselines, Gemma 3 experiments, failure analysis, governance artifacts, and a public research site.
+ControlSift is a cybersecurity research project about a deceptively simple problem: a document can look relevant to a security control without proving that the control actually worked. The project tests whether a small language model can help tell the difference.
 
-> Status: **complete**. The research, report, eight-slide presentation, and narrated capstone video are finished. Classical experiments use dataset **v1.1.0**. Gemma zero-shot, few-shot, and QLoRA experiments were completed on dataset **v1.0.0** because of free-tier compute constraints. Cross-version scores are published for transparency but are **descriptive, not a controlled head-to-head comparison**.
+It compares a traditional text classifier with several ways of using Google's small Gemma 3 model, publishes the failures as well as the scores, and keeps the limits of the research visible.
+
+> Status: **complete**. The research, report, eight-slide presentation, and narrated capstone video are finished. One important caveat: the traditional-model experiments use dataset **v1.1.0**, while the completed Gemma experiments use the earlier **v1.0.0** dataset. Both sets of results are real, but they are **not treated as a fair head-to-head comparison** because the test sets differ.
 
 ## Why this matters
 
-Cybersecurity and GRC teams routinely confuse *artifacts* with *proof*. A policy requiring MFA isn't proof that MFA operated during the assessment period. An operational export can provide stronger evidence, and an export showing a failed control condition can contradict the control outright.
+Cybersecurity and GRC teams routinely receive artifacts that describe a control without proving that it operated. A policy requiring MFA tells you what should happen. It does not prove that privileged accounts actually used MFA during the period under review. A system export can provide stronger evidence, while an export showing a failed condition can contradict the control outright.
 
-ControlSift asks whether a small language model can help classify evidence quality while preserving clear limits on what the experiment proves.
+ControlSift asks whether a small language model can help sort those differences without pretending that AI replaces professional judgment.
 
 ## Research question
 
-Can parameter-efficient fine-tuning materially improve a small general-purpose language model's ability to evaluate the sufficiency and relevance of cybersecurity control evidence?
+Can a small general-purpose language model classify the quality of cybersecurity control evidence, and does fine-tuning it improve the result compared with simply prompting it well?
+
+The technical version of that question tests parameter-efficient fine-tuning with QLoRA against zero-shot and few-shot prompting.
 
 ## Benchmark
 
@@ -34,7 +38,7 @@ Current hardened classical benchmark:
 - canonical seed: `42`
 - dataset version: **1.1.0**
 
-The Gemma experiments were run earlier against **v1.0.0**. Those results remain valid for within-version comparisons among Gemma zero-shot, few-shot, and QLoRA, but shouldn't be treated as an apples-to-apples comparison with the v1.1 classical scores.
+The Gemma experiments were run earlier against **v1.0.0**. Those results can be compared with one another because zero-shot, few-shot, and QLoRA used the same version. They should not be treated as an apples-to-apples comparison with the v1.1 classical scores.
 
 ## Model ladder
 
@@ -43,7 +47,7 @@ Classical v1.1: Majority -> TF-IDF + logistic regression
 Gemma v1.0:     Zero-shot -> Few-shot -> QLoRA
 ```
 
-Primary metric: **macro F1**.
+Primary metric: **macro F1**, a 0–1 score that gives each evidence label equal weight.
 
 ## Published results
 
@@ -62,7 +66,7 @@ Primary metric: **macro F1**.
 | Gemma 3 1B few-shot | **0.1365** | **0.1741** | 0.985 |
 | Gemma 3 1B QLoRA | **0.0827** | 0.1309 | 0.435 |
 
-Within the Gemma v1.0 ladder, **few-shot is the strongest run** and **QLoRA doesn't beat few-shot**. The low QLoRA parse-success rate is itself an important failure mode.
+Among the Gemma v1.0 runs, **few-shot performed best**. Fine-tuning with QLoRA did not beat few-shot prompting, and the fine-tuned run often failed to return a label in the expected format. That failure rate is part of the finding, not something hidden from the results.
 
 The v1.1 TF-IDF result and v1.0 Gemma results should **not** be used to claim that one model family definitively beat the other on the same benchmark. A controlled cross-family claim would require rerunning one side on the other's dataset version, which is outside the scope of this free-tier capstone.
 
@@ -79,7 +83,7 @@ ControlSift deliberately keeps several boundaries visible:
 - cross-version model comparisons are labeled descriptive rather than controlled
 - the project isn't a production auditor or compliance engine
 
-An early generator allowed TF-IDF to saturate at 1.0. The benchmark was hardened before the v1.1 protocol seal so simple lexical shortcuts no longer defined a trivial task.
+An early generator made the synthetic task too easy for TF-IDF, which reached 1.0. The benchmark was hardened before the v1.1 protocol seal so simple word-pattern shortcuts no longer defined a trivial task.
 
 ## External grounding
 
@@ -111,13 +115,13 @@ Annotated source notes and claim boundaries: `docs/capstone/research-sources.htm
 
 ## Methodology
 
-1. Deterministic synthetic evidence generation with rule-derived labels
-2. Family-level split isolation and integrity tests
-3. Classical baselines and lexical-ceiling hardening
-4. Gemma 3 1B zero-shot and few-shot prompting
-5. Gemma 3 1B QLoRA on free-tier GPU infrastructure
-6. Held-out and challenge evaluation, error analysis, and failure inspection
-7. Data Card, Model Card, intended-use limits, and AI risk register
+1. Generate synthetic evidence examples with rule-derived labels
+2. Keep related scenario families isolated across train and test splits
+3. Test simple baselines and harden the benchmark against easy word-pattern shortcuts
+4. Test Gemma 3 1B with no examples and with a few worked examples
+5. Fine-tune Gemma 3 1B with QLoRA on free-tier GPU infrastructure
+6. Evaluate held-out and challenge cases, then inspect errors and failure patterns
+7. Publish the Data Card, Model Card, intended-use limits, and AI risk register
 
 ## CRISP-DM mapping
 
