@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#050a08" />
   <title>Research Sources & Claim Boundaries — ControlSift Capstone</title>
   <meta name="robots" content="noindex" />
-  <meta name="description" content="Annotated external sources that ground ControlSift's cybersecurity assessment problem, small-model method, responsible-AI boundaries, and SDG framing." />
-  <link rel="stylesheet" href="../assets/css/site.css?v=2026090801" />
+  <meta name="description" content="Annotated standards, peer-reviewed research, primary technical literature, and regulatory sources grounding ControlSift's evidence-quality problem, AI-assurance method, and human-oversight boundaries." />
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026091101" />
   <style>
     .source-grid {
       display: grid;
@@ -35,6 +35,27 @@
     .claim-label { color: var(--fg); font-weight: 600; }
     .boundary { border-left: 2px solid var(--warn); padding-left: .7rem; }
     .citation-line { font-family: var(--font-mono) !important; font-size: var(--text-xs) !important; }
+    .source-mix {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+      gap: .65rem;
+      margin-top: 1rem;
+    }
+    .source-mix div {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: .85rem .95rem;
+    }
+    .source-mix strong {
+      display: block;
+      color: var(--accent);
+      font-family: var(--font-mono) !important;
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: .25rem;
+    }
+    .source-mix span { color: var(--muted); font-size: var(--text-sm); }
   </style>
 </head>
 <body>
@@ -50,117 +71,155 @@
       <div class="page-intro">
         <h2>Research sources &amp; claim boundaries</h2>
         <p>
-          ControlSift's model scores come from its own sealed synthetic benchmark. The external sources below do something different: they ground the real-world control-assessment problem, the resource-access motivation, the model and fine-tuning choices, and the project's human-oversight boundaries.
+          ControlSift's model scores come from its own sealed synthetic benchmark. The external literature serves a different purpose: grounding what makes evidence persuasive, showing where AI and language models are already being studied in cybersecurity and audit-adjacent work, justifying the small-model and PEFT choices, and defining responsible-use and human-oversight boundaries.
         </p>
       </div>
       <nav class="capstone-nav" data-capstone-nav aria-label="Capstone"></nav>
 
       <div class="callout" style="margin-top:1.25rem;">
         <strong>Research-integrity rule</strong>
-        No outside source is used to imply that ControlSift works in production. ControlSift-specific performance claims come only from <code>results/*</code> and <code>docs/data/results.json</code>. External literature supports context and method selection, not the experiment's outcome.
+        No outside source is used to imply that ControlSift works in production. ControlSift-specific performance claims come only from <code>results/*</code> and <code>docs/data/results.json</code>. External literature supports problem framing, method selection, and governance boundaries — not the experiment's outcome.
       </div>
+
+      <div class="source-mix" aria-label="Core research source mix">
+        <div><strong>3 assurance sources</strong><span>NIST, PCAOB, and The IIA on assessment and evidence quality.</span></div>
+        <div><strong>2 domain-research sources</strong><span>Peer-reviewed cybersecurity and audit literature on AI/LLM use and limitations.</span></div>
+        <div><strong>3 technical sources</strong><span>Original LoRA, QLoRA, and Gemma 3 method/model documentation.</span></div>
+        <div><strong>2 oversight sources</strong><span>NIST AI RMF and the EU AI Act on governance and human oversight.</span></div>
+      </div>
+      <p style="margin-top:.9rem;color:var(--muted);font-size:var(--text-sm);">The ten sources below are the project's core research set. Small-business access and UN SDG materials are retained separately as capstone-program context rather than counted as technical evidence.</p>
     </section>
 
     <section class="section">
-      <h2>Problem and assurance grounding</h2>
+      <h2>Evidence quality and assurance</h2>
       <div class="source-grid">
         <article class="source-card">
-          <p class="source-type">NIST · Control assessment</p>
+          <p class="source-type">01 · NIST · Control assessment</p>
           <h3>NIST SP 800-53A Rev. 5 — Assessing Security and Privacy Controls</h3>
-          <p><span class="claim-label">Supports:</span> Control assessment is a structured process for determining whether controls are implemented and achieving intended outcomes. NIST provides customizable assessment procedures and guidance for analyzing assessment results.</p>
+          <p><span class="claim-label">Supports:</span> Security and privacy control assessment is a structured process for determining whether controls are implemented, operating as intended, and producing desired outcomes. Assessment procedures are tied to objectives and can be tailored to context.</p>
           <p class="boundary"><span class="claim-label">Does not prove:</span> that a language model can perform control assessment, or that ControlSift's five labels are a NIST taxonomy.</p>
-          <p class="citation-line"><a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">NIST publication page</a> · <a href="https://doi.org/10.6028/NIST.SP.800-53Ar5" rel="noopener">DOI</a></p>
+          <p class="citation-line"><a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">NIST publication</a> · <a href="https://doi.org/10.6028/NIST.SP.800-53Ar5" rel="noopener">DOI</a></p>
         </article>
 
         <article class="source-card">
-          <p class="source-type">NIST · Assessment outcomes</p>
-          <h3>NIST release note for SP 800-53A Rev. 5</h3>
-          <p><span class="claim-label">Supports:</span> NIST describes assessment as verifying that controls are implemented, meet stated control objectives, and achieve desired security and privacy outcomes. That distinction motivates ControlSift's focus on operational proof rather than document relevance alone.</p>
-          <p class="boundary"><span class="claim-label">Does not prove:</span> that every policy document is insufficient evidence; evidence sufficiency depends on the specific assessment objective and context.</p>
-          <p class="citation-line"><a href="https://www.nist.gov/news-events/news/2022/01/nist-updates-security-and-privacy-control-assessment-procedures" rel="noopener">NIST release</a></p>
+          <p class="source-type">02 · PCAOB · Audit evidence quality</p>
+          <h3>PCAOB AS 1105 — Audit Evidence</h3>
+          <p><span class="claim-label">Supports:</span> Evidence quality is not simply document presence. PCAOB distinguishes sufficiency (quantity) from appropriateness (quality), and defines appropriateness through relevance and reliability. The standard also notes that more low-quality evidence does not compensate for poor evidence quality and that contradictory or unreliable evidence requires further work.</p>
+          <p class="boundary"><span class="claim-label">Does not make:</span> ControlSift a financial-statement audit tool. AS 1105 is used as an audit-adjacent evidence-quality analogue for why relevance, reliability, contradiction, and sufficiency are distinct concepts.</p>
+          <p class="citation-line"><a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS1105" rel="noopener">PCAOB AS 1105</a></p>
         </article>
 
         <article class="source-card">
-          <p class="source-type">NIST · Resource constraints</p>
-          <h3>NIST Small Business Cybersecurity Corner</h3>
-          <p><span class="claim-label">Supports:</span> NIST explicitly recognizes that smaller businesses operate with limited resources and budgets and need practical, actionable, cost-effective cybersecurity guidance and solutions.</p>
-          <p class="boundary"><span class="claim-label">Does not prove:</span> that small organizations specifically lack evidence-review expertise. ControlSift interprets broader cybersecurity resource constraints as a reason to study lower-cost assurance-support methods.</p>
-          <p class="citation-line"><a href="https://www.nist.gov/itl/smallbusinesscyber/about" rel="noopener">NIST Small Business Cybersecurity Corner</a></p>
-        </article>
-
-        <article class="source-card">
-          <p class="source-type">NIST · Workforce constraints</p>
-          <h3>Building Your Small Business' Cybersecurity Team</h3>
-          <p><span class="claim-label">Supports:</span> NIST notes that small businesses often face limited resources, may be unable to afford dedicated cybersecurity staff, and may need outsourcing, upskilling, or community support.</p>
-          <p class="boundary"><span class="claim-label">Does not prove:</span> that AI should replace scarce professionals. ControlSift explicitly keeps the human reviewer authoritative.</p>
-          <p class="citation-line"><a href="https://www.nist.gov/itl/smallbusinesscyber/guidance-topic/building-your-team" rel="noopener">NIST guidance</a></p>
+          <p class="source-type">03 · The IIA · Internal audit evidence</p>
+          <h3>Global Internal Audit Standards — Standard 14.1</h3>
+          <p><span class="claim-label">Supports:</span> Internal auditors are expected to gather information that is relevant, reliable, and sufficient, apply professional skepticism to reliability, and obtain additional information when evidence cannot support a reasonable basis for findings and conclusions.</p>
+          <p class="boundary"><span class="claim-label">Does not prescribe:</span> ControlSift's label set or scoring scheme. It strengthens the broader assurance premise that evidence quality has multiple dimensions and still requires professional judgment.</p>
+          <p class="citation-line"><a href="https://www.theiia.org/en/content/standards/complete-global-internal-audit-standards/" rel="noopener">The IIA · Complete Global Internal Audit Standards</a></p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <h2>Model and method grounding</h2>
+      <h2>AI and LLMs in cybersecurity and audit-adjacent work</h2>
       <div class="source-grid">
         <article class="source-card">
-          <p class="source-type">Academic paper · PEFT</p>
+          <p class="source-type">04 · Peer-reviewed review · Cybersecurity</p>
+          <h3>Yang et al. — When LLMs Meet Cybersecurity: A Systematic Literature Review</h3>
+          <p><span class="claim-label">Supports:</span> LLMs are being studied across a broad range of cybersecurity scenarios, while the literature also identifies continuing challenges around model construction, task fit, evaluation, reliability, security, and responsible deployment. That makes bounded empirical evaluation more defensible than assuming general language capability transfers cleanly to assurance tasks.</p>
+          <p class="boundary"><span class="claim-label">Does not establish:</span> that LLMs are effective at cybersecurity control-evidence classification. ControlSift evaluates a much narrower task.</p>
+          <p class="citation-line">Yang et al. (2025) · <em>Cybersecurity</em> · <a href="https://doi.org/10.1186/s42400-025-00361-w" rel="noopener">DOI: 10.1186/s42400-025-00361-w</a></p>
+        </article>
+
+        <article class="source-card">
+          <p class="source-type">05 · Peer-reviewed field study · Auditing</p>
+          <h3>Kokina et al. — Challenges and Opportunities for Artificial Intelligence in Auditing: Evidence from the Field</h3>
+          <p><span class="claim-label">Supports:</span> Interviews with experienced audit professionals found real use of simpler AI/NLP for document extraction and anomaly-oriented support while identifying transparency, explainability, bias, privacy, robustness, reliability, overreliance, and governance as persistent adoption challenges. The study describes AI as supporting audit work rather than eliminating the need for human auditors.</p>
+          <p class="boundary"><span class="claim-label">Does not prove:</span> that ControlSift's approach is audit-ready. It provides empirical audit-domain context for assistive AI, document analysis, and the importance of human oversight.</p>
+          <p class="citation-line">Kokina, Blanchette, Davenport &amp; Pachamanova (2025) · <em>International Journal of Accounting Information Systems</em> · <a href="https://doi.org/10.1016/j.accinf.2025.100734" rel="noopener">DOI: 10.1016/j.accinf.2025.100734</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Small-model and parameter-efficient adaptation context</h2>
+      <div class="source-grid">
+        <article class="source-card">
+          <p class="source-type">06 · Primary technical paper · PEFT</p>
+          <h3>Hu et al. — LoRA: Low-Rank Adaptation of Large Language Models</h3>
+          <p><span class="claim-label">Supports:</span> LoRA adapts pretrained models by freezing the original weights and training low-rank matrices, substantially reducing the number of trainable parameters and memory requirements compared with full fine-tuning.</p>
+          <p class="boundary"><span class="claim-label">Does not imply:</span> that parameter efficiency guarantees better task performance. It explains the adapter mechanism that QLoRA builds on.</p>
+          <p class="citation-line">Hu et al. (2021/2022) · <a href="https://arxiv.org/abs/2106.09685" rel="noopener">arXiv:2106.09685</a></p>
+        </article>
+
+        <article class="source-card">
+          <p class="source-type">07 · Primary technical paper · Quantized PEFT</p>
           <h3>Dettmers et al. — QLoRA: Efficient Finetuning of Quantized LLMs</h3>
-          <p><span class="claim-label">Supports:</span> The QLoRA method used in ControlSift: gradients are backpropagated through a frozen 4-bit quantized language model into low-rank adapters, reducing memory requirements for fine-tuning. The paper introduces NF4 and other memory-saving techniques.</p>
-          <p class="boundary"><span class="claim-label">Does not prove:</span> that QLoRA should improve this cybersecurity evidence task. ControlSift tests that hypothesis rather than assuming it.</p>
+          <p><span class="claim-label">Supports:</span> The QLoRA method used in ControlSift: gradients are propagated through a frozen 4-bit quantized model into LoRA adapters, reducing memory requirements for fine-tuning. The paper introduces NF4 and related memory-saving techniques.</p>
+          <p class="boundary"><span class="claim-label">Does not prove:</span> that QLoRA should improve this cybersecurity evidence task. ControlSift tests that hypothesis and preserves the negative result when it does not.</p>
           <p class="citation-line">Dettmers, Pagnoni, Holtzman &amp; Zettlemoyer (2023) · <a href="https://arxiv.org/abs/2305.14314" rel="noopener">arXiv:2305.14314</a></p>
         </article>
 
         <article class="source-card">
-          <p class="source-type">Google DeepMind · Model documentation</p>
-          <h3>Gemma 3 model card and technical report</h3>
-          <p><span class="claim-label">Supports:</span> Gemma 3 is a family of lightweight open models, including a 1B text model. Google's documentation characterizes the 1B model as suitable for small applications and constrained environments, which is consistent with ControlSift's low-resource research design.</p>
-          <p class="boundary"><span class="claim-label">Does not prove:</span> domain suitability for cybersecurity evidence assessment. The model card's general benchmark performance is not substituted for ControlSift's task-specific results.</p>
+          <p class="source-type">08 · Google DeepMind · Model documentation</p>
+          <h3>Gemma 3 Model Card and Technical Report</h3>
+          <p><span class="claim-label">Supports:</span> Gemma 3 includes a lightweight 1B text model intended for comparatively constrained deployment settings. The model documentation provides architecture, evaluation, intended-use, and limitations context for the base model selected in ControlSift.</p>
+          <p class="boundary"><span class="claim-label">Does not prove:</span> domain suitability for cybersecurity evidence assessment. General benchmark performance is not substituted for ControlSift's task-specific results.</p>
           <p class="citation-line"><a href="https://ai.google.dev/gemma/docs/core/model_card_3" rel="noopener">Google model card</a> · <a href="https://arxiv.org/abs/2503.19786" rel="noopener">Gemma 3 Technical Report</a></p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <h2>Responsible-AI and human-oversight grounding</h2>
+      <h2>Responsible AI and human oversight</h2>
       <div class="source-grid">
         <article class="source-card">
-          <p class="source-type">NIST · AI risk management</p>
-          <h3>NIST AI RMF Core and Playbook</h3>
-          <p><span class="claim-label">Supports:</span> NIST calls for defined human-AI roles and responsibilities, documented human oversight, scoped use, risk controls, and measurement of AI-system behavior and downstream outcomes.</p>
-          <p class="boundary"><span class="claim-label">Does not prescribe:</span> ControlSift's exact governance files. The project's Data Card, Model Card, risk register, intended-use boundary, and human-review requirement are implementation choices informed by the same risk-management principles.</p>
-          <p class="citation-line"><a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" rel="noopener">AI RMF Core</a> · <a href="https://airc.nist.gov/airmf-resources/playbook/govern/" rel="noopener">Govern Playbook</a></p>
+          <p class="source-type">09 · NIST · AI risk management</p>
+          <h3>NIST AI Risk Management Framework 1.0</h3>
+          <p><span class="claim-label">Supports:</span> NIST calls for documented roles and responsibilities, explicit human-AI configurations, scoped use, test and evaluation, ongoing risk management, and defined human oversight. The framework also emphasizes documenting test sets, metrics, system limitations, and decision authority.</p>
+          <p class="boundary"><span class="claim-label">Does not prescribe:</span> ControlSift's exact governance files. The Data Card, Model Card, risk register, intended-use boundary, Failure Lab, and human-review requirement are project-level implementations informed by those principles.</p>
+          <p class="citation-line"><a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10" rel="noopener">NIST AI RMF 1.0</a> · <a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" rel="noopener">AI RMF Core</a></p>
         </article>
 
         <article class="source-card">
-          <p class="source-type">NIST · Generative AI profile</p>
-          <h3>NIST AI 600-1 — Generative AI Profile</h3>
-          <p><span class="claim-label">Supports:</span> Lifecycle risk management and trustworthiness considerations for generative-AI systems, including design, development, use, and evaluation.</p>
-          <p class="boundary"><span class="claim-label">Does not classify:</span> ControlSift as a production generative-AI system. The project uses the profile as responsible-AI context for a bounded research artifact.</p>
-          <p class="citation-line"><a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence" rel="noopener">NIST publication page</a> · <a href="https://doi.org/10.6028/NIST.AI.600-1" rel="noopener">DOI</a></p>
+          <p class="source-type">10 · European Union · Human oversight</p>
+          <h3>EU AI Act — Article 14, Human Oversight</h3>
+          <p><span class="claim-label">Supports:</span> For systems within the Article's scope, effective human oversight includes understanding system capabilities and limitations, monitoring for unexpected behavior, remaining alert to automation bias, correctly interpreting output, and being able to disregard, override, reverse, or stop system output when appropriate.</p>
+          <p class="boundary"><span class="claim-label">Does not classify:</span> ControlSift as a high-risk AI system under the EU AI Act. Article 14 is used as a strong external reference for what meaningful human oversight can require, not as a legal-status claim about this research project.</p>
+          <p class="citation-line"><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng" rel="noopener">Regulation (EU) 2024/1689 · Article 14</a></p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <h2>Societal framing</h2>
+      <h2>Capstone-program context</h2>
+      <p style="color:var(--muted);">These sources explain the access and SDG framing used by the capstone. They are intentionally separated from the ten-source technical and assurance research set above.</p>
       <div class="source-grid">
         <article class="source-card">
-          <p class="source-type">United Nations · Sustainable Development Goals</p>
+          <p class="source-type">Context · NIST · Resource constraints</p>
+          <h3>NIST Small Business Cybersecurity Corner</h3>
+          <p><span class="claim-label">Supports:</span> NIST explicitly recognizes that smaller businesses may operate with limited cybersecurity resources, budgets, and staffing and need practical, actionable, cost-conscious support.</p>
+          <p class="boundary"><span class="claim-label">Does not prove:</span> a specific shortage of evidence reviewers or justify replacing specialists with AI. ControlSift uses the broader access constraint only to motivate low-cost, human-supervised research.</p>
+          <p class="citation-line"><a href="https://www.nist.gov/itl/smallbusinesscyber/about" rel="noopener">NIST Small Business Cybersecurity Corner</a></p>
+        </article>
+
+        <article class="source-card">
+          <p class="source-type">Context · United Nations · SDG</p>
           <h3>UN Sustainable Development Goal 10 — Reduced Inequalities</h3>
-          <p><span class="claim-label">Supports:</span> The official UN designation: Reduced Inequalities is SDG 10. ControlSift's capstone maps its low-cost, open research design to the program's Reduced Inequalities option.</p>
-          <p class="boundary"><span class="claim-label">Does not claim:</span> that the UN specifically identifies cybersecurity evidence review as an SDG 10 target. The cybersecurity-assurance connection is the project's capstone interpretation.</p>
+          <p><span class="claim-label">Supports:</span> The official UN designation: Reduced Inequalities is SDG 10. ControlSift maps its low-cost, open research design to the capstone program's Reduced Inequalities option.</p>
+          <p class="boundary"><span class="claim-label">Does not claim:</span> that the UN specifically identifies cybersecurity evidence review as an SDG 10 target. The assurance-access connection is the project's capstone interpretation.</p>
           <p class="citation-line"><a href="https://sdgs.un.org/goals/goal10" rel="noopener">United Nations Goal 10</a></p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <h2>How these sources connect to ControlSift</h2>
+      <h2>How the literature connects to ControlSift</h2>
       <div class="def-list">
-        <div><dt>Problem statement</dt><dd>NIST control-assessment guidance establishes that assurance is about whether controls are implemented and achieve intended outcomes, not merely whether related documentation exists.</dd></div>
-        <div><dt>Access motivation</dt><dd>NIST small-business guidance documents real cybersecurity resource and staffing constraints. ControlSift studies whether a low-cost research method could contribute useful triage knowledge without pretending to replace expertise.</dd></div>
-        <div><dt>Technical design</dt><dd>QLoRA literature and Gemma documentation ground the choice of a memory-efficient fine-tuning method and a lightweight 1B model. Their claims are not treated as evidence of task-specific success.</dd></div>
-        <div><dt>Responsible use</dt><dd>NIST AI RMF materials support explicit scope, oversight, documentation, and accountability. ControlSift therefore publishes limitations and keeps human judgment authoritative.</dd></div>
-        <div><dt>Outcome evidence</dt><dd>Only ControlSift's sealed experiment files support statements such as “TF-IDF leads” or “QLoRA did not beat few-shot.”</dd></div>
+        <div><dt>Evidence-quality problem</dt><dd>NIST, PCAOB, and The IIA converge on a useful idea: assurance depends on evidence that is fit for an objective, reliable enough to support a conclusion, and sufficient for the decision being made. That is the conceptual foundation for distinguishing proof from merely related paperwork.</dd></div>
+        <div><dt>AI-in-domain rationale</dt><dd>Cybersecurity and audit research show active use of AI and NLP for analysis and document-oriented support, while also documenting reliability, explainability, governance, and overreliance concerns. ControlSift therefore studies assistive classification rather than autonomous audit.</dd></div>
+        <div><dt>Technical design</dt><dd>LoRA and QLoRA ground parameter-efficient adaptation; Gemma documentation grounds the lightweight model choice. None of those sources are treated as evidence that fine-tuning must improve performance.</dd></div>
+        <div><dt>Responsible use</dt><dd>NIST AI RMF and EU human-oversight requirements support explicit scope, documented limitations, monitoring, meaningful override authority, and resistance to automation bias. ControlSift keeps human judgment authoritative.</dd></div>
+        <div><dt>Outcome evidence</dt><dd>Only ControlSift's sealed experiment files support statements such as “TF-IDF reaches 0.5327 macro F1 on v1.1” or “few-shot is strongest within the Gemma v1.0 ladder.” External literature never substitutes for experiment evidence.</dd></div>
       </div>
       <div class="cta-row" style="margin-top:1.5rem;">
         <a class="btn btn-primary" href="report.html">Capstone report</a>
