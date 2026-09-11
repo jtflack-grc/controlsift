@@ -1,4 +1,4 @@
-# Week 8 deliverable — Model Alignment & Safety Report
+# Week 8 deliverable - Model Alignment & Safety Report
 
 **Handbook focus:** RLHF / DPO overview, alignment, safety, red-teaming mindset.  
 **ControlSift scope note:** v1 does **not** train a reward model or run DPO. This report documents alignment *practice* used by the project and explicit non-claims.
@@ -10,7 +10,7 @@ Desired behavior: emit one of five evidence-quality labels consistently with sea
 ## 2. Starting point
 
 - Base model: Gemma 3 1B **Instruct** (instruction-tuned priors).
-- Task adaptation path: supervised QLoRA (planned) — SFT, not preference optimization.
+- Task adaptation path: supervised QLoRA (planned) - SFT, not preference optimization.
 
 ## 3. Behavioral constraints
 

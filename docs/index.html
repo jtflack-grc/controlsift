@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#050a08" />
-  <title>ControlSift — proof from paperwork</title>
+  <title>ControlSift - proof from paperwork</title>
   <meta name="description" content="ControlSift studies cybersecurity control-evidence quality with classical and small-language-model experiments, published results, failure analysis, and explicit benchmark-version boundaries." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -49,14 +49,14 @@
     <div class="welcome-modal__backdrop" data-welcome-dismiss tabindex="-1" aria-hidden="true"></div>
     <div class="welcome-modal__card" role="document">
       <p class="welcome-modal__brand">ControlSift</p>
-      <h2 id="welcome-modal-title">Start here — no AI background required.</h2>
-      <p>ControlSift asks a simple security question: when someone hands a reviewer a document, does it actually prove the control worked — or is it only paperwork that sounds relevant?</p>
+      <h2 id="welcome-modal-title">Start here - no AI background required.</h2>
+      <p>ControlSift asks a simple security question: when someone hands a reviewer a document, does it actually prove the control worked - or is it only paperwork that sounds relevant?</p>
       <div class="orientation-note">
         <p><strong style="color:#fff;">Benchmark</strong> = a fixed exam for a model.</p>
         <p><strong style="color:#fff;">Gemma</strong> = the small language model being tested.</p>
         <p><strong style="color:#fff;">Macro F1</strong> = a 0–1 score that gives all five evidence labels equal weight; higher is better.</p>
       </div>
-      <p style="color:#e8f4ec!important;"><strong>Important research note:</strong> the current classical results are from benchmark v1.1.0, while the completed Gemma runs are tagged v1.0.0. The site publishes both, but does not treat them as a final apples-to-apples leaderboard.</p>
+      <p style="color:#e8f4ec!important;"><strong>Important research note:</strong> the current classical results are from benchmark v1.1.0, while the completed Gemma runs are tagged v1.0.0. The site publishes both, but doesn't treat them as a final apples-to-apples leaderboard.</p>
       <p class="welcome-modal__note">Synthetic research · version boundary disclosed · human judgment stays authoritative</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="index.html#plain-english" data-welcome-route>Plain-English tour</a>
@@ -88,10 +88,10 @@
 
     <section class="section" id="plain-english">
       <h2>ControlSift in 60 seconds</h2>
-      <p class="page-intro">You do not need to know what an LLM, QLoRA, or macro F1 is to understand the research.</p>
+      <p class="page-intro">You don't need to know what an LLM, QLoRA, or macro F1 is to understand the research.</p>
       <div class="integrity-grid">
-        <article><div class="mark">01</div><h3>The security problem</h3><p>A document can be relevant to a control without proving the control actually operated. Policies, screenshots, exports, and logs are not equally strong evidence.</p></article>
-        <article><div class="mark">02</div><h3>The experiment</h3><p>The project tests five evidence labels using a majority baseline, a classic word-based classifier, two prompted Gemma runs, and a fine-tuned Gemma run. The synthetic benchmark was hardened during the work, creating a v1.0/v1.1 boundary that is now explicitly disclosed.</p></article>
+        <article><div class="mark">01</div><h3>The security problem</h3><p>A document can be relevant to a control without proving the control actually operated. Policies, screenshots, exports, and logs aren't equally strong evidence.</p></article>
+        <article><div class="mark">02</div><h3>The experiment</h3><p>The project tests five evidence labels using a majority baseline, a classic word-based classifier, two prompted Gemma runs, and a fine-tuned Gemma run. The synthetic benchmark was hardened during the work, creating a v1.0/v1.1 boundary that's now explicitly disclosed.</p></article>
         <article><div class="mark">03</div><h3>What we can say now</h3><p>Within Gemma v1.0.0, few-shot beats zero-shot and QLoRA. On the hardened v1.1.0 benchmark, TF-IDF scores about 0.53 macro F1. A strict classical-vs-Gemma conclusion requires both sides on one dataset version.</p></article>
       </div>
     </section>
@@ -100,11 +100,11 @@
       <h2>Jargon decoder</h2>
       <div class="def-list">
         <div><dt>Benchmark</dt><dd>A fixed set of cases used like an exam so models can be compared under controlled conditions.</dd></div>
-        <div><dt>TF-IDF + logistic regression</dt><dd>A classic machine-learning approach that uses word patterns. It is cheap, fast, and is not a language model.</dd></div>
+        <div><dt>TF-IDF + logistic regression</dt><dd>A classic machine-learning approach that uses word patterns. It's cheap, fast, and isn't a language model.</dd></div>
         <div><dt>Gemma 3 1B</dt><dd>A relatively small Google DeepMind language model with roughly one billion parameters.</dd></div>
         <div><dt>Zero-shot / few-shot</dt><dd>Ask the model with no worked examples / give it a few examples before asking.</dd></div>
         <div><dt>QLoRA</dt><dd>A memory-efficient way to fine-tune a language model without retraining all of its weights.</dd></div>
-        <div><dt>Macro F1</dt><dd>A 0–1 performance score that gives each of the five evidence labels equal weight. Higher is better; it is not the same thing as accuracy.</dd></div>
+        <div><dt>Macro F1</dt><dd>A 0–1 performance score that gives each of the five evidence labels equal weight. Higher is better; it'sn't the same thing as accuracy.</dd></div>
       </div>
     </section>
 
@@ -155,8 +155,8 @@
       <h2>Research boundaries</h2>
       <ul class="findings-list">
         <li><strong>Synthetic, not customer evidence.</strong> The benchmark is controlled research data, not a production audit binder.</li>
-        <li><strong>Labels are rule-derived.</strong> They are structurally audited but are not a large human-labeled gold standard.</li>
-        <li><strong>Human judgment remains authoritative.</strong> ControlSift is not an automated auditor or certification engine.</li>
+        <li><strong>Labels are rule-derived.</strong> They're structurally audited but aren't a large human-labeled gold standard.</li>
+        <li><strong>Human judgment remains authoritative.</strong> ControlSift isn't an automated auditor or certification engine.</li>
         <li><strong>Dataset versions matter.</strong> Cross-version scores are published as research history, not disguised as a controlled model ranking.</li>
       </ul>
       <div class="cta-row" style="margin-top:1.25rem;"><a class="btn btn-secondary" href="assurance.html">Read the assurance case</a><a class="btn btn-secondary" href="capstone/research-sources.html">External research grounding</a></div>

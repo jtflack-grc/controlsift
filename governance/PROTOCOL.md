@@ -6,8 +6,8 @@
 **Primary metric:** macro F1  
 **Primary model:** `google/gemma-3-1b-it`  
 **Adaptation:** QLoRA (4-bit NF4, LoRA r=16, α=16)  
-**Research surface:** compositional evidence packets — see `governance/RESEARCH_SURFACE.md`  
-**Tag semantics:** `protocol-v1-locked` seals data/prompt only — see `governance/TAGS.md`
+**Research surface:** compositional evidence packets - see `governance/RESEARCH_SURFACE.md`  
+**Tag semantics:** `protocol-v1-locked` seals data/prompt only - see `governance/TAGS.md`
 
 ## Hypotheses (frozen)
 

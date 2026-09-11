@@ -10,4 +10,4 @@
 
 ## Final interpretation
 
-Classical experiments use dataset v1.1.0 and Gemma experiments use dataset v1.0.0. Within Gemma v1.0, few-shot is strongest and QLoRA does not beat it. Cross-version scores are published for transparency but are not presented as a controlled same-benchmark leaderboard.
+Classical experiments use dataset v1.1.0 and Gemma experiments use dataset v1.0.0. Within Gemma v1.0, few-shot is strongest and QLoRA doesn't beat it. Cross-version scores are published for transparency but aren't presented as a controlled same-benchmark leaderboard.

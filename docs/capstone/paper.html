@@ -27,7 +27,7 @@
         <div class="paper-abstract">
           <h3>Abstract</h3>
           <p>
-            Distinguishing operational proof from administrative paperwork is a recurring problem in cybersecurity assurance. ControlSift studies whether low-cost machine-learning methods can classify synthetic control evidence as SUFFICIENT, PARTIAL, INSUFFICIENT, IRRELEVANT, or CONTRADICTORY. The project combines a hardened classical benchmark, Gemma 3 prompting and QLoRA experiments, challenge evaluation, failure analysis, and responsible-use documentation. Classical results were produced on dataset v1.1.0, while Gemma zero-shot, few-shot, and QLoRA results were produced on dataset v1.0.0. Because those versions differ, cross-version scores are published for transparency but are descriptive rather than a controlled head-to-head comparison. Within Gemma v1.0, few-shot is strongest and QLoRA does not beat few-shot; QLoRA also shows poor label-parse reliability. The project is a bounded synthetic research artifact, not a production auditor.
+            Distinguishing operational proof from administrative paperwork is a recurring problem in cybersecurity assurance. ControlSift studies whether low-cost machine-learning methods can classify synthetic control evidence as SUFFICIENT, PARTIAL, INSUFFICIENT, IRRELEVANT, or CONTRADICTORY. The project combines a hardened classical benchmark, Gemma 3 prompting and QLoRA experiments, challenge evaluation, failure analysis, and responsible-use documentation. Classical results were produced on dataset v1.1.0, while Gemma zero-shot, few-shot, and QLoRA results were produced on dataset v1.0.0. Because those versions differ, cross-version scores are published for transparency but are descriptive rather than a controlled head-to-head comparison. Within Gemma v1.0, few-shot is strongest and QLoRA doesn't beat few-shot; QLoRA also shows poor label-parse reliability. The project is a bounded synthetic research artifact, not a production auditor.
           </p>
         </div>
 
@@ -53,7 +53,7 @@
         <section class="h-block" id="intro">
           <h2>1. Introduction</h2>
           <p>
-            Security and governance, risk, and compliance programs depend on evidence that controls operate as intended. In practice, policies, screenshots, reports, exports, tickets, and attestations can all be filed under a control even when they do not prove operation. A policy requiring MFA is relevant to an access-control objective, for example, but it does not establish that privileged accounts were enrolled during the assessment period. An operational export can provide stronger proof, while an export showing a failed control condition can contradict the control itself.
+            Security and governance, risk, and compliance programs depend on evidence that controls operate as intended. In practice, policies, screenshots, reports, exports, tickets, and attestations can all be filed under a control even when they don't prove operation. A policy requiring MFA is relevant to an access-control objective, for example, but it doesn't establish that privileged accounts were enrolled during the assessment period. An operational export can provide stronger proof, while an export showing a failed control condition can contradict the control itself.
           </p>
           <p>
             ControlSift asks whether low-cost machine-learning methods can help classify those evidence-quality distinctions on controlled synthetic data. The project emphasizes research integrity over product claims: explicit dataset versions, held-out evaluation, negative-result reporting, machine-readable metrics, failure analysis, and a clear boundary between research triage and audit judgment.
@@ -63,7 +63,7 @@
         <section class="h-block" id="background">
           <h2>2. Background and external grounding</h2>
           <p>
-            The evidence-quality problem is grounded in three complementary assurance sources. <a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">NIST SP 800-53A Rev. 5</a> ties control assessment to implementation and intended outcomes. <a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS1105" rel="noopener">PCAOB AS 1105</a> distinguishes evidence quantity from quality and defines appropriateness through relevance and reliability. <a href="https://www.theiia.org/en/content/standards/complete-global-internal-audit-standards/" rel="noopener">The IIA Global Internal Audit Standards</a> require information supporting analysis to be relevant, reliable, and sufficient. ControlSift does not adopt any one source as its label taxonomy; together they support the broader premise that evidence quality is multidimensional and tied to an assessment objective.
+            The evidence-quality problem is grounded in three complementary assurance sources. <a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">NIST SP 800-53A Rev. 5</a> ties control assessment to implementation and intended outcomes. <a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS1105" rel="noopener">PCAOB AS 1105</a> distinguishes evidence quantity from quality and defines appropriateness through relevance and reliability. <a href="https://www.theiia.org/en/content/standards/complete-global-internal-audit-standards/" rel="noopener">The IIA Global Internal Audit Standards</a> require information supporting analysis to be relevant, reliable, and sufficient. ControlSift doesn't adopt any one source as its label taxonomy; together they support the broader premise that evidence quality is multidimensional and tied to an assessment objective.
           </p>
           <p>
             The domain-use rationale extends beyond standards. Yang et al.'s peer-reviewed <a href="https://doi.org/10.1186/s42400-025-00361-w" rel="noopener">systematic review of LLMs in cybersecurity</a> documents broad experimentation alongside unresolved evaluation and reliability challenges. Kokina et al.'s <a href="https://doi.org/10.1016/j.accinf.2025.100734" rel="noopener">field study of AI in auditing</a> reports practical use of AI/NLP for document-oriented and analytical support while identifying explainability, robustness, reliability, governance, and overreliance concerns. Those findings support studying assistive evidence triage while keeping human judgment authoritative.
@@ -71,7 +71,7 @@
           <p>
             The technical method is grounded in Hu et al.'s <a href="https://arxiv.org/abs/2106.09685" rel="noopener">LoRA</a> paper and Dettmers et al.'s <a href="https://arxiv.org/abs/2305.14314" rel="noopener">QLoRA</a> paper; model context comes from the <a href="https://ai.google.dev/gemma/docs/core/model_card_3" rel="noopener">Gemma 3 Model Card</a>. Responsible-use boundaries draw on the <a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10" rel="noopener">NIST AI RMF</a> and the EU AI Act's <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng" rel="noopener">Article 14 human-oversight provisions</a>. The access-to-capacity motivation remains grounded in <a href="https://www.nist.gov/itl/smallbusinesscyber/about" rel="noopener">NIST Small Business Cybersecurity</a>, and the societal-goal mapping uses the United Nations' official <a href="https://sdgs.un.org/goals/goal10" rel="noopener">SDG 10</a> page.
           </p>
-          <p>The <a href="research-sources.html">Research Sources</a> page provides a ten-source core research set with a separate "supports / does not prove" boundary for every source.</p>
+          <p>The <a href="research-sources.html">Research Sources</a> page provides a ten-source core research set with a separate "supports / doesn't prove" boundary for every source.</p>
         </section>
 
         <section class="h-block" id="problem">
@@ -80,8 +80,8 @@
           <ul class="findings-list">
             <li><strong>SUFFICIENT:</strong> complete, timely, on-objective operational proof.</li>
             <li><strong>PARTIAL:</strong> relevant operational evidence with material coverage or scope gaps.</li>
-            <li><strong>INSUFFICIENT:</strong> on-topic material that does not establish execution.</li>
-            <li><strong>IRRELEVANT:</strong> evidence that does not address the control objective.</li>
+            <li><strong>INSUFFICIENT:</strong> on-topic material that doesn't establish execution.</li>
+            <li><strong>IRRELEVANT:</strong> evidence that doesn't address the control objective.</li>
             <li><strong>CONTRADICTORY:</strong> evidence containing a fact that conflicts with the claimed control state.</li>
           </ul>
           <p>
@@ -142,7 +142,7 @@
             </tbody>
           </table>
           <p>
-            The controlled Gemma conclusion is straightforward: <strong>few-shot is the strongest Gemma v1.0 run, and QLoRA does not beat few-shot</strong>. The low QLoRA parse-success rate shows that output-format reliability became a major failure mode after adaptation.
+            The controlled Gemma conclusion is straightforward: <strong>few-shot is the strongest Gemma v1.0 run, and QLoRA doesn't beat few-shot</strong>. The low QLoRA parse-success rate shows that output-format reliability became a major failure mode after adaptation.
           </p>
           <p>
             The v1.1 classical scores are numerically higher than the v1.0 Gemma scores, but the project does <strong>not</strong> interpret that difference as proof that TF-IDF beats Gemma on the same benchmark because the underlying dataset versions differ.
@@ -153,14 +153,14 @@
         <section class="h-block" id="errors">
           <h2>8. Failure analysis</h2>
           <p>
-            The public <a href="../failure-lab.html">Failure Lab</a> treats errors as first-class research artifacts. Classical mistakes cluster around compositional coverage and evidence-substance distinctions, while the adapted Gemma run adds a different problem: many generations fail to produce a valid label at all. That parsing collapse is not hidden or post-processed away.
+            The public <a href="../failure-lab.html">Failure Lab</a> treats errors as first-class research artifacts. Classical mistakes cluster around compositional coverage and evidence-substance distinctions, while the adapted Gemma run adds a different problem: many generations fail to produce a valid label at all. That parsing collapse isn't hidden or post-processed away.
           </p>
         </section>
 
         <section class="h-block" id="rai">
           <h2>9. Responsible innovation</h2>
           <p>
-            ControlSift is not an automated auditor, certification engine, or replacement for control owners or human assessors. Intended use is method comparison, education, and study of assistive evidence triage under synthetic conditions. The project publishes a Data Card, Model Card, AI risk register, intended-use policy, limitations, protocol information, and failure examples. Human judgment remains authoritative.
+            ControlSift isn't an automated auditor, certification engine, or replacement for control owners or human assessors. Intended use is method comparison, education, and study of assistive evidence triage under synthetic conditions. The project publishes a Data Card, Model Card, AI risk register, intended-use policy, limitations, protocol information, and failure examples. Human judgment remains authoritative.
           </p>
           <p>
             Practicality and sustainability come from low-cost components: synthetic data, an inexpensive classical baseline, a small language model, and free or commodity GPU infrastructure. Scaling into real operations would require governed real-world validation, stronger constrained output handling, security review, ongoing monitoring, and accountable human oversight. That boundary is consistent with the audit literature's warnings about reliability and overreliance, the NIST AI RMF's emphasis on defined human-AI roles, and EU Article 14's focus on understanding limitations, monitoring behavior, resisting automation bias, and retaining meaningful override authority.
@@ -170,12 +170,12 @@
         <section class="h-block" id="limits">
           <h2>10. Limitations</h2>
           <ul class="findings-list">
-            <li>Synthetic packets are not real multi-document audit binders.</li>
+            <li>Synthetic packets aren't real multi-document audit binders.</li>
             <li>Labels are rule-derived, not a large-scale human gold standard.</li>
             <li>Compositional scaffolding may reward schema-reading behavior.</li>
             <li>Gemma experiments use v1.0 while classical experiments use v1.1, preventing a controlled cross-family comparison.</li>
             <li>QLoRA parse success is low, limiting interpretation of its score.</li>
-            <li>Results for Gemma 3 1B do not automatically generalize to other models or scales.</li>
+            <li>Results for Gemma 3 1B don't automatically generalize to other models or scales.</li>
             <li>No production-auditor claim is supported by this work.</li>
           </ul>
         </section>

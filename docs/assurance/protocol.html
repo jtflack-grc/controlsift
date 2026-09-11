@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
-  <title>Protocol — ControlSift</title>
+  <title>Protocol - ControlSift</title>
   <link rel="stylesheet" href="../assets/css/site.css?v=2026091001" />
 </head>
 <body>
@@ -22,7 +22,7 @@
         <div><dt>Base model</dt><dd><code>google/gemma-3-1b-it</code></dd></div>
         <div><dt>Adaptation</dt><dd>QLoRA · 4-bit NF4 · LoRA r=16 / alpha=16</dd></div>
       </div>
-      <div class="callout" style="margin-top:1rem;"><strong>Final version boundary</strong> The locked v1.1 classical benchmark and the completed v1.0 Gemma runs are retained as separate experiment families. Cross-version scores are descriptive only and are not a controlled same-benchmark leaderboard.</div>
+      <div class="callout" style="margin-top:1rem;"><strong>Final version boundary</strong> The locked v1.1 classical benchmark and the completed v1.0 Gemma runs are retained as separate experiment families. Cross-version scores are descriptive only and aren't a controlled same-benchmark leaderboard.</div>
     </section>
 
     <section class="section">
@@ -34,7 +34,7 @@
         <li><strong>H4 · Data scaling</strong> Performance rises with train size, then diminishes.</li>
         <li><strong>H5 · Remaining weaknesses</strong> Hard boundaries persist, especially PARTIAL vs SUFFICIENT and PARTIAL vs INSUFFICIENT.</li>
       </ul>
-      <p style="margin-top:1rem;color:var(--muted);">Within the completed Gemma v1.0 experiments, few-shot is strongest and QLoRA does not beat it. Cross-family hypotheses requiring a common dataset version are not treated as controlled tests.</p>
+      <p style="margin-top:1rem;color:var(--muted);">Within the completed Gemma v1.0 experiments, few-shot is strongest and QLoRA doesn't beat it. Cross-family hypotheses requiring a common dataset version aren't treated as controlled tests.</p>
     </section>
 
     <section class="section">
@@ -44,7 +44,7 @@
         <li><strong>Strict parsing</strong> Ambiguous output becomes <code>UNPARSEABLE</code>, never silently coerced to gold.</li>
         <li><strong>Uncertainty</strong> Bootstrap CIs; McNemar for paired comparisons where appropriate.</li>
         <li><strong>Slices</strong> Domain, artifact type, difficulty, failure tags.</li>
-        <li><strong>Prompt freeze</strong> Canonical template in <code>src/controlsift/prompting/templates.py</code>. Do not retune from test failures after lock.</li>
+        <li><strong>Prompt freeze</strong> Canonical template in <code>src/controlsift/prompting/templates.py</code>. Don't retune from test failures after lock.</li>
       </ul>
     </section>
 

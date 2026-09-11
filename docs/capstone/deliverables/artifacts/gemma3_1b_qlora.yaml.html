@@ -31,7 +31,7 @@ seed: 42
 dataset_version: &quot;1.0.0&quot;
 model_id: google/gemma-3-1b-it
 # LoRA target modules must be verified against the loaded Gemma 3 architecture.
-# Do not blindly copy names from other transformers.
+# Don't blindly copy names from other transformers.
 quantization:
   load_in_4bit: true
   bnb_4bit_quant_type: nf4
@@ -43,7 +43,7 @@ lora:
   lora_dropout: 0.05
   bias: none
   task_type: CAUSAL_LM
-  # Placeholder — verify after model load on GPU:
+  # Placeholder - verify after model load on GPU:
   target_modules: null
 training:
   num_train_epochs: 3
