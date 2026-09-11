@@ -12,29 +12,30 @@
   <header class="site-header"><nav class="nav" aria-label="Primary"><a class="brand" href="index.html">ControlSift</a><ul class="nav-links" data-site-nav></ul></nav></header>
   <main>
     <section class="section" style="border-top:0;padding-top:1rem;">
-      <div class="page-intro"><h2>Controlled benchmark, explicit version boundary</h2><p>ControlSift is designed as a small independent research laboratory, not a demo chatbot. The method tests evidence-quality classification with committed receipts and bounded claims.</p></div>
-      <div class="callout"><strong>Research question</strong> Can small-model approaches classify cybersecurity evidence quality, and what does prompting versus parameter-efficient fine-tuning show under controlled evaluation?</div>
+      <div class="page-intro"><h2>How ControlSift was tested</h2><p>ControlSift is a research experiment, not a chatbot product. It creates synthetic examples of cybersecurity evidence, keeps training and test cases separated, and records the exact dataset and experiment versions so the claims can be checked.</p></div>
+      <div class="callout"><strong>Research question</strong> Can a small language model help classify the quality of cybersecurity evidence, and does giving it examples or fine-tuning it improve the result?</div>
     </section>
 
     <section class="section">
-      <h2>Task</h2>
-      <p>Five-class evidence quality classification. Primary evaluation is the label; rationale is secondary.</p>
+      <h2>What the model has to decide</h2>
+      <p>Each evidence example receives one of five labels. The label is the main thing being scored; any written explanation from the model is secondary.</p>
       <div class="class-chip-row"><span class="class-chip">SUFFICIENT</span><span class="class-chip">PARTIAL</span><span class="class-chip">INSUFFICIENT</span><span class="class-chip">IRRELEVANT</span><span class="class-chip">CONTRADICTORY</span></div>
     </section>
 
     <section class="section">
-      <h2>Dataset</h2>
+      <h2>The synthetic benchmark</h2>
       <div class="meta-strip"><span>Train <strong>1000</strong></span><span>Validation <strong>200</strong></span><span>Test <strong>200</strong></span><span>Challenge <strong>100</strong></span><span>Seed <strong>42</strong></span></div>
       <ul class="findings-list">
-        <li><strong>Deterministic synthetic generation</strong> Scenario families mutate into labeled variants. No employer or customer evidence enters the corpus.</li>
-        <li><strong>Family-level split isolation</strong> All variants of one scenario family stay in exactly one split. Leakage fails CI.</li>
-        <li><strong>Rule-derived labels + label audit</strong> Not fully human-annotated. Challenge: 100% structural audit + 20-case narrative spot-check.</li>
-        <li><strong>Version boundary</strong> The hardened classical benchmark is v1.1.0. Completed Gemma experiments use v1.0.0. Within-version comparisons are controlled; cross-version scores are descriptive only.</li>
+        <li><strong>No employer or customer evidence is used.</strong> The examples are generated from controlled cybersecurity scenarios.</li>
+        <li><strong>Related scenarios stay together.</strong> Variations of the same scenario family are kept in only one split, so the model can't train on one version and then be tested on a close cousin.</li>
+        <li><strong>The expected labels come from rules.</strong> They were checked for structural consistency, and challenge cases received a 20-case narrative spot-check. This is not a large benchmark independently labeled by many human experts.</li>
+        <li><strong>The benchmark changed during the research.</strong> The hardened traditional-model benchmark is v1.1.0. The completed Gemma experiments use v1.0.0. Results are comparable within a version; cross-version scores are published only as research history.</li>
       </ul>
     </section>
 
     <section class="section">
-      <h2>Completed model ladder</h2>
+      <h2>Approaches tested</h2>
+      <p>The experiment starts simple and adds complexity one step at a time.</p>
       <ol class="ladder">
         <li><span class="step">B0</span><span class="title">Majority class · v1.1.0</span><span class="state done">complete</span></li>
         <li><span class="step">B1</span><span class="title">TF-IDF + logistic regression · v1.1.0</span><span class="state done">complete</span></li>
@@ -42,23 +43,23 @@
         <li><span class="step">B3</span><span class="title">Gemma 3 1B few-shot · v1.0.0</span><span class="state done">complete</span></li>
         <li><span class="step">M4</span><span class="title">Gemma 3 1B + QLoRA · v1.0.0</span><span class="state done">complete</span></li>
       </ol>
-      <p style="margin-top:1rem;">QLoRA defaults: 4-bit NF4, double quant, LoRA r=16 / alpha=16, max length 512. Target modules are resolved from the loaded Gemma architecture, not copied blindly.</p>
-      <p>Within Gemma v1.0, few-shot produced the strongest test macro F1 (~0.137). QLoRA was ~0.083 and test label-parse success was ~0.435.</p>
+      <p style="margin-top:1rem;"><strong>In plain English:</strong> the Gemma runs compare asking the model with no examples, giving it a few worked examples first, and fine-tuning it. Among those v1.0 runs, few-shot performed best.</p>
+      <p><strong>Technical detail:</strong> QLoRA defaults were 4-bit NF4, double quant, LoRA r=16 / alpha=16, max length 512. Target modules were resolved from the loaded Gemma architecture rather than copied blindly. Few-shot test macro F1 was about 0.137; QLoRA was about 0.083, with test label-parse success around 0.435.</p>
     </section>
 
     <section class="section">
-      <h2>Evaluation</h2>
+      <h2>How performance is measured</h2>
       <ul class="findings-list">
-        <li><strong>Primary metric: macro F1</strong> Also accuracy, macro precision/recall, per-class scores, confusion matrices, parse-success rate.</li>
-        <li><strong>Deterministic inference + strict parser</strong> Ambiguous model output becomes <code>UNPARSEABLE</code>, never silently “fixed” into the gold label.</li>
-        <li><strong>Uncertainty and slices</strong> Bootstrap intervals, McNemar for paired comparisons where appropriate, slices by domain / artifact / difficulty / failure tags.</li>
-        <li><strong>Protocol seal</strong> Hypotheses, metric, prompt, and test hash were frozen before final claims. See the <a href="assurance/protocol.html">Protocol</a> and <a href="assurance.html">Assurance</a> pages.</li>
+        <li><strong>Main score: macro F1.</strong> This 0–1 score gives each of the five evidence labels equal weight. The project also reports accuracy, precision, recall, per-label scores, and confusion matrices.</li>
+        <li><strong>Malformed answers count as failures.</strong> If the model doesn't return a usable label, the result becomes <code>UNPARSEABLE</code>. The evaluator doesn't quietly repair the answer.</li>
+        <li><strong>Results are examined from several angles.</strong> The analysis includes uncertainty ranges and performance by control domain, artifact type, difficulty, and failure tag.</li>
+        <li><strong>The final test rules were frozen before final claims.</strong> The hypotheses, main metric, prompt, and test hash are recorded in the <a href="assurance/protocol.html">Protocol</a> and <a href="assurance.html">Assurance</a> pages.</li>
       </ul>
     </section>
 
     <section class="section">
-      <h2>What this method refuses</h2>
-      <p>No live auditor product, no RAG over real evidence binders, no OCR pipeline, no tuning against a sealed test set, and no fabricated public metrics.</p>
+      <h2>What this project does not do</h2>
+      <p>ControlSift isn't a live auditor, a production compliance engine, or a system that reads real evidence binders. It doesn't use OCR, retrieval over customer documents, or tuning against the sealed test set, and it doesn't publish invented metrics.</p>
       <div class="cta-row" style="margin-top:1.25rem;"><a class="btn btn-primary" href="results.html">View results</a><a class="btn btn-secondary" href="reproduce.html">Reproduce</a><a class="btn btn-secondary" href="assurance.html">Assurance</a></div>
     </section>
   </main>
