@@ -83,14 +83,14 @@ An early generator allowed TF-IDF to saturate at 1.0. The benchmark was hardened
 
 ## External grounding
 
-The capstone's problem and method are grounded in public sources including:
+The capstone uses a diversified research base rather than relying on a single framework:
 
-- NIST SP 800-53A Rev. 5 for control assessment and evidence-oriented verification
-- NIST Small Business Cybersecurity resources for real-world cybersecurity resource constraints
-- Dettmers et al., *QLoRA: Efficient Finetuning of Quantized LLMs*, for the fine-tuning method
-- Google DeepMind's Gemma 3 documentation for model context
-- NIST AI RMF for lifecycle risk, scope, oversight, and human-accountability boundaries
-- United Nations SDG 10, Reduced Inequalities, for the official societal-goal mapping
+- **Evidence quality and assurance:** NIST SP 800-53A Rev. 5, PCAOB AS 1105, and The IIA Global Internal Audit Standards ground the distinction between document presence and evidence that is relevant, reliable, sufficient, and tied to an assessment objective.
+- **AI and LLM use in adjacent domains:** Yang et al.'s systematic review of LLMs in cybersecurity and Kokina et al.'s field study of AI in auditing provide current research context on document-oriented AI use, evaluation challenges, reliability, explainability, governance, and overreliance.
+- **Small-model and PEFT context:** Hu et al.'s *LoRA* paper, Dettmers et al.'s *QLoRA* paper, and Google DeepMind's Gemma 3 documentation ground the parameter-efficient adaptation method and lightweight model choice.
+- **Responsible AI and human oversight:** NIST AI RMF 1.0 and EU AI Act Article 14 ground explicit scope, monitoring, human-AI roles, automation-bias awareness, and meaningful human override.
+
+Small-business cybersecurity resource constraints and UN SDG 10 are retained separately as capstone-program context rather than treated as technical evidence. None of the external sources are used to claim that ControlSift works in production; project-specific performance claims come only from the committed experiment records.
 
 Annotated source notes and claim boundaries: `docs/capstone/research-sources.html`.
 
