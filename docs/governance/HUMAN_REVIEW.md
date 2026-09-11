@@ -15,7 +15,7 @@
 
 Receipts: `data/review_log.csv`, `reports/HUMAN_REVIEW_AUDIT.md`, `reports/SPOTCHECK_20.md`.
 
-## What this isn't
+## What this is not
 
 - Not independent expert adjudication of every case
 - Not a GRC practitioner reviewing binders by hand
@@ -33,4 +33,4 @@ Say out loud: *structural auditor + scripted spot-check*, never “humans labele
 | `corrected` | Label or text corrected after review |
 | `flagged` | Audit found an invariant violation needing judgment |
 
-When correcting, update both `review_log.csv` and the corresponding JSONL row; regenerate manifest hashes; prefer avoiding test-set edits after seal - open a new dataset version instead.
+When correcting, update both `review_log.csv` and the corresponding JSONL row; regenerate manifest hashes; prefer avoiding test-set edits after seal — open a new dataset version instead.

@@ -1,4 +1,4 @@
-# AI Risk Register - ControlSift
+# AI Risk Register — ControlSift
 
 | ID | Risk | Likelihood | Impact | Mitigation | Status |
 |----|------|------------|--------|------------|--------|

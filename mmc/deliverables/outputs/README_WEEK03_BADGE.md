@@ -1,4 +1,4 @@
-# Week 3 badge proof - drop zone
+# Week 3 badge proof — drop zone
 
 Place your Skill Badge evidence here (filename exact):
 
@@ -13,4 +13,4 @@ python -m mmc.labs.sync_artifacts
 python -m mmc.labs.build_week_pages
 ```
 
-Don't commit secrets. A public badge URL / screenshot is fine.
+Do not commit secrets. A public badge URL / screenshot is fine.

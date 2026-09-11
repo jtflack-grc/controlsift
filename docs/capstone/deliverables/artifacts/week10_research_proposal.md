@@ -1,14 +1,14 @@
-# Week 10 deliverable - Capstone Research Proposal & baseline pipeline
+# Week 10 deliverable — Capstone Research Proposal & baseline pipeline
 
 **Handbook:** Course 08 · Capstone – Setup & Formulation  
 **Key deliverable:** Peer-reviewed Capstone Research Proposal & baseline pipeline
 
 ## 1. Research problem
 
-**Title:** ControlSift - Can a small language model help under-resourced teams tell proof from paperwork?
+**Title:** ControlSift — Can a small language model help under-resourced teams tell proof from paperwork?
 
-**MMC rubric option:** Goal 4 - Reduced Inequalities  
-**Official UN designation:** SDG 10 - Reduced Inequalities
+**MMC rubric option:** Goal 4 — Reduced Inequalities  
+**Official UN designation:** SDG 10 — Reduced Inequalities
 
 **Question:** Can small-model approaches classify cybersecurity evidence quality across five classes, and does QLoRA improve on prompted Gemma baselines under a controlled experiment?
 
@@ -44,9 +44,9 @@ pytest
 | Gemma few-shot | v1.0.0 | ~0.137 | ~0.174 | complete |
 | Gemma QLoRA | v1.0.0 | ~0.083 | ~0.131 | complete |
 
-**Final execution boundary:** the classical experiments use v1.1.0 while the Gemma experiments use v1.0.0. Within-version comparisons are controlled; cross-version values are descriptive only and aren't presented as a same-benchmark classical-vs-Gemma ranking.
+**Final execution boundary:** the classical experiments use v1.1.0 while the Gemma experiments use v1.0.0. Within-version comparisons are controlled; cross-version values are descriptive only and are not presented as a same-benchmark classical-vs-Gemma ranking.
 
-Within the controlled Gemma v1.0 experiments, few-shot prompting is strongest. QLoRA doesn't beat few-shot and test parse success is about 0.435.
+Within the controlled Gemma v1.0 experiments, few-shot prompting is strongest. QLoRA does not beat few-shot and test parse success is about 0.435.
 
 ## 5. Compute and execution path
 
@@ -58,7 +58,7 @@ Within the controlled Gemma v1.0 experiments, few-shot prompting is strongest. Q
 
 ## 6. Proposal outcome
 
-The proposed research pipeline was completed. The final artifact preserves two important findings that weren't assumed in advance: benchmark hardening materially reduced the original TF-IDF shortcut, and QLoRA didn't automatically improve Gemma performance. Final review also surfaced the dataset-version boundary, which is disclosed throughout the capstone rather than hidden behind a cleaner but unsupported leaderboard.
+The proposed research pipeline was completed. The final artifact preserves two important findings that were not assumed in advance: benchmark hardening materially reduced the original TF-IDF shortcut, and QLoRA did not automatically improve Gemma performance. Final review also surfaced the dataset-version boundary, which is disclosed throughout the capstone rather than hidden behind a cleaner but unsupported leaderboard.
 
 ## 7. Links
 

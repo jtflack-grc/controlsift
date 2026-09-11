@@ -1,4 +1,4 @@
-# Data Card - ControlSift Benchmark
+# Data Card — ControlSift Benchmark
 
 ## Summary
 
@@ -16,7 +16,7 @@ Synthetic cybersecurity control-evidence benchmark for five-class evidence quali
 
 ## Motivation
 
-Support research on whether PEFT improves small-LM judgment of evidence sufficiency/relevance on a **leakage-controlled synthetic** task - not to train a production auditor.
+Support research on whether PEFT improves small-LM judgment of evidence sufficiency/relevance on a **leakage-controlled synthetic** task — not to train a production auditor.
 
 ## Composition
 
@@ -28,7 +28,7 @@ Each case includes control statement, environment, evidence type, evidence text,
 
 ## Ground truth
 
-Primary labels are **rule-derived** inside the generator via controlled mutations. They're **not** fully human-labeled.
+Primary labels are **rule-derived** inside the generator via controlled mutations. They are **not** fully human-labeled.
 
 Label audit:
 
@@ -40,7 +40,7 @@ Label audit:
 
 - Scenario families in `data/scenarios/scenario_families.yaml`
 - Generator: `src/controlsift/data/generate.py`
-- Family-level split'solation (no family crosses partitions)
+- Family-level split isolation (no family crosses partitions)
 - Synthetic orgs, systems, accounts, tickets only
 
 ## Preprocessing / splits
@@ -60,7 +60,7 @@ See `src/controlsift/data/split.py`. Integrity checks in `validate.py` and CI.
 
 - Synthetic-to-real gap is material.
 - Classical CONTRADICTORY remains easier than SUFFICIENT/IRRELEVANT; macro F1 needs per-class context.
-- Strong neural scores may reflect schema reading - disclose that.
+- Strong neural scores may reflect schema reading — disclose that.
 - Must not be described as production audit evidence.
 
 ## Maintenance

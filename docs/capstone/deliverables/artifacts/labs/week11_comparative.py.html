@@ -48,7 +48,7 @@ def run() -&gt; dict:
                 &quot;dataset_version&quot;: dataset_version,
                 &quot;test_macro_f1&quot;: test,
                 &quot;challenge_macro_f1&quot;: chal,
-                &quot;status&quot;: &quot;complete&quot; if test isn't None else &quot;missing_result&quot;,
+                &quot;status&quot;: &quot;complete&quot; if test is not None else &quot;missing_result&quot;,
             }
         )
 
@@ -71,8 +71,8 @@ def run() -&gt; dict:
         &quot;failure_lab&quot;: &quot;docs/data/failure_lab.json&quot;,
         &quot;notes&quot;: [
             &quot;All five published experiment rungs have result receipts.&quot;,
-            &quot;Within Gemma v1.0.0, few-shot is strongest and QLoRA doesn't beat it.&quot;,
-            &quot;Classical v1.1.0 and Gemma v1.0.0 scores aren't a controlled same-benchmark leaderboard.&quot;,
+            &quot;Within Gemma v1.0.0, few-shot is strongest and QLoRA does not beat it.&quot;,
+            &quot;Classical v1.1.0 and Gemma v1.0.0 scores are not a controlled same-benchmark leaderboard.&quot;,
         ],
     }
     (out / &quot;week11_comparative_analysis.json&quot;).write_text(json.dumps(payload, indent=2), encoding=&quot;utf-8&quot;)

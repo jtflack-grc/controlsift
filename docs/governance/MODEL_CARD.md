@@ -1,4 +1,4 @@
-# Model Card - ControlSift Gemma 3 QLoRA Adapter
+# Model Card — ControlSift Gemma 3 QLoRA Adapter
 
 ## Model details
 
@@ -10,7 +10,7 @@
 | Framework | PyTorch, Transformers, PEFT, TRL, bitsandbytes |
 | Training entrypoint | `python -m controlsift.training.train` |
 
-LoRA target modules are **resolved from the loaded architecture** via `resolve_lora_target_modules` - not copied blindly from unrelated models.
+LoRA target modules are **resolved from the loaded architecture** via `resolve_lora_target_modules` — not copied blindly from unrelated models.
 
 ## Intended use
 
@@ -42,4 +42,4 @@ Synthetic data only. Risk of over-trust if public metrics are misread as product
 
 ## Caveats
 
-Until GPU experiments complete, public macro F1 for Gemma variants remains `null`. Don't invent placeholder scores.
+Until GPU experiments complete, public macro F1 for Gemma variants remains `null`. Do not invent placeholder scores.

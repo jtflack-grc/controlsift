@@ -18,7 +18,7 @@ The video is stored as a GitHub Release asset rather than committed into reposit
 
 ## Research-integrity boundary
 
-Classical results are from dataset v1.1.0; completed Gemma results are from v1.0.0. The project publishes both sets of scores but doesn't claim a controlled cross-version leaderboard.
+Classical results are from dataset v1.1.0; completed Gemma results are from v1.0.0. The project publishes both sets of scores but does not claim a controlled cross-version leaderboard.
 
 ## PowerPoint generation
 

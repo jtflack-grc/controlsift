@@ -26,7 +26,7 @@ Security assurance still depends on humans distinguishing operational proof from
 
 v1.1 representation packs each case as dual sections (Mercury/Neon) holding both a claim-like text and a near-domain distractor, plus identical `SCOPE` scaffolding and shared decoy lexicons. Class signal is compositional (substance pointer, inventory vs `file_rows`, epistemic hedges, `ROW_DETAIL` conflicts), not a unique cue phrase per label.
 
-**Locked decision:** keep this compositional surface and disclose it - see `governance/RESEARCH_SURFACE.md`. Don't market v1.1 as naturalistic binder OCR.
+**Locked decision:** keep this compositional surface and disclose it — see `governance/RESEARCH_SURFACE.md`. Do not market v1.1 as naturalistic binder OCR.
 
 Label audit: structural audit of **100% challenge** + stratified development sample; **scripted** spot-check of **20** challenge cases (`reports/SPOTCHECK_20.md`). Not fully human-labeled gold.
 
@@ -50,7 +50,7 @@ Label audit: structural audit of **100% challenge** + stratified development sam
 | Gemma few-shot | `null` | `null` | Pending |
 | Gemma QLoRA | `null` | `null` | Pending |
 
-Learning curve (TF-IDF on test): macro F1 rises from ~0.21 @100 train rows to ~0.53 @1000 - data helps, but the task stays non-trivial.
+Learning curve (TF-IDF on test): macro F1 rises from ~0.21 @100 train rows to ~0.53 @1000 — data helps, but the task stays non-trivial.
 
 ### Confusion highlights (TF-IDF test)
 
@@ -81,8 +81,8 @@ python scripts/seal_protocol.py
 pytest
 ```
 
-GPU path: `notebooks/kaggle_runner.ipynb` / `KAGGLE_SAFE_RUN.md` - drop in HF token + Kaggle, write `results/gemma_*`, re-run `run_evaluation.py`.
+GPU path: `notebooks/kaggle_runner.ipynb` / `KAGGLE_SAFE_RUN.md` — drop in HF token + Kaggle, write `results/gemma_*`, re-run `run_evaluation.py`.
 
 ## 8. Conclusion
 
-At the classical stage, ControlSift’s main finding is methodological: a sealed, review-audited evidence benchmark can be made hard enough that TF-IDF no longer collapses the research question. Whether QLoRA recovers semantic headroom is the remaining empirical claim - and it waits on real GPU artifacts, not placeholders.
+At the classical stage, ControlSift’s main finding is methodological: a sealed, review-audited evidence benchmark can be made hard enough that TF-IDF no longer collapses the research question. Whether QLoRA recovers semantic headroom is the remaining empirical claim — and it waits on real GPU artifacts, not placeholders.

@@ -1,7 +1,7 @@
-# DESIGN.md - ControlSift
+# DESIGN.md — ControlSift
 
 ## Visual system
-OLED-first research surface. True black canvas for emissive displays. Clinical, forensic, receipt-driven - not SaaS launch energy.
+OLED-first research surface. True black canvas for emissive displays. Clinical, forensic, receipt-driven — not SaaS launch energy.
 
 ## Colors
 | Token | Value | Use |

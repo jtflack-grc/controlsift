@@ -1,7 +1,7 @@
-# PRODUCT.md - ControlSift public research site
+# PRODUCT.md — ControlSift public research site
 
 ## Users
-Recruiters, GRC practitioners, ML reviewers, and MMC evaluators - reading fast, often on dark displays.
+Recruiters, GRC practitioners, ML reviewers, and MMC evaluators — reading fast, often on dark displays.
 
 ## Mode
 **Read** first (build understanding). Failure Lab is light **Operate**. Persuasion is secondary to clarity and receipts.

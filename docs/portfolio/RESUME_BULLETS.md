@@ -1,4 +1,4 @@
-# Resume Bullets - ControlSift
+# Resume Bullets — ControlSift
 
 Use selectively based on the role.
 

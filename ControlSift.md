@@ -45,7 +45,7 @@ It will include:
 - explicit hypotheses;
 - deterministic dataset generation;
 - documented labeling rules;
-- scenario-family split'solation;
+- scenario-family split isolation;
 - a frozen held-out test set;
 - a separate challenge set;
 - classical and LLM baselines;
@@ -84,11 +84,11 @@ The project must ultimately demonstrate something more sophisticated than:
 
 The finished artifact should demonstrate:
 
-> **I can determine whether domain adaptation actually improved a model, prove that result using controlled evidence, identify where the model still fails, and explain where it shouldn't be trusted.**
+> **I can determine whether domain adaptation actually improved a model, prove that result using controlled evidence, identify where the model still fails, and explain where it should not be trusted.**
 
 This distinction governs the entire project.
 
-ControlSift is as much an AI-assurance project as it's a fine-tuning project.
+ControlSift is as much an AI-assurance project as it is a fine-tuning project.
 
 ---
 
@@ -108,11 +108,11 @@ Cybersecurity and GRC teams routinely receive evidence such as:
 - approval records;
 - self-attestations.
 
-Artifacts are frequently mistaken for proof merely because they're relevant to a control.
+Artifacts are frequently mistaken for proof merely because they are relevant to a control.
 
 Examples:
 
-A policy requiring MFA doesn't prove MFA is enabled.
+A policy requiring MFA does not prove MFA is enabled.
 
 A screenshot without scope or date may not establish operation during the audit period.
 
@@ -172,7 +172,7 @@ Performance will increase as training-set size increases, but marginal improveme
 
 ## H5: Remaining Weaknesses
 
-Fine-tuning won't eliminate all difficult semantic boundaries, particularly:
+Fine-tuning will not eliminate all difficult semantic boundaries, particularly:
 
 - PARTIAL versus INSUFFICIENT;
 - PARTIAL versus SUFFICIENT;
@@ -181,7 +181,7 @@ Fine-tuning won't eliminate all difficult semantic boundaries, particularly:
 
 These are hypotheses.
 
-They'ren't promised outcomes.
+They are not promised outcomes.
 
 Negative, mixed, or counterintuitive findings remain valid research results.
 
@@ -301,11 +301,11 @@ The MMC pathway must never dominate the project's main public identity.
 
 # 8. Public Story
 
-The main site shouldn't open with:
+The main site should not open with:
 
 > Domain Adaptation of Gemma 3 Through Parameter-Efficient Fine-Tuning...
 
-That's technically correct and publicly terrible.
+That is technically correct and publicly terrible.
 
 The public hero should be:
 
@@ -349,7 +349,7 @@ Privileged administrative accounts must use multi-factor authentication.
 
 Why:
 
-The policy establishes an expectation but doesn't prove implementation.
+The policy establishes an expectation but does not prove implementation.
 
 ## EVIDENCE B
 
@@ -399,7 +399,7 @@ Possibilities:
 - macro F1;
 - percentage improvement over base Gemma.
 
-Don't choose the metric based on which number looks largest.
+Do not choose the metric based on which number looks largest.
 
 Choose the metric that best communicates the real experimental result.
 
@@ -434,7 +434,7 @@ Primary evaluation is the classification label.
 
 Rationale quality is secondary.
 
-Don't use another proprietary LLM as the authoritative judge of rationale quality.
+Do not use another proprietary LLM as the authoritative judge of rationale quality.
 
 Human evaluation may be used for a sample.
 
@@ -461,7 +461,7 @@ Examples:
 - 18 of 20 accounts represented;
 - one of two production environments represented;
 - incomplete audit period;
-- sample doesn't cover required population.
+- sample does not cover required population.
 
 ## INSUFFICIENT
 
@@ -477,7 +477,7 @@ Examples:
 
 ## IRRELEVANT
 
-Evidence doesn't materially address the control.
+Evidence does not materially address the control.
 
 Examples:
 
@@ -487,7 +487,7 @@ Examples:
 
 ## CONTRADICTORY
 
-Evidence affirmatively demonstrates that the requirement wasn't met.
+Evidence affirmatively demonstrates that the requirement was not met.
 
 Examples:
 
@@ -724,7 +724,7 @@ Hidden metadata must not leak into model input.
 
 This is mandatory.
 
-Don't perform naive row-level random splitting after creating related variants.
+Do not perform naive row-level random splitting after creating related variants.
 
 Every generated scenario receives:
 
@@ -764,7 +764,7 @@ Leakage should fail CI.
 
 # 20. Human Review Strategy
 
-Don't falsely describe the dataset as fully human-labeled.
+Do not falsely describe the dataset as fully human-labeled.
 
 Primary labels are rule-derived within a controlled synthetic generation system.
 
@@ -815,11 +815,11 @@ Reasons:
 4. Easier to reproduce than a larger model.
 5. Avoids confusing model size with domain-adaptation quality.
 
-The research question isn't:
+The research question is not:
 
 > How powerful a model can we afford?
 
-It's:
+It is:
 
 > Can targeted adaptation materially improve a small model on a bounded domain task?
 
@@ -887,7 +887,7 @@ GPU environments perform:
 - inference;
 - adapter export.
 
-They don't become the permanent home of the project.
+They do not become the permanent home of the project.
 
 Concept:
 
@@ -950,7 +950,7 @@ This is more important than it may initially appear.
 
 If a trivial lexical model performs extremely well, the synthetic benchmark may contain shortcuts.
 
-That's a dataset-quality warning.
+That is a dataset-quality warning.
 
 ## Baseline 2
 
@@ -1021,7 +1021,7 @@ Return valid JSON:
 
 Prompt development uses validation examples.
 
-Don't change the prompt based on held-out test failures.
+Do not change the prompt based on held-out test failures.
 
 ---
 
@@ -1077,7 +1077,7 @@ Gradient accumulation should be selected based on available VRAM.
 
 LoRA target modules must be verified against the actual Gemma architecture.
 
-Don't blindly copy module names from another transformer.
+Do not blindly copy module names from another transformer.
 
 ---
 
@@ -1103,7 +1103,7 @@ Evaluate checkpoints against validation data.
 
 Model selection uses validation performance.
 
-The held-out test set doesn't select models.
+The held-out test set does not select models.
 
 ---
 
@@ -1178,7 +1178,7 @@ Where appropriate:
 
 Report uncertainty.
 
-Don't turn a tiny numerical improvement into a grand claim merely because it points upward.
+Do not turn a tiny numerical improvement into a grand claim merely because it points upward.
 
 ---
 
@@ -1344,7 +1344,7 @@ Display:
 
 Explanation:
 
-> The evidence doesn't merely fail to prove the control. It affirmatively shows that the control failed.
+> The evidence does not merely fail to prove the control. It affirmatively shows that the control failed.
 
 These should be precomputed results.
 
@@ -1354,7 +1354,7 @@ No live inference server is necessary.
 
 # 36. Front-End Philosophy
 
-Don't build:
+Do not build:
 
 - generic Streamlit dashboard;
 - glowing AI robot;
@@ -1413,7 +1413,7 @@ MMC capstone view:
 /capstone/
 ```
 
-This doesn't need prominent primary-navigation placement.
+This does not need prominent primary-navigation placement.
 
 Footer link is enough.
 
@@ -1559,7 +1559,7 @@ Make available:
 
 The project should itself demonstrate evidence provenance.
 
-That's thematically appropriate.
+That is thematically appropriate.
 
 ---
 
@@ -1584,7 +1584,7 @@ Discuss:
 
 Also explain:
 
-> A model that becomes better at categorizing synthetic evidence hasn't thereby become qualified to perform autonomous control testing.
+> A model that becomes better at categorizing synthetic evidence has not thereby become qualified to perform autonomous control testing.
 
 ---
 
@@ -1592,7 +1592,7 @@ Also explain:
 
 This should be treated as a major limitation.
 
-Strong performance on synthetic cases doesn't prove equivalent performance on:
+Strong performance on synthetic cases does not prove equivalent performance on:
 
 - production evidence;
 - screenshots;
@@ -1609,7 +1609,7 @@ State this prominently.
 
 It strengthens the research.
 
-It doesn't weaken it.
+It does not weaken it.
 
 ---
 
@@ -1853,7 +1853,7 @@ On pull request and push:
 10. regenerate static figures where appropriate;
 11. verify public metrics correspond to stored results.
 
-Don't:
+Do not:
 
 - download Gemma;
 - perform GPU training;
@@ -1861,7 +1861,7 @@ Don't:
 
 CI validates research artifacts.
 
-It doesn't become the compute environment.
+It does not become the compute environment.
 
 ---
 
@@ -1937,7 +1937,7 @@ It should include:
 
 ## Problem Statement
 
-Cybersecurity teams must distinguish artifacts that substantively demonstrate control operation from evidence that's incomplete, irrelevant, stale, or contradictory.
+Cybersecurity teams must distinguish artifacts that substantively demonstrate control operation from evidence that is incomplete, irrelevant, stale, or contradictory.
 
 ## Research Aim
 
@@ -1995,7 +1995,7 @@ Explain:
 Discuss:
 
 - what changed;
-- what didn't;
+- what did not;
 - unexpected results;
 - what the benchmark failed to represent;
 - what should be studied next.
@@ -2053,7 +2053,7 @@ The quality difference should make the point without commentary.
 
 # 53. Optional SDG / Community Alignment
 
-Don't invent Sustainable Development Goal alignment unless MMC requires it.
+Do not invent Sustainable Development Goal alignment unless MMC requires it.
 
 If the final rubric requires explicit SDG mapping, evaluate the actual requirement first.
 
@@ -2063,7 +2063,7 @@ Potential honest connections may include:
 - accessible technical capability for resource-constrained organizations;
 - trustworthy adoption of AI systems.
 
-Don't staple an unrelated UN goal onto the project merely for decoration.
+Do not staple an unrelated UN goal onto the project merely for decoration.
 
 If MMC requires a specific format, create the mapping in the capstone layer without redefining ControlSift's public purpose.
 
@@ -2098,7 +2098,7 @@ Target sections:
 
 Write the conclusion after results exist.
 
-Don't write the answer before running the experiment.
+Do not write the answer before running the experiment.
 
 ---
 
@@ -2191,7 +2191,7 @@ Explore Research
 GitHub
 ```
 
-Don't prominently label the portfolio card:
+Do not prominently label the portfolio card:
 
 `MMC Capstone`
 
@@ -2199,7 +2199,7 @@ Don't prominently label the portfolio card:
 
 # 57. Resume Extraction
 
-Don't add fabricated results.
+Do not add fabricated results.
 
 Pre-results version:
 
@@ -2219,9 +2219,9 @@ AI governance variant:
 
 The project should support this explanation:
 
-> I wanted to test whether a small general-purpose language model could actually learn a narrow GRC judgment task rather than simply sound convincing when discussing it. I created a synthetic benchmark of control-evidence scenarios, established traditional ML and zero-/few-shot Gemma baselines, fine-tuned Gemma 3 using QLoRA, and evaluated the adapted model using a held-out benchmark and separate challenge set. The important part wasn't just whether the metrics improved. I analyzed which evidence defects remained difficult and documented where the model shouldn't be trusted.
+> I wanted to test whether a small general-purpose language model could actually learn a narrow GRC judgment task rather than simply sound convincing when discussing it. I created a synthetic benchmark of control-evidence scenarios, established traditional ML and zero-/few-shot Gemma baselines, fine-tuned Gemma 3 using QLoRA, and evaluated the adapted model using a held-out benchmark and separate challenge set. The important part wasn't just whether the metrics improved. I analyzed which evidence defects remained difficult and documented where the model should not be trusted.
 
-That's the career payoff.
+That is the career payoff.
 
 ---
 
@@ -2312,7 +2312,7 @@ Non-negotiable instructions:
 
 ## Scope Discipline
 
-Don't expand v1 into:
+Do not expand v1 into:
 
 - SaaS;
 - live inference;
@@ -2347,7 +2347,7 @@ Goals:
 
 Deliverable:
 
-**We've a legitimate benchmark before touching Gemma.**
+**We have a legitimate benchmark before touching Gemma.**
 
 ## Month 2: Baselines and Training
 
@@ -2363,7 +2363,7 @@ Goals:
 
 Deliverable:
 
-**We've comparative model behavior.**
+**We have comparative model behavior.**
 
 ## Month 3: Research Results
 
@@ -2401,7 +2401,7 @@ Deliverable:
 
 **Research becomes a career artifact.**
 
-Because development begins before official kickoff, there's no requirement to consume all four months.
+Because development begins before official kickoff, there is no requirement to consume all four months.
 
 A strong project completed early is preferable to artificial delay.
 
@@ -2409,7 +2409,7 @@ A strong project completed early is preferable to artificial delay.
 
 # 62. Phase Gates
 
-Don't simply march forward because a task is complete.
+Do not simply march forward because a task is complete.
 
 Use quality gates.
 
@@ -2532,7 +2532,7 @@ Mitigation:
 Mitigation:
 
 - capstone layer remains modular;
-- research project doesn't depend on MMC rubric.
+- research project does not depend on MMC rubric.
 
 ---
 
@@ -2701,7 +2701,7 @@ Final visual summary
 
 If MMC wants slides, generate slides from these existing artifacts.
 
-Don't perform separate technical work solely to create an MMC version.
+Do not perform separate technical work solely to create an MMC version.
 
 ---
 
@@ -2857,8 +2857,8 @@ The final public artifact says:
 >
 > **Here are the receipts.**
 >
-> **Here is where you shouldn't trust it.**
+> **Here is where you should not trust it.**
 
-That's the project.
+That is the project.
 
 The course is merely how we got invited to dinner.

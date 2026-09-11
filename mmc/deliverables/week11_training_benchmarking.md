@@ -1,4 +1,4 @@
-# Week 11 deliverable - Training & Benchmarking
+# Week 11 deliverable — Training & Benchmarking
 
 **Handbook:** Course 08 · Capstone – Training & Benchmarking  
 **Key deliverable:** Final trained-model artifacts, tracking receipts & comparative analysis
@@ -11,9 +11,9 @@
 | B3 | Gemma 3 1B few-shot | v1.0.0 | `results/gemma_few_shot/` | ~0.137 |
 | M4 | Gemma 3 1B QLoRA | v1.0.0 | `results/gemma_qlora/` | ~0.083 |
 
-QLoRA configuration: `configs/gemma3_1b_qlora.yaml` - r=16, alpha=16, 4-bit NF4, bf16 compute, grad accumulation 8, seed 42.
+QLoRA configuration: `configs/gemma3_1b_qlora.yaml` — r=16, alpha=16, 4-bit NF4, bf16 compute, grad accumulation 8, seed 42.
 
-Within the controlled Gemma v1.0 ladder, **few-shot prompting is strongest**. QLoRA doesn't beat few-shot and QLoRA test parse success is about **0.435**, making output-contract reliability a material part of the result.
+Within the controlled Gemma v1.0 ladder, **few-shot prompting is strongest**. QLoRA does not beat few-shot and QLoRA test parse success is about **0.435**, making output-contract reliability a material part of the result.
 
 ## 2. Comparative analysis artifact
 
@@ -49,4 +49,4 @@ The final analysis preserves both classification errors and output-parse failure
 
 ## 5. Status
 
-`meets` - training, evaluation, comparative analysis, failure analysis, and result receipts are complete. The final record explicitly preserves the v1.1 classical / v1.0 Gemma version boundary.
+`meets` — training, evaluation, comparative analysis, failure analysis, and result receipts are complete. The final record explicitly preserves the v1.1 classical / v1.0 Gemma version boundary.
