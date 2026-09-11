@@ -18,7 +18,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Apply prose style pass
+      - name: Restore pre-pass prose
+        shell: bash
+        run: |
+          # The first mechanical pass was intentionally broad. Revert it before
+          # applying the safer, word-boundary-aware pass below.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git revert --no-edit c7add53483fbfd21df6301ecfaf0307bafc1c6ec
+
+      - name: Apply safe prose style pass
         shell: python
         run: |
           from pathlib import Path
@@ -28,46 +37,45 @@ jobs:
 
           def include(path: Path) -> bool:
               p = path.as_posix()
-              if p in {'README.md', 'ControlSift.md'}:
+              if p == 'README.md':
                   return True
+              if p.startswith('docs/capstone/deliverables/artifacts/'):
+                  return False
               if p.startswith('docs/') and path.suffix.lower() in {'.html', '.md', '.txt'}:
-                  excluded = (
-                      'docs/assets/',
-                      'docs/data/',
-                      'docs/capstone/deliverables/artifacts/gdm/',
-                      'docs/capstone/deliverables/artifacts/notebooks/',
-                  )
-                  return not p.startswith(excluded)
+                  return not p.startswith(('docs/assets/', 'docs/data/'))
               if p.startswith(('governance/', 'reports/', 'reflection/', 'mmc/deliverables/')) and path.suffix.lower() in {'.md', '.html', '.txt'}:
                   return True
               return False
 
-          contractions = [
-              ('Does not', "Doesn't"), ('does not', "doesn't"),
-              ('Do not', "Don't"), ('do not', "don't"),
-              ('Did not', "Didn't"), ('did not', "didn't"),
-              ('Is not', "Isn't"), ('is not', "isn't"),
-              ('Are not', "Aren't"), ('are not', "aren't"),
-              ('Was not', "Wasn't"), ('was not', "wasn't"),
-              ('Were not', "Weren't"), ('were not', "weren't"),
-              ('Cannot', "Can't"), ('cannot', "can't"),
-              ('Can not', "Can't"), ('can not', "can't"),
-              ('Will not', "Won't"), ('will not', "won't"),
-              ('Would not', "Wouldn't"), ('would not', "wouldn't"),
-              ('Should not', "Shouldn't"), ('should not', "shouldn't"),
-              ('Could not', "Couldn't"), ('could not', "couldn't"),
-              ('Has not', "Hasn't"), ('has not', "hasn't"),
-              ('Have not', "Haven't"), ('have not', "haven't"),
-              ('Had not', "Hadn't"), ('had not', "hadn't"),
-              ('It is', "It's"), ('it is', "it's"),
-              ('That is', "That's"), ('that is', "that's"),
-              ('There is', "There's"), ('there is', "there's"),
-              ('We are', "We're"), ('we are', "we're"),
-              ('We have', "We've"), ('we have', "we've"),
-              ('We will', "We'll"), ('we will', "we'll"),
-              ('We would', "We'd"), ('we would', "we'd"),
-              ('They are', "They're"), ('they are', "they're"),
-              ('I am', "I'm"), ('I have', "I've"), ('I will', "I'll"), ('I would', "I'd"),
+          # Longest phrases first. Every pattern is bounded so "it is" can never
+          # turn "split isolation" into nonsense.
+          rules = [
+              (r'\bDoes not\b', "Doesn't"), (r'\bdoes not\b', "doesn't"),
+              (r'\bDo not\b', "Don't"), (r'\bdo not\b', "don't"),
+              (r'\bDid not\b', "Didn't"), (r'\bdid not\b', "didn't"),
+              (r'\bIs not\b', "Isn't"), (r'\bis not\b', "isn't"),
+              (r'\bAre not\b', "Aren't"), (r'\bare not\b', "aren't"),
+              (r'\bWas not\b', "Wasn't"), (r'\bwas not\b', "wasn't"),
+              (r'\bWere not\b', "Weren't"), (r'\bwere not\b', "weren't"),
+              (r'\bCannot\b', "Can't"), (r'\bcannot\b', "can't"),
+              (r'\bCan not\b', "Can't"), (r'\bcan not\b', "can't"),
+              (r'\bWill not\b', "Won't"), (r'\bwill not\b', "won't"),
+              (r'\bWould not\b', "Wouldn't"), (r'\bwould not\b', "wouldn't"),
+              (r'\bShould not\b', "Shouldn't"), (r'\bshould not\b', "shouldn't"),
+              (r'\bCould not\b', "Couldn't"), (r'\bcould not\b', "couldn't"),
+              (r'\bHas not\b', "Hasn't"), (r'\bhas not\b', "hasn't"),
+              (r'\bHave not\b', "Haven't"), (r'\bhave not\b', "haven't"),
+              (r'\bHad not\b', "Hadn't"), (r'\bhad not\b', "hadn't"),
+              (r'\bIt is\b', "It's"), (r'\bit is\b', "it's"),
+              (r'\bThat is\b', "That's"), (r'\bthat is\b', "that's"),
+              (r'\bThere is\b', "There's"), (r'\bthere is\b', "there's"),
+              (r'\bWe are\b', "We're"), (r'\bwe are\b', "we're"),
+              (r'\bWe have\b', "We've"), (r'\bwe have\b', "we've"),
+              (r'\bWe will\b', "We'll"), (r'\bwe will\b', "we'll"),
+              (r'\bWe would\b', "We'd"), (r'\bwe would\b', "we'd"),
+              (r'\bThey are\b', "They're"), (r'\bthey are\b', "they're"),
+              (r'\bI am\b', "I'm"), (r'\bI have\b', "I've"),
+              (r'\bI will\b', "I'll"), (r'\bI would\b', "I'd"),
           ]
 
           changed = []
@@ -83,24 +91,19 @@ jobs:
                   continue
               original = text
 
-              # No em dashes in authored prose. A spaced hyphen keeps the pause without the telltale punctuation.
-              before = text.count('—') + text.count('&mdash;') + text.count('&#8212;')
+              total_em += text.count('—') + text.count('&mdash;') + text.count('&#8212;')
               text = re.sub(r'\s*—\s*', ' - ', text)
               text = text.replace('&mdash;', '-').replace('&#8212;', '-')
-              total_em += before
 
-              # Prefer natural contractions in narrative prose. Leave uppercase emphatic forms alone.
-              for old, new in contractions:
-                  count = text.count(old)
-                  if count:
-                      total_contractions += count
-                      text = text.replace(old, new)
+              for pattern, replacement in rules:
+                  text, n = re.subn(pattern, replacement, text)
+                  total_contractions += n
 
               if text != original:
                   path.write_text(text, encoding='utf-8')
                   changed.append(path.as_posix())
 
-          print(f'Changed {len(changed)} authored files')
+          print(f'Changed {len(changed)} authored prose files')
           print(f'Removed/replaced {total_em} em-dash forms')
           print(f'Applied {total_contractions} contractions')
           for name in changed:
@@ -119,24 +122,34 @@ jobs:
           if leftovers:
               raise SystemExit('Em-dash forms remain in authored prose: ' + ', '.join(leftovers))
 
+          # Guard against the two classes of mangling a naive replacement can create.
+          bad = []
+          for path in root.rglob('*'):
+              if not path.is_file() or not include(path):
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+              if "split'solation" in text or "'ren't" in text:
+                  bad.append(path.as_posix())
+          if bad:
+              raise SystemExit('Contraction corruption detected: ' + ', '.join(bad))
+
       - name: Review style-pass footprint
         shell: bash
         run: |
           echo "--- style-pass summary ---"
-          git diff --stat
+          git diff --stat HEAD
           git status --short
 
-      - name: Commit prose style pass
+      - name: Commit safe prose edits
         shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md ControlSift.md docs governance reports reflection mmc/deliverables
-          if git diff --cached --quiet; then
-            echo "No prose changes needed."
-            exit 0
+          git add README.md docs governance reports reflection mmc/deliverables
+          if ! git diff --cached --quiet; then
+            git commit -m "Polish prose contractions and punctuation"
           fi
-          git commit -m "Polish contractions and remove em dashes"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
