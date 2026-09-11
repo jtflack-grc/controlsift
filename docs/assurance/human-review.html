@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
-  <title>Label Audit — ControlSift</title>
+  <title>Label Audit - ControlSift</title>
   <link rel="stylesheet" href="../assets/css/site.css?v=2026091001" />
 </head>
 <body>
@@ -19,13 +19,13 @@
     <section class="section" style="border-top:0;padding-top:1rem;">
       <div class="page-intro"><h2>Label audit protocol</h2><p>How ground truth is audited without overstating human labeling.</p></div>
       <nav class="assurance-nav" data-assurance-nav aria-label="Assurance"></nav>
-      <div class="callout"><strong>Principle</strong> Do not describe the dataset as fully human-labeled. Rule-derived labels are primary. Structural audit is not expert gold relabeling.</div>
+      <div class="callout"><strong>Principle</strong> Don't describe the dataset as fully human-labeled. Rule-derived labels are primary. Structural audit isn't expert gold relabeling.</div>
     </section>
     <section class="section">
       <h2>What has been completed</h2>
       <div class="def-list">
         <div><dt>Structural audit</dt><dd>100% challenge + stratified ~10% development sample (<code>structural_auditor_v1</code>)</dd></div>
-        <div><dt>Scripted spot-check</dt><dd>20 challenge cases, 4 per label (<code>spotcheck_v1</code>) — not a human GRC review</dd></div>
+        <div><dt>Scripted spot-check</dt><dd>20 challenge cases, 4 per label (<code>spotcheck_v1</code>) - not a human GRC review</dd></div>
         <div><dt>Log</dt><dd><code>data/review_log.csv</code></dd></div>
         <div><dt>Receipts</dt><dd><code>reports/HUMAN_REVIEW_AUDIT.md</code>, <code>reports/SPOTCHECK_20.md</code></dd></div>
       </div>
@@ -33,7 +33,7 @@
     <section class="section">
       <h2>Status values</h2>
       <table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody><tr><td><code>unreviewed</code></td><td>Not yet inspected</td></tr><tr><td><code>reviewed</code></td><td>Inspected; label retained</td></tr><tr><td><code>corrected</code></td><td>Label or text corrected after review</td></tr><tr><td><code>flagged</code></td><td>Invariant violation needing judgment</td></tr></tbody></table>
-      <p style="margin-top:1rem;color:var(--muted);">Current status: structural audit complete for all logged rows; spot-check notes on 20 challenge cases. Prefer avoiding sealed test edits after protocol lock — bump dataset version instead.</p>
+      <p style="margin-top:1rem;color:var(--muted);">Current status: structural audit complete for all logged rows; spot-check notes on 20 challenge cases. Prefer avoiding sealed test edits after protocol lock - bump dataset version instead.</p>
     </section>
   </main>
   <footer class="site-footer"><div class="wrap"><span>Assurance · Label audit</span><a href="../capstone/index.html">MMC Capstone view</a></div></footer>

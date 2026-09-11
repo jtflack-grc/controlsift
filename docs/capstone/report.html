@@ -54,7 +54,7 @@
       <section class="h-block" id="r1">
         <h2>1. Problem statement and objectives</h2>
         <p>
-          Cybersecurity assurance depends on evidence that controls operate as intended. A policy that requires MFA is relevant to an access control but does not, by itself, prove that privileged accounts were enrolled during the assessment period. NIST SP 800-53A Rev. 5 frames control assessment around implementation and intended outcomes; PCAOB AS 1105 distinguishes evidence quantity from evidence quality and defines quality through relevance and reliability; and The IIA's Global Internal Audit Standards require information used for analysis to be relevant, reliable, and sufficient. Together, those sources support the project's core distinction between proof and merely related paperwork without turning ControlSift's five labels into a standards taxonomy.
+          Cybersecurity assurance depends on evidence that controls operate as intended. A policy that requires MFA is relevant to an access control but doesn't, by itself, prove that privileged accounts were enrolled during the assessment period. NIST SP 800-53A Rev. 5 frames control assessment around implementation and intended outcomes; PCAOB AS 1105 distinguishes evidence quantity from evidence quality and defines quality through relevance and reliability; and The IIA's Global Internal Audit Standards require information used for analysis to be relevant, reliable, and sufficient. Together, those sources support the project's core distinction between proof and merely related paperwork without turning ControlSift's five labels into a standards taxonomy.
         </p>
         <p>
           Organizations with limited cybersecurity budgets also face uneven access to specialist capacity. NIST's Small Business Cybersecurity resources explicitly describe resource, budget, and staffing constraints. ControlSift studies a narrow response to that access problem: whether an openly reproducible small-model method can assist human evidence triage without lowering the assurance standard.
@@ -65,7 +65,7 @@
       <section class="h-block" id="r2">
         <h2>2. Research and analysis</h2>
         <p>
-          The external research set was deliberately broadened beyond one framework. Three assurance sources - NIST SP 800-53A, PCAOB AS 1105, and The IIA Global Internal Audit Standards - ground evidence quality and assessment. A peer-reviewed cybersecurity systematic review by Yang et al. maps current LLM use and unresolved evaluation challenges, while Kokina et al.'s field study of AI adoption in auditing documents practical NLP/document-analysis use alongside reliability, explainability, governance, and overreliance concerns. Original LoRA and QLoRA papers ground parameter-efficient adaptation; Google DeepMind's Gemma 3 documentation grounds model context; and the NIST AI RMF plus EU AI Act Article 14 ground explicit oversight, limitations, monitoring, and meaningful human override. These sources motivate the problem and method; they do not establish ControlSift's performance. See the <a href="research-sources.html">ten-source annotated research set</a> for claim-by-claim boundaries.
+          The external research set was deliberately broadened beyond one framework. Three assurance sources - NIST SP 800-53A, PCAOB AS 1105, and The IIA Global Internal Audit Standards - ground evidence quality and assessment. A peer-reviewed cybersecurity systematic review by Yang et al. maps current LLM use and unresolved evaluation challenges, while Kokina et al.'s field study of AI adoption in auditing documents practical NLP/document-analysis use alongside reliability, explainability, governance, and overreliance concerns. Original LoRA and QLoRA papers ground parameter-efficient adaptation; Google DeepMind's Gemma 3 documentation grounds model context; and the NIST AI RMF plus EU AI Act Article 14 ground explicit oversight, limitations, monitoring, and meaningful human override. These sources motivate the problem and method; they don't establish ControlSift's performance. See the <a href="research-sources.html">ten-source annotated research set</a> for claim-by-claim boundaries.
         </p>
         <p class="source-inline">
           Core source families: <a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final" rel="noopener">NIST 800-53A</a> &middot;
@@ -86,7 +86,7 @@
           The Gemma zero-shot, few-shot, and QLoRA runs were completed earlier on dataset <strong>v1.0.0</strong>. Free-tier compute constraints make a full rerun impractical for this capstone, so cross-version scores are published transparently but are descriptive rather than a controlled head-to-head comparison.
         </p>
         <div class="boundary-note">
-          <strong>Published result boundary:</strong> on v1.1, majority macro F1 is 0.0667 and TF-IDF is 0.5327 (challenge 0.5237). On v1.0, Gemma zero-shot is 0.0796, few-shot is 0.1365, and QLoRA is 0.0827. Within the Gemma v1.0 ladder, few-shot is strongest and QLoRA does not beat few-shot. QLoRA test parse success is about 0.435.
+          <strong>Published result boundary:</strong> on v1.1, majority macro F1 is 0.0667 and TF-IDF is 0.5327 (challenge 0.5237). On v1.0, Gemma zero-shot is 0.0796, few-shot is 0.1365, and QLoRA is 0.0827. Within the Gemma v1.0 ladder, few-shot is strongest and QLoRA doesn't beat few-shot. QLoRA test parse success is about 0.435.
         </div>
       </section>
 
@@ -115,11 +115,11 @@
         <ul class="findings-list">
           <li>Published reproducible classical and Gemma experiment records with explicit dataset-version boundaries.</li>
           <li>Hardened an initially trivial benchmark until the v1.1 lexical baseline fell from saturation to about 0.53 macro F1.</li>
-          <li>Preserved a negative Gemma finding: on v1.0, QLoRA did not beat few-shot and showed weak output-format reliability.</li>
+          <li>Preserved a negative Gemma finding: on v1.0, QLoRA didn't beat few-shot and showed weak output-format reliability.</li>
           <li>Published failure analysis and assurance artifacts rather than reporting only aggregate scores.</li>
           <li>Grounded the work in assurance standards, peer-reviewed cyber/audit research, primary PEFT literature, model documentation, and independent human-oversight sources.</li>
         </ul>
-        <p><strong>Recommendation:</strong> do not deploy ControlSift as an audit autopilot. Preserve human authority; improve constrained label generation before further model claims; validate on governed real-world evidence before discussing operational use; and never treat the v1.1 classical and v1.0 Gemma scores as a controlled same-dataset comparison.</p>
+        <p><strong>Recommendation:</strong> don't deploy ControlSift as an audit autopilot. Preserve human authority; improve constrained label generation before further model claims; validate on governed real-world evidence before discussing operational use; and never treat the v1.1 classical and v1.0 Gemma scores as a controlled same-dataset comparison.</p>
       </section>
 
       <section class="h-block" id="r6">

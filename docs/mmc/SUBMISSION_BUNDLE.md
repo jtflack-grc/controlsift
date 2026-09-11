@@ -1,11 +1,11 @@
-# MMC / GCLP Submission Package — ControlSift
+# MMC / GCLP Submission Package - ControlSift
 
 Mentor Me Collective / Google Cloud Launchpad / DeepMind AI Research Foundations materials for the completed ControlSift capstone.
 
 **MMC rubric option 4:** Reduced Inequalities.  
-**Official UN designation:** Sustainable Development Goal 10 — Reduced Inequalities.
+**Official UN designation:** Sustainable Development Goal 10 - Reduced Inequalities.
 
-> Handbook note: the live GCLP Scholar Handbook was not machine-readable during project development. Requirements were reconciled against scholar copies of the Capstone Project Outline and Capstone GitHub Project Structure. The final artifact package is complete; confirm the live portal instructions when submitting administratively.
+> Handbook note: the live GCLP Scholar Handbook wasn't machine-readable during project development. Requirements were reconciled against scholar copies of the Capstone Project Outline and Capstone GitHub Project Structure. The final artifact package is complete; confirm the live portal instructions when submitting administratively.
 
 ## Weekly DeepMind lab deliverables
 
