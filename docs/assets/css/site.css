@@ -1373,8 +1373,8 @@ pre code {
 .def-list dt {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0.015em;
+  text-transform: none;
   color: var(--muted);
 }
 
