@@ -1,0 +1,28 @@
+name: Impeccable Audit Temp
+
+on:
+  push:
+    branches:
+      - feat/portfolio-visual-alignment
+  workflow_dispatch:
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.12.0'
+      - name: Run Impeccable detector
+        shell: bash
+        run: |
+          set +e
+          npx --yes impeccable@latest detect docs/ --json > impeccable-findings.json 2> impeccable-findings.txt
+          code=$?
+          echo "IMPECCABLE_EXIT=$code"
+          echo "--- HUMAN FINDINGS ---"
+          cat impeccable-findings.txt || true
+          echo "--- JSON FINDINGS ---"
+          cat impeccable-findings.json || true
+          exit 0
