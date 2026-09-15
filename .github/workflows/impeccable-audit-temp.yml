@@ -6,14 +6,22 @@ on:
       - feat/portfolio-visual-alignment
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  detect:
+  refine-and-detect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: feat/portfolio-visual-alignment
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Apply second-stage refinements
+        run: python tools/controlsite_refine2.py
       - name: Run Impeccable detector
         shell: bash
         run: |
@@ -21,8 +29,19 @@ jobs:
           npx --yes impeccable@latest detect docs/ --json > impeccable-findings.json 2> impeccable-findings.txt
           code=$?
           echo "IMPECCABLE_EXIT=$code"
-          echo "--- HUMAN FINDINGS ---"
-          cat impeccable-findings.txt || true
           echo "--- JSON FINDINGS ---"
           cat impeccable-findings.json || true
           exit 0
+      - name: Commit refinements
+        shell: bash
+        run: |
+          rm -f impeccable-findings.json impeccable-findings.txt
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs
+          git commit -m "Finish ControlSift Impeccable cleanup"
+          git push origin HEAD:feat/portfolio-visual-alignment
