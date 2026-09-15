@@ -12,39 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="preload" href="/controlsift/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/controlsift/assets/fonts/ibm-plex-mono-600.woff2" as="font" type="font/woff2" crossorigin />
-  <style>
-    @font-face { font-family:"IBM Plex Sans";font-style:normal;font-weight:400;font-display:swap;src:url("/controlsift/assets/fonts/ibm-plex-sans-400.woff2") format("woff2"),url("assets/fonts/ibm-plex-sans-400.woff2") format("woff2"); }
-    @font-face { font-family:"IBM Plex Sans";font-style:normal;font-weight:500;font-display:swap;src:url("/controlsift/assets/fonts/ibm-plex-sans-500.woff2") format("woff2"),url("assets/fonts/ibm-plex-sans-500.woff2") format("woff2"); }
-    @font-face { font-family:"IBM Plex Sans";font-style:normal;font-weight:600;font-display:swap;src:url("/controlsift/assets/fonts/ibm-plex-sans-600.woff2") format("woff2"),url("assets/fonts/ibm-plex-sans-600.woff2") format("woff2"); }
-    @font-face { font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url("/controlsift/assets/fonts/ibm-plex-mono-400.woff2") format("woff2"),url("assets/fonts/ibm-plex-mono-400.woff2") format("woff2"); }
-    @font-face { font-family:"IBM Plex Mono";font-style:normal;font-weight:600;font-display:swap;src:url("/controlsift/assets/fonts/ibm-plex-mono-600.woff2") format("woff2"),url("assets/fonts/ibm-plex-mono-600.woff2") format("woff2"); }
-    html,body{margin:0;background:#07100c!important;color:#e8f4ec!important;font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;}
-    body,button,input,select,textarea,.nav,a,p,li{font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;}
-    .display,.hero-brand,.brand{font-family:"IBM Plex Mono",monospace!important;}
-    h1,h2,h3{font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;}
-    #welcome,#welcome *{opacity:1!important;visibility:visible!important;transform:none!important;animation:none!important;}
-    #welcome{display:block!important;min-height:70vh;padding:2.5rem 1.25rem 3rem;box-sizing:border-box;border-bottom:3px solid #7fffb2;background:linear-gradient(180deg,rgba(127,255,178,.12),transparent 55%),#07100c!important;}
-    #welcome .hero-brand{margin:0 0 .75rem;font-family:"IBM Plex Mono",monospace!important;font-size:clamp(2.6rem,8vw,4rem);font-weight:600;line-height:.95;letter-spacing:-.03em;color:#7fffb2!important;}
-    #welcome h1{margin:0 0 1rem;max-width:34ch;font-size:clamp(1.55rem,3.8vw,2.25rem);font-weight:300;line-height:1.25;color:#fff!important;}
-    #welcome .lede{margin:0 0 1.25rem;max-width:50ch;font-size:clamp(1.05rem,2.2vw,1.2rem);line-height:1.55;color:#c8e6d2!important;}
-    #welcome-modal{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.25rem;box-sizing:border-box;}
-    #welcome-modal[hidden]{display:none!important;}
-    #welcome-modal .welcome-modal__backdrop{position:absolute;inset:0;background:rgba(2,8,5,.84);cursor:pointer;}
-    #welcome-modal .welcome-modal__card{position:relative;z-index:1;width:min(100%,35rem);max-height:90vh;overflow:auto;padding:1.55rem 1.5rem 1.45rem;border:2px solid #7fffb2;background:linear-gradient(165deg,rgba(127,255,178,.14),transparent 50%),#0a1510;color:#e8f4ec;box-shadow:0 24px 64px rgba(0,0,0,.55);}
-    #welcome-modal .welcome-modal__brand{margin:0 0 .55rem;font-family:"IBM Plex Mono",monospace!important;font-size:clamp(1.85rem,5vw,2.35rem);font-weight:600;color:#7fffb2!important;}
-    #welcome-modal h2{margin:0 0 .75rem;font-size:clamp(1.2rem,3vw,1.45rem);font-weight:500;color:#fff!important;}
-    #welcome-modal p{margin:0 0 .85rem;color:#c8e6d2!important;line-height:1.55;}
-    #welcome-modal .welcome-modal__note{font-family:"IBM Plex Mono",monospace!important;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:#38e881!important;}
-    #welcome-modal .cta-row{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:.25rem;}
-    #welcome-modal .btn{display:inline-flex;align-items:center;justify-content:center;padding:.75rem 1.15rem;font-weight:600;text-decoration:none;border:1px solid transparent;cursor:pointer;}
-    #welcome-modal .btn-primary{background:#7fffb2;color:#021008;border-color:#7fffb2;}
-    #welcome-modal .btn-secondary{background:transparent;border-color:#2a2e2a;color:#e8f4ec;}
-    .orientation-note{border-left:2px solid #38e881;padding-left:.9rem;margin:0 0 1rem;color:#c8e6d2;line-height:1.5;font-size:.94rem;}
-    .orientation-note p{margin:0 0 .45rem!important}.orientation-note p:last-child{margin-bottom:0!important}
-  </style>
-  <link rel="stylesheet" href="assets/css/site.css?v=2026090802" />
+  <link rel="stylesheet" href="assets/css/site.css?v=2026091501" />
 </head>
-<body style="font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif!important;background:#07100c;color:#e8f4ec;">
+<body>
   <div id="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="welcome-modal-title" hidden>
     <div class="welcome-modal__backdrop" data-welcome-dismiss tabindex="-1" aria-hidden="true"></div>
     <div class="welcome-modal__card" role="document">
@@ -55,7 +25,7 @@
         <p>The project compares a traditional text classifier with a small language model on synthetic cybersecurity evidence examples.</p>
         <p>It publishes both the successes and the failures, while keeping human review authoritative.</p>
       </div>
-      <p style="color:#e8f4ec!important;"><strong>One important caveat:</strong> the traditional model and the completed language-model runs were tested on different versions of the benchmark. Both sets of results are published, but they aren't treated as a fair head-to-head ranking.</p>
+      <p><strong>One important caveat:</strong> the traditional model and the completed language-model runs were tested on different versions of the benchmark. Both sets of results are published, but they aren't treated as a fair head-to-head ranking.</p>
       <p class="welcome-modal__note">Synthetic research · failures kept · comparison limits disclosed · human judgment stays authoritative</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="index.html#plain-english" data-welcome-route>Plain-English tour</a>
@@ -73,16 +43,16 @@
   </header>
 
   <main>
-    <section id="welcome" class="hero welcome-door" aria-label="Welcome" style="opacity:1!important;visibility:visible!important;display:block!important;">
-      <p class="hero-brand" style="color:#7fffb2!important;opacity:1!important;">ControlSift</p>
-      <h1 style="color:#fff!important;opacity:1!important;">Can a small AI tell real security proof from paperwork?</h1>
-      <p class="lede" style="color:#c8e6d2!important;opacity:1!important;">ControlSift tests whether a traditional text classifier and a small AI model can distinguish strong cybersecurity evidence from weak or misleading paperwork. It publishes what worked, what failed, and what the results do and don't show.</p>
-      <div class="cta-row hero-cta" style="opacity:1!important;">
+    <section id="welcome" class="hero welcome-door" aria-label="Welcome">
+      <p class="hero-brand">ControlSift</p>
+      <h1>Can a small AI tell real security proof from paperwork?</h1>
+      <p class="lede">ControlSift tests whether a traditional text classifier and a small AI model can distinguish strong cybersecurity evidence from weak or misleading paperwork. It publishes what worked, what failed, and what the results do and don't show.</p>
+      <div class="cta-row hero-cta">
         <a class="btn btn-primary" href="#plain-english">Start in plain English</a>
         <a class="btn btn-secondary" href="results.html">See the results</a>
         <a class="btn btn-secondary" href="capstone/index.html">Open the capstone</a>
       </div>
-      <p class="hero-note" style="opacity:1!important;color:#38e881!important;">Synthetic study · failures kept · comparison limits disclosed · human review required</p>
+      <p class="hero-note">Synthetic study · failures kept · comparison limits disclosed · human review required</p>
     </section>
 
     <section class="section" id="plain-english">

@@ -1,22 +1,22 @@
 # DESIGN.md - ControlSift
 
 ## Visual system
-OLED-first research surface. True black canvas for emissive displays. Clinical, forensic, receipt-driven - not SaaS launch energy.
+Portfolio-family research surface. Near-black green canvas with the same restrained horizontal phosphor scanline field as the main portfolio. Clinical, forensic, receipt-driven - not SaaS launch energy.
 
 ## Colors
 | Token | Value | Use |
 |-------|-------|-----|
-| `--bg` | `#000000` | Page canvas (OLED intentional) |
-| `--fg` | `#e7e9e4` | Primary text |
-| `--muted` | `#9aa39a` | Secondary text |
-| `--line` | `#1a1d1a` | Hairlines |
-| `--panel` | `#070807` | Recessed panels (near-black, not gray card) |
-| `--accent` | `#d2f27a` | Signal / primary actions |
-| `--accent-ink` | `#0b1200` | Text on accent |
+| `--bg` | `#050a08` | Portfolio-aligned near-black canvas |
+| `--fg` | `#e8f4ec` | Primary text |
+| `--muted` | `#91aa9b` | Secondary text |
+| `--line` | `rgba(105, 255, 164, 0.16)` | Hairlines |
+| `--panel` | `#09110d` | Recessed panels |
+| `--accent` | `#7fffb2` | Signal / primary actions |
+| `--accent-ink` | `#021008` | Text on accent |
 | `--warn` | `#f0a35a` | Caution / insufficient |
 | `--danger` | `#ff7a7a` | Contradictory / error |
 
-No purple, no cyan glow, no cream/beige, no gradient text, no chromatic shadows.
+No purple, no cyan glow, no cream/beige, no gradient text, no chromatic shadows, no decorative radial washes. The only global texture is the portfolio-family one-axis scanline field.
 
 ## Typography
 | Role | Family |
